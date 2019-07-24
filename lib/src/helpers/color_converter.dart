@@ -27,14 +27,30 @@ class ColorConverter {
     RgbColor rgbColor;
 
     switch (color.runtimeType) {
-      case CmykColor: rgbColor = _cmykToRgb(color); break;
-      case HsiColor: rgbColor = _hsiToRgb(color); break;
-      case HslColor: rgbColor = _hslToRgb(color); break;
-      case HspColor: rgbColor = _hspToRgb(color); break;
-      case HsvColor: rgbColor = _hsvToRgb(color); break;
-      case LabColor: rgbColor = _labToRgb(color); break;
-      case RgbColor: rgbColor = color; break;
-      case XyzColor: rgbColor = _xyzToRgb(color); break;
+      case CmykColor:
+        rgbColor = _cmykToRgb(color);
+        break;
+      case HsiColor:
+        rgbColor = _hsiToRgb(color);
+        break;
+      case HslColor:
+        rgbColor = _hslToRgb(color);
+        break;
+      case HspColor:
+        rgbColor = _hspToRgb(color);
+        break;
+      case HsvColor:
+        rgbColor = _hsvToRgb(color);
+        break;
+      case LabColor:
+        rgbColor = _labToRgb(color);
+        break;
+      case RgbColor:
+        rgbColor = color;
+        break;
+      case XyzColor:
+        rgbColor = _xyzToRgb(color);
+        break;
     }
 
     return rgbColor;
@@ -60,9 +76,12 @@ class ColorConverter {
 
     final double k = cmy.reduce(math.min);
 
-    final List<double> cmyk = cmy.map((double cmyValue) =>
-      (cmyValue - k) / (1 - k),
-    ).toList()..add(k);
+    final List<double> cmyk = cmy
+        .map(
+          (double cmyValue) => (cmyValue - k) / (1 - k),
+        )
+        .toList()
+          ..add(k);
 
     return CmykColor.extrapolate(cmyk);
   }
@@ -75,9 +94,12 @@ class ColorConverter {
 
     final double k = cmy.removeLast();
 
-    final List<double> rgb = cmy.map((double cmyValue) =>
-      1 - ((cmyValue * (1 - k)) + k).clamp(0, 1).toDouble(),
-    ).toList();
+    final List<double> rgb = cmy
+        .map(
+          (double cmyValue) =>
+              1 - ((cmyValue * (1 - k)) + k).clamp(0, 1).toDouble(),
+        )
+        .toList();
 
     return RgbColor.extrapolate(rgb);
   }
@@ -104,14 +126,14 @@ class ColorConverter {
     final double green = rgb[1] / sum;
     final double blue = rgb[2] / sum;
 
-    double hue = math.acos(
-      (0.5 * ((red - green) + (red - blue))) /
-        math.sqrt(((red - green) * (red - green)) +
-          ((red - blue) * (green - blue))));
+    double hue = math.acos((0.5 * ((red - green) + (red - blue))) /
+        math.sqrt(
+            ((red - green) * (red - green)) + ((red - blue) * (green - blue))));
 
     if (blue > green) hue = (2 * math.pi) - hue;
 
-    if (hue.isNaN) { // Achromatic
+    if (hue.isNaN) {
+      // Achromatic
       hue = 0;
     } else {
       hue /= math.pi * 2;
@@ -142,11 +164,12 @@ class ColorConverter {
 
     final double firstValue = intensity * (1 - saturation);
 
-    double calculateSecondValue(double hue) => intensity * (1 +
-      (saturation * math.cos(hue) / math.cos(pi3 - hue)));
+    double calculateSecondValue(double hue) =>
+        intensity * (1 + (saturation * math.cos(hue) / math.cos(pi3 - hue)));
 
-    double calculateThirdValue(double hue) => intensity * (1 +
-      (saturation * (1 - (math.cos(hue) / math.cos(pi3 - hue)))));
+    double calculateThirdValue(double hue) =>
+        intensity *
+        (1 + (saturation * (1 - (math.cos(hue) / math.cos(pi3 - hue)))));
 
     if (hue < 2 * pi3) {
       blue = firstValue;
@@ -195,11 +218,12 @@ class ColorConverter {
 
     final double lightness = (max + min) / 2;
 
-    final double saturation = (lightness > 0.5) ?
-      difference / (2 - max - min) :
-      difference / (max + min);
+    final double saturation = (lightness > 0.5)
+        ? difference / (2 - max - min)
+        : difference / (max + min);
 
-    return HslColor.extrapolate(<double>[_getHue(rgbColor), saturation, lightness]);
+    return HslColor.extrapolate(
+        <double>[_getHue(rgbColor), saturation, lightness]);
   }
 
   /// Converts a HSL color to a RGB color.
@@ -217,8 +241,9 @@ class ColorConverter {
     if (saturation == 0) {
       red = green = blue = lightness;
     } else {
-      final double q = (lightness < 0.5) ? lightness * (1 + saturation) :
-        lightness + saturation - (lightness * saturation);
+      final double q = (lightness < 0.5)
+          ? lightness * (1 + saturation)
+          : lightness + saturation - (lightness * saturation);
 
       final double p = (2 * lightness) - q;
 
@@ -264,8 +289,8 @@ class ColorConverter {
     final double green = rgb[1];
     final double blue = rgb[2];
 
-    final double percievedBrightness = math.sqrt((red * red * _pr) +
-      (green * green * _pg) + (blue * blue * _pb));
+    final double percievedBrightness = math
+        .sqrt((red * red * _pr) + (green * green * _pg) + (blue * blue * _pb));
 
     final double max = rgb.reduce(math.max);
     final double min = rgb.reduce(math.min);
@@ -303,8 +328,8 @@ class ColorConverter {
 
     final int hueSegment = (hueIndex.isEven) ? hueIndex : hueIndex + 1;
     final int hueSegmentSign = (hueIndex.isEven) ? 1 : -1;
-    hue = 6 * ((hueSegmentSign * hue) +
-      (-1 * hueSegmentSign * (hueSegment / 6)));
+    hue =
+        6 * ((hueSegmentSign * hue) + (-1 * hueSegmentSign * (hueSegment / 6)));
 
     double red, green, blue;
 
@@ -313,14 +338,16 @@ class ColorConverter {
       final double part = 1 + (hue * ((1 / invertSaturation) - 1));
 
       double calculateFirstValue(double a, double b, double c) =>
-        perceivedBrightness / math.sqrt((a / invertSaturation
-          / invertSaturation) + (b * part * part) + c);
+          perceivedBrightness /
+          math.sqrt((a / invertSaturation / invertSaturation) +
+              (b * part * part) +
+              c);
 
       double calculateSecondValue(double firstValue) =>
-        firstValue / invertSaturation;
+          firstValue / invertSaturation;
 
       double calculateThirdValue(double firstValue, double secondValue) =>
-        firstValue + (hue * (secondValue - firstValue));
+          firstValue + (hue * (secondValue - firstValue));
 
       switch (hueIndex) {
         case 0:
@@ -356,7 +383,7 @@ class ColorConverter {
       }
     } else {
       double calculateFirstValue(double a, double b) => math.sqrt(
-        (perceivedBrightness * perceivedBrightness) / (a + (b * hue * hue)));
+          (perceivedBrightness * perceivedBrightness) / (a + (b * hue * hue)));
 
       double calculateSecondValue(double firstValue) => firstValue * hue;
 
@@ -448,12 +475,36 @@ class ColorConverter {
     final double c = value * (1 - (hueSegment * saturation));
 
     switch (hueIndex % 6) {
-      case 0: red = a; green = c; blue = b; break;
-      case 1: red = c; green = a; blue = b; break;
-      case 2: red = b; green = a; blue = c; break;
-      case 3: red = b; green = c; blue = a; break;
-      case 4: red = c; green = b; blue = a; break;
-      case 5: red = a; green = b; blue = c; break;
+      case 0:
+        red = a;
+        green = c;
+        blue = b;
+        break;
+      case 1:
+        red = c;
+        green = a;
+        blue = b;
+        break;
+      case 2:
+        red = b;
+        green = a;
+        blue = c;
+        break;
+      case 3:
+        red = b;
+        green = c;
+        blue = a;
+        break;
+      case 4:
+        red = c;
+        green = b;
+        blue = a;
+        break;
+      case 5:
+        red = a;
+        green = b;
+        blue = c;
+        break;
     }
 
     return RgbColor.extrapolate(<double>[red, green, blue]);
@@ -481,10 +532,13 @@ class ColorConverter {
   static LabColor _xyzToLab(XyzColor xyzColor) {
     assert(xyzColor != null);
 
-    final List<double> xyz = xyzColor.toFactoredList()
-      .map((double xyzValue) => ((xyzValue > 0.008856) ?
-        math.pow(xyzValue, 0.3334) : (7.787 * xyzValue) + (16 / 116)
-      ).toDouble()).toList();
+    final List<double> xyz = xyzColor
+        .toFactoredList()
+        .map((double xyzValue) => ((xyzValue > 0.008856)
+                ? math.pow(xyzValue, 0.3334)
+                : (7.787 * xyzValue) + (16 / 116))
+            .toDouble())
+        .toList();
 
     final double x = xyz[0];
     final double y = xyz[1];
@@ -522,9 +576,9 @@ class ColorConverter {
 
     x = (x3 > 0.008856) ? x3 : (116 * x - 16) / 903.3;
 
-    y = (lightness > 0.008856 * 903.3) ?
-      math.pow((lightness + 16) / 116, 3) :
-      lightness / 903.3;
+    y = (lightness > 0.008856 * 903.3)
+        ? math.pow((lightness + 16) / 116, 3)
+        : lightness / 903.3;
 
     z = (z3 > 0.008856) ? z3 : (116 * z - 16) / 903.3;
 
@@ -552,21 +606,30 @@ class ColorConverter {
     if (rgbColor.isBlack) return XyzColor(0, 0, 0);
     if (rgbColor.isWhite) return XyzColor(100, 100, 100);
 
-    final List<double> rgb = rgbColor.toFactoredList()
-      .map((double rgbValue) => ((rgbValue <= 0.04045) ?
-        rgbValue / 12.92 : math.pow((rgbValue + 0.055) / 1.055, 2.4)
-      ).toDouble()).toList();
+    final List<double> rgb = rgbColor
+        .toFactoredList()
+        .map((double rgbValue) => ((rgbValue <= 0.04045)
+                ? rgbValue / 12.92
+                : math.pow((rgbValue + 0.055) / 1.055, 2.4))
+            .toDouble())
+        .toList();
 
     final double red = rgb[0];
     final double green = rgb[1];
     final double blue = rgb[2];
 
-    final double x = XyzColor.whitePoint.x * ((red * 0.41239079926595) +
-      (green * 0.35758433938387) + (blue * 0.18048078840183));
-    final double y = XyzColor.whitePoint.y * ((red * 0.21263900587151) +
-      (green * 0.71516867876775) + (blue * 0.072192315360733));
-    final double z = XyzColor.whitePoint.z * ((red * 0.019330818715591) +
-      (green * 0.11919477979462) + (blue * 0.95053215224966));
+    final double x = XyzColor.whitePoint.x *
+        ((red * 0.41239079926595) +
+            (green * 0.35758433938387) +
+            (blue * 0.18048078840183));
+    final double y = XyzColor.whitePoint.y *
+        ((red * 0.21263900587151) +
+            (green * 0.71516867876775) +
+            (blue * 0.072192315360733));
+    final double z = XyzColor.whitePoint.z *
+        ((red * 0.019330818715591) +
+            (green * 0.11919477979462) +
+            (blue * 0.95053215224966));
 
     return XyzColor(x, y, z);
   }
@@ -582,18 +645,25 @@ class ColorConverter {
     double red, green, blue;
 
     double factorValue(double value) {
-      value = (value <= 0.0031308) ? value * 12.92 :
-        ((1.055 * math.pow(value, 1.0 / 2.4)) - 0.055);
+      value = (value <= 0.0031308)
+          ? value * 12.92
+          : ((1.055 * math.pow(value, 1.0 / 2.4)) - 0.055);
 
-      return [[0, value].reduce(math.max), 1].reduce(math.min).toDouble();
+      return [
+        [0, value].reduce(math.max),
+        1
+      ].reduce(math.min).toDouble();
     }
 
     red = factorValue((x * 3.240969941904521) +
-      (y * -1.537383177570093) + (z * -0.498610760293));
+        (y * -1.537383177570093) +
+        (z * -0.498610760293));
     green = factorValue((x * -0.96924363628087) +
-      (y * 1.87596750150772) + (z * 0.041555057407175));
+        (y * 1.87596750150772) +
+        (z * 0.041555057407175));
     blue = factorValue((x * 0.055630079696993) +
-      (y * -0.20397695888897) + (z * 1.056971514242878));
+        (y * -0.20397695888897) +
+        (z * 1.056971514242878));
 
     return RgbColor.extrapolate(<double>[red, green, blue]);
   }
