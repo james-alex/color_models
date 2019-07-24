@@ -14,9 +14,9 @@ class HslColor extends ColorModel {
     this.hue,
     this.saturation,
     this.lightness,
-  ) : assert(hue != null && hue >= 0 && hue <= 360),
-      assert(saturation != null && saturation >= 0 && saturation <= 100),
-      assert(lightness != null && lightness >= 0 && lightness <= 100);
+  )   : assert(hue != null && hue >= 0 && hue <= 360),
+        assert(saturation != null && saturation >= 0 && saturation <= 100),
+        assert(lightness != null && lightness >= 0 && lightness <= 100);
 
   final num hue;
 
@@ -46,10 +46,10 @@ class HslColor extends ColorModel {
   /// Returns a fixed-length list containing the [hue], [saturation],
   /// and [lightness] values factored to be on 0 to 1 scale.
   List<double> toFactoredList() => List.from(<double>[
-    hue / 360,
-    saturation / 100,
-    lightness / 100,
-  ], growable: false);
+        hue / 360,
+        saturation / 100,
+        lightness / 100,
+      ], growable: false);
 
   /// Parses a list for HSL values and returns a [HslColor].
   ///
@@ -89,6 +89,9 @@ class HslColor extends ColorModel {
   }
 
   @override
-  operator ==(o) => o is HslColor && hue == o.hue &&
-    saturation == o.saturation && lightness == o.lightness;
+  operator ==(o) =>
+      o is HslColor &&
+      hue == o.hue &&
+      saturation == o.saturation &&
+      lightness == o.lightness;
 }

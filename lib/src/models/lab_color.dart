@@ -15,10 +15,9 @@ class LabColor extends ColorModel {
     this.lightness,
     this.a,
     this.b,
-  ) : assert(lightness != null && lightness >= 0 && lightness <= 100),
-      assert(a != null && a >= -128 && a <= 127),
-      assert(b != null && b >= -128 && b <= 127);
-
+  )   : assert(lightness != null && lightness >= 0 && lightness <= 100),
+        assert(a != null && a >= -128 && a <= 127),
+        assert(b != null && b >= -128 && b <= 127);
 
   /// Lightness represents the black to white value.
   ///
@@ -100,6 +99,6 @@ class LabColor extends ColorModel {
   }
 
   @override
-  operator ==(o) => o is LabColor &&
-    lightness == o.lightness && a == o.a && b == o.b;
+  operator ==(o) =>
+      o is LabColor && lightness == o.lightness && a == o.a && b == o.b;
 }

@@ -15,9 +15,9 @@ class XyzColor extends ColorModel {
     this.x,
     this.y,
     this.z,
-  ) : assert(x != null && x >= 0),
-      assert(y != null && y >= 0),
-      assert(z != null && z >= 0);
+  )   : assert(x != null && x >= 0),
+        assert(y != null && y >= 0),
+        assert(z != null && z >= 0);
 
   final num x;
 
@@ -46,8 +46,8 @@ class XyzColor extends ColorModel {
 
   /// Returns a fixed-length list containing the [x], [y], and
   /// [z] values factored to be on a 0 to 1 scale.
-  List<double> toFactoredList() => toList()
-    .map((num xyzValue) => xyzValue / 100).toList();
+  List<double> toFactoredList() =>
+      toList().map((num xyzValue) => xyzValue / 100).toList();
 
   /// Parses a list for XYZ values and returns a [XyzColor].
   ///
@@ -80,9 +80,11 @@ class XyzColor extends ColorModel {
     assert(xyz[1] != null && xyz[1] >= 0);
     assert(xyz[2] != null && xyz[2] >= 0);
 
-    final List<double> xyzValues = xyz.map(
-      (double xyzValue) => xyzValue * 100,
-    ).toList();
+    final List<double> xyzValues = xyz
+        .map(
+          (double xyzValue) => xyzValue * 100,
+        )
+        .toList();
 
     return fromList(xyzValues);
   }
@@ -99,8 +101,7 @@ class XyzColor extends ColorModel {
   );
 
   @override
-  operator ==(o) => o is XyzColor &&
-    x == o.x && y == o.y && z == o.z;
+  operator ==(o) => o is XyzColor && x == o.x && y == o.y && z == o.z;
 }
 
 class _WhitePoints {
@@ -108,9 +109,9 @@ class _WhitePoints {
     this.x,
     this.y,
     this.z,
-  }) : assert(x != null),
-       assert(y != null),
-       assert(z != null);
+  })  : assert(x != null),
+        assert(y != null),
+        assert(z != null);
 
   final num x;
   final num y;

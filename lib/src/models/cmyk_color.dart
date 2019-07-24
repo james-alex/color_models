@@ -14,10 +14,10 @@ class CmykColor extends ColorModel {
     this.magenta,
     this.yellow,
     this.black,
-  ) : assert(cyan != null && cyan >= 0 && cyan <= 100),
-      assert(magenta != null && magenta >= 0 && magenta <= 100),
-      assert(yellow != null && yellow >= 0 && yellow <= 100),
-      assert(black != null && black >= 0 && black <= 100);
+  )   : assert(cyan != null && cyan >= 0 && cyan <= 100),
+        assert(magenta != null && magenta >= 0 && magenta <= 100),
+        assert(yellow != null && yellow >= 0 && yellow <= 100),
+        assert(black != null && black >= 0 && black <= 100);
 
   final num cyan;
 
@@ -49,9 +49,11 @@ class CmykColor extends ColorModel {
 
   /// Returns a fixed-length list containing the [cyan], [magenta],
   /// [yelllow], and [black] values factored to be on 0 to 1 scale.
-  List<double> toFactoredList() => toList().map(
-    (num cmykValue) => cmykValue / 100,
-  ).toList();
+  List<double> toFactoredList() => toList()
+      .map(
+        (num cmykValue) => cmykValue / 100,
+      )
+      .toList();
 
   /// Parses a list for CMYK values and returns a [CmykColor].
   ///
@@ -87,14 +89,20 @@ class CmykColor extends ColorModel {
     assert(cmyk[2] != null && cmyk[2] >= 0 && cmyk[2] <= 1);
     assert(cmyk[3] != null && cmyk[3] >= 0 && cmyk[3] <= 1);
 
-    final List<double> cmykValues = cmyk.map(
-      (double cmykValue) => cmykValue * 100,
-    ).toList();
+    final List<double> cmykValues = cmyk
+        .map(
+          (double cmykValue) => cmykValue * 100,
+        )
+        .toList();
 
     return CmykColor.fromList(cmykValues);
   }
 
   @override
-  operator ==(o) => o is CmykColor && cyan == o.cyan &&
-    magenta == o.magenta && yellow == o.yellow && black == o.black;
+  operator ==(o) =>
+      o is CmykColor &&
+      cyan == o.cyan &&
+      magenta == o.magenta &&
+      yellow == o.yellow &&
+      black == o.black;
 }

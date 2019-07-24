@@ -14,9 +14,9 @@ class HsvColor extends ColorModel {
     this.hue,
     this.saturation,
     this.value,
-  ) : assert(hue != null && hue >= 0 && hue <= 360),
-      assert(saturation != null && saturation >= 0 && saturation <= 100),
-      assert(value != null && value >= 0 && value <= 100);
+  )   : assert(hue != null && hue >= 0 && hue <= 360),
+        assert(saturation != null && saturation >= 0 && saturation <= 100),
+        assert(value != null && value >= 0 && value <= 100);
 
   final num hue;
 
@@ -46,10 +46,10 @@ class HsvColor extends ColorModel {
   /// Returns a fixed-length list containing the [hue], [saturation],
   /// and [value] values factored to be on 0 to 1 scale.
   List<double> toFactoredList() => List.from(<double>[
-    hue / 360,
-    saturation / 100,
-    value / 100,
-  ], growable: false);
+        hue / 360,
+        saturation / 100,
+        value / 100,
+      ], growable: false);
 
   /// Parses a list for HSV values and returns a [HsvColor].
   ///
@@ -89,6 +89,9 @@ class HsvColor extends ColorModel {
   }
 
   @override
-  operator ==(o) => o is HsvColor && hue == o.hue &&
-    saturation == o.saturation && value == o.value;
+  operator ==(o) =>
+      o is HsvColor &&
+      hue == o.hue &&
+      saturation == o.saturation &&
+      value == o.value;
 }

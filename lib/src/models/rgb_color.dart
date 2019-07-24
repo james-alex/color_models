@@ -19,9 +19,9 @@ class RgbColor extends ColorModel {
     this._red,
     this._green,
     this._blue,
-  ) : assert(_red != null && _red >= 0 && _red <= 255),
-      assert(_green != null && _green >= 0 && _green <= 255),
-      assert(_blue != null && _blue >= 0 && _blue <= 255);
+  )   : assert(_red != null && _red >= 0 && _red <= 255),
+        assert(_green != null && _green >= 0 && _green <= 255),
+        assert(_blue != null && _blue >= 0 && _blue <= 255);
 
   int get red => _red.round();
   final num _red;
@@ -43,12 +43,13 @@ class RgbColor extends ColorModel {
   List<int> toList() => List.from(<int>[red, green, blue], growable: false);
 
   /// Returns a fixed-length list containing the precise RGB values.
-  List<num> toPreciseList() => List.from(<num>[_red, _green, _blue], growable: false);
+  List<num> toPreciseList() =>
+      List.from(<num>[_red, _green, _blue], growable: false);
 
   /// Returns a fixed-length list containing the [red], [green],
   /// and [blue] values factored to be on 0 to 1 scale.
-  List<double> toFactoredList() => toPreciseList()
-    .map((num rgbValue) => rgbValue / 255).toList();
+  List<double> toFactoredList() =>
+      toPreciseList().map((num rgbValue) => rgbValue / 255).toList();
 
   /// Parses a list for RGB values and returns a [RgbColor].
   ///
@@ -82,14 +83,16 @@ class RgbColor extends ColorModel {
     assert(rgb[1] != null && rgb[1] >= 0 && rgb[1] <= 1);
     assert(rgb[2] != null && rgb[2] >= 0 && rgb[2] <= 1);
 
-    final List<double> rgbValues = rgb.map(
-      (double rgbValue) => rgbValue * 255,
-    ).toList();
+    final List<double> rgbValues = rgb
+        .map(
+          (double rgbValue) => rgbValue * 255,
+        )
+        .toList();
 
     return fromList(rgbValues);
   }
 
   @override
-  operator ==(o) => o is RgbColor &&
-    red == o.red && green == o.green && blue == o.blue;
+  operator ==(o) =>
+      o is RgbColor && red == o.red && green == o.green && blue == o.blue;
 }

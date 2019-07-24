@@ -17,10 +17,11 @@ class HspColor extends ColorModel {
     this.hue,
     this.saturation,
     this.perceivedBrightness,
-  ) : assert(hue != null && hue >= 0 && hue <= 360),
-      assert(saturation != null && saturation >= 0 && saturation <= 100),
-      assert(perceivedBrightness != null && perceivedBrightness >= 0 &&
-        perceivedBrightness <= 100);
+  )   : assert(hue != null && hue >= 0 && hue <= 360),
+        assert(saturation != null && saturation >= 0 && saturation <= 100),
+        assert(perceivedBrightness != null &&
+            perceivedBrightness >= 0 &&
+            perceivedBrightness <= 100);
 
   final num hue;
 
@@ -50,10 +51,10 @@ class HspColor extends ColorModel {
   /// Returns a fixed-length list containing the [hue], [saturation],
   /// and [perceivedBrightness] values factored to be on 0 to 1 scale.
   List<double> toFactoredList() => List.from(<double>[
-    hue / 360,
-    saturation / 100,
-    perceivedBrightness / 100,
-  ], growable: false);
+        hue / 360,
+        saturation / 100,
+        perceivedBrightness / 100,
+      ], growable: false);
 
   /// Parses a list for HSP values and returns a [HspColor].
   ///
@@ -93,6 +94,9 @@ class HspColor extends ColorModel {
   }
 
   @override
-  operator ==(o) => o is HspColor && hue == o.hue &&
-    saturation == o.saturation && perceivedBrightness == o.perceivedBrightness;
+  operator ==(o) =>
+      o is HspColor &&
+      hue == o.hue &&
+      saturation == o.saturation &&
+      perceivedBrightness == o.perceivedBrightness;
 }
