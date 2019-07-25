@@ -17,6 +17,8 @@ import 'dart:math' as math;
 import '../color_model.dart';
 
 class ColorConverter {
+  ColorConverter._();
+
   /// Converts a color from any color space to RGB.
   static RgbColor toRgbColor(ColorModel color) {
     assert(color != null);
