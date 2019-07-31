@@ -94,4 +94,7 @@ class HslColor extends ColorModel {
       hue == o.hue &&
       saturation == o.saturation &&
       lightness == o.lightness;
+
+  @override
+  int get hashCode => hue.hashCode ^ saturation.hashCode ^ lightness.hashCode;
 }

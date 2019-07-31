@@ -95,4 +95,7 @@ class RgbColor extends ColorModel {
   @override
   operator ==(o) =>
       o is RgbColor && red == o.red && green == o.green && blue == o.blue;
+
+  @override
+  int get hashCode => red.hashCode ^ green.hashCode ^ blue.hashCode;
 }

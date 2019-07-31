@@ -102,6 +102,9 @@ class XyzColor extends ColorModel {
 
   @override
   operator ==(o) => o is XyzColor && x == o.x && y == o.y && z == o.z;
+
+  @override
+  int get hashCode => x.hashCode ^ y.hashCode ^ z.hashCode;
 }
 
 class _WhitePoints {

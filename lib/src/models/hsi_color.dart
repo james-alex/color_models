@@ -94,4 +94,7 @@ class HsiColor extends ColorModel {
       hue == o.hue &&
       saturation == o.saturation &&
       intensity == o.intensity;
+
+  @override
+  int get hashCode => hue.hashCode ^ saturation.hashCode ^ intensity.hashCode;
 }

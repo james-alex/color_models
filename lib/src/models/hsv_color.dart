@@ -94,4 +94,7 @@ class HsvColor extends ColorModel {
       hue == o.hue &&
       saturation == o.saturation &&
       value == o.value;
+
+  @override
+  int get hashCode => hue.hashCode ^ saturation.hashCode ^ value.hashCode;
 }

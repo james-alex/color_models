@@ -105,4 +105,8 @@ class CmykColor extends ColorModel {
       magenta == o.magenta &&
       yellow == o.yellow &&
       black == o.black;
+
+  @override
+  int get hashCode =>
+      cyan.hashCode ^ magenta.hashCode ^ yellow.hashCode ^ black.hashCode;
 }

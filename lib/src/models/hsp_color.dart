@@ -99,4 +99,8 @@ class HspColor extends ColorModel {
       hue == o.hue &&
       saturation == o.saturation &&
       perceivedBrightness == o.perceivedBrightness;
+
+  @override
+  int get hashCode =>
+      hue.hashCode ^ saturation.hashCode ^ perceivedBrightness.hashCode;
 }

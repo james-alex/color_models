@@ -101,4 +101,7 @@ class LabColor extends ColorModel {
   @override
   operator ==(o) =>
       o is LabColor && lightness == o.lightness && a == o.a && b == o.b;
+
+  @override
+  int get hashCode => lightness.hashCode ^ a.hashCode ^ b.hashCode;
 }
