@@ -1,4 +1,5 @@
 import '../color_model.dart';
+import '../helpers/color_converter.dart';
 
 /// A color in the CMYK color space.
 ///
@@ -32,6 +33,9 @@ class CmykColor extends ColorModel {
 
   @override
   bool get isWhite => (cyan == 0 && magenta == 0 && yellow == 0 && black == 0);
+
+  @override
+  RgbColor toRgbColor() => ColorConverter.cmykToRgb(this);
 
   /// Returns a fixed-length [List] containing the [cyan],
   /// [magenta], [yellow], and [black] values in that order.

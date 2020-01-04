@@ -56,7 +56,7 @@ abstract class ColorModel {
   LabColor toLabColor() => ColorConverter.toLabColor(this);
 
   /// Converts `this` to the RGB color space.
-  RgbColor toRgbColor() => ColorConverter.toRgbColor(this);
+  RgbColor toRgbColor();
 
   /// Converts `this` to the XYZ color space.
   XyzColor toXyzColor() => ColorConverter.toXyzColor(this);

@@ -1,4 +1,5 @@
 import '../color_model.dart';
+import '../helpers/color_converter.dart';
 
 /// A color in the HSP color space.
 ///
@@ -34,6 +35,9 @@ class HspColor extends ColorModel {
 
   @override
   bool get isWhite => (perceivedBrightness == 1);
+
+  @override
+  RgbColor toRgbColor() => ColorConverter.hspToRgb(this);
 
   /// Returns a fixed-length [List] containing the [hue], [saturation],
   /// and [perceivedBrightness] values in that order.

@@ -1,4 +1,5 @@
 import '../color_model.dart';
+import '../helpers/color_converter.dart';
 
 /// A color in the HSI color space.
 ///
@@ -29,6 +30,9 @@ class HsiColor extends ColorModel {
 
   @override
   bool get isBlack => (intensity == 0);
+
+  @override
+  RgbColor toRgbColor() => ColorConverter.hsiToRgb(this);
 
   /// Returns a fixed-length [List] containing the [hue],
   /// [saturation], and [intensity] values in that order.

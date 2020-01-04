@@ -1,4 +1,5 @@
 import '../color_model.dart';
+import '../helpers/color_converter.dart';
 
 /// A color in the CIEXYZ color space.
 class XyzColor extends ColorModel {
@@ -30,6 +31,12 @@ class XyzColor extends ColorModel {
 
   @override
   bool get isWhite => (x == 100 && y == 100 && z == 100);
+
+  @override
+  LabColor toLabColor() => ColorConverter.xyzToLab(this);
+
+  @override
+  RgbColor toRgbColor() => ColorConverter.xyzToRgb(this);
 
   /// Returns a fixed-length [List] containing the
   /// [x], [y], and [z] values in that order.

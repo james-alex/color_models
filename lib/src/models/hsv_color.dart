@@ -1,4 +1,5 @@
 import '../color_model.dart';
+import '../helpers/color_converter.dart';
 
 /// A color in the HSV (HSB) color space.
 ///
@@ -29,6 +30,9 @@ class HsvColor extends ColorModel {
 
   @override
   bool get isWhite => (saturation == 0 && value == 1);
+
+  @override
+  RgbColor toRgbColor() => ColorConverter.hsvToRgb(this);
 
   /// Returns a fixed-length [List] containing the [hue],
   /// [saturation], and [value] values in that order.

@@ -1,4 +1,5 @@
 import '../color_model.dart';
+import '../helpers/color_converter.dart';
 
 /// A color in the HSL color space.
 ///
@@ -29,6 +30,9 @@ class HslColor extends ColorModel {
 
   @override
   bool get isWhite => (lightness == 100);
+
+  @override
+  RgbColor toRgbColor() => ColorConverter.hslToRgb(this);
 
   /// Returns a fixed-length [List] containing the [hue],
   /// [saturation], and [lightness] values in that order.

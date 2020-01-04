@@ -1,4 +1,5 @@
 import '../color_model.dart';
+import '../helpers/color_converter.dart';
 
 /// A color in the CIELAB color space.
 ///
@@ -43,6 +44,12 @@ class LabColor extends ColorModel {
 
   @override
   bool get isWhite => (lightness == 1 && a == 0 && b == 0);
+
+  @override
+  RgbColor toRgbColor() => ColorConverter.labToRgb(this);
+
+  @override
+  XyzColor toXyzColor() => ColorConverter.labToXyz(this);
 
   /// Returns a fixed-length [List] containing the [lightness],
   /// [a], and [b] values in that order.

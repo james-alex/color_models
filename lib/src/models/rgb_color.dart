@@ -1,6 +1,5 @@
-import 'package:color_models/src/helpers/color_converter.dart';
-
 import '../color_model.dart';
+import '../helpers/color_converter.dart';
 
 /// A color in the sRGB color space.
 ///
@@ -38,6 +37,9 @@ class RgbColor extends ColorModel {
   @override
   bool get isWhite => (red == 255 && green == 255 && blue == 255);
 
+  @override
+  RgbColor toRgbColor() => this;
+
   /// Returns a fixed-length list containing the RGB values.
   @override
   List<int> toList() => List.from(<int>[red, green, blue], growable: false);
@@ -69,7 +71,7 @@ class RgbColor extends ColorModel {
   static RgbColor from(ColorModel color) {
     assert(color != null);
 
-    return ColorConverter.toRgbColor(color);
+    return color.toRgbColor();
   }
 
   /// Returns a [RgbColor] from a list of [rgb] values on a 0 to 1 scale.
