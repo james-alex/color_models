@@ -98,7 +98,7 @@ class HspColor extends ColorModel {
   }
 
   @override
-  operator ==(o) =>
+  bool operator ==(o) =>
       o is HspColor &&
       hue == o.hue &&
       saturation == o.saturation &&

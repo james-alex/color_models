@@ -93,7 +93,7 @@ class HslColor extends ColorModel {
   }
 
   @override
-  operator ==(o) =>
+  bool operator ==(o) =>
       o is HslColor &&
       hue == o.hue &&
       saturation == o.saturation &&

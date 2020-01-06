@@ -1,3 +1,4 @@
+import 'package:meta/meta.dart';
 import '../color_model.dart';
 import '../helpers/color_converter.dart';
 
@@ -108,7 +109,7 @@ class XyzColor extends ColorModel {
   );
 
   @override
-  operator ==(o) => o is XyzColor && x == o.x && y == o.y && z == o.z;
+  bool operator ==(o) => o is XyzColor && x == o.x && y == o.y && z == o.z;
 
   @override
   int get hashCode => x.hashCode ^ y.hashCode ^ z.hashCode;
@@ -116,9 +117,9 @@ class XyzColor extends ColorModel {
 
 class _WhitePoints {
   const _WhitePoints({
-    this.x,
-    this.y,
-    this.z,
+    @required this.x,
+    @required this.y,
+    @required this.z,
   })  : assert(x != null),
         assert(y != null),
         assert(z != null);

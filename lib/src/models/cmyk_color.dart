@@ -103,7 +103,7 @@ class CmykColor extends ColorModel {
   }
 
   @override
-  operator ==(o) =>
+  bool operator ==(o) =>
       o is CmykColor &&
       cyan == o.cyan &&
       magenta == o.magenta &&

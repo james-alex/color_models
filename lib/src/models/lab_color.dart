@@ -106,7 +106,7 @@ class LabColor extends ColorModel {
   }
 
   @override
-  operator ==(o) =>
+  bool operator ==(o) =>
       o is LabColor && lightness == o.lightness && a == o.a && b == o.b;
 
   @override

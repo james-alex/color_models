@@ -93,7 +93,7 @@ class HsiColor extends ColorModel {
   }
 
   @override
-  operator ==(o) =>
+  bool operator ==(o) =>
       o is HsiColor &&
       hue == o.hue &&
       saturation == o.saturation &&

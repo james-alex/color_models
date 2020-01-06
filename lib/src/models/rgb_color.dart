@@ -1,5 +1,4 @@
 import '../color_model.dart';
-import '../helpers/color_converter.dart';
 
 /// A color in the sRGB color space.
 ///
@@ -95,7 +94,7 @@ class RgbColor extends ColorModel {
   }
 
   @override
-  operator ==(o) =>
+  bool operator ==(o) =>
       o is RgbColor && red == o.red && green == o.green && blue == o.blue;
 
   @override
