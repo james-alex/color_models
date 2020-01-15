@@ -1,3 +1,7 @@
+## [0.2.0+1] - January 15, 2020
+
+* Documentation and formatting changes.
+
 ## [0.2.0] - January 4, 2020
 
 * To provide better support for 3rd party color models, [ColorModel]s are now requried to `@override` the
