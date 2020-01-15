@@ -16,6 +16,8 @@
 import 'dart:math' as math;
 import '../color_model.dart';
 
+/// A utility class with color conversion methods to and
+/// from RGB for each color model included in this package.
 class ColorConverter {
   ColorConverter._();
 
@@ -33,18 +35,14 @@ class ColorConverter {
     if (rgbColor.isBlack) return CmykColor(0, 0, 0, 100);
     if (rgbColor.isWhite) return CmykColor(0, 0, 0, 0);
 
-    final List<double> rgb = rgbColor.toFactoredList();
+    final rgb = rgbColor.toFactoredList();
 
-    List<double> cmy = rgb.map((double rgbValue) => 1 - rgbValue).toList();
+    final cmy = rgb.map((rgbValue) => 1 - rgbValue).toList();
 
-    final double k = cmy.reduce(math.min);
+    final k = cmy.reduce(math.min);
 
-    final List<double> cmyk = cmy
-        .map(
-          (double cmyValue) => (cmyValue - k) / (1 - k),
-        )
-        .toList()
-          ..add(k);
+    final cmyk = cmy.map((cmyValue) => (cmyValue - k) / (1 - k)).toList()
+      ..add(k);
 
     return CmykColor.extrapolate(cmyk);
   }
@@ -53,15 +51,13 @@ class ColorConverter {
   static RgbColor cmykToRgb(CmykColor cmykColor) {
     assert(cmykColor != null);
 
-    final List<double> cmy = cmykColor.toFactoredList();
+    final cmy = cmykColor.toFactoredList();
 
-    final double k = cmy.removeLast();
+    final k = cmy.removeLast();
 
-    final List<double> rgb = cmy
+    final rgb = cmy
         .map(
-          (double cmyValue) =>
-              1 - ((cmyValue * (1 - k)) + k).clamp(0, 1).toDouble(),
-        )
+            (cmyValue) => 1 - ((cmyValue * (1 - k)) + k).clamp(0, 1).toDouble())
         .toList();
 
     return RgbColor.extrapolate(rgb);
@@ -81,15 +77,15 @@ class ColorConverter {
     if (rgbColor.isBlack) return HsiColor(0, 0, 0);
     if (rgbColor.isWhite) return HsiColor(0, 0, 100);
 
-    final List<num> rgb = rgbColor.toPreciseList();
+    final rgb = rgbColor.toPreciseList();
 
-    final num sum = rgb.reduce((a, b) => a + b);
+    final sum = rgb.reduce((a, b) => a + b);
 
-    final double red = rgb[0] / sum;
-    final double green = rgb[1] / sum;
-    final double blue = rgb[2] / sum;
+    final red = rgb[0] / sum;
+    final green = rgb[1] / sum;
+    final blue = rgb[2] / sum;
 
-    double hue = math.acos((0.5 * ((red - green) + (red - blue))) /
+    var hue = math.acos((0.5 * ((red - green) + (red - blue))) /
         math.sqrt(
             ((red - green) * (red - green)) + ((red - blue) * (green - blue))));
 
@@ -102,11 +98,11 @@ class ColorConverter {
       hue /= math.pi * 2;
     }
 
-    final double min = <double>[red, green, blue].reduce(math.min);
+    final min = <double>[red, green, blue].reduce(math.min);
 
-    final double saturation = 1 - 3 * min;
+    final saturation = 1 - 3 * min;
 
-    final double intensity = sum / 3 / 255;
+    final intensity = sum / 3 / 255;
 
     return HsiColor.extrapolate(<double>[hue, saturation, intensity]);
   }
@@ -115,17 +111,17 @@ class ColorConverter {
   static RgbColor hsiToRgb(HsiColor hsiColor) {
     assert(hsiColor != null);
 
-    final List<double> hsi = hsiColor.toFactoredList();
+    final hsi = hsiColor.toFactoredList();
 
-    double hue = hsi[0] * math.pi * 2;
-    final double saturation = hsi[1];
-    final double intensity = hsi[2];
+    var hue = hsi[0] * math.pi * 2;
+    final saturation = hsi[1];
+    final intensity = hsi[2];
 
-    final double pi3 = math.pi / 3;
+    final pi3 = math.pi / 3;
 
     double red, green, blue;
 
-    final double firstValue = intensity * (1 - saturation);
+    final firstValue = intensity * (1 - saturation);
 
     double calculateSecondValue(double hue) =>
         intensity * (1 + (saturation * math.cos(hue) / math.cos(pi3 - hue)));
@@ -173,15 +169,15 @@ class ColorConverter {
     if (rgbColor.isBlack) return HslColor(0, 0, 0);
     if (rgbColor.isWhite) return HslColor(0, 0, 100);
 
-    final List<double> rgb = rgbColor.toFactoredList();
+    final rgb = rgbColor.toFactoredList();
 
-    final double max = rgb.reduce(math.max);
-    final double min = rgb.reduce(math.min);
-    final double difference = max - min;
+    final max = rgb.reduce(math.max);
+    final min = rgb.reduce(math.min);
+    final difference = max - min;
 
-    final double lightness = (max + min) / 2;
+    final lightness = (max + min) / 2;
 
-    final double saturation = (lightness > 0.5)
+    final saturation = (lightness > 0.5)
         ? difference / (2 - max - min)
         : difference / (max + min);
 
@@ -193,22 +189,22 @@ class ColorConverter {
   static RgbColor hslToRgb(HslColor hslColor) {
     assert(hslColor != null);
 
-    final List<double> hsl = hslColor.toFactoredList();
+    final hsl = hslColor.toFactoredList();
 
-    final double hue = hsl[0];
-    final double saturation = hsl[1];
-    final double lightness = hsl[2];
+    final hue = hsl[0];
+    final saturation = hsl[1];
+    final lightness = hsl[2];
 
     double red, green, blue;
 
     if (saturation == 0) {
       red = green = blue = lightness;
     } else {
-      final double q = (lightness < 0.5)
+      final q = (lightness < 0.5)
           ? lightness * (1 + saturation)
           : lightness + saturation - (lightness * saturation);
 
-      final double p = (2 * lightness) - q;
+      final p = (2 * lightness) - q;
 
       double hueToRgb(t) {
         if (t < 0) {
@@ -246,17 +242,17 @@ class ColorConverter {
     if (rgbColor.isBlack) return HspColor(0, 0, 0);
     if (rgbColor.isWhite) return HspColor(0, 0, 100);
 
-    final List<double> rgb = rgbColor.toFactoredList();
+    final rgb = rgbColor.toFactoredList();
 
-    final double red = rgb[0];
-    final double green = rgb[1];
-    final double blue = rgb[2];
+    final red = rgb[0];
+    final green = rgb[1];
+    final blue = rgb[2];
 
-    final double percievedBrightness = math
+    final percievedBrightness = math
         .sqrt((red * red * _pr) + (green * green * _pg) + (blue * blue * _pb));
 
-    final double max = rgb.reduce(math.max);
-    final double min = rgb.reduce(math.min);
+    final max = rgb.reduce(math.max);
+    final min = rgb.reduce(math.min);
 
     double hue;
     double saturation;
@@ -281,24 +277,24 @@ class ColorConverter {
   static RgbColor hspToRgb(HspColor hspColor) {
     assert(hspColor != null);
 
-    final List<double> hsp = hspColor.toFactoredList();
+    final hsp = hspColor.toFactoredList();
 
-    double hue = hsp[0];
-    final double saturation = hsp[1];
-    final double perceivedBrightness = hsp[2];
+    var hue = hsp[0];
+    final saturation = hsp[1];
+    final perceivedBrightness = hsp[2];
 
-    final int hueIndex = (hue * 6).floor() % 6;
+    final hueIndex = (hue * 6).floor() % 6;
 
-    final int hueSegment = (hueIndex.isEven) ? hueIndex : hueIndex + 1;
-    final int hueSegmentSign = (hueIndex.isEven) ? 1 : -1;
+    final hueSegment = (hueIndex.isEven) ? hueIndex : hueIndex + 1;
+    final hueSegmentSign = (hueIndex.isEven) ? 1 : -1;
     hue =
         6 * ((hueSegmentSign * hue) + (-1 * hueSegmentSign * (hueSegment / 6)));
 
     double red, green, blue;
 
     if (saturation < 1) {
-      final double invertSaturation = 1 - saturation;
-      final double part = 1 + (hue * ((1 / invertSaturation) - 1));
+      final invertSaturation = 1 - saturation;
+      final part = 1 + (hue * ((1 / invertSaturation) - 1));
 
       double calculateFirstValue(double a, double b, double c) =>
           perceivedBrightness /
@@ -405,13 +401,13 @@ class ColorConverter {
     if (rgbColor.isBlack) HsvColor(0, 0, 0);
     if (rgbColor.isWhite) HsvColor(0, 0, 100);
 
-    final List<double> rgb = rgbColor.toFactoredList();
+    final rgb = rgbColor.toFactoredList();
 
-    final double max = rgb.reduce(math.max);
-    final double min = rgb.reduce(math.min);
-    final double difference = max - min;
+    final max = rgb.reduce(math.max);
+    final min = rgb.reduce(math.min);
+    final difference = max - min;
 
-    final double saturation = (max == 0) ? 0 : difference / max;
+    final saturation = (max == 0) ? 0 : difference / max;
 
     return HsvColor.extrapolate(<double>[_getHue(rgbColor), saturation, max]);
   }
@@ -420,22 +416,22 @@ class ColorConverter {
   static RgbColor hsvToRgb(HsvColor hsvColor) {
     assert(hsvColor != null);
 
-    final List<double> hsv = hsvColor.toFactoredList();
+    final hsv = hsvColor.toFactoredList();
 
-    final double hue = hsv[0];
-    final double saturation = hsv[1];
-    final double value = hsv[2];
+    final hue = hsv[0];
+    final saturation = hsv[1];
+    final value = hsv[2];
 
     double red, green, blue;
 
-    final int hueIndex = (hue * 6).floor();
+    final hueIndex = (hue * 6).floor();
 
-    final double hueFloat = (hue * 6) - hueIndex;
-    final double hueSegment = (hueIndex.isEven) ? 1 - hueFloat : hueFloat;
+    final hueFloat = (hue * 6) - hueIndex;
+    final hueSegment = (hueIndex.isEven) ? 1 - hueFloat : hueFloat;
 
-    final double a = value;
-    final double b = value * (1 - saturation);
-    final double c = value * (1 - (hueSegment * saturation));
+    final a = value;
+    final b = value * (1 - saturation);
+    final c = value * (1 - (hueSegment * saturation));
 
     switch (hueIndex % 6) {
       case 0:
@@ -495,21 +491,21 @@ class ColorConverter {
   static LabColor xyzToLab(XyzColor xyzColor) {
     assert(xyzColor != null);
 
-    final List<double> xyz = xyzColor
+    final xyz = xyzColor
         .toFactoredList()
-        .map((double xyzValue) => ((xyzValue > 0.008856)
+        .map((xyzValue) => ((xyzValue > 0.008856)
                 ? math.pow(xyzValue, 0.3334)
                 : (7.787 * xyzValue) + (16 / 116))
             .toDouble())
         .toList();
 
-    final double x = xyz[0];
-    final double y = xyz[1];
-    final double z = xyz[2];
+    final x = xyz[0];
+    final y = xyz[1];
+    final z = xyz[2];
 
-    final double lightness = (116 * y) - 16;
-    final double a = (x - y) * 500;
-    final double b = (y - z) * 200;
+    final lightness = (116 * y) - 16;
+    final a = (x - y) * 500;
+    final b = (y - z) * 200;
 
     return LabColor(lightness, a, b);
   }
@@ -526,16 +522,16 @@ class ColorConverter {
   static XyzColor labToXyz(LabColor labColor) {
     assert(labColor != null);
 
-    final num lightness = labColor.lightness;
-    final num a = labColor.a;
-    final num b = labColor.b;
+    final lightness = labColor.lightness;
+    final a = labColor.a;
+    final b = labColor.b;
 
-    double y = (lightness + 16) / 116;
-    double x = (a / 500) + y;
-    double z = y - (b / 200);
+    var y = (lightness + 16) / 116;
+    var x = (a / 500) + y;
+    var z = y - (b / 200);
 
-    final double x3 = x * x * x;
-    final double z3 = z * z * z;
+    final x3 = x * x * x;
+    final z3 = z * z * z;
 
     x = (x3 > 0.008856) ? x3 : (116 * x - 16) / 903.3;
 
@@ -569,27 +565,27 @@ class ColorConverter {
     if (rgbColor.isBlack) return XyzColor(0, 0, 0);
     if (rgbColor.isWhite) return XyzColor(100, 100, 100);
 
-    final List<double> rgb = rgbColor
+    final rgb = rgbColor
         .toFactoredList()
-        .map((double rgbValue) => ((rgbValue <= 0.04045)
+        .map((rgbValue) => ((rgbValue <= 0.04045)
                 ? rgbValue / 12.92
                 : math.pow((rgbValue + 0.055) / 1.055, 2.4))
             .toDouble())
         .toList();
 
-    final double red = rgb[0];
-    final double green = rgb[1];
-    final double blue = rgb[2];
+    final red = rgb[0];
+    final green = rgb[1];
+    final blue = rgb[2];
 
-    final double x = XyzColor.whitePoint.x *
+    final x = XyzColor.whitePoint.x *
         ((red * 0.41239079926595) +
             (green * 0.35758433938387) +
             (blue * 0.18048078840183));
-    final double y = XyzColor.whitePoint.y *
+    final y = XyzColor.whitePoint.y *
         ((red * 0.21263900587151) +
             (green * 0.71516867876775) +
             (blue * 0.072192315360733));
-    final double z = XyzColor.whitePoint.z *
+    final z = XyzColor.whitePoint.z *
         ((red * 0.019330818715591) +
             (green * 0.11919477979462) +
             (blue * 0.95053215224966));
@@ -601,9 +597,9 @@ class ColorConverter {
   static RgbColor xyzToRgb(XyzColor xyzColor) {
     assert(xyzColor != null);
 
-    final double x = xyzColor.x / XyzColor.whitePoint.x;
-    final double y = xyzColor.y / XyzColor.whitePoint.y;
-    final double z = xyzColor.z / XyzColor.whitePoint.z;
+    final x = xyzColor.x / XyzColor.whitePoint.x;
+    final y = xyzColor.y / XyzColor.whitePoint.y;
+    final z = xyzColor.z / XyzColor.whitePoint.z;
 
     double red, green, blue;
 
@@ -638,15 +634,15 @@ class ColorConverter {
 
     double hue;
 
-    final List<double> rgb = rgbColor.toFactoredList();
+    final rgb = rgbColor.toFactoredList();
 
-    final double red = rgb[0];
-    final double green = rgb[1];
-    final double blue = rgb[2];
+    final red = rgb[0];
+    final green = rgb[1];
+    final blue = rgb[2];
 
-    final double max = rgb.reduce(math.max);
-    final double min = rgb.reduce(math.min);
-    final double difference = max - min;
+    final max = rgb.reduce(math.max);
+    final min = rgb.reduce(math.min);
+    final difference = max - min;
 
     if (max == min) {
       hue = 0;

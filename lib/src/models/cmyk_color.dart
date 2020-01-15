@@ -20,12 +20,24 @@ class CmykColor extends ColorModel {
         assert(yellow != null && yellow >= 0 && yellow <= 100),
         assert(black != null && black >= 0 && black <= 100);
 
+  /// The cyan value of this color.
+  ///
+  /// Ranges from `0` to `100`.
   final num cyan;
 
+  /// The magenta value of this color.
+  ///
+  /// Ranges from `0` to `100`.
   final num magenta;
 
+  /// The yellow value of this color.
+  ///
+  /// Ranges from `0` to `100`.
   final num yellow;
 
+  /// The black value of this color.
+  ///
+  /// Ranges from `0` to `100`.
   final num black;
 
   @override
@@ -41,7 +53,7 @@ class CmykColor extends ColorModel {
   /// [magenta], [yellow], and [black] values in that order.
   @override
   List<num> toList() {
-    final List<num> list = List<num>(4);
+    final list = List<num>(4);
 
     list[0] = cyan;
     list[1] = magenta;
@@ -53,11 +65,8 @@ class CmykColor extends ColorModel {
 
   /// Returns a fixed-length list containing the [cyan], [magenta],
   /// [yelllow], and [black] values factored to be on 0 to 1 scale.
-  List<double> toFactoredList() => toList()
-      .map(
-        (num cmykValue) => cmykValue / 100,
-      )
-      .toList();
+  List<double> toFactoredList() =>
+      toList().map((cmykValue) => cmykValue / 100).toList();
 
   /// Parses a list for CMYK values and returns a [CmykColor].
   ///
@@ -74,7 +83,7 @@ class CmykColor extends ColorModel {
     return CmykColor(cmyk[0], cmyk[1], cmyk[2], cmyk[3]);
   }
 
-  /// Converts a [color] from another color space to CMYK.
+  /// Returns a [color] from another color space as a CMYK color.
   static CmykColor from(ColorModel color) {
     assert(color != null);
 
@@ -93,17 +102,13 @@ class CmykColor extends ColorModel {
     assert(cmyk[2] != null && cmyk[2] >= 0 && cmyk[2] <= 1);
     assert(cmyk[3] != null && cmyk[3] >= 0 && cmyk[3] <= 1);
 
-    final List<double> cmykValues = cmyk
-        .map(
-          (double cmykValue) => cmykValue * 100,
-        )
-        .toList();
+    final cmykValues = cmyk.map((cmykValue) => cmykValue * 100).toList();
 
     return CmykColor.fromList(cmykValues);
   }
 
   @override
-  bool operator ==(o) =>
+  bool operator ==(Object o) =>
       o is CmykColor &&
       cyan == o.cyan &&
       magenta == o.magenta &&

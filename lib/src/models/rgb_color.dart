@@ -21,12 +21,21 @@ class RgbColor extends ColorModel {
         assert(_green != null && _green >= 0 && _green <= 255),
         assert(_blue != null && _blue >= 0 && _blue <= 255);
 
+  /// The red value of this color.
+  ///
+  /// Ranges from `0` to `255`.
   int get red => _red.round();
   final num _red;
 
+  /// The green value of this color.
+  ///
+  /// Ranges from `0` to `255`.
   int get green => _green.round();
   final num _green;
 
+  /// The blue value of this color.
+  ///
+  /// Ranges from `0` to `255`.
   int get blue => _blue.round();
   final num _blue;
 
@@ -50,7 +59,7 @@ class RgbColor extends ColorModel {
   /// Returns a fixed-length list containing the [red], [green],
   /// and [blue] values factored to be on 0 to 1 scale.
   List<double> toFactoredList() =>
-      toPreciseList().map((num rgbValue) => rgbValue / 255).toList();
+      toPreciseList().map((rgbValue) => rgbValue / 255).toList();
 
   /// Parses a list for RGB values and returns a [RgbColor].
   ///
@@ -66,7 +75,7 @@ class RgbColor extends ColorModel {
     return RgbColor(rgb[0], rgb[1], rgb[2]);
   }
 
-  /// Converts a [color] from another color space to RGB.
+  /// Returns a [color] from another color space as a RGB color.
   static RgbColor from(ColorModel color) {
     assert(color != null);
 
@@ -84,17 +93,13 @@ class RgbColor extends ColorModel {
     assert(rgb[1] != null && rgb[1] >= 0 && rgb[1] <= 1);
     assert(rgb[2] != null && rgb[2] >= 0 && rgb[2] <= 1);
 
-    final List<double> rgbValues = rgb
-        .map(
-          (double rgbValue) => rgbValue * 255,
-        )
-        .toList();
+    final rgbValues = rgb.map((rgbValue) => rgbValue * 255).toList();
 
     return fromList(rgbValues);
   }
 
   @override
-  bool operator ==(o) =>
+  bool operator ==(Object o) =>
       o is RgbColor && red == o.red && green == o.green && blue == o.blue;
 
   @override

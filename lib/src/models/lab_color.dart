@@ -22,21 +22,21 @@ class LabColor extends ColorModel {
 
   /// Lightness represents the black to white value.
   ///
-  /// The value range is from black at 0 to white at 100.
+  /// The value ranges from black at `0` to white at `100`.
   final num lightness;
 
   /// The red to green opponent color value.
   ///
-  /// Green is represented in the negative value range (-128 to 0)
+  /// Green is represented in the negative value range (`-128` to `0`)
   ///
-  /// Red is represented in the positive value range (0 to 127)
+  /// Red is represented in the positive value range (`0` to `127`)
   final num a;
 
   /// The yellow to blue opponent color value.
   ///
-  /// Yellow is represented int he negative value range (-128 to 0)
+  /// Yellow is represented int he negative value range (`-128` to `0`)
   ///
-  /// Blue is represented in the positive value range (0 to 127)
+  /// Blue is represented in the positive value range (`0` to `127`)
   final num b;
 
   @override
@@ -55,7 +55,7 @@ class LabColor extends ColorModel {
   /// [a], and [b] values in that order.
   @override
   List<num> toList() {
-    final List<num> list = List<num>(3);
+    final list = List<num>(3);
 
     list[0] = lightness;
     list[1] = a;
@@ -80,7 +80,7 @@ class LabColor extends ColorModel {
     return LabColor(lab[0], lab[1], lab[2]);
   }
 
-  /// Converts a [color] from another color space to CIELAB.
+  /// Returns a [color] from another color space as a CIELAB color.
   static LabColor from(ColorModel color) {
     assert(color != null);
 
@@ -106,7 +106,7 @@ class LabColor extends ColorModel {
   }
 
   @override
-  bool operator ==(o) =>
+  bool operator ==(Object o) =>
       o is LabColor && lightness == o.lightness && a == o.a && b == o.b;
 
   @override

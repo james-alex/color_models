@@ -21,10 +21,22 @@ class XyzColor extends ColorModel {
         assert(y != null && y >= 0),
         assert(z != null && z >= 0);
 
+  /// The x value of this color.
+  ///
+  /// Ranges from `0` to `100` in the normal sRGB spectrum, but colors
+  /// outside of the sRGB spectrum are upwardly unbounded.
   final num x;
 
+  /// The y value of this color.
+  ///
+  /// Ranges from `0` to `100` in the normal sRGB spectrum, but colors
+  /// outside of the sRGB spectrum are upwardly unbounded.
   final num y;
 
+  /// The x value of this color.
+  ///
+  /// Ranges from `0` to `100` in the normal sRGB spectrum, but colors
+  /// outside of the sRGB spectrum are upwardly unbounded.
   final num z;
 
   @override
@@ -43,7 +55,7 @@ class XyzColor extends ColorModel {
   /// [x], [y], and [z] values in that order.
   @override
   List<num> toList() {
-    final List<num> list = List<num>(3);
+    final list = List<num>(3);
 
     list[0] = x;
     list[1] = y;
@@ -55,7 +67,7 @@ class XyzColor extends ColorModel {
   /// Returns a fixed-length list containing the [x], [y], and
   /// [z] values factored to be on a 0 to 1 scale.
   List<double> toFactoredList() =>
-      toList().map((num xyzValue) => xyzValue / 100).toList();
+      toList().map((xyzValue) => xyzValue / 100).toList();
 
   /// Parses a list for XYZ values and returns a [XyzColor].
   ///
@@ -71,6 +83,7 @@ class XyzColor extends ColorModel {
     return XyzColor(xyz[0], xyz[1], xyz[2]);
   }
 
+  /// Returns a [color] from another color space as a XYZ color.
   static XyzColor from(ColorModel color) {
     assert(color != null);
 
@@ -88,11 +101,7 @@ class XyzColor extends ColorModel {
     assert(xyz[1] != null && xyz[1] >= 0);
     assert(xyz[2] != null && xyz[2] >= 0);
 
-    final List<double> xyzValues = xyz
-        .map(
-          (double xyzValue) => xyzValue * 100,
-        )
-        .toList();
+    final xyzValues = xyz.map((xyzValue) => xyzValue * 100).toList();
 
     return fromList(xyzValues);
   }
@@ -109,7 +118,8 @@ class XyzColor extends ColorModel {
   );
 
   @override
-  bool operator ==(o) => o is XyzColor && x == o.x && y == o.y && z == o.z;
+  bool operator ==(Object o) =>
+      o is XyzColor && x == o.x && y == o.y && z == o.z;
 
   @override
   int get hashCode => x.hashCode ^ y.hashCode ^ z.hashCode;

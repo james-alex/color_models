@@ -19,10 +19,17 @@ class HslColor extends ColorModel {
         assert(saturation != null && saturation >= 0 && saturation <= 100),
         assert(lightness != null && lightness >= 0 && lightness <= 100);
 
+  /// The hue value of this color ranging from 0 to 360.
   final num hue;
 
+  /// The saturation value of this color.
+  ///
+  /// Ranges from `0` to `100`.
   final num saturation;
 
+  /// The lightness value of this color.
+  ///
+  /// Ranges from `0` to `100`.
   final num lightness;
 
   @override
@@ -38,7 +45,7 @@ class HslColor extends ColorModel {
   /// [saturation], and [lightness] values in that order.
   @override
   List<num> toList() {
-    final List<num> list = List<num>(3);
+    final list = List<num>(3);
 
     list[0] = hue;
     list[1] = saturation;
@@ -71,7 +78,7 @@ class HslColor extends ColorModel {
     return HslColor(hsl[0], hsl[1], hsl[2]);
   }
 
-  /// Converts a [color] from another color space to HSL.
+  /// Returns a [color] from another color space as a HSL color.
   static HslColor from(ColorModel color) {
     assert(color != null);
 
@@ -93,7 +100,7 @@ class HslColor extends ColorModel {
   }
 
   @override
-  bool operator ==(o) =>
+  bool operator ==(Object o) =>
       o is HslColor &&
       hue == o.hue &&
       saturation == o.saturation &&

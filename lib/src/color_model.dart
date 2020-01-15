@@ -1,3 +1,4 @@
+import 'package:meta/meta.dart';
 import './helpers/color_converter.dart';
 import './models/cmyk_color.dart';
 import './models/hsi_color.dart';
@@ -18,7 +19,9 @@ export './models/rgb_color.dart';
 export './models/xyz_color.dart';
 
 /// The base color model class.
+@immutable
 abstract class ColorModel {
+  /// The base color model class.
   const ColorModel();
 
   /// Returns `true` if this color is pure black.
@@ -49,7 +52,7 @@ abstract class ColorModel {
   /// Converts `this` to the HSP color space.
   HspColor toHspColor() => ColorConverter.toHspColor(this);
 
-  // Converts `this` to the HSV color space.
+  /// Converts `this` to the HSV color space.
   HsvColor toHsvColor() => ColorConverter.toHsvColor(this);
 
   /// Converts `this` to the LAB color space.

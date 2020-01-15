@@ -19,10 +19,19 @@ class HsiColor extends ColorModel {
         assert(saturation != null && saturation >= 0 && saturation <= 100),
         assert(intensity != null && intensity >= 0 && intensity <= 100);
 
+  /// The hue value of this color.
+  ///
+  /// Ranges from `0` to `360`.
   final num hue;
 
+  /// The saturation value of this color.
+  ///
+  /// Ranges from `0` to `100`.
   final num saturation;
 
+  /// The intensity value of this color.
+  ///
+  /// Ranges from `0` to `100`.
   final num intensity;
 
   @override
@@ -38,7 +47,7 @@ class HsiColor extends ColorModel {
   /// [saturation], and [intensity] values in that order.
   @override
   List<num> toList() {
-    final List<num> list = List<num>(3);
+    final list = List<num>(3);
 
     list[0] = hue;
     list[1] = saturation;
@@ -71,7 +80,7 @@ class HsiColor extends ColorModel {
     return HsiColor(hsi[0], hsi[1], hsi[2]);
   }
 
-  /// Converts a [color] from another color space to HSI.
+  /// Returns a [color] from another color space as a HSI color.
   static HsiColor from(ColorModel color) {
     assert(color != null);
 
@@ -93,7 +102,7 @@ class HsiColor extends ColorModel {
   }
 
   @override
-  bool operator ==(o) =>
+  bool operator ==(Object o) =>
       o is HsiColor &&
       hue == o.hue &&
       saturation == o.saturation &&

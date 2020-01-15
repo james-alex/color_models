@@ -24,10 +24,19 @@ class HspColor extends ColorModel {
             perceivedBrightness >= 0 &&
             perceivedBrightness <= 100);
 
+  /// The hue value of this color.
+  ///
+  /// Ranges from `0` to `360`.
   final num hue;
 
+  /// The saturation value of this color.
+  ///
+  /// Ranges from `0` to `100`.
   final num saturation;
 
+  /// Thie perceived brightness value of this color.
+  ///
+  /// Ranges from `0` to `100`.
   final num perceivedBrightness;
 
   @override
@@ -43,7 +52,7 @@ class HspColor extends ColorModel {
   /// and [perceivedBrightness] values in that order.
   @override
   List<num> toList() {
-    final List<num> list = List<num>(3);
+    final list = List<num>(3);
 
     list[0] = hue;
     list[1] = saturation;
@@ -76,7 +85,7 @@ class HspColor extends ColorModel {
     return HspColor(hsp[0], hsp[1], hsp[2]);
   }
 
-  /// Converts a [color] from another color space to HSP.
+  /// Returns a [color] from another color space as a HSP color.
   static HspColor from(ColorModel color) {
     assert(color != null);
 
@@ -98,7 +107,7 @@ class HspColor extends ColorModel {
   }
 
   @override
-  bool operator ==(o) =>
+  bool operator ==(Object o) =>
       o is HspColor &&
       hue == o.hue &&
       saturation == o.saturation &&

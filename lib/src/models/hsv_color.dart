@@ -19,10 +19,19 @@ class HsvColor extends ColorModel {
         assert(saturation != null && saturation >= 0 && saturation <= 100),
         assert(value != null && value >= 0 && value <= 100);
 
+  /// The hue value of this color.
+  ///
+  /// Ranges from `0 to 360`.
   final num hue;
 
+  /// The saturation value of this color.
+  ///
+  /// Ranges from `0` to `100`.
   final num saturation;
 
+  /// The value (brightness) value of this color.
+  ///
+  /// Ranges from `0` to `100`.
   final num value;
 
   @override
@@ -38,7 +47,7 @@ class HsvColor extends ColorModel {
   /// [saturation], and [value] values in that order.
   @override
   List<num> toList() {
-    final List<num> list = List<num>(3);
+    final list = List<num>(3);
 
     list[0] = hue;
     list[1] = saturation;
@@ -71,7 +80,7 @@ class HsvColor extends ColorModel {
     return HsvColor(hsv[0], hsv[1], hsv[2]);
   }
 
-  /// Converts a [color] from another color space to HSV.
+  /// Returns a [color] from another color space as a HSV color.
   static HsvColor from(ColorModel color) {
     assert(color != null);
 
@@ -93,7 +102,7 @@ class HsvColor extends ColorModel {
   }
 
   @override
-  bool operator ==(o) =>
+  bool operator ==(Object o) =>
       o is HsvColor &&
       hue == o.hue &&
       saturation == o.saturation &&
