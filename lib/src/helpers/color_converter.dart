@@ -407,7 +407,7 @@ class ColorConverter {
     final min = rgb.reduce(math.min);
     final difference = max - min;
 
-    final saturation = (max == 0) ? 0 : difference / max;
+    final saturation = (max == 0.0) ? 0.0 : difference / max;
 
     return HsvColor.extrapolate(<double>[_getHue(rgbColor), saturation, max]);
   }
