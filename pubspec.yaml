@@ -9,8 +9,12 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+  flutter:
+    sdk: flutter
   meta: ^1.1.8
 
 dev_dependencies:
   test: ^1.6.5
+  flutter_test:
+    sdk: flutter
   effective_dart: ^1.0.0

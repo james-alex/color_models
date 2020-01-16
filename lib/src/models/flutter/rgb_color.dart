@@ -1,4 +1,7 @@
-import '../color_model.dart';
+import 'package:flutter/material.dart' show Color;
+import '../../color_model.dart' as cm;
+import '../../flutter_color_model.dart';
+import './helpers/to_color.dart';
 
 /// A color in the sRGB color space.
 ///
@@ -9,57 +12,18 @@ import '../color_model.dart';
 /// getters set for [red], [green], and [blue] that return the rounded
 /// [int] values. The precise values can returned as a list with the
 /// `toPreciseList()` method.
-class RgbColor extends ColorModel {
+class RgbColor extends cm.RgbColor with ToColor {
   /// A color in the sRGB color space.
   ///
   /// [_red], [_green], and [_blue] must all be `>= 0` and `<= 255`.
   const RgbColor(
-    this._red,
-    this._green,
-    this._blue,
-  )   : assert(_red != null && _red >= 0 && _red <= 255),
-        assert(_green != null && _green >= 0 && _green <= 255),
-        assert(_blue != null && _blue >= 0 && _blue <= 255);
-
-  /// The red value of this color.
-  ///
-  /// Ranges from `0` to `255`.
-  int get red => _red.round();
-  final num _red;
-
-  /// The green value of this color.
-  ///
-  /// Ranges from `0` to `255`.
-  int get green => _green.round();
-  final num _green;
-
-  /// The blue value of this color.
-  ///
-  /// Ranges from `0` to `255`.
-  int get blue => _blue.round();
-  final num _blue;
-
-  @override
-  bool get isBlack => (red == 0 && green == 0 && blue == 0);
-
-  @override
-  bool get isWhite => (red == 255 && green == 255 && blue == 255);
-
-  @override
-  RgbColor toRgbColor() => this;
-
-  /// Returns a fixed-length list containing the RGB values.
-  @override
-  List<int> toList() => List.from(<int>[red, green, blue], growable: false);
-
-  /// Returns a fixed-length list containing the precise RGB values.
-  List<num> toPreciseList() =>
-      List.from(<num>[_red, _green, _blue], growable: false);
-
-  /// Returns a fixed-length list containing the [red], [green],
-  /// and [blue] values factored to be on 0 to 1 scale.
-  List<double> toFactoredList() =>
-      toPreciseList().map((rgbValue) => rgbValue / 255).toList();
+    num red,
+    num green,
+    num blue,
+  )   : assert(red != null && red >= 0 && red <= 255),
+        assert(green != null && green >= 0 && green <= 255),
+        assert(blue != null && blue >= 0 && green <= 255),
+        super(red, green, blue);
 
   /// Parses a list for RGB values and returns a [RgbColor].
   ///
@@ -75,11 +39,22 @@ class RgbColor extends ColorModel {
     return RgbColor(rgb[0], rgb[1], rgb[2]);
   }
 
+  /// Returns [color] as a [RgbColor].
+  static RgbColor fromColor(Color color) {
+    assert(color != null);
+
+    return RgbColor(color.red, color.green, color.blue);
+  }
+
   /// Returns a [color] in another color space as a RGB color.
   static RgbColor from(ColorModel color) {
     assert(color != null);
 
-    return color.toRgbColor();
+    color = ToColor.cast(color);
+
+    final rgb = color.toRgbColor();
+
+    return RgbColor(rgb.red, rgb.green, rgb.blue);
   }
 
   /// Returns a [RgbColor] from a list of [rgb] values on a 0 to 1 scale.
@@ -97,11 +72,4 @@ class RgbColor extends ColorModel {
 
     return fromList(rgbValues);
   }
-
-  @override
-  bool operator ==(Object o) =>
-      o is RgbColor && red == o.red && green == o.green && blue == o.blue;
-
-  @override
-  int get hashCode => red.hashCode ^ green.hashCode ^ blue.hashCode;
 }

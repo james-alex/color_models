@@ -1,5 +1,8 @@
-import '../color_model.dart';
-import '../helpers/color_converter.dart';
+import 'package:flutter/material.dart' show Color;
+import '../../color_model.dart' as cm;
+import '../../flutter_color_model.dart';
+import '../../helpers/color_converter.dart';
+import './helpers/to_color.dart';
 
 /// A color in the HSP color space.
 ///
@@ -8,66 +11,22 @@ import '../helpers/color_converter.dart';
 ///
 /// The HSP color space was created in 2006 by Darel Rex Finley.
 /// Read about it here: http://alienryderflex.com/hsp.html
-class HspColor extends ColorModel {
+class HspColor extends cm.HspColor with ToColor {
   /// A color in the HSP color space.
   ///
   /// [hue] must be `>= 0` and `<= 360`.
   ///
   /// [saturation] and [perceivedBrightness] must both be `>= 0` and `<= 100`.
   const HspColor(
-    this.hue,
-    this.saturation,
-    this.perceivedBrightness,
+    num hue,
+    num saturation,
+    num perceivedBrightness,
   )   : assert(hue != null && hue >= 0 && hue <= 360),
         assert(saturation != null && saturation >= 0 && saturation <= 100),
         assert(perceivedBrightness != null &&
             perceivedBrightness >= 0 &&
-            perceivedBrightness <= 100);
-
-  /// The hue value of this color.
-  ///
-  /// Ranges from `0` to `360`.
-  final num hue;
-
-  /// The saturation value of this color.
-  ///
-  /// Ranges from `0` to `100`.
-  final num saturation;
-
-  /// Thie perceived brightness value of this color.
-  ///
-  /// Ranges from `0` to `100`.
-  final num perceivedBrightness;
-
-  @override
-  bool get isBlack => (perceivedBrightness == 0);
-
-  @override
-  bool get isWhite => (perceivedBrightness == 1);
-
-  @override
-  RgbColor toRgbColor() => ColorConverter.hspToRgb(this);
-
-  /// Returns a fixed-length [List] containing the [hue], [saturation],
-  /// and [perceivedBrightness] values in that order.
-  @override
-  List<num> toList() {
-    final list = List<num>(3);
-
-    list[0] = hue;
-    list[1] = saturation;
-    list[2] = perceivedBrightness;
-
-    return list;
-  }
-
-  /// Returns a fixed-length list containing the [hue], [saturation],
-  /// and [perceivedBrightness] values factored to be on 0 to 1 scale.
-  List<double> toFactoredList() => List.from(<double>[
-        hue / 360,
-        saturation / 100,
-        perceivedBrightness / 100,
-      ], growable: false);
+            perceivedBrightness <= 100),
+        super(hue, saturation, perceivedBrightness);
 
   /// Parses a list for HSP values and returns a [HspColor].
   ///
@@ -85,11 +44,22 @@ class HspColor extends ColorModel {
     return HspColor(hsp[0], hsp[1], hsp[2]);
   }
 
+  /// Returns [color] as a [HspColor].
+  static HspColor fromColor(Color color) {
+    assert(color != null);
+
+    return RgbColor.fromColor(color).toHspColor();
+  }
+
   /// Returns a [color] in another color space as a HSP color.
   static HspColor from(ColorModel color) {
     assert(color != null);
 
-    return color.toHspColor();
+    color = ToColor.cast(color);
+
+    final hsp = ColorConverter.toHspColor(color);
+
+    return HspColor(hsp.hue, hsp.saturation, hsp.perceivedBrightness);
   }
 
   /// Returns a [HspColor] from a list of [hsp] values on a 0 to 1 scale.
@@ -105,15 +75,4 @@ class HspColor extends ColorModel {
 
     return HspColor(hsp[0] * 360, hsp[1] * 100, hsp[2] * 100);
   }
-
-  @override
-  bool operator ==(Object o) =>
-      o is HspColor &&
-      hue == o.hue &&
-      saturation == o.saturation &&
-      perceivedBrightness == o.perceivedBrightness;
-
-  @override
-  int get hashCode =>
-      hue.hashCode ^ saturation.hashCode ^ perceivedBrightness.hashCode;
 }

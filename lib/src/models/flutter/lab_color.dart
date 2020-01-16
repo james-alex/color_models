@@ -1,68 +1,28 @@
-import '../color_model.dart';
-import '../helpers/color_converter.dart';
+import 'package:flutter/material.dart' show Color;
+import '../../color_model.dart' as cm;
+import '../../flutter_color_model.dart';
+import '../../helpers/color_converter.dart';
+import './helpers/to_color.dart';
 
 /// A color in the CIELAB color space.
 ///
 /// The CIELAB color space contains channels for [lightness],
 /// [a] (red and green opponent values), and [b] (blue and
 /// yellow opponent values.)
-class LabColor extends ColorModel {
+class LabColor extends cm.LabColor with ToColor {
   /// A color in the CIELAB color space.
   ///
   /// [lightness] must be `>= 0` and `<= 100`.
   ///
   /// [a] and [b] must both be `>= -128` and `<= 127`.
   const LabColor(
-    this.lightness,
-    this.a,
-    this.b,
+    num lightness,
+    num a,
+    num b,
   )   : assert(lightness != null && lightness >= 0 && lightness <= 100),
         assert(a != null && a >= -128 && a <= 127),
-        assert(b != null && b >= -128 && b <= 127);
-
-  /// Lightness represents the black to white value.
-  ///
-  /// The value ranges from black at `0` to white at `100`.
-  final num lightness;
-
-  /// The red to green opponent color value.
-  ///
-  /// Green is represented in the negative value range (`-128` to `0`)
-  ///
-  /// Red is represented in the positive value range (`0` to `127`)
-  final num a;
-
-  /// The yellow to blue opponent color value.
-  ///
-  /// Yellow is represented int he negative value range (`-128` to `0`)
-  ///
-  /// Blue is represented in the positive value range (`0` to `127`)
-  final num b;
-
-  @override
-  bool get isBlack => (lightness == 0 && a == 0 && b == 0);
-
-  @override
-  bool get isWhite => (lightness == 1 && a == 0 && b == 0);
-
-  @override
-  RgbColor toRgbColor() => ColorConverter.labToRgb(this);
-
-  @override
-  XyzColor toXyzColor() => ColorConverter.labToXyz(this);
-
-  /// Returns a fixed-length [List] containing the [lightness],
-  /// [a], and [b] values in that order.
-  @override
-  List<num> toList() {
-    final list = List<num>(3);
-
-    list[0] = lightness;
-    list[1] = a;
-    list[2] = b;
-
-    return list;
-  }
+        assert(b != null && b >= -128 && b <= 127),
+        super(lightness, a, b);
 
   /// Parses a list for LAB values and returns a [LabColor].
   ///
@@ -80,11 +40,22 @@ class LabColor extends ColorModel {
     return LabColor(lab[0], lab[1], lab[2]);
   }
 
+  /// Returns [color] as a [LabColor].
+  static LabColor fromColor(Color color) {
+    assert(color != null);
+
+    return RgbColor.fromColor(color).toLabColor();
+  }
+
   /// Returns a [color] in another color space as a CIELAB color.
   static LabColor from(ColorModel color) {
     assert(color != null);
 
-    return color.toLabColor();
+    color = ToColor.cast(color);
+
+    final lab = ColorConverter.toLabColor(color);
+
+    return LabColor(lab.lightness, lab.a, lab.b);
   }
 
   /// Returns a [LabColor] from a list of [lab] values on a 0 to 1 scale.
@@ -104,11 +75,4 @@ class LabColor extends ColorModel {
       (lab[2] * 255) - 128,
     );
   }
-
-  @override
-  bool operator ==(Object o) =>
-      o is LabColor && lightness == o.lightness && a == o.a && b == o.b;
-
-  @override
-  int get hashCode => lightness.hashCode ^ a.hashCode ^ b.hashCode;
 }

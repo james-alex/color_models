@@ -83,7 +83,7 @@ class XyzColor extends ColorModel {
     return XyzColor(xyz[0], xyz[1], xyz[2]);
   }
 
-  /// Returns a [color] from another color space as a XYZ color.
+  /// Returns a [color] in another color space as a XYZ color.
   static XyzColor from(ColorModel color) {
     assert(color != null);
 

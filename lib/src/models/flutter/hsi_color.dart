@@ -1,68 +1,27 @@
-import '../color_model.dart';
-import '../helpers/color_converter.dart';
+import 'package:flutter/material.dart' show Color;
+import '../../color_model.dart' as cm;
+import '../../flutter_color_model.dart';
+import '../../helpers/color_converter.dart';
+import './helpers/to_color.dart';
 
 /// A color in the HSI color space.
 ///
 /// The HSI color space contains channels for [hue],
 /// [saturation], and [intensity].
-class HsiColor extends ColorModel {
+class HsiColor extends cm.HsiColor with ToColor {
   /// A color in the HSV (HSB) color space.
   ///
   /// [hue] must be `>= 0` and `<= 360`.
   ///
   /// [saturation] and [intensity] must both be `>= 0` and `<= 100`.
   const HsiColor(
-    this.hue,
-    this.saturation,
-    this.intensity,
+    num hue,
+    num saturation,
+    num intensity,
   )   : assert(hue != null && hue >= 0 && hue <= 360),
         assert(saturation != null && saturation >= 0 && saturation <= 100),
-        assert(intensity != null && intensity >= 0 && intensity <= 100);
-
-  /// The hue value of this color.
-  ///
-  /// Ranges from `0` to `360`.
-  final num hue;
-
-  /// The saturation value of this color.
-  ///
-  /// Ranges from `0` to `100`.
-  final num saturation;
-
-  /// The intensity value of this color.
-  ///
-  /// Ranges from `0` to `100`.
-  final num intensity;
-
-  @override
-  bool get isWhite => (saturation == 0 && intensity == 100);
-
-  @override
-  bool get isBlack => (intensity == 0);
-
-  @override
-  RgbColor toRgbColor() => ColorConverter.hsiToRgb(this);
-
-  /// Returns a fixed-length [List] containing the [hue],
-  /// [saturation], and [intensity] values in that order.
-  @override
-  List<num> toList() {
-    final list = List<num>(3);
-
-    list[0] = hue;
-    list[1] = saturation;
-    list[2] = intensity;
-
-    return list;
-  }
-
-  /// Returns a fixed-length list containing the [hue], [saturation],
-  /// and [intensity] values factored to be on 0 to 1 scale.
-  List<double> toFactoredList() => List.from(<double>[
-        hue / 360,
-        saturation / 100,
-        intensity / 100,
-      ], growable: false);
+        assert(intensity != null && intensity >= 0 && intensity <= 100),
+        super(hue, saturation, intensity);
 
   /// Parses a list for HSI values and returns a [HsiColor].
   ///
@@ -80,11 +39,22 @@ class HsiColor extends ColorModel {
     return HsiColor(hsi[0], hsi[1], hsi[2]);
   }
 
+  /// Returns [color] as a [HsiColor].
+  static HsiColor fromColor(Color color) {
+    assert(color != null);
+
+    return RgbColor.fromColor(color).toHsiColor();
+  }
+
   /// Returns a [color] in another color space as a HSI color.
   static HsiColor from(ColorModel color) {
     assert(color != null);
 
-    return color.toHsiColor();
+    color = ToColor.cast(color);
+
+    final hsi = ColorConverter.toHsiColor(color);
+
+    return HsiColor(hsi.hue, hsi.saturation, hsi.intensity);
   }
 
   /// Returns a [HsiColor] from a list of [hsi] values on a 0 to 1 scale.
@@ -100,14 +70,4 @@ class HsiColor extends ColorModel {
 
     return HsiColor(hsi[0] * 360, hsi[1] * 100, hsi[2] * 100);
   }
-
-  @override
-  bool operator ==(Object o) =>
-      o is HsiColor &&
-      hue == o.hue &&
-      saturation == o.saturation &&
-      intensity == o.intensity;
-
-  @override
-  int get hashCode => hue.hashCode ^ saturation.hashCode ^ intensity.hashCode;
 }

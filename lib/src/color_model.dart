@@ -37,7 +37,7 @@ abstract class ColorModel {
   bool equals(ColorModel color) {
     assert(color != null);
 
-    return (RgbColor.from(this) == RgbColor.from(color));
+    return RgbColor.from(this) == RgbColor.from(color);
   }
 
   /// Converts `this` to the CMYK color space.

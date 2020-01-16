@@ -1,72 +1,28 @@
-import '../color_model.dart';
-import '../helpers/color_converter.dart';
+import 'package:flutter/material.dart' show Color;
+import '../../color_model.dart' as cm;
+import '../../flutter_color_model.dart';
+import '../../helpers/color_converter.dart';
+import './helpers/to_color.dart';
 
 /// A color in the CMYK color space.
 ///
 /// The CMYK color space contains channels for [cyan],
 /// [magenta], [yellow], and [black].
-class CmykColor extends ColorModel {
+class CmykColor extends cm.CmykColor with ToColor {
   /// A color in the CMYK color space.
   ///
   /// [cyan], [magenta], [yellow], and [black]
   /// must all be `>= 0` and `<= 100`.
   const CmykColor(
-    this.cyan,
-    this.magenta,
-    this.yellow,
-    this.black,
+    num cyan,
+    num magenta,
+    num yellow,
+    num black,
   )   : assert(cyan != null && cyan >= 0 && cyan <= 100),
         assert(magenta != null && magenta >= 0 && magenta <= 100),
         assert(yellow != null && yellow >= 0 && yellow <= 100),
-        assert(black != null && black >= 0 && black <= 100);
-
-  /// The cyan value of this color.
-  ///
-  /// Ranges from `0` to `100`.
-  final num cyan;
-
-  /// The magenta value of this color.
-  ///
-  /// Ranges from `0` to `100`.
-  final num magenta;
-
-  /// The yellow value of this color.
-  ///
-  /// Ranges from `0` to `100`.
-  final num yellow;
-
-  /// The black value of this color.
-  ///
-  /// Ranges from `0` to `100`.
-  final num black;
-
-  @override
-  bool get isBlack => (black == 100);
-
-  @override
-  bool get isWhite => (cyan == 0 && magenta == 0 && yellow == 0 && black == 0);
-
-  @override
-  RgbColor toRgbColor() => ColorConverter.cmykToRgb(this);
-
-  /// Returns a fixed-length [List] containing the [cyan],
-  /// [magenta], [yellow], and [black] values in that order.
-  @override
-  List<num> toList() {
-    final list = List<num>(4);
-
-    list[0] = cyan;
-    list[1] = magenta;
-    list[2] = yellow;
-    list[3] = black;
-
-    return list;
-  }
-
-  /// Returns a fixed-length list containing the [cyan], [magenta],
-  /// [yelllow], and [black] values factored to be on 0 to 1 scale.
-  List<double> toFactoredList() =>
-      toList().map((cmykValue) => cmykValue / 100).toList();
+        assert(black != null && black >= 0 && black <= 100),
+        super(cyan, magenta, yellow, black);
 
   /// Parses a list for CMYK values and returns a [CmykColor].
   ///
@@ -83,11 +39,22 @@ class CmykColor extends ColorModel {
     return CmykColor(cmyk[0], cmyk[1], cmyk[2], cmyk[3]);
   }
 
+  /// Returns [color] as a [CmykColor].
+  static CmykColor fromColor(Color color) {
+    assert(color != null);
+
+    return RgbColor.fromColor(color).toCmykColor();
+  }
+
   /// Returns a [color] in another color space as a CMYK color.
   static CmykColor from(ColorModel color) {
     assert(color != null);
 
-    return color.toCmykColor();
+    color = ToColor.cast(color);
+
+    final cmyk = ColorConverter.toCmykColor(color);
+
+    return CmykColor(cmyk.cyan, cmyk.magenta, cmyk.yellow, cmyk.black);
   }
 
   /// Returns a [CmykColor] from a list of [cmyk] values on a 0 to 1 scale.
@@ -106,16 +73,4 @@ class CmykColor extends ColorModel {
 
     return CmykColor.fromList(cmykValues);
   }
-
-  @override
-  bool operator ==(Object o) =>
-      o is CmykColor &&
-      cyan == o.cyan &&
-      magenta == o.magenta &&
-      yellow == o.yellow &&
-      black == o.black;
-
-  @override
-  int get hashCode =>
-      cyan.hashCode ^ magenta.hashCode ^ yellow.hashCode ^ black.hashCode;
 }
