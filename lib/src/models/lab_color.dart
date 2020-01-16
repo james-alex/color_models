@@ -106,6 +106,9 @@ class LabColor extends ColorModel {
   }
 
   @override
+  String toString() => 'LabColor($lightness, $a, $b)';
+
+  @override
   bool operator ==(Object o) =>
       o is LabColor && lightness == o.lightness && a == o.a && b == o.b;
 

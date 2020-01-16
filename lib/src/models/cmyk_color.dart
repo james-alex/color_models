@@ -108,6 +108,9 @@ class CmykColor extends ColorModel {
   }
 
   @override
+  String toString() => 'CmykColor($cyan, $magenta, $yellow, $black)';
+
+  @override
   bool operator ==(Object o) =>
       o is CmykColor &&
       cyan == o.cyan &&

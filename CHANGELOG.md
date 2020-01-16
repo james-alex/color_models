@@ -2,6 +2,8 @@
 
 * Added the flutter_color_models library
 
+* All [ColorModel]s now `@override` the `toString()` method.
+
 ## [0.2.0+1] - January 15, 2020
 
 * Documentation and formatting changes.

@@ -99,6 +99,9 @@ class RgbColor extends ColorModel {
   }
 
   @override
+  String toString() => 'RgbColor($red, $green, $blue)';
+
+  @override
   bool operator ==(Object o) =>
       o is RgbColor && red == o.red && green == o.green && blue == o.blue;
 

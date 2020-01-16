@@ -118,6 +118,9 @@ class XyzColor extends ColorModel {
   );
 
   @override
+  String toString() => 'XyzColor($x, $y, $z)';
+
+  @override
   bool operator ==(Object o) =>
       o is XyzColor && x == o.x && y == o.y && z == o.z;
 

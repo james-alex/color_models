@@ -107,6 +107,9 @@ class HspColor extends ColorModel {
   }
 
   @override
+  String toString() => 'HspColor($hue, $saturation, $perceivedBrightness)';
+
+  @override
   bool operator ==(Object o) =>
       o is HspColor &&
       hue == o.hue &&

@@ -102,6 +102,9 @@ class HsvColor extends ColorModel {
   }
 
   @override
+  String toString() => 'HsvColor($hue, $saturation, $value)';
+
+  @override
   bool operator ==(Object o) =>
       o is HsvColor &&
       hue == o.hue &&
