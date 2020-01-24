@@ -1,5 +1,8 @@
 # color_models
 
+[![pub package](https://img.shields.io/pub/v/color_models.svg)](https://pub.dartlang.org/packages/color_models)
+[![style: effective dart](https://img.shields.io/badge/style-effective_dart-40c4ff.svg)](https://github.com/tenhobi/effective_dart)
+
 A Dart & Flutter package for defining color constants and converting them
 between color spaces.
 
