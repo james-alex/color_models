@@ -20,9 +20,9 @@ class RgbColor extends ColorModel {
     this._red,
     this._green,
     this._blue,
-  ) : assert(_red != null && _red >= 0 && _red <= 255),
-      assert(_green != null && _green >= 0 && _green <= 255),
-      assert(_blue != null && _blue >= 0 && _blue <= 255);
+  )   : assert(_red != null && _red >= 0 && _red <= 255),
+        assert(_green != null && _green >= 0 && _green <= 255),
+        assert(_blue != null && _blue >= 0 && _blue <= 255);
 
   /// The red value of this color.
   ///
