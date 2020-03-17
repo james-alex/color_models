@@ -5,7 +5,7 @@ import 'package:color_models/color_models.dart';
 /// blue, yellow, cyan, pink, 6 colors that fall into each part
 /// of the hue spectrum, and 4 LAB colors that fall outside of
 /// the sRGB color space's bounds.
-const List<ColorModel> _testColors = <ColorModel>[
+final List<ColorModel> _testColors = <ColorModel>[
   RgbColor(0, 0, 0), // Black
   RgbColor(144, 144, 144), // Grey
   RgbColor(255, 255, 255), // White

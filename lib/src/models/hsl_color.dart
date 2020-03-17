@@ -1,3 +1,4 @@
+import 'package:meta/meta.dart';
 import '../color_model.dart';
 import '../helpers/color_converter.dart';
 
@@ -5,13 +6,14 @@ import '../helpers/color_converter.dart';
 ///
 /// The HSL color space contains channels for [hue],
 /// [saturation], and [lightness].
+@immutable
 class HslColor extends ColorModel {
   /// A color in the HSL color space.
   ///
   /// [hue] must be `>= 0` and `<= 360`.
   ///
   /// [saturation] and [lightness] must both be `>= 0` and `<= 100`.
-  const HslColor(
+  HslColor(
     this.hue,
     this.saturation,
     this.lightness,
@@ -83,6 +85,16 @@ class HslColor extends ColorModel {
     assert(color != null);
 
     return color.toHslColor();
+  }
+
+  /// Returns a [hex] color as a HSL color.
+  ///
+  /// [hex] is case-insensitive and must be `3` or `6` characters
+  /// in length, excluding an optional leading `#`.
+  static HslColor fromHex(String hex) {
+    assert(hex != null);
+
+    return ColorConverter.hexToRgb(hex).toHslColor();
   }
 
   /// Returns a [HslColor] from a list of [hsl] values on a 0 to 1 scale.

@@ -1,4 +1,6 @@
+import 'package:meta/meta.dart';
 import '../color_model.dart';
+import '../helpers/color_converter.dart';
 
 /// A color in the sRGB color space.
 ///
@@ -9,17 +11,24 @@ import '../color_model.dart';
 /// getters set for [red], [green], and [blue] that return the rounded
 /// [int] values. The precise values can returned as a list with the
 /// `toPreciseList()` method.
+@immutable
 class RgbColor extends ColorModel {
   /// A color in the sRGB color space.
   ///
-  /// [_red], [_green], and [_blue] must all be `>= 0` and `<= 255`.
-  const RgbColor(
+  /// [red], [green], and [blue] must all be `>= 0` and `<= 255`.
+  factory RgbColor(num red, num green, num blue) {
+    assert(red != null && red >= 0 && red <= 255);
+    assert(green != null && green >= 0 && green <= 255);
+    assert(blue != null && blue >= 0 && blue <= 255);
+
+    return RgbColor._internal(red, green, blue);
+  }
+
+  RgbColor._internal(
     this._red,
     this._green,
     this._blue,
-  )   : assert(_red != null && _red >= 0 && _red <= 255),
-        assert(_green != null && _green >= 0 && _green <= 255),
-        assert(_blue != null && _blue >= 0 && _blue <= 255);
+  );
 
   /// The red value of this color.
   ///
@@ -80,6 +89,16 @@ class RgbColor extends ColorModel {
     assert(color != null);
 
     return color.toRgbColor();
+  }
+
+  /// Returns a [hex] color as a RGB color.
+  ///
+  /// [hex] is case-insensitive and must be `3` or `6` characters
+  /// in length, excluding an optional leading `#`.
+  static RgbColor fromHex(String hex) {
+    assert(hex != null);
+
+    return ColorConverter.hexToRgb(hex);
   }
 
   /// Returns a [RgbColor] from a list of [rgb] values on a 0 to 1 scale.

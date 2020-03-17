@@ -3,6 +3,7 @@ import '../color_model.dart';
 import '../helpers/color_converter.dart';
 
 /// A color in the CIEXYZ color space.
+@immutable
 class XyzColor extends ColorModel {
   /// A color in the CIEXYZ color space.
   ///
@@ -13,7 +14,7 @@ class XyzColor extends ColorModel {
   /// left upwardly unbounded to allow to allow for conversions
   /// between the XYZ and LAB color spaces that fall outside of
   /// the sRGB color space's bounds.
-  const XyzColor(
+  XyzColor(
     this.x,
     this.y,
     this.z,
@@ -88,6 +89,16 @@ class XyzColor extends ColorModel {
     assert(color != null);
 
     return color.toXyzColor();
+  }
+
+  /// Returns a [hex] color as a CIEXYZ color.
+  ///
+  /// [hex] is case-insensitive and must be `3` or `6` characters
+  /// in length, excluding an optional leading `#`.
+  static XyzColor fromHex(String hex) {
+    assert(hex != null);
+
+    return ColorConverter.hexToRgb(hex).toXyzColor();
   }
 
   /// Returns a [XyzColor] from a list of [xyz] values on a 0 to 1 scale.

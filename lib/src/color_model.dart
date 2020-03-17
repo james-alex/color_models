@@ -67,4 +67,17 @@ abstract class ColorModel {
   /// Returns the values of the color model in the same order
   /// as their characters in their color space's abbreviation.
   List<num> toList();
+
+  /// Returns `this` as a hexidecimal string.
+  String get hex {
+    final rgb = toRgbColor().toList();
+
+    var hex = '#';
+
+    for (var value in rgb) {
+      hex += value.toRadixString(16).padLeft(2, '0');
+    }
+
+    return hex;
+  }
 }

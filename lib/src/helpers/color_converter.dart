@@ -21,6 +21,28 @@ import '../color_model.dart';
 class ColorConverter {
   ColorConverter._();
 
+  /// Returns a [hex] color as a RGB color.
+  static RgbColor hexToRgb(String hex) {
+    assert(hex != null);
+
+    hex = hex.replaceFirst('#', '').toLowerCase();
+
+    assert(hex.length == 3 || hex.length == 6);
+    assert(hex.split('').every((c) => RegExp(r'[a-f0-9]').hasMatch(c)));
+
+    var rgb = hex.split('');
+
+    if (rgb.length == 3) {
+      rgb = <String>[rgb[0], rgb[0], rgb[1], rgb[1], rgb[2], rgb[2]];
+    }
+
+    final red = int.parse('0x${rgb[0]}${rgb[1]}');
+    final green = int.parse('0x${rgb[2]}${rgb[3]}');
+    final blue = int.parse('0x${rgb[4]}${rgb[5]}');
+
+    return RgbColor(red, green, blue);
+  }
+
   /// Converts a color from any color space to CMYK.
   static CmykColor toCmykColor(ColorModel color) {
     assert(color != null);

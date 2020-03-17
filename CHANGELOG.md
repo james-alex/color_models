@@ -1,3 +1,13 @@
+## [0.2.2] - March 16, 2020
+
+* Added [hex] getter to [ColorModel].
+
+* Added [fromHex] static method to all [ColorModel]s.
+
+* Added a factory constructor to [RgbColor].
+
+* All [ColorModel]s are now `@immutable`, but no longer have `const` constructors.
+
 ## [0.2.1] - January 15, 2020
 
 * All [ColorModel]s now `@override` the `toString()` method.

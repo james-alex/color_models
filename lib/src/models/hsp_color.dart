@@ -1,3 +1,4 @@
+import 'package:meta/meta.dart';
 import '../color_model.dart';
 import '../helpers/color_converter.dart';
 
@@ -8,13 +9,14 @@ import '../helpers/color_converter.dart';
 ///
 /// The HSP color space was created in 2006 by Darel Rex Finley.
 /// Read about it here: http://alienryderflex.com/hsp.html
+@immutable
 class HspColor extends ColorModel {
   /// A color in the HSP color space.
   ///
   /// [hue] must be `>= 0` and `<= 360`.
   ///
   /// [saturation] and [perceivedBrightness] must both be `>= 0` and `<= 100`.
-  const HspColor(
+  HspColor(
     this.hue,
     this.saturation,
     this.perceivedBrightness,
@@ -90,6 +92,16 @@ class HspColor extends ColorModel {
     assert(color != null);
 
     return color.toHspColor();
+  }
+
+  /// Returns a [hex] color as a HSP color.
+  ///
+  /// [hex] is case-insensitive and must be `3` or `6` characters
+  /// in length, excluding an optional leading `#`.
+  static HspColor fromHex(String hex) {
+    assert(hex != null);
+
+    return ColorConverter.hexToRgb(hex).toHspColor();
   }
 
   /// Returns a [HspColor] from a list of [hsp] values on a 0 to 1 scale.

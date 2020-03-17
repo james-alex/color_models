@@ -1,3 +1,4 @@
+import 'package:meta/meta.dart';
 import '../color_model.dart';
 import '../helpers/color_converter.dart';
 
@@ -6,13 +7,14 @@ import '../helpers/color_converter.dart';
 /// The CIELAB color space contains channels for [lightness],
 /// [a] (red and green opponent values), and [b] (blue and
 /// yellow opponent values.)
+@immutable
 class LabColor extends ColorModel {
   /// A color in the CIELAB color space.
   ///
   /// [lightness] must be `>= 0` and `<= 100`.
   ///
   /// [a] and [b] must both be `>= -128` and `<= 127`.
-  const LabColor(
+  LabColor(
     this.lightness,
     this.a,
     this.b,
@@ -85,6 +87,16 @@ class LabColor extends ColorModel {
     assert(color != null);
 
     return color.toLabColor();
+  }
+
+  /// Returns a [hex] color as a CIELAB color.
+  ///
+  /// [hex] is case-insensitive and must be `3` or `6` characters
+  /// in length, excluding an optional leading `#`.
+  static LabColor fromHex(String hex) {
+    assert(hex != null);
+
+    return ColorConverter.hexToRgb(hex).toLabColor();
   }
 
   /// Returns a [LabColor] from a list of [lab] values on a 0 to 1 scale.

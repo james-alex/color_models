@@ -1,3 +1,4 @@
+import 'package:meta/meta.dart';
 import '../color_model.dart';
 import '../helpers/color_converter.dart';
 
@@ -5,13 +6,14 @@ import '../helpers/color_converter.dart';
 ///
 /// The HSV color space contains channels for [hue],
 /// [saturation], and [value].
+@immutable
 class HsvColor extends ColorModel {
   /// A color in the HSV (HSB) color space.
   ///
   /// [hue] must be `>= 0` and `<= 360`.
   ///
   /// [saturation] and [value] must both be `>= 0` and `<= 100`.
-  const HsvColor(
+  HsvColor(
     this.hue,
     this.saturation,
     this.value,
@@ -85,6 +87,16 @@ class HsvColor extends ColorModel {
     assert(color != null);
 
     return color.toHsvColor();
+  }
+
+  /// Returns a [hex] color as a HSV color.
+  ///
+  /// [hex] is case-insensitive and must be `3` or `6` characters
+  /// in length, excluding an optional leading `#`.
+  static HsvColor fromHex(String hex) {
+    assert(hex != null);
+
+    return ColorConverter.hexToRgb(hex).toHsvColor();
   }
 
   /// Returns a [HsvColor] from a list of [hsv] values on a 0 to 1 scale.

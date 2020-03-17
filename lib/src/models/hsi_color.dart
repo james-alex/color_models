@@ -1,3 +1,4 @@
+import 'package:meta/meta.dart';
 import '../color_model.dart';
 import '../helpers/color_converter.dart';
 
@@ -5,13 +6,14 @@ import '../helpers/color_converter.dart';
 ///
 /// The HSI color space contains channels for [hue],
 /// [saturation], and [intensity].
+@immutable
 class HsiColor extends ColorModel {
   /// A color in the HSV (HSB) color space.
   ///
   /// [hue] must be `>= 0` and `<= 360`.
   ///
   /// [saturation] and [intensity] must both be `>= 0` and `<= 100`.
-  const HsiColor(
+  HsiColor(
     this.hue,
     this.saturation,
     this.intensity,
@@ -85,6 +87,16 @@ class HsiColor extends ColorModel {
     assert(color != null);
 
     return color.toHsiColor();
+  }
+
+  /// Returns a [hex] color as a HSI color.
+  ///
+  /// [hex] is case-insensitive and must be `3` or `6` characters
+  /// in length, excluding an optional leading `#`.
+  static HsiColor fromHex(String hex) {
+    assert(hex != null);
+
+    return ColorConverter.hexToRgb(hex).toHsiColor();
   }
 
   /// Returns a [HsiColor] from a list of [hsi] values on a 0 to 1 scale.

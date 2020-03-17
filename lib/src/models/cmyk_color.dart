@@ -1,3 +1,4 @@
+import 'package:meta/meta.dart';
 import '../color_model.dart';
 import '../helpers/color_converter.dart';
 
@@ -5,12 +6,13 @@ import '../helpers/color_converter.dart';
 ///
 /// The CMYK color space contains channels for [cyan],
 /// [magenta], [yellow], and [black].
+@immutable
 class CmykColor extends ColorModel {
   /// A color in the CMYK color space.
   ///
   /// [cyan], [magenta], [yellow], and [black]
   /// must all be `>= 0` and `<= 100`.
-  const CmykColor(
+  CmykColor(
     this.cyan,
     this.magenta,
     this.yellow,
@@ -88,6 +90,16 @@ class CmykColor extends ColorModel {
     assert(color != null);
 
     return color.toCmykColor();
+  }
+
+  /// Returns a [hex] color as a CMYK color.
+  ///
+  /// [hex] is case-insensitive and must be `3` or `6` characters
+  /// in length, excluding an optional leading `#`.
+  static CmykColor fromHex(String hex) {
+    assert(hex != null);
+
+    return ColorConverter.hexToRgb(hex).toCmykColor();
   }
 
   /// Returns a [CmykColor] from a list of [cmyk] values on a 0 to 1 scale.
