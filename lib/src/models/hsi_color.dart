@@ -13,7 +13,7 @@ class HsiColor extends ColorModel {
   /// [hue] must be `>= 0` and `<= 360`.
   ///
   /// [saturation] and [intensity] must both be `>= 0` and `<= 100`.
-  HsiColor(
+  const HsiColor(
     this.hue,
     this.saturation,
     this.intensity,

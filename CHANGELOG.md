@@ -4,9 +4,7 @@
 
 * Added [fromHex] static method to all [ColorModel]s.
 
-* Added a factory constructor to [RgbColor].
-
-* All [ColorModel]s are now `@immutable`, but no longer have `const` constructors.
+* All [ColorModel]s are now `@immutable`.
 
 ## [0.2.1] - January 15, 2020
 

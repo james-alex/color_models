@@ -12,7 +12,7 @@ class CmykColor extends ColorModel {
   ///
   /// [cyan], [magenta], [yellow], and [black]
   /// must all be `>= 0` and `<= 100`.
-  CmykColor(
+  const CmykColor(
     this.cyan,
     this.magenta,
     this.yellow,

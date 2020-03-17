@@ -13,7 +13,7 @@ class HslColor extends ColorModel {
   /// [hue] must be `>= 0` and `<= 360`.
   ///
   /// [saturation] and [lightness] must both be `>= 0` and `<= 100`.
-  HslColor(
+  const HslColor(
     this.hue,
     this.saturation,
     this.lightness,

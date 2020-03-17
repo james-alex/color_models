@@ -16,7 +16,7 @@ class HspColor extends ColorModel {
   /// [hue] must be `>= 0` and `<= 360`.
   ///
   /// [saturation] and [perceivedBrightness] must both be `>= 0` and `<= 100`.
-  HspColor(
+  const HspColor(
     this.hue,
     this.saturation,
     this.perceivedBrightness,

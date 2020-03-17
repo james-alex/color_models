@@ -14,7 +14,7 @@ class LabColor extends ColorModel {
   /// [lightness] must be `>= 0` and `<= 100`.
   ///
   /// [a] and [b] must both be `>= -128` and `<= 127`.
-  LabColor(
+  const LabColor(
     this.lightness,
     this.a,
     this.b,

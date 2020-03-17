@@ -13,7 +13,7 @@ class HsvColor extends ColorModel {
   /// [hue] must be `>= 0` and `<= 360`.
   ///
   /// [saturation] and [value] must both be `>= 0` and `<= 100`.
-  HsvColor(
+  const HsvColor(
     this.hue,
     this.saturation,
     this.value,

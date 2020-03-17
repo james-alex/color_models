@@ -14,7 +14,7 @@ class XyzColor extends ColorModel {
   /// left upwardly unbounded to allow to allow for conversions
   /// between the XYZ and LAB color spaces that fall outside of
   /// the sRGB color space's bounds.
-  XyzColor(
+  const XyzColor(
     this.x,
     this.y,
     this.z,
