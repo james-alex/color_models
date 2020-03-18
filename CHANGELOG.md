@@ -1,3 +1,9 @@
+## [0.2.3] - March 18, 2020
+
+* Added [alpha] values to all [ColorModel]s.
+
+* Added `withValue` methods to all [ColorModel]s.
+
 ## [0.2.2] - March 16, 2020
 
 * Added [hex] getter to [ColorModel].

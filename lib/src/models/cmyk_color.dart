@@ -77,7 +77,7 @@ class CmykColor extends ColorModel {
   }
 
   /// Returns this [CmykColor] modified with the provided [black] value.
-  CmykColor withBlack(num cyan) {
+  CmykColor withBlack(num black) {
     assert(black != null && black >= 0 && black <= 100);
 
     return CmykColor(cyan, magenta, yellow, black, alpha);
