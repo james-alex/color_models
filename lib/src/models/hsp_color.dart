@@ -54,6 +54,35 @@ class HspColor extends ColorModel {
   @override
   bool get isWhite => (perceivedBrightness == 1);
 
+  /// Returns this [HspColor] modified with the provided [hue] value.
+  HspColor withHue(num hue) {
+    assert(hue != null && hue >= 0 && hue <= 360);
+
+    return HspColor(hue, saturation, perceivedBrightness, alpha);
+  }
+
+  /// Returns this [HspColor] modified with the provided [saturation] value.
+  HspColor withSaturation(num saturation) {
+    assert(saturation != null && saturation >= 0 && saturation <= 100);
+
+    return HspColor(hue, saturation, perceivedBrightness, alpha);
+  }
+
+  /// Returns this [HspColor] modified with the provided [saturation] value.
+  HspColor withPerceivedBrightness(num perceivedBrightness) {
+    assert(perceivedBrightness != null && perceivedBrightness >= 0 && perceivedBrightness <= 100);
+
+    return HspColor(hue, saturation, perceivedBrightness, alpha);
+  }
+
+  /// Returns this [HspColor] modified with the provided [alpha] value.
+  @override
+  HspColor withAlpha(num alpha) {
+    assert(alpha != null && alpha >= 0 && alpha <= 1);
+
+    return HspColor(hue, saturation, perceivedBrightness, alpha);
+  }
+
   @override
   RgbColor toRgbColor() => ColorConverter.hspToRgb(this);
 

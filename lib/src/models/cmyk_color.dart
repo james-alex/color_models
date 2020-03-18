@@ -55,6 +55,42 @@ class CmykColor extends ColorModel {
   @override
   bool get isWhite => (cyan == 0 && magenta == 0 && yellow == 0 && black == 0);
 
+  /// Returns this [CmykColor] modified with the provided [cyan] value.
+  CmykColor withCyan(num cyan) {
+    assert(cyan != null && cyan >= 0 && cyan <= 100);
+
+    return CmykColor(cyan, magenta, yellow, black, alpha);
+  }
+
+  /// Returns this [CmykColor] modified with the provided [magenta] value.
+  CmykColor withMagenta(num magenta) {
+    assert(magenta != null && magenta >= 0 && magenta <= 100);
+
+    return CmykColor(cyan, magenta, yellow, black, alpha);
+  }
+
+  /// Returns this [CmykColor] modified with the provided [yellow] value.
+  CmykColor withYellow(num yellow) {
+    assert(yellow != null && yellow >= 0 && yellow <= 100);
+
+    return CmykColor(cyan, magenta, yellow, black, alpha);
+  }
+
+  /// Returns this [CmykColor] modified with the provided [black] value.
+  CmykColor withBlack(num cyan) {
+    assert(black != null && black >= 0 && black <= 100);
+
+    return CmykColor(cyan, magenta, yellow, black, alpha);
+  }
+
+  /// Returns this [CmykColor] modified with the provided [alpha] value.
+  @override
+  CmykColor withAlpha(num alpha) {
+    assert(alpha != null && alpha >= 0 && alpha <= 1);
+
+    return CmykColor(cyan, magenta, yellow, black, alpha);
+  }
+
   @override
   RgbColor toRgbColor() => ColorConverter.cmykToRgb(this);
 

@@ -54,6 +54,35 @@ class LabColor extends ColorModel {
   @override
   bool get isWhite => (lightness == 1 && a == 0 && b == 0);
 
+  /// Returns this [LabColor] modified with the provided [lightness] value.
+  LabColor withLightness(num lightness) {
+    assert(lightness != null && lightness >= 0 && lightness <= 100);
+
+    return LabColor(lightness, a, b, alpha);
+  }
+
+  /// Returns this [LabColor] modified with the provided [a] value.
+  LabColor withA(num a) {
+    assert(a != null && a >= -128 && a <= 127);
+
+    return LabColor(lightness, a, b, alpha);
+  }
+
+  /// Returns this [LabColor] modified with the provided [b] value.
+  LabColor withB(num b) {
+    assert(b != null && b >= -128 && b <= 127);
+
+    return LabColor(lightness, a, b, alpha);
+  }
+
+  /// Returns this [LabColor] modified with the provided [alpha] value.
+  @override
+  LabColor withAlpha(num alpha) {
+    assert(alpha != null && alpha >= 0 && alpha <= 1);
+
+    return LabColor(lightness, a, b, alpha);
+  }
+
   @override
   RgbColor toRgbColor() => ColorConverter.labToRgb(this);
 

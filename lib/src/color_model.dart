@@ -35,6 +35,9 @@ abstract class ColorModel {
   /// Returns `true` if this color is pure white.
   bool get isWhite;
 
+  /// Returns this [ColorModel] with the provided [alpha] value.
+  ColorModel withAlpha(num alpha);
+
   /// Compares colors in the RGB color space.
   ///
   /// If comparing two colors from the same color space,

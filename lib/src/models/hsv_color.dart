@@ -49,6 +49,35 @@ class HsvColor extends ColorModel {
   @override
   bool get isWhite => (saturation == 0 && value == 1);
 
+  /// Returns this [HsvColor] modified with the provided [hue] value.
+  HsvColor withHue(num hue) {
+    assert(hue != null && hue >= 0 && hue <= 360);
+
+    return HsvColor(hue, saturation, value, alpha);
+  }
+
+  /// Returns this [HsvColor] modified with the provided [saturation] value.
+  HsvColor withSaturation(num saturation) {
+    assert(saturation != null && saturation >= 0 && saturation <= 100);
+
+    return HsvColor(hue, saturation, value, alpha);
+  }
+
+  /// Returns this [HsvColor] modified with the provided [value] value.
+  HsvColor withValue(num value) {
+    assert(value != null && value >= 0 && value <= 100);
+
+    return HsvColor(hue, saturation, value, alpha);
+  }
+
+  /// Returns this [HsvColor] modified with the provided [alpha] value.
+  @override
+  HsvColor withAlpha(num alpha) {
+    assert(alpha != null && alpha >= 0 && alpha <= 1);
+
+    return HsvColor(hue, saturation, value, alpha);
+  }
+
   @override
   RgbColor toRgbColor() => ColorConverter.hsvToRgb(this);
 

@@ -53,6 +53,35 @@ class XyzColor extends ColorModel {
   @override
   bool get isWhite => (x == 100 && y == 100 && z == 100);
 
+  /// Returns this [XyzColor] modified with the provided [x] value.
+  XyzColor withX(num x) {
+    assert(x != null && x >= 0);
+
+    return XyzColor(x, y, z, alpha);
+  }
+
+  /// Returns this [XyzColor] modified with the provided [y] value.
+  XyzColor withY(num y) {
+    assert(y != null && y >= 0);
+
+    return XyzColor(x, y, z, alpha);
+  }
+
+  /// Returns this [XyzColor] modified with the provided [z] value.
+  XyzColor withZ(num z) {
+    assert(z != null && z >= 0);
+
+    return XyzColor(x, y, z, alpha);
+  }
+
+  /// Returns this [XyzColor] modified with the provided [alpha] value.
+  @override
+  XyzColor withAlpha(num alpha) {
+    assert(alpha != null && alpha >= 0 && alpha <= 1);
+
+    return XyzColor(x, y, z, alpha);
+  }
+
   @override
   LabColor toLabColor() => ColorConverter.xyzToLab(this);
 

@@ -49,6 +49,35 @@ class HsiColor extends ColorModel {
   @override
   bool get isBlack => (intensity == 0);
 
+  /// Returns this [HsiColor] modified with the provided [hue] value.
+  HsiColor withHue(num hue) {
+    assert(hue != null && hue >= 0 && hue <= 360);
+
+    return HsiColor(hue, saturation, intensity, alpha);
+  }
+
+  /// Returns this [HsiColor] modified with the provided [saturation] value.
+  HsiColor withSaturation(num saturation) {
+    assert(saturation != null && saturation >= 0 && saturation <= 100);
+
+    return HsiColor(hue, saturation, intensity, alpha);
+  }
+
+  /// Returns this [HsiColor] modified with the provided [intensity] value.
+  HsiColor withIntensity(num intensity) {
+    assert(intensity != null && intensity >= 0 && intensity <= 100);
+
+    return HsiColor(hue, saturation, intensity, alpha);
+  }
+
+  /// Returns this [HsiColor] modified with the provided [alpha] value.
+  @override
+  HsiColor withAlpha(num alpha) {
+    assert(alpha != null && alpha >= 0 && alpha <= 1);
+
+    return HsiColor(hue, saturation, intensity, alpha);
+  }
+
   @override
   RgbColor toRgbColor() => ColorConverter.hsiToRgb(this);
 

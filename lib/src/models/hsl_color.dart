@@ -47,6 +47,35 @@ class HslColor extends ColorModel {
   @override
   bool get isWhite => (lightness == 100);
 
+  /// Returns this [HslColor] modified with the provided [hue] value.
+  HslColor withHue(num hue) {
+    assert(hue != null && hue >= 0 && hue <= 360);
+
+    return HslColor(hue, saturation, lightness, alpha);
+  }
+
+  /// Returns this [HslColor] modified with the provided [saturation] value.
+  HslColor withSaturation(num saturation) {
+    assert(saturation != null && saturation >= 0 && saturation <= 100);
+
+    return HslColor(hue, saturation, lightness, alpha);
+  }
+
+  /// Returns this [HslColor] modified with the provided [lightness] value.
+  HslColor withLightness(num lightness) {
+    assert(lightness != null && lightness >= 0 && lightness <= 100);
+
+    return HslColor(hue, saturation, lightness, alpha);
+  }
+
+  /// Returns this [HslColor] modified with the provided [alpha] value.
+  @override
+  HslColor withAlpha(num alpha) {
+    assert(alpha != null && alpha >= 0 && alpha <= 1);
+
+    return HslColor(hue, saturation, lightness, alpha);
+  }
+
   @override
   RgbColor toRgbColor() => ColorConverter.hslToRgb(this);
 

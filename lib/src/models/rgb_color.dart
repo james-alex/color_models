@@ -58,6 +58,35 @@ class RgbColor extends ColorModel {
   @override
   bool get isWhite => (red == 255 && green == 255 && blue == 255);
 
+  /// Returns this [RgbColor] modified with the provided [red] value.
+  RgbColor withRed(num red) {
+    assert(red != null && red >= 0 && red <= 255);
+
+    return RgbColor(red, green, blue, alpha);
+  }
+
+  /// Returns this [RgbColor] modified with the provided [green] value.
+  RgbColor withGreen(num green) {
+    assert(green != null && green >= 0 && green <= 255);
+
+    return RgbColor(red, green, blue, alpha);
+  }
+
+  /// Returns this [RgbColor] modified with the provided [blue] value.
+  RgbColor withBlue(num blue) {
+    assert(blue != null && blue >= 0 && blue <= 255);
+
+    return RgbColor(red, green, blue, alpha);
+  }
+
+  /// Returns this [RgbColor] modified with the provided [alpha] value.
+  @override
+  RgbColor withAlpha(num alpha) {
+    assert(alpha != null && alpha >= 0 && alpha <= 1);
+
+    return RgbColor(red, green, blue, alpha);
+  }
+
   @override
   RgbColor toRgbColor() => this;
 
