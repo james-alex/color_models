@@ -70,7 +70,9 @@ class HspColor extends ColorModel {
 
   /// Returns this [HspColor] modified with the provided [saturation] value.
   HspColor withPerceivedBrightness(num perceivedBrightness) {
-    assert(perceivedBrightness != null && perceivedBrightness >= 0 && perceivedBrightness <= 100);
+    assert(perceivedBrightness != null &&
+        perceivedBrightness >= 0 &&
+        perceivedBrightness <= 100);
 
     return HspColor(hue, saturation, perceivedBrightness, alpha);
   }
