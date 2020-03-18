@@ -9,6 +9,8 @@ class XyzColor extends ColorModel {
   ///
   /// [x], [y], and [z] must all be `>= 0`.
   ///
+  /// [alpha] must be `>= 0` and `<= 1`.
+  ///
   /// The XYZ values have been normalized to a 0 to 100 range that
   /// represents the whole of the sRGB color space, but have been
   /// left upwardly unbounded to allow to allow for conversions
@@ -17,10 +19,12 @@ class XyzColor extends ColorModel {
   const XyzColor(
     this.x,
     this.y,
-    this.z,
-  )   : assert(x != null && x >= 0),
+    this.z, [
+    this.alpha = 1.0,
+  ])  : assert(x != null && x >= 0),
         assert(y != null && y >= 0),
-        assert(z != null && z >= 0);
+        assert(z != null && z >= 0),
+        assert(alpha != null && alpha >= 0 && alpha <= 1);
 
   /// The x value of this color.
   ///
@@ -39,6 +43,9 @@ class XyzColor extends ColorModel {
   /// Ranges from `0` to `100` in the normal sRGB spectrum, but colors
   /// outside of the sRGB spectrum are upwardly unbounded.
   final num z;
+
+  @override
+  final num alpha;
 
   @override
   bool get isBlack => (x == 0 && y == 0 && z == 0);

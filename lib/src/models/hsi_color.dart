@@ -13,13 +13,17 @@ class HsiColor extends ColorModel {
   /// [hue] must be `>= 0` and `<= 360`.
   ///
   /// [saturation] and [intensity] must both be `>= 0` and `<= 100`.
+  ///
+  /// [alpha] must be `>= 0` and `<= 1`.
   const HsiColor(
     this.hue,
     this.saturation,
-    this.intensity,
-  )   : assert(hue != null && hue >= 0 && hue <= 360),
+    this.intensity, [
+    this.alpha = 1.0,
+  ])  : assert(hue != null && hue >= 0 && hue <= 360),
         assert(saturation != null && saturation >= 0 && saturation <= 100),
-        assert(intensity != null && intensity >= 0 && intensity <= 100);
+        assert(intensity != null && intensity >= 0 && intensity <= 100),
+        assert(alpha != null && alpha >= 0 && alpha <= 1);
 
   /// The hue value of this color.
   ///
@@ -35,6 +39,9 @@ class HsiColor extends ColorModel {
   ///
   /// Ranges from `0` to `100`.
   final num intensity;
+
+  @override
+  final num alpha;
 
   @override
   bool get isWhite => (saturation == 0 && intensity == 100);

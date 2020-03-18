@@ -13,13 +13,17 @@ class HsvColor extends ColorModel {
   /// [hue] must be `>= 0` and `<= 360`.
   ///
   /// [saturation] and [value] must both be `>= 0` and `<= 100`.
+  ///
+  /// [alpha] must be `>= 0` and `<= 1`.
   const HsvColor(
     this.hue,
     this.saturation,
-    this.value,
-  )   : assert(hue != null && hue >= 0 && hue <= 360),
+    this.value, [
+    this.alpha = 1.0,
+  ])  : assert(hue != null && hue >= 0 && hue <= 360),
         assert(saturation != null && saturation >= 0 && saturation <= 100),
-        assert(value != null && value >= 0 && value <= 100);
+        assert(value != null && value >= 0 && value <= 100),
+        assert(alpha != null && alpha >= 0 && alpha <= 1);
 
   /// The hue value of this color.
   ///
@@ -35,6 +39,9 @@ class HsvColor extends ColorModel {
   ///
   /// Ranges from `0` to `100`.
   final num value;
+
+  @override
+  final num alpha;
 
   @override
   bool get isBlack => (value == 0);

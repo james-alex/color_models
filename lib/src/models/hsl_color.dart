@@ -13,13 +13,17 @@ class HslColor extends ColorModel {
   /// [hue] must be `>= 0` and `<= 360`.
   ///
   /// [saturation] and [lightness] must both be `>= 0` and `<= 100`.
+  ///
+  /// [alpha] must be `>= 0` and `<= 1`.
   const HslColor(
     this.hue,
     this.saturation,
-    this.lightness,
-  )   : assert(hue != null && hue >= 0 && hue <= 360),
+    this.lightness, [
+    this.alpha = 1.0,
+  ])  : assert(hue != null && hue >= 0 && hue <= 360),
         assert(saturation != null && saturation >= 0 && saturation <= 100),
-        assert(lightness != null && lightness >= 0 && lightness <= 100);
+        assert(lightness != null && lightness >= 0 && lightness <= 100),
+        assert(alpha != null && alpha >= 0 && alpha <= 1);
 
   /// The hue value of this color ranging from 0 to 360.
   final num hue;
@@ -33,6 +37,9 @@ class HslColor extends ColorModel {
   ///
   /// Ranges from `0` to `100`.
   final num lightness;
+
+  @override
+  final num alpha;
 
   @override
   bool get isBlack => (lightness == 0);

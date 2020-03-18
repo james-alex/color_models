@@ -12,15 +12,19 @@ class CmykColor extends ColorModel {
   ///
   /// [cyan], [magenta], [yellow], and [black]
   /// must all be `>= 0` and `<= 100`.
+  ///
+  /// [alpha] must be `>= 0` and `<= 1`.
   const CmykColor(
     this.cyan,
     this.magenta,
     this.yellow,
-    this.black,
-  )   : assert(cyan != null && cyan >= 0 && cyan <= 100),
+    this.black, [
+    this.alpha = 1.0,
+  ])  : assert(cyan != null && cyan >= 0 && cyan <= 100),
         assert(magenta != null && magenta >= 0 && magenta <= 100),
         assert(yellow != null && yellow >= 0 && yellow <= 100),
-        assert(black != null && black >= 0 && black <= 100);
+        assert(black != null && black >= 0 && black <= 100),
+        assert(alpha != null && alpha >= 0 && alpha <= 1);
 
   /// The cyan value of this color.
   ///
@@ -41,6 +45,9 @@ class CmykColor extends ColorModel {
   ///
   /// Ranges from `0` to `100`.
   final num black;
+
+  @override
+  final num alpha;
 
   @override
   bool get isBlack => (black == 100);

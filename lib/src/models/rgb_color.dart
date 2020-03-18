@@ -16,13 +16,17 @@ class RgbColor extends ColorModel {
   /// A color in the sRGB color space.
   ///
   /// [red], [green], and [blue] must all be `>= 0` and `<= 255`.
+  ///
+  /// [alpha] must be `>= 0` and `<= 1`.
   const RgbColor(
     num red,
     num green,
-    num blue,
-  )   : assert(red != null && red >= 0 && red <= 255),
+    num blue, [
+    this.alpha = 1.0,
+  ])  : assert(red != null && red >= 0 && red <= 255),
         assert(green != null && green >= 0 && green <= 255),
         assert(blue != null && blue >= 0 && blue <= 255),
+        assert(alpha != null && alpha >= 0 && alpha <= 1),
         _red = red,
         _green = green,
         _blue = blue;
@@ -44,6 +48,9 @@ class RgbColor extends ColorModel {
   /// Ranges from `0` to `255`.
   int get blue => _blue.round();
   final num _blue;
+
+  @override
+  final num alpha;
 
   @override
   bool get isBlack => (red == 0 && green == 0 && blue == 0);

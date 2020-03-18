@@ -24,6 +24,11 @@ abstract class ColorModel {
   /// The base color model class.
   const ColorModel();
 
+  /// The alpha value of this color.
+  ///
+  /// Ranges from `0` to `1`.
+  num get alpha;
+
   /// Returns `true` if this color is pure black.
   bool get isBlack;
 

@@ -14,13 +14,17 @@ class LabColor extends ColorModel {
   /// [lightness] must be `>= 0` and `<= 100`.
   ///
   /// [a] and [b] must both be `>= -128` and `<= 127`.
+  ///
+  /// [alpha] must be `>= 0` and `<= 1`.
   const LabColor(
     this.lightness,
     this.a,
-    this.b,
-  )   : assert(lightness != null && lightness >= 0 && lightness <= 100),
+    this.b, [
+    this.alpha = 1.0,
+  ])  : assert(lightness != null && lightness >= 0 && lightness <= 100),
         assert(a != null && a >= -128 && a <= 127),
-        assert(b != null && b >= -128 && b <= 127);
+        assert(b != null && b >= -128 && b <= 127),
+        assert(alpha != null && alpha >= 0 && alpha <= 1);
 
   /// Lightness represents the black to white value.
   ///
@@ -40,6 +44,9 @@ class LabColor extends ColorModel {
   ///
   /// Blue is represented in the positive value range (`0` to `127`)
   final num b;
+
+  @override
+  final num alpha;
 
   @override
   bool get isBlack => (lightness == 0 && a == 0 && b == 0);

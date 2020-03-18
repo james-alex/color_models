@@ -16,15 +16,19 @@ class HspColor extends ColorModel {
   /// [hue] must be `>= 0` and `<= 360`.
   ///
   /// [saturation] and [perceivedBrightness] must both be `>= 0` and `<= 100`.
+  ///
+  /// [alpha] must be `>= 0` and `<= 1`.
   const HspColor(
     this.hue,
     this.saturation,
-    this.perceivedBrightness,
-  )   : assert(hue != null && hue >= 0 && hue <= 360),
+    this.perceivedBrightness, [
+    this.alpha = 1.0,
+  ])  : assert(hue != null && hue >= 0 && hue <= 360),
         assert(saturation != null && saturation >= 0 && saturation <= 100),
         assert(perceivedBrightness != null &&
             perceivedBrightness >= 0 &&
-            perceivedBrightness <= 100);
+            perceivedBrightness <= 100),
+        assert(alpha != null && alpha >= 0 && alpha <= 1);
 
   /// The hue value of this color.
   ///
@@ -40,6 +44,9 @@ class HspColor extends ColorModel {
   ///
   /// Ranges from `0` to `100`.
   final num perceivedBrightness;
+
+  @override
+  final num alpha;
 
   @override
   bool get isBlack => (perceivedBrightness == 0);
