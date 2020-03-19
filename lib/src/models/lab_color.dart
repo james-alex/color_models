@@ -96,18 +96,25 @@ class LabColor extends ColorModel {
 
   /// Parses a list for LAB values and returns a [LabColor].
   ///
-  /// [lab] must not be null and must have exactly 3 values.
+  /// [lab] must not be null and must have exactly `3` or `4` values.
   ///
   /// The first value (L) must be `>= 0 && <= 100`.
   ///
   /// The A and B values must be `>= -128 && <= 127`.
+  ///
+  /// The [alpha] value, if included, must be `>= 0 && <= 1`.
   static LabColor fromList(List<num> lab) {
-    assert(lab != null && lab.length == 3);
+    assert(lab != null && (lab.length == 3 || lab.length == 4));
     assert(lab[0] != null && lab[0] >= 0 && lab[0] <= 100);
     assert(lab[1] != null && lab[1] >= -128 && lab[1] <= 127);
     assert(lab[2] != null && lab[2] >= -128 && lab[2] <= 127);
+    if (lab.length == 4) {
+      assert(lab[3] != null && lab[3] >= 0 && lab[3] <= 1);
+    }
 
-    return LabColor(lab[0], lab[1], lab[2]);
+    final alpha = lab.length == 4 ? lab[3] : 1.0;
+
+    return LabColor(lab[0], lab[1], lab[2], alpha);
   }
 
   /// Returns a [color] in another color space as a CIELAB color.
@@ -129,20 +136,22 @@ class LabColor extends ColorModel {
 
   /// Returns a [LabColor] from a list of [lab] values on a 0 to 1 scale.
   ///
-  /// [lab] must not be null and must have exactly 3 values.
+  /// [lab] must not be null and must have exactly `3` or `4` values.
   ///
   /// Each of the values must be `>= 0` and `<= 1`.
   static LabColor extrapolate(List<double> lab) {
-    assert(lab != null && lab.length == 3);
+    assert(lab != null && (lab.length == 3 || lab.length == 4));
     assert(lab[0] != null && lab[0] >= 0 && lab[0] <= 1);
     assert(lab[1] != null && lab[1] >= 0 && lab[1] <= 1);
     assert(lab[2] != null && lab[2] >= 0 && lab[2] <= 1);
+    if (lab.length == 4) {
+      assert(lab[3] != null && lab[3] >= 0 && lab[3] <= 1);
+    }
+
+    final alpha = lab.length == 4 ? lab[3] : 1.0;
 
     return LabColor(
-      lab[0] * 100,
-      (lab[1] * 255) - 128,
-      (lab[2] * 255) - 128,
-    );
+        lab[0] * 100, (lab[1] * 255) - 128, (lab[2] * 255) - 128, alpha);
   }
 
   @override

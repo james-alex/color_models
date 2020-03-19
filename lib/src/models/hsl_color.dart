@@ -95,18 +95,25 @@ class HslColor extends ColorModel {
 
   /// Parses a list for HSL values and returns a [HslColor].
   ///
-  /// [hsl] must not be null and must have exactly 3 values.
+  /// [hsl] must not be null and must have exactly `3` or `4` values.
   ///
   /// The hue must be `>= 0` and `<= 360`.
   ///
   /// The saturation and lightness must both be `>= 0` and `<= 100`.
+  ///
+  /// The [alpha] value, if included, must be `>= 0 && <= 1`.
   static HslColor fromList(List<num> hsl) {
-    assert(hsl != null && hsl.length == 3);
+    assert(hsl != null && (hsl.length == 3 || hsl.length == 4));
     assert(hsl[0] != null && hsl[0] >= 0 && hsl[0] <= 360);
     assert(hsl[1] != null && hsl[1] >= 0 && hsl[1] <= 100);
     assert(hsl[2] != null && hsl[2] >= 0 && hsl[2] <= 100);
+    if (hsl.length == 4) {
+      assert(hsl[3] != null && hsl[3] >= 0 && hsl[3] <= 1);
+    }
 
-    return HslColor(hsl[0], hsl[1], hsl[2]);
+    final alpha = hsl.length == 4 ? hsl[3] : 1.0;
+
+    return HslColor(hsl[0], hsl[1], hsl[2], alpha);
   }
 
   /// Returns a [color] in another color space as a HSL color.
@@ -128,16 +135,21 @@ class HslColor extends ColorModel {
 
   /// Returns a [HslColor] from a list of [hsl] values on a 0 to 1 scale.
   ///
-  /// [hsl] must not be null and must have exactly 3 values.
+  /// [hsl] must not be null and must have exactly `3` or `4` values.
   ///
   /// Each of the values must be `>= 0` and `<= 1`.
   static HslColor extrapolate(List<double> hsl) {
-    assert(hsl != null && hsl.length == 3);
+    assert(hsl != null && (hsl.length == 3 || hsl.length == 4));
     assert(hsl[0] != null && hsl[0] >= 0 && hsl[0] <= 1);
     assert(hsl[1] != null && hsl[1] >= 0 && hsl[1] <= 1);
     assert(hsl[2] != null && hsl[2] >= 0 && hsl[2] <= 1);
+    if (hsl.length == 4) {
+      assert(hsl[3] != null && hsl[3] >= 0 && hsl[3] <= 1);
+    }
 
-    return HslColor(hsl[0] * 360, hsl[1] * 100, hsl[2] * 100);
+    final alpha = hsl.length == 4 ? hsl[3] : 1.0;
+
+    return HslColor(hsl[0] * 360, hsl[1] * 100, hsl[2] * 100, alpha);
   }
 
   @override

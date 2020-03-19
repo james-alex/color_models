@@ -108,16 +108,23 @@ class XyzColor extends ColorModel {
 
   /// Parses a list for XYZ values and returns a [XyzColor].
   ///
-  /// [xyz] must not be null and must have exactly 3 values.
+  /// [xyz] must not be null and must have exactly `3` or `4` values.
   ///
   /// [x], [y], and [z] all must not be null and must be `>= 0`.
+  ///
+  /// The [alpha] value, if included, must be `>= 0 && <= 1`.
   static XyzColor fromList(List<num> xyz) {
-    assert(xyz != null && xyz.length == 3);
+    assert(xyz != null && (xyz.length == 3 || xyz.length == 4));
     assert(xyz[0] != null && xyz[0] >= 0);
     assert(xyz[1] != null && xyz[1] >= 0);
     assert(xyz[2] != null && xyz[2] >= 0);
+    if (xyz.length == 4) {
+      assert(xyz[3] != null && xyz[3] >= 0 && xyz[3] <= 1);
+    }
 
-    return XyzColor(xyz[0], xyz[1], xyz[2]);
+    final alpha = xyz.length == 4 ? xyz[3] : 1.0;
+
+    return XyzColor(xyz[0], xyz[1], xyz[2], alpha);
   }
 
   /// Returns a [color] in another color space as a XYZ color.
@@ -139,18 +146,21 @@ class XyzColor extends ColorModel {
 
   /// Returns a [XyzColor] from a list of [xyz] values on a 0 to 1 scale.
   ///
-  /// [xyz] must not be null and must have exactly 3 values.
+  /// [xyz] must not be null and must have exactly `3` or `4` values.
   ///
   /// Each of the values must be `>= 0` and `<= 1`.
   static XyzColor extrapolate(List<double> xyz) {
-    assert(xyz != null && xyz.length == 3);
+    assert(xyz != null && (xyz.length == 3 || xyz.length == 4));
     assert(xyz[0] != null && xyz[0] >= 0);
     assert(xyz[1] != null && xyz[1] >= 0);
     assert(xyz[2] != null && xyz[2] >= 0);
+    if (xyz.length == 4) {
+      assert(xyz[3] != null && xyz[3] >= 0 && xyz[3] <= 1);
+    }
 
-    final xyzValues = xyz.map((xyzValue) => xyzValue * 100).toList();
+    final alpha = xyz.length == 4 ? xyz[3] : 1.0;
 
-    return fromList(xyzValues);
+    return XyzColor(xyz[0] * 100, xyz[1] * 100, xyz[2] * 100, alpha);
   }
 
   /// The whitepoints used when calculating the XYZ values

@@ -106,16 +106,23 @@ class RgbColor extends ColorModel {
 
   /// Parses a list for RGB values and returns a [RgbColor].
   ///
-  /// [rgb] must not be null and must have exactly 3 values.
+  /// [rgb] must not be null and must have exactly `3` or `4` values.
   ///
   /// Each color value must be `>= 0 && <= 255`.
+  ///
+  /// The [alpha] value, if included, must be `>= 0 && <= 1`.
   static RgbColor fromList(List<num> rgb) {
-    assert(rgb != null && rgb.length == 3);
+    assert(rgb != null && (rgb.length == 3 || rgb.length == 4));
     assert(rgb[0] != null && rgb[0] >= 0 && rgb[0] <= 255);
     assert(rgb[1] != null && rgb[1] >= 0 && rgb[1] <= 255);
     assert(rgb[2] != null && rgb[2] >= 0 && rgb[2] <= 255);
+    if (rgb.length == 4) {
+      assert(rgb[3] != null && rgb[3] >= 0 && rgb[3] <= 1);
+    }
 
-    return RgbColor(rgb[0], rgb[1], rgb[2]);
+    final alpha = rgb.length == 4 ? rgb[3] : 1.0;
+
+    return RgbColor(rgb[0], rgb[1], rgb[2], alpha);
   }
 
   /// Returns a [color] in another color space as a RGB color.
@@ -137,18 +144,21 @@ class RgbColor extends ColorModel {
 
   /// Returns a [RgbColor] from a list of [rgb] values on a 0 to 1 scale.
   ///
-  /// [rgb] must not be null and must have exactly 3 values.
+  /// [rgb] must not be null and must have exactly `3` or `4` values.
   ///
   /// Each of the values must be `>= 0` and `<= 1`.
   static RgbColor extrapolate(List<double> rgb) {
-    assert(rgb != null && rgb.length == 3);
+    assert(rgb != null && (rgb.length == 3 || rgb.length == 4));
     assert(rgb[0] != null && rgb[0] >= 0 && rgb[0] <= 1);
     assert(rgb[1] != null && rgb[1] >= 0 && rgb[1] <= 1);
     assert(rgb[2] != null && rgb[2] >= 0 && rgb[2] <= 1);
+    if (rgb.length == 4) {
+      assert(rgb[3] != null && rgb[3] >= 0 && rgb[3] <= 1);
+    }
 
-    final rgbValues = rgb.map((rgbValue) => rgbValue * 255).toList();
+    final alpha = rgb.length == 4 ? rgb[3] : 1.0;
 
-    return fromList(rgbValues);
+    return RgbColor(rgb[0] * 255, rgb[1] * 255, rgb[2] * 255, alpha);
   }
 
   @override
