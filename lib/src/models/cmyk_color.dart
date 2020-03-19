@@ -95,15 +95,28 @@ class CmykColor extends ColorModel {
   RgbColor toRgbColor() => ColorConverter.cmykToRgb(this);
 
   /// Returns a fixed-length [List] containing the [cyan],
-  /// [magenta], [yellow], and [black] values in that order.
+  /// [magenta], [yellow], and [black] values, in that order.
   @override
   List<num> toList() =>
       List<num>.from(<num>[cyan, magenta, yellow, black], growable: false);
 
+  /// Returns a fixed-length [List] containing the [cyan], [magenta],
+  /// [yellow], [black], and [alpha] values, in that order.
+  @override
+  List<num> toListWithAlpha() =>
+      List<num>.from(<num>[cyan, magenta, yellow, black, alpha],
+          growable: false);
+
   /// Returns a fixed-length list containing the [cyan], [magenta],
   /// [yelllow], and [black] values factored to be on 0 to 1 scale.
   List<double> toFactoredList() =>
-      toList().map((cmykValue) => cmykValue / 100).toList();
+      toList().map((cmykValue) => cmykValue / 100).toList(growable: false);
+
+  /// Returns a fixed-length list containing the [cyan], [magenta], [yelllow],
+  /// [black], and [alpha] values factored to be on 0 to 1 scale.
+  List<double> toFactoredListWithAlpha() => List<double>.from(
+      <double>[cyan / 100, magenta / 100, yellow / 100, black / 100, alpha],
+      growable: false);
 
   /// Parses a list for CMYK values and returns a [CmykColor].
   ///

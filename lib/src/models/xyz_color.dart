@@ -89,22 +89,26 @@ class XyzColor extends ColorModel {
   RgbColor toRgbColor() => ColorConverter.xyzToRgb(this);
 
   /// Returns a fixed-length [List] containing the
-  /// [x], [y], and [z] values in that order.
+  /// [x], [y], and [z] values, in that order.
   @override
-  List<num> toList() {
-    final list = List<num>(3);
+  List<num> toList() => List<num>.from(<num>[x, y, z], growable: false);
 
-    list[0] = x;
-    list[1] = y;
-    list[2] = z;
-
-    return list;
-  }
+  /// Returns a fixed-length [List] containing the
+  /// [x], [y], [z], and [alpha] values, in that order.
+  @override
+  List<num> toListWithAlpha() =>
+      List<num>.from(<num>[x, y, z, alpha], growable: false);
 
   /// Returns a fixed-length list containing the [x], [y], and
   /// [z] values factored to be on a 0 to 1 scale.
   List<double> toFactoredList() =>
-      toList().map((xyzValue) => xyzValue / 100).toList();
+      toList().map((xyzValue) => xyzValue / 100).toList(growable: false);
+
+  /// Returns a fixed-length list containing the [x], [y], and
+  /// [z] values factored to be on a 0 to 1 scale.
+  List<double> toFactoredListWithAlpha() =>
+      List<double>.from(<double>[x / 100, y / 100, z / 100, alpha],
+          growable: false);
 
   /// Parses a list for XYZ values and returns a [XyzColor].
   ///

@@ -90,19 +90,41 @@ class RgbColor extends ColorModel {
   @override
   RgbColor toRgbColor() => this;
 
-  /// Returns a fixed-length list containing the RGB values.
+  /// Returns a fixed-length list containing the
+  /// [red], [green], and [blue] values.
   @override
   List<int> toList() =>
       List<int>.from(<int>[red, green, blue], growable: false);
 
-  /// Returns a fixed-length list containing the precise RGB values.
+  /// Returns a fixed-length list containing the
+  /// [red], [green], [blue], and [alpha] values.
+  @override
+  List<int> toListWithAlpha() =>
+      List<int>.from(<int>[red, green, blue, alpha], growable: false);
+
+  /// Returns a fixed-length list containing the precise
+  /// [red], [green], and [blue] values.
   List<num> toPreciseList() =>
       List<num>.from(<num>[_red, _green, _blue], growable: false);
+
+  /// Returns a fixed-length list containing the precise
+  /// [red], [green], [blue], and [alpha] values.
+  List<num> toPreciseListWithAlpha() =>
+      List<num>.from(<num>[_red, _green, _blue, alpha], growable: false);
 
   /// Returns a fixed-length list containing the [red], [green],
   /// and [blue] values factored to be on 0 to 1 scale.
   List<double> toFactoredList() =>
-      toPreciseList().map((rgbValue) => rgbValue / 255).toList();
+      toPreciseList().map((rgbValue) => rgbValue / 255).toList(growable: false);
+
+  /// Returns a fixed-length list containing the [red], [green],
+  /// [blue], and [alpha] values factored to be on 0 to 1 scale.
+  List<double> toFactoredListWithAlpha() => List<num>.from(<num>[
+        _red / 255,
+        _green / 255,
+        _blue / 255,
+        alpha,
+      ], growable: false);
 
   /// Parses a list for RGB values and returns a [RgbColor].
   ///

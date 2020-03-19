@@ -82,10 +82,16 @@ class HsvColor extends ColorModel {
   RgbColor toRgbColor() => ColorConverter.hsvToRgb(this);
 
   /// Returns a fixed-length [List] containing the [hue],
-  /// [saturation], and [value] values in that order.
+  /// [saturation], and [value] values, in that order.
   @override
   List<num> toList() =>
       List<num>.from(<num>[hue, saturation, value], growable: false);
+
+  /// Returns a fixed-length [List] containing the [hue], [saturation],
+  /// [value], and [alpha] values, in that order.
+  @override
+  List<num> toListWithAlpha() =>
+      List<num>.from(<num>[hue, saturation, value, alpha], growable: false);
 
   /// Returns a fixed-length list containing the [hue], [saturation],
   /// and [value] values factored to be on 0 to 1 scale.
@@ -93,6 +99,15 @@ class HsvColor extends ColorModel {
         hue / 360,
         saturation / 100,
         value / 100,
+      ], growable: false);
+
+  /// Returns a fixed-length list containing the [hue], [saturation],
+  /// [value], and [alpha] values factored to be on 0 to 1 scale.
+  List<double> toFactoredListWithAlpha() => List<double>.from(<double>[
+        hue / 360,
+        saturation / 100,
+        value / 100,
+        alpha,
       ], growable: false);
 
   /// Parses a list for HSV values and returns a [HsvColor].

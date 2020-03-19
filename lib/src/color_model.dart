@@ -76,6 +76,10 @@ abstract class ColorModel {
   /// as their characters in their color space's abbreviation.
   List<num> toList();
 
+  /// Returns the values of the color model in the same order as their
+  /// characters in their color space's abbreviation plus the alpha value.
+  List<num> toListWithAlpha();
+
   /// Returns `this` as a hexidecimal string.
   String get hex {
     final rgb = toRgbColor().toList();

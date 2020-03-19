@@ -89,10 +89,17 @@ class HspColor extends ColorModel {
   RgbColor toRgbColor() => ColorConverter.hspToRgb(this);
 
   /// Returns a fixed-length [List] containing the [hue], [saturation],
-  /// and [perceivedBrightness] values in that order.
+  /// and [perceivedBrightness] values, in that order.
   @override
   List<num> toList() =>
       List<num>.from(<num>[hue, saturation, perceivedBrightness],
+          growable: false);
+
+  /// Returns a fixed-length [List] containing the [hue], [saturation],
+  /// [perceivedBrightness], and [alpha] values, in that order.
+  @override
+  List<num> toListWithAlpha() =>
+      List<num>.from(<num>[hue, saturation, perceivedBrightness, alpha],
           growable: false);
 
   /// Returns a fixed-length list containing the [hue], [saturation],
@@ -101,6 +108,15 @@ class HspColor extends ColorModel {
         hue / 360,
         saturation / 100,
         perceivedBrightness / 100,
+      ], growable: false);
+
+  /// Returns a fixed-length list containing the [hue], [saturation],
+  /// [perceivedBrightness], and [alpha] values factored to be on 0 to 1 scale.
+  List<double> toFactoredListWithAlpha() => List<double>.from(<double>[
+        hue / 360,
+        saturation / 100,
+        perceivedBrightness / 100,
+        alpha,
       ], growable: false);
 
   /// Parses a list for HSP values and returns a [HspColor].

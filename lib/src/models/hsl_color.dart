@@ -80,10 +80,16 @@ class HslColor extends ColorModel {
   RgbColor toRgbColor() => ColorConverter.hslToRgb(this);
 
   /// Returns a fixed-length [List] containing the [hue],
-  /// [saturation], and [lightness] values in that order.
+  /// [saturation], and [lightness] values, in that order.
   @override
   List<num> toList() =>
       List<num>.from(<num>[hue, saturation, lightness], growable: false);
+
+  /// Returns a fixed-length [List] containing the [hue], [saturation],
+  /// [lightness], and [alpha] values, in that order.
+  @override
+  List<num> toListWithAlpha() =>
+      List<num>.from(<num>[hue, saturation, lightness, alpha], growable: false);
 
   /// Returns a fixed-length list containing the [hue], [saturation],
   /// and [lightness] values factored to be on 0 to 1 scale.
@@ -91,6 +97,15 @@ class HslColor extends ColorModel {
         hue / 360,
         saturation / 100,
         lightness / 100,
+      ], growable: false);
+
+  /// Returns a fixed-length list containing the [hue], [saturation],
+  /// [lightness], and [alpha] values factored to be on 0 to 1 scale.
+  List<double> toFactoredListWithAlpha() => List<double>.from(<double>[
+        hue / 360,
+        saturation / 100,
+        lightness / 100,
+        alpha,
       ], growable: false);
 
   /// Parses a list for HSL values and returns a [HslColor].

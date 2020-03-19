@@ -82,10 +82,16 @@ class HsiColor extends ColorModel {
   RgbColor toRgbColor() => ColorConverter.hsiToRgb(this);
 
   /// Returns a fixed-length [List] containing the [hue],
-  /// [saturation], and [intensity] values in that order.
+  /// [saturation], and [intensity] values, in that order.
   @override
   List<num> toList() =>
       List<num>.from(<num>[hue, saturation, intensity], growable: false);
+
+  /// Returns a fixed-length [List] containing the [hue], [saturation],
+  /// [intensity], and [alpha] values, in that order.
+  @override
+  List<num> toListWithAlpha() =>
+      List<num>.from(<num>[hue, saturation, intensity, alpha], growable: false);
 
   /// Returns a fixed-length list containing the [hue], [saturation],
   /// and [intensity] values factored to be on 0 to 1 scale.
@@ -93,6 +99,15 @@ class HsiColor extends ColorModel {
         hue / 360,
         saturation / 100,
         intensity / 100,
+      ], growable: false);
+
+  /// Returns a fixed-length list containing the [hue], [saturation],
+  /// [intensity], and [alpha] values factored to be on 0 to 1 scale.
+  List<double> toFactoredListWithAlpha() => List<double>.from(<double>[
+        hue / 360,
+        saturation / 100,
+        intensity / 100,
+        alpha,
       ], growable: false);
 
   /// Parses a list for HSI values and returns a [HsiColor].
