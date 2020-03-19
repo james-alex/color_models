@@ -84,19 +84,12 @@ class HsiColor extends ColorModel {
   /// Returns a fixed-length [List] containing the [hue],
   /// [saturation], and [intensity] values in that order.
   @override
-  List<num> toList() {
-    final list = List<num>(3);
-
-    list[0] = hue;
-    list[1] = saturation;
-    list[2] = intensity;
-
-    return list;
-  }
+  List<num> toList() =>
+      List<num>.from(<num>[hue, saturation, intensity], growable: false);
 
   /// Returns a fixed-length list containing the [hue], [saturation],
   /// and [intensity] values factored to be on 0 to 1 scale.
-  List<double> toFactoredList() => List.from(<double>[
+  List<double> toFactoredList() => List<double>.from(<double>[
         hue / 360,
         saturation / 100,
         intensity / 100,

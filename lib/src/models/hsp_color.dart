@@ -91,19 +91,13 @@ class HspColor extends ColorModel {
   /// Returns a fixed-length [List] containing the [hue], [saturation],
   /// and [perceivedBrightness] values in that order.
   @override
-  List<num> toList() {
-    final list = List<num>(3);
-
-    list[0] = hue;
-    list[1] = saturation;
-    list[2] = perceivedBrightness;
-
-    return list;
-  }
+  List<num> toList() =>
+      List<num>.from(<num>[hue, saturation, perceivedBrightness],
+          growable: false);
 
   /// Returns a fixed-length list containing the [hue], [saturation],
   /// and [perceivedBrightness] values factored to be on 0 to 1 scale.
-  List<double> toFactoredList() => List.from(<double>[
+  List<double> toFactoredList() => List<double>.from(<double>[
         hue / 360,
         saturation / 100,
         perceivedBrightness / 100,

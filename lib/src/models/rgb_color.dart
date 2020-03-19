@@ -92,11 +92,12 @@ class RgbColor extends ColorModel {
 
   /// Returns a fixed-length list containing the RGB values.
   @override
-  List<int> toList() => List.from(<int>[red, green, blue], growable: false);
+  List<int> toList() =>
+      List<int>.from(<int>[red, green, blue], growable: false);
 
   /// Returns a fixed-length list containing the precise RGB values.
   List<num> toPreciseList() =>
-      List.from(<num>[_red, _green, _blue], growable: false);
+      List<num>.from(<num>[_red, _green, _blue], growable: false);
 
   /// Returns a fixed-length list containing the [red], [green],
   /// and [blue] values factored to be on 0 to 1 scale.

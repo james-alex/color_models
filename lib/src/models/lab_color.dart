@@ -92,15 +92,7 @@ class LabColor extends ColorModel {
   /// Returns a fixed-length [List] containing the [lightness],
   /// [a], and [b] values in that order.
   @override
-  List<num> toList() {
-    final list = List<num>(3);
-
-    list[0] = lightness;
-    list[1] = a;
-    list[2] = b;
-
-    return list;
-  }
+  List<num> toList() => List<num>.from(<num>[lightness, a, b], growable: false);
 
   /// Parses a list for LAB values and returns a [LabColor].
   ///

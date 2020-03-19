@@ -97,16 +97,8 @@ class CmykColor extends ColorModel {
   /// Returns a fixed-length [List] containing the [cyan],
   /// [magenta], [yellow], and [black] values in that order.
   @override
-  List<num> toList() {
-    final list = List<num>(4);
-
-    list[0] = cyan;
-    list[1] = magenta;
-    list[2] = yellow;
-    list[3] = black;
-
-    return list;
-  }
+  List<num> toList() =>
+      List<num>.from(<num>[cyan, magenta, yellow, black], growable: false);
 
   /// Returns a fixed-length list containing the [cyan], [magenta],
   /// [yelllow], and [black] values factored to be on 0 to 1 scale.
