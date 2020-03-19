@@ -74,9 +74,10 @@ class ColorConverter {
   static RgbColor cmykToRgb(CmykColor cmykColor) {
     assert(cmykColor != null);
 
-    final cmy = cmykColor.toFactoredList();
+    final cmyk = cmykColor.toFactoredList();
 
-    final k = cmy.removeLast();
+    final cmy = cmyk.sublist(0, 3);
+    final k = cmyk.last;
 
     final rgb = cmy
         .map(
