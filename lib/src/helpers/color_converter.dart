@@ -54,8 +54,8 @@ class ColorConverter {
   static CmykColor rgbToCmyk(RgbColor rgbColor) {
     assert(rgbColor != null);
 
-    if (rgbColor.isBlack) return CmykColor(0, 0, 0, 100);
-    if (rgbColor.isWhite) return CmykColor(0, 0, 0, 0);
+    if (rgbColor.isBlack) return CmykColor(0, 0, 0, 100, rgbColor.alpha);
+    if (rgbColor.isWhite) return CmykColor(0, 0, 0, 0, rgbColor.alpha);
 
     final rgb = rgbColor.toFactoredList();
 
@@ -64,7 +64,8 @@ class ColorConverter {
     final k = cmy.reduce(math.min);
 
     final cmyk = cmy.map((cmyValue) => (cmyValue - k) / (1 - k)).toList()
-      ..add(k);
+      ..add(k)
+      ..add(rgbColor.alpha);
 
     return CmykColor.extrapolate(cmyk);
   }
@@ -80,7 +81,8 @@ class ColorConverter {
     final rgb = cmy
         .map(
             (cmyValue) => 1 - ((cmyValue * (1 - k)) + k).clamp(0, 1).toDouble())
-        .toList();
+        .toList()
+          ..add(cmykColor.alpha);
 
     return RgbColor.extrapolate(rgb);
   }
@@ -96,8 +98,8 @@ class ColorConverter {
   static HsiColor rgbToHsi(RgbColor rgbColor) {
     assert(rgbColor != null);
 
-    if (rgbColor.isBlack) return HsiColor(0, 0, 0);
-    if (rgbColor.isWhite) return HsiColor(0, 0, 100);
+    if (rgbColor.isBlack) return HsiColor(0, 0, 0, rgbColor.alpha);
+    if (rgbColor.isWhite) return HsiColor(0, 0, 100, rgbColor.alpha);
 
     final rgb = rgbColor.toPreciseList();
 
@@ -126,7 +128,8 @@ class ColorConverter {
 
     final intensity = sum / 3 / 255;
 
-    return HsiColor.extrapolate(<double>[hue, saturation, intensity]);
+    return HsiColor.extrapolate(
+        <double>[hue, saturation, intensity, rgbColor.alpha]);
   }
 
   /// Converts a HSI color to a RGB color.
@@ -174,7 +177,7 @@ class ColorConverter {
     if (green > 1) green = 1;
     if (blue > 1) blue = 1;
 
-    return RgbColor.extrapolate(<double>[red, green, blue]);
+    return RgbColor.extrapolate(<double>[red, green, blue, hsiColor.alpha]);
   }
 
   /// Converts a color from any color space to HSL.
@@ -188,8 +191,8 @@ class ColorConverter {
   static HslColor rgbToHsl(RgbColor rgbColor) {
     assert(rgbColor != null);
 
-    if (rgbColor.isBlack) return HslColor(0, 0, 0);
-    if (rgbColor.isWhite) return HslColor(0, 0, 100);
+    if (rgbColor.isBlack) return HslColor(0, 0, 0, rgbColor.alpha);
+    if (rgbColor.isWhite) return HslColor(0, 0, 100, rgbColor.alpha);
 
     final rgb = rgbColor.toFactoredList();
 
@@ -204,7 +207,7 @@ class ColorConverter {
         : difference / (max + min);
 
     return HslColor.extrapolate(
-        <double>[_getHue(rgbColor), saturation, lightness]);
+        <double>[_getHue(rgbColor), saturation, lightness, rgbColor.alpha]);
   }
 
   /// Converts a HSL color to a RGB color.
@@ -247,7 +250,7 @@ class ColorConverter {
       blue = hueToRgb(hue - (1 / 3));
     }
 
-    return RgbColor.extrapolate(<double>[red, green, blue]);
+    return RgbColor.extrapolate(<double>[red, green, blue, hslColor.alpha]);
   }
 
   /// Converts a color from any color space to HSL.
@@ -261,8 +264,8 @@ class ColorConverter {
   static HspColor rgbToHsp(RgbColor rgbColor) {
     assert(rgbColor != null);
 
-    if (rgbColor.isBlack) return HspColor(0, 0, 0);
-    if (rgbColor.isWhite) return HspColor(0, 0, 100);
+    if (rgbColor.isBlack) return HspColor(0, 0, 0, rgbColor.alpha);
+    if (rgbColor.isWhite) return HspColor(0, 0, 100, rgbColor.alpha);
 
     final rgb = rgbColor.toFactoredList();
 
@@ -292,7 +295,8 @@ class ColorConverter {
 
     hue ??= _getHue(rgbColor);
 
-    return HspColor.extrapolate(<double>[hue, saturation, percievedBrightness]);
+    return HspColor.extrapolate(
+        <double>[hue, saturation, percievedBrightness, rgbColor.alpha]);
   }
 
   /// Converts a HSP color to a RGB color.
@@ -406,7 +410,7 @@ class ColorConverter {
     if (green > 1) green = 1;
     if (blue > 1) blue = 1;
 
-    return RgbColor.extrapolate(<double>[red, green, blue]);
+    return RgbColor.extrapolate(<double>[red, green, blue, hspColor.alpha]);
   }
 
   /// Converts a color from any color space to HSL.
@@ -431,7 +435,8 @@ class ColorConverter {
 
     final saturation = (max == 0.0) ? 0.0 : difference / max;
 
-    return HsvColor.extrapolate(<double>[_getHue(rgbColor), saturation, max]);
+    return HsvColor.extrapolate(
+        <double>[_getHue(rgbColor), saturation, max, rgbColor.alpha]);
   }
 
   /// Converts a HSV color to a RGB color.
@@ -488,7 +493,7 @@ class ColorConverter {
         break;
     }
 
-    return RgbColor.extrapolate(<double>[red, green, blue]);
+    return RgbColor.extrapolate(<double>[red, green, blue, hsvColor.alpha]);
   }
 
   /// Converts a color from any color space to HSL.
@@ -503,8 +508,8 @@ class ColorConverter {
   static LabColor rgbToLab(RgbColor rgbColor) {
     assert(rgbColor != null);
 
-    if (rgbColor.isBlack) return LabColor(0, 0, 0);
-    if (rgbColor.isWhite) return LabColor(100, 0, 0);
+    if (rgbColor.isBlack) return LabColor(0, 0, 0, rgbColor.alpha);
+    if (rgbColor.isWhite) return LabColor(100, 0, 0, rgbColor.alpha);
 
     return xyzToLab(rgbColor.toXyzColor());
   }
@@ -529,7 +534,7 @@ class ColorConverter {
     final a = (x - y) * 500;
     final b = (y - z) * 200;
 
-    return LabColor(lightness, a, b);
+    return LabColor(lightness, a, b, xyzColor.alpha);
   }
 
   /// Converts a LAB color to a RGB color using the
@@ -570,7 +575,7 @@ class ColorConverter {
     if (y < 0) y = 0;
     if (z < 0) z = 0;
 
-    return XyzColor.extrapolate(<double>[x, y, z]);
+    return XyzColor.extrapolate(<double>[x, y, z, labColor.alpha]);
   }
 
   /// Converts a color from any color space to XYZ.
@@ -584,8 +589,8 @@ class ColorConverter {
   static XyzColor rgbToXyz(RgbColor rgbColor) {
     assert(rgbColor != null);
 
-    if (rgbColor.isBlack) return XyzColor(0, 0, 0);
-    if (rgbColor.isWhite) return XyzColor(100, 100, 100);
+    if (rgbColor.isBlack) return XyzColor(0, 0, 0, rgbColor.alpha);
+    if (rgbColor.isWhite) return XyzColor(100, 100, 100, rgbColor.alpha);
 
     final rgb = rgbColor
         .toFactoredList()
@@ -612,7 +617,7 @@ class ColorConverter {
             (green * 0.11919477979462) +
             (blue * 0.95053215224966));
 
-    return XyzColor(x, y, z);
+    return XyzColor(x, y, z, rgbColor.alpha);
   }
 
   /// Converts an XYZ color to a RGB color.
@@ -646,7 +651,7 @@ class ColorConverter {
         (y * -0.20397695888897) +
         (z * 1.056971514242878));
 
-    return RgbColor.extrapolate(<double>[red, green, blue]);
+    return RgbColor.extrapolate(<double>[red, green, blue, xyzColor.alpha]);
   }
 
   /// Calculates the [rgbColor]s hue on a 0 to 1 scale,
