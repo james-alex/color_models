@@ -99,8 +99,8 @@ class RgbColor extends ColorModel {
   /// Returns a fixed-length list containing the
   /// [red], [green], [blue], and [alpha] values.
   @override
-  List<int> toListWithAlpha() =>
-      List<int>.from(<int>[red, green, blue, alpha], growable: false);
+  List<num> toListWithAlpha() =>
+      List<num>.from(<num>[red, green, blue, alpha], growable: false);
 
   /// Returns a fixed-length list containing the precise
   /// [red], [green], and [blue] values.
