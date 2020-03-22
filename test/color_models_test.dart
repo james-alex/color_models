@@ -132,14 +132,10 @@ void main() {
         final adjustment = 360 / 30;
 
         var copy = color;
-        print(copy);
 
         for (var i = 0; i < 30; i++) {
           copy = copy.rotateHue(adjustment);
-          print(copy);
         }
-
-        print('$copy, $color');
 
         expect(copy, equals(color));
       }
