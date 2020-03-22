@@ -35,8 +35,29 @@ abstract class ColorModel {
   /// Returns `true` if this color is pure white.
   bool get isWhite;
 
+  /// Returns the color with the hue opposite of this colors'.
+  ColorModel get opposite => rotateHue(180);
+
+  /// Inverts the values of this [ColorModel],
+  /// excluding [alpha], in its own color space.
+  ColorModel get inverted;
+
+  /// Adjusts the [hue] of this color by [amount] towards
+  /// `90` degrees, capping the value at `90`.
+  ColorModel warmer(num amount);
+
+  /// Adjusts the [hue] of this color by [amount] towards
+  /// `270` degrees, capping the value at `270`.
+  ColorModel cooler(num amount);
+
+  /// Rotates the hue of this color by [amount] in degrees.
+  ColorModel rotateHue(num amount);
+
   /// Returns this [ColorModel] with the provided [alpha] value.
   ColorModel withAlpha(num alpha);
+
+  /// Returns this [ColorModel] with the provided [hue] value.
+  ColorModel withHue(num hue);
 
   /// Compares colors in the RGB color space.
   ///

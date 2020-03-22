@@ -1,5 +1,6 @@
 import 'package:meta/meta.dart';
 import '../color_model.dart';
+import '../helpers/color_adjustments.dart';
 import '../helpers/color_converter.dart';
 
 /// A color in the CMYK color space.
@@ -55,6 +56,35 @@ class CmykColor extends ColorModel {
   @override
   bool get isWhite => (cyan == 0 && magenta == 0 && yellow == 0 && black == 0);
 
+  @override
+  CmykColor get inverted {
+    final values = toList();
+
+    return CmykColor.fromList(
+        List<num>.generate(values.length, (i) => 100 - values[i])..add(alpha));
+  }
+
+  @override
+  CmykColor rotateHue(num amount) {
+    assert(amount != null);
+
+    return ColorAdjustments.rotateHue(this, amount).toCmykColor();
+  }
+
+  @override
+  CmykColor warmer(num amount) {
+    assert(amount != null && amount > 0);
+
+    return ColorAdjustments.warmer(this, amount).toCmykColor();
+  }
+
+  @override
+  CmykColor cooler(num amount) {
+    assert(amount != null && amount > 0);
+
+    return ColorAdjustments.cooler(this, amount).toCmykColor();
+  }
+
   /// Returns this [CmykColor] modified with the provided [cyan] value.
   CmykColor withCyan(num cyan) {
     assert(cyan != null && cyan >= 0 && cyan <= 100);
@@ -83,12 +113,21 @@ class CmykColor extends ColorModel {
     return CmykColor(cyan, magenta, yellow, black, alpha);
   }
 
-  /// Returns this [CmykColor] modified with the provided [alpha] value.
   @override
   CmykColor withAlpha(num alpha) {
     assert(alpha != null && alpha >= 0 && alpha <= 1);
 
     return CmykColor(cyan, magenta, yellow, black, alpha);
+  }
+
+  /// Returns this [XyzColor] modified with the provided [hue] value.
+  @override
+  CmykColor withHue(num hue) {
+    assert(hue != null && hue >= 0 && hue <= 360);
+
+    final hslColor = toHslColor();
+
+    return hslColor.withHue((hslColor.hue + hue) % 360).toCmykColor();
   }
 
   @override

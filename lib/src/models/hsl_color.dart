@@ -1,5 +1,6 @@
 import 'package:meta/meta.dart';
 import '../color_model.dart';
+import '../helpers/color_adjustments.dart';
 import '../helpers/color_converter.dart';
 
 /// A color in the HSL color space.
@@ -25,7 +26,9 @@ class HslColor extends ColorModel {
         assert(lightness != null && lightness >= 0 && lightness <= 100),
         assert(alpha != null && alpha >= 0 && alpha <= 1);
 
-  /// The hue value of this color ranging from 0 to 360.
+  /// The hue value of this color.
+  ///
+  /// Ranges from `0` to `360`.
   final num hue;
 
   /// The saturation value of this color.
@@ -46,6 +49,33 @@ class HslColor extends ColorModel {
 
   @override
   bool get isWhite => (lightness == 100);
+
+  /// Adjusts this colors [hue] by `180` degrees while inverting the
+  /// [saturation] and [lightness] values.
+  @override
+  HslColor get inverted =>
+      HslColor((hue + 180) % 360, 100 - saturation, 100 - lightness, alpha);
+
+  @override
+  HslColor rotateHue(num amount) {
+    assert(amount != null);
+
+    return withHue((hue + amount) % 360);
+  }
+
+  @override
+  HslColor warmer(num amount) {
+    assert(amount != null && amount > 0);
+
+    return withHue(ColorAdjustments.warmerHue(hue, amount));
+  }
+
+  @override
+  HslColor cooler(num amount) {
+    assert(amount != null && amount > 0);
+
+    return withHue(ColorAdjustments.coolerHue(hue, amount));
+  }
 
   /// Returns this [HslColor] modified with the provided [hue] value.
   HslColor withHue(num hue) {

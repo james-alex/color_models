@@ -1,5 +1,6 @@
 import 'package:meta/meta.dart';
 import '../color_model.dart';
+import '../helpers/color_adjustments.dart';
 import '../helpers/color_converter.dart';
 
 /// A color in the HSV (HSB) color space.
@@ -27,7 +28,7 @@ class HsvColor extends ColorModel {
 
   /// The hue value of this color.
   ///
-  /// Ranges from `0 to 360`.
+  /// Ranges from `0` to `360`.
   final num hue;
 
   /// The saturation value of this color.
@@ -48,6 +49,33 @@ class HsvColor extends ColorModel {
 
   @override
   bool get isWhite => (saturation == 0 && value == 1);
+
+  /// Adjusts this colors [hue] by `180` degrees while inverting the
+  /// [saturation] and [value] values.
+  @override
+  HsvColor get inverted =>
+      HsvColor((hue + 180) % 360, 100 - saturation, 100 - value, alpha);
+
+  @override
+  HsvColor rotateHue(num amount) {
+    assert(amount != null);
+
+    return withHue((hue + amount) % 360);
+  }
+
+  @override
+  HsvColor warmer(num amount) {
+    assert(amount != null && amount > 0);
+
+    return withHue(ColorAdjustments.warmerHue(hue, amount));
+  }
+
+  @override
+  HsvColor cooler(num amount) {
+    assert(amount != null && amount > 0);
+
+    return withHue(ColorAdjustments.coolerHue(hue, amount));
+  }
 
   /// Returns this [HsvColor] modified with the provided [hue] value.
   HsvColor withHue(num hue) {

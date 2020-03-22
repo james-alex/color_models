@@ -1,5 +1,6 @@
 import 'package:meta/meta.dart';
 import '../color_model.dart';
+import '../helpers/color_adjustments.dart';
 import '../helpers/color_converter.dart';
 
 /// A color in the sRGB color space.
@@ -58,6 +59,35 @@ class RgbColor extends ColorModel {
   @override
   bool get isWhite => (red == 255 && green == 255 && blue == 255);
 
+  @override
+  RgbColor get inverted {
+    final values = toList();
+
+    return RgbColor.fromList(
+        List<num>.generate(values.length, (i) => 255 - values[i])..add(alpha));
+  }
+
+  @override
+  RgbColor rotateHue(num amount) {
+    assert(amount != null);
+
+    return ColorAdjustments.rotateHue(this, amount).toRgbColor();
+  }
+
+  @override
+  RgbColor warmer(num amount) {
+    assert(amount != null && amount > 0);
+
+    return ColorAdjustments.warmer(this, amount).toRgbColor();
+  }
+
+  @override
+  RgbColor cooler(num amount) {
+    assert(amount != null && amount > 0);
+
+    return ColorAdjustments.cooler(this, amount).toRgbColor();
+  }
+
   /// Returns this [RgbColor] modified with the provided [red] value.
   RgbColor withRed(num red) {
     assert(red != null && red >= 0 && red <= 255);
@@ -85,6 +115,16 @@ class RgbColor extends ColorModel {
     assert(alpha != null && alpha >= 0 && alpha <= 1);
 
     return RgbColor(red, green, blue, alpha);
+  }
+
+  /// Returns this [RgbColor] modified with the provided [hue] value.
+  @override
+  RgbColor withHue(num hue) {
+    assert(hue != null && hue >= 0 && hue <= 360);
+
+    final hslColor = toHslColor();
+
+    return hslColor.withHue((hslColor.hue + hue) % 360).toRgbColor();
   }
 
   @override

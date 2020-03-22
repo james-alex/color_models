@@ -1,5 +1,6 @@
 import 'package:meta/meta.dart';
 import '../color_model.dart';
+import '../helpers/color_adjustments.dart';
 import '../helpers/color_converter.dart';
 
 /// A color in the CIELAB color space.
@@ -54,6 +55,31 @@ class LabColor extends ColorModel {
   @override
   bool get isWhite => (lightness == 1 && a == 0 && b == 0);
 
+  @override
+  LabColor get inverted => LabColor(
+      100 - lightness, 255 - (a + 128) - 128, 255 - (b + 128) - 128, alpha);
+
+  @override
+  LabColor rotateHue(num amount) {
+    assert(amount != null);
+
+    return ColorAdjustments.rotateHue(this, amount).toLabColor();
+  }
+
+  @override
+  LabColor warmer(num amount) {
+    assert(amount != null && amount > 0);
+
+    return ColorAdjustments.warmer(this, amount).toLabColor();
+  }
+
+  @override
+  LabColor cooler(num amount) {
+    assert(amount != null && amount > 0);
+
+    return ColorAdjustments.cooler(this, amount).toLabColor();
+  }
+
   /// Returns this [LabColor] modified with the provided [lightness] value.
   LabColor withLightness(num lightness) {
     assert(lightness != null && lightness >= 0 && lightness <= 100);
@@ -81,6 +107,16 @@ class LabColor extends ColorModel {
     assert(alpha != null && alpha >= 0 && alpha <= 1);
 
     return LabColor(lightness, a, b, alpha);
+  }
+
+  /// Returns this [LabColor] modified with the provided [hue] value.
+  @override
+  LabColor withHue(num hue) {
+    assert(hue != null && hue >= 0 && hue <= 360);
+
+    final hslColor = toHslColor();
+
+    return hslColor.withHue((hslColor.hue + hue) % 360).toLabColor();
   }
 
   @override

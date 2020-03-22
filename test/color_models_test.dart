@@ -33,92 +33,98 @@ const List<ColorModel> _testColors = <ColorModel>[
 /// back to the RGB color space and are expected to equal the
 /// original RGB color value.
 void main() {
-  test('CMYK Conversions', () {
-    for (var color in _testColors) {
-      final cmykColor = color.toCmykColor();
-      expect(color.equals(cmykColor), equals(true));
-    }
+  group('Color Conversions', () {
+    test('CMYK Conversions', () {
+      for (var color in _testColors) {
+        final cmykColor = color.toCmykColor();
+        expect(color.equals(cmykColor), equals(true));
+      }
+    });
+
+    test('HSI Conversions', () {
+      for (var color in _testColors) {
+        final hsiColor = color.toHsiColor();
+        expect(color.equals(hsiColor), equals(true));
+      }
+    });
+
+    test('HSL Conversions', () {
+      for (var color in _testColors) {
+        final hslColor = color.toHslColor();
+        expect(color.equals(hslColor), equals(true));
+      }
+    });
+
+    test('HSP Conversions', () {
+      for (var color in _testColors) {
+        final hspColor = color.toHspColor();
+        expect(color.equals(hspColor), equals(true));
+      }
+    });
+
+    test('HSV Conversions', () {
+      for (var color in _testColors) {
+        final hsvColor = color.toHsvColor();
+        expect(color.equals(hsvColor), equals(true));
+      }
+    });
+
+    test('LAB Conversions', () {
+      for (var color in _testColors) {
+        final labColor = color.toLabColor();
+        expect(color.equals(labColor), equals(true));
+      }
+    });
+
+    test('XYZ Conversions', () {
+      for (var color in _testColors) {
+        final xyzColor = color.toXyzColor();
+        expect(color.equals(xyzColor), equals(true));
+      }
+    });
+
+    test('Chained Conversions', () {
+      for (var color in _testColors) {
+        // Don't bother testing non-RGB colors here. Because
+        // of a loss of precision when converting colors back
+        // and forth between color spaces, they will never equal
+        // the original color exactly without being rounded.
+        if (color.runtimeType != RgbColor) return;
+
+        var copy = color;
+
+        final cmykColor = CmykColor.from(copy);
+        copy = cmykColor.toRgbColor();
+        expect(copy, equals(color));
+
+        final hsiColor = HsiColor.from(copy);
+        copy = hsiColor.toRgbColor();
+        expect(copy, equals(color));
+
+        final hslColor = HslColor.from(copy);
+        copy = hslColor.toRgbColor();
+        expect(copy, equals(color));
+
+        final hspColor = HspColor.from(copy);
+        copy = hspColor.toRgbColor();
+        expect(copy, equals(color));
+
+        final hsvColor = HsvColor.from(copy);
+        copy = hsvColor.toRgbColor();
+        expect(copy, equals(color));
+
+        final labColor = LabColor.from(copy);
+        copy = labColor.toRgbColor();
+        expect(copy, equals(color));
+
+        final xyzColor = XyzColor.from(copy);
+        copy = xyzColor.toRgbColor();
+        expect(copy, equals(color));
+      }
+    });
   });
 
-  test('HSI Conversions', () {
-    for (var color in _testColors) {
-      final hsiColor = color.toHsiColor();
-      expect(color.equals(hsiColor), equals(true));
-    }
-  });
-
-  test('HSL Conversions', () {
-    for (var color in _testColors) {
-      final hslColor = color.toHslColor();
-      expect(color.equals(hslColor), equals(true));
-    }
-  });
-
-  test('HSP Conversions', () {
-    for (var color in _testColors) {
-      final hspColor = color.toHspColor();
-      expect(color.equals(hspColor), equals(true));
-    }
-  });
-
-  test('HSV Conversions', () {
-    for (var color in _testColors) {
-      final hsvColor = color.toHsvColor();
-      expect(color.equals(hsvColor), equals(true));
-    }
-  });
-
-  test('LAB Conversions', () {
-    for (var color in _testColors) {
-      final labColor = color.toLabColor();
-      expect(color.equals(labColor), equals(true));
-    }
-  });
-
-  test('XYZ Conversions', () {
-    for (var color in _testColors) {
-      final xyzColor = color.toXyzColor();
-      expect(color.equals(xyzColor), equals(true));
-    }
-  });
-
-  test('Chained Conversions', () {
-    for (var color in _testColors) {
-      // Don't bother testing non-RGB colors here. Because
-      // of a loss of precision when converting colors back
-      // and forth between color spaces, they will never equal
-      // the original color exactly without being rounded.
-      if (color.runtimeType != RgbColor) return;
-
-      var copy = color;
-
-      final cmykColor = CmykColor.from(copy);
-      copy = cmykColor.toRgbColor();
-      expect(copy, equals(color));
-
-      final hsiColor = HsiColor.from(copy);
-      copy = hsiColor.toRgbColor();
-      expect(copy, equals(color));
-
-      final hslColor = HslColor.from(copy);
-      copy = hslColor.toRgbColor();
-      expect(copy, equals(color));
-
-      final hspColor = HspColor.from(copy);
-      copy = hspColor.toRgbColor();
-      expect(copy, equals(color));
-
-      final hsvColor = HsvColor.from(copy);
-      copy = hsvColor.toRgbColor();
-      expect(copy, equals(color));
-
-      final labColor = LabColor.from(copy);
-      copy = labColor.toRgbColor();
-      expect(copy, equals(color));
-
-      final xyzColor = XyzColor.from(copy);
-      copy = xyzColor.toRgbColor();
-      expect(copy, equals(color));
-    }
+  group('Color Adjustments', () {
+    // TODO: Write color adjustment tests
   });
 }

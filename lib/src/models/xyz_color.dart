@@ -1,5 +1,6 @@
 import 'package:meta/meta.dart';
 import '../color_model.dart';
+import '../helpers/color_adjustments.dart';
 import '../helpers/color_converter.dart';
 
 /// A color in the CIEXYZ color space.
@@ -53,6 +54,36 @@ class XyzColor extends ColorModel {
   @override
   bool get isWhite => (x == 100 && y == 100 && z == 100);
 
+  @override
+  XyzColor get inverted {
+    final values = toList();
+
+    return XyzColor.fromList(
+        List<num>.generate(values.length, (i) => 100 - values[i].clamp(0, 100))
+          ..add(alpha));
+  }
+
+  @override
+  XyzColor rotateHue(num amount) {
+    assert(amount != null);
+
+    return ColorAdjustments.rotateHue(this, amount).toXyzColor();
+  }
+
+  @override
+  XyzColor warmer(num amount) {
+    assert(amount != null && amount > 0);
+
+    return ColorAdjustments.warmer(this, amount).toXyzColor();
+  }
+
+  @override
+  XyzColor cooler(num amount) {
+    assert(amount != null && amount > 0);
+
+    return ColorAdjustments.cooler(this, amount).toXyzColor();
+  }
+
   /// Returns this [XyzColor] modified with the provided [x] value.
   XyzColor withX(num x) {
     assert(x != null && x >= 0);
@@ -80,6 +111,16 @@ class XyzColor extends ColorModel {
     assert(alpha != null && alpha >= 0 && alpha <= 1);
 
     return XyzColor(x, y, z, alpha);
+  }
+
+  /// Returns this [XyzColor] modified with the provided [hue] value.
+  @override
+  XyzColor withHue(num hue) {
+    assert(hue != null && hue >= 0 && hue <= 360);
+
+    final hslColor = toHslColor();
+
+    return hslColor.withHue((hslColor.hue + hue) % 360).toXyzColor();
   }
 
   @override

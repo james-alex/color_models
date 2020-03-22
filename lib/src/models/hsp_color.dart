@@ -1,5 +1,6 @@
 import 'package:meta/meta.dart';
 import '../color_model.dart';
+import '../helpers/color_adjustments.dart';
 import '../helpers/color_converter.dart';
 
 /// A color in the HSP color space.
@@ -53,6 +54,33 @@ class HspColor extends ColorModel {
 
   @override
   bool get isWhite => (perceivedBrightness == 1);
+
+  /// Adjusts this colors [hue] by `180` degrees while inverting the
+  /// [saturation] and [perceivedBrightness] values.
+  @override
+  HspColor get inverted => HspColor(
+      (hue + 180) % 360, 100 - saturation, 100 - perceivedBrightness, alpha);
+
+  @override
+  HspColor rotateHue(num amount) {
+    assert(amount != null);
+
+    return withHue((hue + amount) % 360);
+  }
+
+  @override
+  HspColor warmer(num amount) {
+    assert(amount != null && amount > 0);
+
+    return withHue(ColorAdjustments.warmerHue(hue, amount));
+  }
+
+  @override
+  HspColor cooler(num amount) {
+    assert(amount != null && amount > 0);
+
+    return withHue(ColorAdjustments.coolerHue(hue, amount));
+  }
 
   /// Returns this [HspColor] modified with the provided [hue] value.
   HspColor withHue(num hue) {

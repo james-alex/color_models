@@ -1,5 +1,6 @@
 import 'package:meta/meta.dart';
 import '../color_model.dart';
+import '../helpers/color_adjustments.dart';
 import '../helpers/color_converter.dart';
 
 /// A color in the HSI color space.
@@ -44,10 +45,37 @@ class HsiColor extends ColorModel {
   final num alpha;
 
   @override
-  bool get isWhite => (saturation == 0 && intensity == 100);
+  bool get isBlack => (intensity == 0);
 
   @override
-  bool get isBlack => (intensity == 0);
+  bool get isWhite => (saturation == 0 && intensity == 100);
+
+  /// Adjusts this colors [hue] by `180` degrees while inverting the
+  /// [saturation] and [intensity] values.
+  @override
+  HsiColor get inverted =>
+      HsiColor((hue + 180) % 360, 100 - saturation, 100 - intensity, alpha);
+
+  @override
+  HsiColor rotateHue(num amount) {
+    assert(amount != null);
+
+    return withHue((hue + amount) % 360);
+  }
+
+  @override
+  HsiColor warmer(num amount) {
+    assert(amount != null && amount > 0);
+
+    return withHue(ColorAdjustments.warmerHue(hue, amount));
+  }
+
+  @override
+  HsiColor cooler(num amount) {
+    assert(amount != null && amount > 0);
+
+    return withHue(ColorAdjustments.coolerHue(hue, amount));
+  }
 
   /// Returns this [HsiColor] modified with the provided [hue] value.
   HsiColor withHue(num hue) {
