@@ -36,7 +36,7 @@ abstract class ColorModel {
   bool get isWhite;
 
   /// Returns the color with the hue opposite of this colors'.
-  ColorModel get opposite => rotateHue(180);
+  ColorModel get opposite;
 
   /// Inverts the values of this [ColorModel],
   /// excluding [alpha], in its own color space.

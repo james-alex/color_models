@@ -60,6 +60,9 @@ class LabColor extends ColorModel {
       100 - lightness, 255 - (a + 128) - 128, 255 - (b + 128) - 128, alpha);
 
   @override
+  LabColor get opposite => rotateHue(180);
+
+  @override
   LabColor rotateHue(num amount) {
     assert(amount != null);
 

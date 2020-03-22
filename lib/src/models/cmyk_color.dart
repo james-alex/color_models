@@ -65,6 +65,9 @@ class CmykColor extends ColorModel {
   }
 
   @override
+  CmykColor get opposite => rotateHue(180);
+
+  @override
   CmykColor rotateHue(num amount) {
     assert(amount != null);
 

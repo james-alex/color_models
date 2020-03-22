@@ -57,6 +57,9 @@ class HsvColor extends ColorModel {
       HsvColor((hue + 180) % 360, 100 - saturation, 100 - value, alpha);
 
   @override
+  HsvColor get opposite => rotateHue(180);
+
+  @override
   HsvColor rotateHue(num amount) {
     assert(amount != null);
 

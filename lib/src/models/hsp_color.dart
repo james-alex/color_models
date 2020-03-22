@@ -62,6 +62,9 @@ class HspColor extends ColorModel {
       (hue + 180) % 360, 100 - saturation, 100 - perceivedBrightness, alpha);
 
   @override
+  HspColor get opposite => rotateHue(180);
+
+  @override
   HspColor rotateHue(num amount) {
     assert(amount != null);
 

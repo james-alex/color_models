@@ -57,6 +57,9 @@ class HsiColor extends ColorModel {
       HsiColor((hue + 180) % 360, 100 - saturation, 100 - intensity, alpha);
 
   @override
+  HsiColor get opposite => rotateHue(180);
+
+  @override
   HsiColor rotateHue(num amount) {
     assert(amount != null);
 

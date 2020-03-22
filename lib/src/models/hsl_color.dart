@@ -57,6 +57,9 @@ class HslColor extends ColorModel {
       HslColor((hue + 180) % 360, 100 - saturation, 100 - lightness, alpha);
 
   @override
+  HslColor get opposite => rotateHue(180);
+
+  @override
   HslColor rotateHue(num amount) {
     assert(amount != null);
 

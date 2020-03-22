@@ -64,6 +64,9 @@ class XyzColor extends ColorModel {
   }
 
   @override
+  XyzColor get opposite => rotateHue(180);
+
+  @override
   XyzColor rotateHue(num amount) {
     assert(amount != null);
 

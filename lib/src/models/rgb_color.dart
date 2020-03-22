@@ -68,6 +68,9 @@ class RgbColor extends ColorModel {
   }
 
   @override
+  RgbColor get opposite => rotateHue(180);
+
+  @override
   RgbColor rotateHue(num amount) {
     assert(amount != null);
 
