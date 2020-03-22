@@ -125,6 +125,24 @@ void main() {
   });
 
   group('Color Adjustments', () {
-    // TODO: Write color adjustment tests
+    test('Rotate Hues', () {
+      for (var color in _testColors) {
+        color = color.toRgbColor();
+
+        final adjustment = 360 / 30;
+
+        var copy = color;
+        print(copy);
+
+        for (var i = 0; i < 30; i++) {
+          copy = copy.rotateHue(adjustment);
+          print(copy);
+        }
+
+        print('$copy, $color');
+
+        expect(copy, equals(color));
+      }
+    });
   });
 }
