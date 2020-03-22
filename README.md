@@ -90,12 +90,8 @@ RgbColor toRgbColor();
 XyzColor toXyzColor();
 ```
 
-Altenatively, each color model has a static method `from` that returns
+Altenatively, each color model has a constructor [ColorModel.from] that returns
 a color from any color space in the color space being called.
-
-```dart
-static T from(ColorModel color);
-```
 
 ```dart
 // Create a HSV color
