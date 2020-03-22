@@ -34,6 +34,7 @@ class HspColor extends ColorModel {
   /// The hue value of this color.
   ///
   /// Ranges from `0` to `360`.
+  @override
   final num hue;
 
   /// The saturation value of this color.

@@ -29,6 +29,12 @@ abstract class ColorModel {
   /// Ranges from `0` to `1`.
   num get alpha;
 
+  /// The hue value of this color. Color spaces without a hue
+  /// value will be converted to HSL to retrieve the value.
+  ///
+  /// Ranges from `0` to `360`.
+  num get hue => toHslColor().hue;
+
   /// Returns `true` if this color is pure black.
   bool get isBlack;
 
