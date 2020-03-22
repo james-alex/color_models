@@ -35,6 +35,7 @@ class HslColor extends ColorModel {
   /// The saturation value of this color.
   ///
   /// Ranges from `0` to `100`.
+  @override
   final num saturation;
 
   /// The lightness value of this color.

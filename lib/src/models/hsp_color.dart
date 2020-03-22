@@ -40,6 +40,7 @@ class HspColor extends ColorModel {
   /// The saturation value of this color.
   ///
   /// Ranges from `0` to `100`.
+  @override
   final num saturation;
 
   /// Thie perceived brightness value of this color.

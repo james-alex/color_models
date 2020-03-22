@@ -1,3 +1,7 @@
+## [0.2.4+2] - March 22, 2020
+
+* Added the [saturation] getter to [ColorModel].
+
 ## [0.2.4+1] - March 22, 2020
 
 * Added the [hue] getter to [ColorModel].

@@ -32,8 +32,24 @@ abstract class ColorModel {
   /// The hue value of this color. Color spaces without a hue
   /// value will be converted to HSL to retrieve the value.
   ///
+  /// If you intend to get both the [hue] and [saturation] values,
+  /// it is recommended to convert the color to a [HslColor] and
+  /// getting the values from it, to avoid converting the color
+  /// multiple times unnecessarily.
+  ///
   /// Ranges from `0` to `360`.
   num get hue => toHslColor().hue;
+
+  /// The saturation value of this color. Color spaces without a saturation
+  /// value will be converted to HSL to retrieve the value.
+  ///
+  /// If you intend to get both the [hue] and [saturation] values,
+  /// it is recommended to convert the color to a [HslColor] and
+  /// getting the values from it, to avoid converting the color
+  /// multiple times unnecessarily.
+  ///
+  /// Ranges from `0` to `360`.
+  num get saturation => toHslColor().saturation;
 
   /// Returns `true` if this color is pure black.
   bool get isBlack;
