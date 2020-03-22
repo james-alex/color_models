@@ -151,14 +151,21 @@ class XyzColor extends ColorModel {
       List<double>.from(<double>[x / 100, y / 100, z / 100, alpha],
           growable: false);
 
-  /// Parses a list for XYZ values and returns a [XyzColor].
+  /// Constructs a [XyzColor] from [color].
+  factory XyzColor.from(ColorModel color) {
+    assert(color != null);
+
+    return color.toXyzColor();
+  }
+
+  /// Constructs a [XyzColor] from a list of [xyz] values.
   ///
   /// [xyz] must not be null and must have exactly `3` or `4` values.
   ///
   /// [x], [y], and [z] all must not be null and must be `>= 0`.
   ///
   /// The [alpha] value, if included, must be `>= 0 && <= 1`.
-  static XyzColor fromList(List<num> xyz) {
+  factory XyzColor.fromList(List<num> xyz) {
     assert(xyz != null && (xyz.length == 3 || xyz.length == 4));
     assert(xyz[0] != null && xyz[0] >= 0);
     assert(xyz[1] != null && xyz[1] >= 0);
@@ -172,29 +179,22 @@ class XyzColor extends ColorModel {
     return XyzColor(xyz[0], xyz[1], xyz[2], alpha);
   }
 
-  /// Returns a [color] in another color space as a XYZ color.
-  static XyzColor from(ColorModel color) {
-    assert(color != null);
-
-    return color.toXyzColor();
-  }
-
-  /// Returns a [hex] color as a CIEXYZ color.
+  /// Constructs a [XyzColor] from a [hex] color.
   ///
   /// [hex] is case-insensitive and must be `3` or `6` characters
   /// in length, excluding an optional leading `#`.
-  static XyzColor fromHex(String hex) {
+  factory XyzColor.fromHex(String hex) {
     assert(hex != null);
 
     return ColorConverter.hexToRgb(hex).toXyzColor();
   }
 
-  /// Returns a [XyzColor] from a list of [xyz] values on a 0 to 1 scale.
+  /// Constructs a [XyzColor] from a list of [xyz] values on a `0` to `1` scale.
   ///
   /// [xyz] must not be null and must have exactly `3` or `4` values.
   ///
   /// Each of the values must be `>= 0` and `<= 1`.
-  static XyzColor extrapolate(List<double> xyz) {
+  factory XyzColor.extrapolate(List<double> xyz) {
     assert(xyz != null && (xyz.length == 3 || xyz.length == 4));
     assert(xyz[0] != null && xyz[0] >= 0);
     assert(xyz[1] != null && xyz[1] >= 0);
@@ -220,14 +220,14 @@ class XyzColor extends ColorModel {
   );
 
   @override
-  String toString() => 'XyzColor($x, $y, $z)';
+  String toString() => 'XyzColor($x, $y, $z, $alpha)';
 
   @override
   bool operator ==(Object o) =>
-      o is XyzColor && x == o.x && y == o.y && z == o.z;
+      o is XyzColor && x == o.x && y == o.y && z == o.z && alpha == o.alpha;
 
   @override
-  int get hashCode => x.hashCode ^ y.hashCode ^ z.hashCode;
+  int get hashCode => x.hashCode ^ y.hashCode ^ z.hashCode ^ alpha.hashCode;
 }
 
 class _WhitePoints {

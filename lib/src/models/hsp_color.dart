@@ -147,7 +147,14 @@ class HspColor extends ColorModel {
         alpha,
       ], growable: false);
 
-  /// Parses a list for HSP values and returns a [HspColor].
+  /// Constructs a [HspColor] from [color].
+  factory HspColor.from(ColorModel color) {
+    assert(color != null);
+
+    return color.toHspColor();
+  }
+
+  /// Constructs a [HspColor] from a list of [hsp] values.
   ///
   /// [hsp] must not be null and must have exactly `3` or `4` values.
   ///
@@ -156,7 +163,7 @@ class HspColor extends ColorModel {
   /// The saturation and perceived brightness must both be `>= 0` and `<= 100`.
   ///
   /// The [alpha] value, if included, must be `>= 0 && <= 1`.
-  static HspColor fromList(List<num> hsp) {
+  factory HspColor.fromList(List<num> hsp) {
     assert(hsp != null && (hsp.length == 3 || hsp.length == 4));
     assert(hsp[0] != null && hsp[0] >= 0 && hsp[0] <= 360);
     assert(hsp[1] != null && hsp[1] >= 0 && hsp[1] <= 100);
@@ -170,29 +177,22 @@ class HspColor extends ColorModel {
     return HspColor(hsp[0], hsp[1], hsp[2], alpha);
   }
 
-  /// Returns a [color] in another color space as a HSP color.
-  static HspColor from(ColorModel color) {
-    assert(color != null);
-
-    return color.toHspColor();
-  }
-
-  /// Returns a [hex] color as a HSP color.
+  /// Constructs a [HspColor] from a [hex] color.
   ///
   /// [hex] is case-insensitive and must be `3` or `6` characters
   /// in length, excluding an optional leading `#`.
-  static HspColor fromHex(String hex) {
+  factory HspColor.fromHex(String hex) {
     assert(hex != null);
 
     return ColorConverter.hexToRgb(hex).toHspColor();
   }
 
-  /// Returns a [HspColor] from a list of [hsp] values on a 0 to 1 scale.
+  /// Constructs a [HspColor] from a list of [hsp] values on a `0` to `1` scale.
   ///
   /// [hsp] must not be null and must have exactly `3` or `4` values.
   ///
   /// Each of the values must be `>= 0` and `<= 1`.
-  static HspColor extrapolate(List<double> hsp) {
+  factory HspColor.extrapolate(List<double> hsp) {
     assert(hsp != null && (hsp.length == 3 || hsp.length == 4));
     assert(hsp[0] != null && hsp[0] >= 0 && hsp[0] <= 1);
     assert(hsp[1] != null && hsp[1] >= 0 && hsp[1] <= 1);
@@ -207,16 +207,21 @@ class HspColor extends ColorModel {
   }
 
   @override
-  String toString() => 'HspColor($hue, $saturation, $perceivedBrightness)';
+  String toString() =>
+      'HspColor($hue, $saturation, $perceivedBrightness, $alpha)';
 
   @override
   bool operator ==(Object o) =>
       o is HspColor &&
       hue == o.hue &&
       saturation == o.saturation &&
-      perceivedBrightness == o.perceivedBrightness;
+      perceivedBrightness == o.perceivedBrightness &&
+      alpha == o.alpha;
 
   @override
   int get hashCode =>
-      hue.hashCode ^ saturation.hashCode ^ perceivedBrightness.hashCode;
+      hue.hashCode ^
+      saturation.hashCode ^
+      perceivedBrightness.hashCode ^
+      alpha.hashCode;
 }

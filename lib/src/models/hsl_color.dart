@@ -138,7 +138,14 @@ class HslColor extends ColorModel {
         alpha,
       ], growable: false);
 
-  /// Parses a list for HSL values and returns a [HslColor].
+  /// Constructs a [HslColor] from [color].
+  factory HslColor.from(ColorModel color) {
+    assert(color != null);
+
+    return color.toHslColor();
+  }
+
+  /// Constructs a [HslColor] from a list of [hsl] values.
   ///
   /// [hsl] must not be null and must have exactly `3` or `4` values.
   ///
@@ -147,7 +154,7 @@ class HslColor extends ColorModel {
   /// The saturation and lightness must both be `>= 0` and `<= 100`.
   ///
   /// The [alpha] value, if included, must be `>= 0 && <= 1`.
-  static HslColor fromList(List<num> hsl) {
+  factory HslColor.fromList(List<num> hsl) {
     assert(hsl != null && (hsl.length == 3 || hsl.length == 4));
     assert(hsl[0] != null && hsl[0] >= 0 && hsl[0] <= 360);
     assert(hsl[1] != null && hsl[1] >= 0 && hsl[1] <= 100);
@@ -161,29 +168,22 @@ class HslColor extends ColorModel {
     return HslColor(hsl[0], hsl[1], hsl[2], alpha);
   }
 
-  /// Returns a [color] in another color space as a HSL color.
-  static HslColor from(ColorModel color) {
-    assert(color != null);
-
-    return color.toHslColor();
-  }
-
-  /// Returns a [hex] color as a HSL color.
+  /// Constructs a [HslColor] from a [hex] color.
   ///
   /// [hex] is case-insensitive and must be `3` or `6` characters
   /// in length, excluding an optional leading `#`.
-  static HslColor fromHex(String hex) {
+  factory HslColor.fromHex(String hex) {
     assert(hex != null);
 
     return ColorConverter.hexToRgb(hex).toHslColor();
   }
 
-  /// Returns a [HslColor] from a list of [hsl] values on a 0 to 1 scale.
+  /// Constructs a [HslColor] from a list of [hsl] values on a `0` to `1` scale.
   ///
   /// [hsl] must not be null and must have exactly `3` or `4` values.
   ///
   /// Each of the values must be `>= 0` and `<= 1`.
-  static HslColor extrapolate(List<double> hsl) {
+  factory HslColor.extrapolate(List<double> hsl) {
     assert(hsl != null && (hsl.length == 3 || hsl.length == 4));
     assert(hsl[0] != null && hsl[0] >= 0 && hsl[0] <= 1);
     assert(hsl[1] != null && hsl[1] >= 0 && hsl[1] <= 1);
@@ -198,15 +198,17 @@ class HslColor extends ColorModel {
   }
 
   @override
-  String toString() => 'HslColor($hue, $saturation, $lightness)';
+  String toString() => 'HslColor($hue, $saturation, $lightness, $alpha)';
 
   @override
   bool operator ==(Object o) =>
       o is HslColor &&
       hue == o.hue &&
       saturation == o.saturation &&
-      lightness == o.lightness;
+      lightness == o.lightness &&
+      alpha == o.alpha;
 
   @override
-  int get hashCode => hue.hashCode ^ saturation.hashCode ^ lightness.hashCode;
+  int get hashCode =>
+      hue.hashCode ^ saturation.hashCode ^ lightness.hashCode ^ alpha.hashCode;
 }

@@ -166,14 +166,21 @@ class RgbColor extends ColorModel {
         alpha,
       ], growable: false);
 
-  /// Parses a list for RGB values and returns a [RgbColor].
+  /// Constructs a [RgbColor] from [color].
+  factory RgbColor.from(ColorModel color) {
+    assert(color != null);
+
+    return color.toRgbColor();
+  }
+
+  /// Constructs a [RgbColor] from a list of [rgb] values.
   ///
   /// [rgb] must not be null and must have exactly `3` or `4` values.
   ///
   /// Each color value must be `>= 0 && <= 255`.
   ///
   /// The [alpha] value, if included, must be `>= 0 && <= 1`.
-  static RgbColor fromList(List<num> rgb) {
+  factory RgbColor.fromList(List<num> rgb) {
     assert(rgb != null && (rgb.length == 3 || rgb.length == 4));
     assert(rgb[0] != null && rgb[0] >= 0 && rgb[0] <= 255);
     assert(rgb[1] != null && rgb[1] >= 0 && rgb[1] <= 255);
@@ -187,29 +194,22 @@ class RgbColor extends ColorModel {
     return RgbColor(rgb[0], rgb[1], rgb[2], alpha);
   }
 
-  /// Returns a [color] in another color space as a RGB color.
-  static RgbColor from(ColorModel color) {
-    assert(color != null);
-
-    return color.toRgbColor();
-  }
-
-  /// Returns a [hex] color as a RGB color.
+  /// Constructs a [RgbColor] from a [hex] color.
   ///
   /// [hex] is case-insensitive and must be `3` or `6` characters
   /// in length, excluding an optional leading `#`.
-  static RgbColor fromHex(String hex) {
+  factory RgbColor.fromHex(String hex) {
     assert(hex != null);
 
     return ColorConverter.hexToRgb(hex);
   }
 
-  /// Returns a [RgbColor] from a list of [rgb] values on a 0 to 1 scale.
+  /// Constructs a [RgbColor] from a list of [rgb] values on a `0` to `1` scale.
   ///
   /// [rgb] must not be null and must have exactly `3` or `4` values.
   ///
   /// Each of the values must be `>= 0` and `<= 1`.
-  static RgbColor extrapolate(List<double> rgb) {
+  factory RgbColor.extrapolate(List<double> rgb) {
     assert(rgb != null && (rgb.length == 3 || rgb.length == 4));
     assert(rgb[0] != null && rgb[0] >= 0 && rgb[0] <= 1);
     assert(rgb[1] != null && rgb[1] >= 0 && rgb[1] <= 1);
@@ -224,12 +224,17 @@ class RgbColor extends ColorModel {
   }
 
   @override
-  String toString() => 'RgbColor($red, $green, $blue)';
+  String toString() => 'RgbColor($red, $green, $blue, $alpha)';
 
   @override
   bool operator ==(Object o) =>
-      o is RgbColor && red == o.red && green == o.green && blue == o.blue;
+      o is RgbColor &&
+      red == o.red &&
+      green == o.green &&
+      blue == o.blue &&
+      alpha == o.alpha;
 
   @override
-  int get hashCode => red.hashCode ^ green.hashCode ^ blue.hashCode;
+  int get hashCode =>
+      red.hashCode ^ green.hashCode ^ blue.hashCode ^ alpha.hashCode;
 }

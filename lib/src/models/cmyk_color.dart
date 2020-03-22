@@ -157,14 +157,21 @@ class CmykColor extends ColorModel {
       <double>[cyan / 100, magenta / 100, yellow / 100, black / 100, alpha],
       growable: false);
 
-  /// Parses a list for CMYK values and returns a [CmykColor].
+  /// Constructs a [CmykColor] from [color].
+  factory CmykColor.from(ColorModel color) {
+    assert(color != null);
+
+    return color.toCmykColor();
+  }
+
+  /// Constructs a [CmykColor] from a list of [cmyk] values.
   ///
   /// [cmyk] must not be null and must have exactly `4` or `5` values.
   ///
   /// Each color value must be `>= 0 && <= 100`.
   ///
   /// The [alpha] value, if included, must be `>= 0 && <= 1`.
-  static CmykColor fromList(List<num> cmyk) {
+  factory CmykColor.fromList(List<num> cmyk) {
     assert(cmyk != null && (cmyk.length == 4 || cmyk.length == 5));
     assert(cmyk[0] != null && cmyk[0] >= 0 && cmyk[0] <= 100);
     assert(cmyk[1] != null && cmyk[1] >= 0 && cmyk[1] <= 100);
@@ -179,29 +186,23 @@ class CmykColor extends ColorModel {
     return CmykColor(cmyk[0], cmyk[1], cmyk[2], cmyk[3], alpha);
   }
 
-  /// Returns a [color] in another color space as a CMYK color.
-  static CmykColor from(ColorModel color) {
-    assert(color != null);
-
-    return color.toCmykColor();
-  }
-
-  /// Returns a [hex] color as a CMYK color.
+  /// Constructs a [CmykColor] from a [hex] color.
   ///
   /// [hex] is case-insensitive and must be `3` or `6` characters
   /// in length, excluding an optional leading `#`.
-  static CmykColor fromHex(String hex) {
+  factory CmykColor.fromHex(String hex) {
     assert(hex != null);
 
     return ColorConverter.hexToRgb(hex).toCmykColor();
   }
 
-  /// Returns a [CmykColor] from a list of [cmyk] values on a 0 to 1 scale.
+  /// Constructs a [CmykColor] from a list of [cmyk] values
+  /// on a `0` to `1` scale.
   ///
   /// [cmyk] must not be null and must have exactly `4` or `5` values.
   ///
   /// Each of the values must be `>= 0` and `<= 1`.
-  static CmykColor extrapolate(List<double> cmyk) {
+  factory CmykColor.extrapolate(List<double> cmyk) {
     assert(cmyk != null && (cmyk.length == 4 || cmyk.length == 5));
     assert(cmyk[0] != null && cmyk[0] >= 0 && cmyk[0] <= 1);
     assert(cmyk[1] != null && cmyk[1] >= 0 && cmyk[1] <= 1);
@@ -218,7 +219,7 @@ class CmykColor extends ColorModel {
   }
 
   @override
-  String toString() => 'CmykColor($cyan, $magenta, $yellow, $black)';
+  String toString() => 'CmykColor($cyan, $magenta, $yellow, $black, $alpha)';
 
   @override
   bool operator ==(Object o) =>
@@ -226,9 +227,14 @@ class CmykColor extends ColorModel {
       cyan == o.cyan &&
       magenta == o.magenta &&
       yellow == o.yellow &&
-      black == o.black;
+      black == o.black &&
+      alpha == o.alpha;
 
   @override
   int get hashCode =>
-      cyan.hashCode ^ magenta.hashCode ^ yellow.hashCode ^ black.hashCode;
+      cyan.hashCode ^
+      magenta.hashCode ^
+      yellow.hashCode ^
+      black.hashCode ^
+      alpha.hashCode;
 }

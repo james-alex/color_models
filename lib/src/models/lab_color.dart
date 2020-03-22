@@ -136,7 +136,14 @@ class LabColor extends ColorModel {
   List<num> toListWithAlpha() =>
       List<num>.from(<num>[lightness, a, b, alpha], growable: false);
 
-  /// Parses a list for LAB values and returns a [LabColor].
+  /// Constructs a [LabColor] from [color].
+  factory LabColor.from(ColorModel color) {
+    assert(color != null);
+
+    return color.toLabColor();
+  }
+
+  /// Constructs a [LabColor] from a list of [lab] values.
   ///
   /// [lab] must not be null and must have exactly `3` or `4` values.
   ///
@@ -145,7 +152,7 @@ class LabColor extends ColorModel {
   /// The A and B values must be `>= -128 && <= 127`.
   ///
   /// The [alpha] value, if included, must be `>= 0 && <= 1`.
-  static LabColor fromList(List<num> lab) {
+  factory LabColor.fromList(List<num> lab) {
     assert(lab != null && (lab.length == 3 || lab.length == 4));
     assert(lab[0] != null && lab[0] >= 0 && lab[0] <= 100);
     assert(lab[1] != null && lab[1] >= -128 && lab[1] <= 127);
@@ -159,29 +166,22 @@ class LabColor extends ColorModel {
     return LabColor(lab[0], lab[1], lab[2], alpha);
   }
 
-  /// Returns a [color] in another color space as a CIELAB color.
-  static LabColor from(ColorModel color) {
-    assert(color != null);
-
-    return color.toLabColor();
-  }
-
-  /// Returns a [hex] color as a CIELAB color.
+  /// Constructs a [LabColor] from a [hex] color.
   ///
   /// [hex] is case-insensitive and must be `3` or `6` characters
   /// in length, excluding an optional leading `#`.
-  static LabColor fromHex(String hex) {
+  factory LabColor.fromHex(String hex) {
     assert(hex != null);
 
     return ColorConverter.hexToRgb(hex).toLabColor();
   }
 
-  /// Returns a [LabColor] from a list of [lab] values on a 0 to 1 scale.
+  /// Constructs a [LabColor] from a list of [lab] values on a `0` to `1` scale.
   ///
   /// [lab] must not be null and must have exactly `3` or `4` values.
   ///
   /// Each of the values must be `>= 0` and `<= 1`.
-  static LabColor extrapolate(List<double> lab) {
+  factory LabColor.extrapolate(List<double> lab) {
     assert(lab != null && (lab.length == 3 || lab.length == 4));
     assert(lab[0] != null && lab[0] >= 0 && lab[0] <= 1);
     assert(lab[1] != null && lab[1] >= 0 && lab[1] <= 1);
@@ -197,12 +197,17 @@ class LabColor extends ColorModel {
   }
 
   @override
-  String toString() => 'LabColor($lightness, $a, $b)';
+  String toString() => 'LabColor($lightness, $a, $b, $alpha)';
 
   @override
   bool operator ==(Object o) =>
-      o is LabColor && lightness == o.lightness && a == o.a && b == o.b;
+      o is LabColor &&
+      lightness == o.lightness &&
+      a == o.a &&
+      b == o.b &&
+      alpha == o.alpha;
 
   @override
-  int get hashCode => lightness.hashCode ^ a.hashCode ^ b.hashCode;
+  int get hashCode =>
+      lightness.hashCode ^ a.hashCode ^ b.hashCode ^ alpha.hashCode;
 }

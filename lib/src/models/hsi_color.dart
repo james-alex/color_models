@@ -138,7 +138,14 @@ class HsiColor extends ColorModel {
         alpha,
       ], growable: false);
 
-  /// Parses a list for HSI values and returns a [HsiColor].
+  /// Constructs a [HsiColor] from [color].
+  factory HsiColor.from(ColorModel color) {
+    assert(color != null);
+
+    return color.toHsiColor();
+  }
+
+  /// Constructs a [HsiColor] from a list of [hsi] values.
   ///
   /// [hsi] must not be null and must have exactly `3` or `4` values.
   ///
@@ -147,7 +154,7 @@ class HsiColor extends ColorModel {
   /// The saturation and intensity must both be `>= 0` and `<= 100`.
   ///
   /// The [alpha] value, if included, must be `>= 0 && <= 1`.
-  static HsiColor fromList(List<num> hsi) {
+  factory HsiColor.fromList(List<num> hsi) {
     assert(hsi != null && (hsi.length == 3 || hsi.length == 4));
     assert(hsi[0] != null && hsi[0] >= 0 && hsi[0] <= 360);
     assert(hsi[1] != null && hsi[1] >= 0 && hsi[1] <= 100);
@@ -161,29 +168,22 @@ class HsiColor extends ColorModel {
     return HsiColor(hsi[0], hsi[1], hsi[2], alpha);
   }
 
-  /// Returns a [color] in another color space as a HSI color.
-  static HsiColor from(ColorModel color) {
-    assert(color != null);
-
-    return color.toHsiColor();
-  }
-
-  /// Returns a [hex] color as a HSI color.
+  /// Constructs a [HsiColor] from a [hex] color.
   ///
   /// [hex] is case-insensitive and must be `3` or `6` characters
   /// in length, excluding an optional leading `#`.
-  static HsiColor fromHex(String hex) {
+  factory HsiColor.fromHex(String hex) {
     assert(hex != null);
 
     return ColorConverter.hexToRgb(hex).toHsiColor();
   }
 
-  /// Returns a [HsiColor] from a list of [hsi] values on a 0 to 1 scale.
+  /// Constructs a [HsiColor] from a list of [hsi] values on a `0` to `1` scale.
   ///
   /// [hsi] must not be null and must have exactly `3` or `4` values.
   ///
   /// Each of the values must be `>= 0` and `<= 1`.
-  static HsiColor extrapolate(List<double> hsi) {
+  factory HsiColor.extrapolate(List<double> hsi) {
     assert(hsi != null && (hsi.length == 3 || hsi.length == 4));
     assert(hsi[0] != null && hsi[0] >= 0 && hsi[0] <= 1);
     assert(hsi[1] != null && hsi[1] >= 0 && hsi[1] <= 1);
@@ -198,15 +198,17 @@ class HsiColor extends ColorModel {
   }
 
   @override
-  String toString() => 'HsiColor($hue, $saturation, $intensity)';
+  String toString() => 'HsiColor($hue, $saturation, $intensity, $alpha)';
 
   @override
   bool operator ==(Object o) =>
       o is HsiColor &&
       hue == o.hue &&
       saturation == o.saturation &&
-      intensity == o.intensity;
+      intensity == o.intensity &&
+      alpha == o.alpha;
 
   @override
-  int get hashCode => hue.hashCode ^ saturation.hashCode ^ intensity.hashCode;
+  int get hashCode =>
+      hue.hashCode ^ saturation.hashCode ^ intensity.hashCode ^ alpha.hashCode;
 }

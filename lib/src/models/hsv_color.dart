@@ -138,7 +138,14 @@ class HsvColor extends ColorModel {
         alpha,
       ], growable: false);
 
-  /// Parses a list for HSV values and returns a [HsvColor].
+  /// Constructs a [HsvColor] from [color].
+  factory HsvColor.from(ColorModel color) {
+    assert(color != null);
+
+    return color.toHsvColor();
+  }
+
+  /// Constructs a [HsvColor] from a list of [hsv] values.
   ///
   /// [hsv] must not be null and must have exactly `3` or `4` values.
   ///
@@ -147,7 +154,7 @@ class HsvColor extends ColorModel {
   /// The saturation and value must both be `>= 0` and `<= 100`.
   ///
   /// The [alpha] value, if included, must be `>= 0 && <= 1`.
-  static HsvColor fromList(List<num> hsv) {
+  factory HsvColor.fromList(List<num> hsv) {
     assert(hsv != null && (hsv.length == 3 || hsv.length == 4));
     assert(hsv[0] != null && hsv[0] >= 0 && hsv[0] <= 360);
     assert(hsv[1] != null && hsv[1] >= 0 && hsv[1] <= 100);
@@ -161,29 +168,22 @@ class HsvColor extends ColorModel {
     return HsvColor(hsv[0], hsv[1], hsv[2], alpha);
   }
 
-  /// Returns a [color] in another color space as a HSV color.
-  static HsvColor from(ColorModel color) {
-    assert(color != null);
-
-    return color.toHsvColor();
-  }
-
-  /// Returns a [hex] color as a HSV color.
+  /// Constructs a [HsvColor] from a [hex] color.
   ///
   /// [hex] is case-insensitive and must be `3` or `6` characters
   /// in length, excluding an optional leading `#`.
-  static HsvColor fromHex(String hex) {
+  factory HsvColor.fromHex(String hex) {
     assert(hex != null);
 
     return ColorConverter.hexToRgb(hex).toHsvColor();
   }
 
-  /// Returns a [HsvColor] from a list of [hsv] values on a 0 to 1 scale.
+  /// Constructs a [HsvColor] from a list of [hsv] values on a `0` to `1` scale.
   ///
   /// [hsv] must not be null and must have exactly `3` or `4` values.
   ///
   /// Each of the values must be `>= 0` and `<= 1`.
-  static HsvColor extrapolate(List<double> hsv) {
+  factory HsvColor.extrapolate(List<double> hsv) {
     assert(hsv != null && (hsv.length == 3 || hsv.length == 4));
     assert(hsv[0] != null && hsv[0] >= 0 && hsv[0] <= 1);
     assert(hsv[1] != null && hsv[1] >= 0 && hsv[1] <= 1);
@@ -198,15 +198,17 @@ class HsvColor extends ColorModel {
   }
 
   @override
-  String toString() => 'HsvColor($hue, $saturation, $value)';
+  String toString() => 'HsvColor($hue, $saturation, $value, $alpha)';
 
   @override
   bool operator ==(Object o) =>
       o is HsvColor &&
       hue == o.hue &&
       saturation == o.saturation &&
-      value == o.value;
+      value == o.value &&
+      alpha == o.alpha;
 
   @override
-  int get hashCode => hue.hashCode ^ saturation.hashCode ^ value.hashCode;
+  int get hashCode =>
+      hue.hashCode ^ saturation.hashCode ^ value.hashCode ^ alpha.hashCode;
 }
