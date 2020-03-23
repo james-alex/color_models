@@ -74,17 +74,19 @@ class XyzColor extends ColorModel {
   }
 
   @override
-  XyzColor warmer(num amount) {
+  XyzColor warmer(num amount, {bool relative = true}) {
     assert(amount != null && amount > 0);
 
-    return ColorAdjustments.warmer(this, amount).toXyzColor();
+    return ColorAdjustments.warmer(this, amount, relative: relative)
+        .toXyzColor();
   }
 
   @override
-  XyzColor cooler(num amount) {
+  XyzColor cooler(num amount, {bool relative = true}) {
     assert(amount != null && amount > 0);
 
-    return ColorAdjustments.cooler(this, amount).toXyzColor();
+    return ColorAdjustments.cooler(this, amount, relative: relative)
+        .toXyzColor();
   }
 
   /// Returns this [XyzColor] modified with the provided [x] value.

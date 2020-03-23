@@ -70,17 +70,19 @@ class LabColor extends ColorModel {
   }
 
   @override
-  LabColor warmer(num amount) {
+  LabColor warmer(num amount, {bool relative = true}) {
     assert(amount != null && amount > 0);
 
-    return ColorAdjustments.warmer(this, amount).toLabColor();
+    return ColorAdjustments.warmer(this, amount, relative: relative)
+        .toLabColor();
   }
 
   @override
-  LabColor cooler(num amount) {
+  LabColor cooler(num amount, {bool relative = true}) {
     assert(amount != null && amount > 0);
 
-    return ColorAdjustments.cooler(this, amount).toLabColor();
+    return ColorAdjustments.cooler(this, amount, relative: relative)
+        .toLabColor();
   }
 
   /// Returns this [LabColor] modified with the provided [lightness] value.

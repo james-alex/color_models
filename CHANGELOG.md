@@ -1,3 +1,7 @@
+## [0.2.5] - March 22, 2020
+
+* Added the [relative] parameter to the [warmer] and [cooler] methods.
+
 ## [0.2.4+2] - March 22, 2020
 
 * Added the [saturation] getter to [ColorModel].

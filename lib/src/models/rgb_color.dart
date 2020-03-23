@@ -78,17 +78,23 @@ class RgbColor extends ColorModel {
   }
 
   @override
-  RgbColor warmer(num amount) {
+  RgbColor warmer(num amount, {bool relative = true}) {
     assert(amount != null && amount > 0);
+    assert(relative != null);
+    if (relative) assert(amount <= 100);
 
-    return ColorAdjustments.warmer(this, amount).toRgbColor();
+    return ColorAdjustments.warmer(this, amount, relative: relative)
+        .toRgbColor();
   }
 
   @override
-  RgbColor cooler(num amount) {
+  RgbColor cooler(num amount, {bool relative = true}) {
     assert(amount != null && amount > 0);
+    assert(relative != null);
+    if (relative) assert(amount <= 100);
 
-    return ColorAdjustments.cooler(this, amount).toRgbColor();
+    return ColorAdjustments.cooler(this, amount, relative: relative)
+        .toRgbColor();
   }
 
   /// Returns this [RgbColor] modified with the provided [red] value.

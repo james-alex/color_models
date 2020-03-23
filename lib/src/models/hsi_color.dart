@@ -69,17 +69,21 @@ class HsiColor extends ColorModel {
   }
 
   @override
-  HsiColor warmer(num amount) {
+  HsiColor warmer(num amount, {bool relative = true}) {
     assert(amount != null && amount > 0);
+    assert(relative != null);
+    if (relative) assert(amount <= 100);
 
-    return withHue(ColorAdjustments.warmerHue(hue, amount));
+    return withHue(ColorAdjustments.warmerHue(hue, amount, relative: relative));
   }
 
   @override
-  HsiColor cooler(num amount) {
+  HsiColor cooler(num amount, {bool relative = true}) {
     assert(amount != null && amount > 0);
+    assert(relative != null);
+    if (relative) assert(amount <= 100);
 
-    return withHue(ColorAdjustments.coolerHue(hue, amount));
+    return withHue(ColorAdjustments.coolerHue(hue, amount, relative: relative));
   }
 
   /// Returns this [HsiColor] modified with the provided [hue] value.

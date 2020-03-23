@@ -69,17 +69,21 @@ class HslColor extends ColorModel {
   }
 
   @override
-  HslColor warmer(num amount) {
+  HslColor warmer(num amount, {bool relative = true}) {
     assert(amount != null && amount > 0);
+    assert(relative != null);
+    if (relative) assert(amount <= 100);
 
-    return withHue(ColorAdjustments.warmerHue(hue, amount));
+    return withHue(ColorAdjustments.warmerHue(hue, amount, relative: relative));
   }
 
   @override
-  HslColor cooler(num amount) {
+  HslColor cooler(num amount, {bool relative = true}) {
     assert(amount != null && amount > 0);
+    assert(relative != null);
+    if (relative) assert(amount <= 100);
 
-    return withHue(ColorAdjustments.coolerHue(hue, amount));
+    return withHue(ColorAdjustments.coolerHue(hue, amount, relative: relative));
   }
 
   /// Returns this [HslColor] modified with the provided [hue] value.

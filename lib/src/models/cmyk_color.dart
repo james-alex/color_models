@@ -75,17 +75,23 @@ class CmykColor extends ColorModel {
   }
 
   @override
-  CmykColor warmer(num amount) {
+  CmykColor warmer(num amount, {bool relative = true}) {
     assert(amount != null && amount > 0);
+    assert(relative != null);
+    if (relative) assert(amount <= 100);
 
-    return ColorAdjustments.warmer(this, amount).toCmykColor();
+    return ColorAdjustments.warmer(this, amount, relative: relative)
+        .toCmykColor();
   }
 
   @override
-  CmykColor cooler(num amount) {
+  CmykColor cooler(num amount, {bool relative = true}) {
     assert(amount != null && amount > 0);
+    assert(relative != null);
+    if (relative) assert(amount <= 100);
 
-    return ColorAdjustments.cooler(this, amount).toCmykColor();
+    return ColorAdjustments.cooler(this, amount, relative: relative)
+        .toCmykColor();
   }
 
   /// Returns this [CmykColor] modified with the provided [cyan] value.

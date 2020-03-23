@@ -69,17 +69,21 @@ class HsvColor extends ColorModel {
   }
 
   @override
-  HsvColor warmer(num amount) {
+  HsvColor warmer(num amount, {bool relative = true}) {
     assert(amount != null && amount > 0);
+    assert(relative != null);
+    if (relative) assert(amount <= 100);
 
-    return withHue(ColorAdjustments.warmerHue(hue, amount));
+    return withHue(ColorAdjustments.warmerHue(hue, amount, relative: relative));
   }
 
   @override
-  HsvColor cooler(num amount) {
+  HsvColor cooler(num amount, {bool relative = true}) {
     assert(amount != null && amount > 0);
+    assert(relative != null);
+    if (relative) assert(amount <= 100);
 
-    return withHue(ColorAdjustments.coolerHue(hue, amount));
+    return withHue(ColorAdjustments.coolerHue(hue, amount, relative: relative));
   }
 
   /// Returns this [HsvColor] modified with the provided [hue] value.
