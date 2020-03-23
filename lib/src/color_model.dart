@@ -67,7 +67,7 @@ abstract class ColorModel {
   /// Adjusts the [hue] of this color by [amount] towards
   /// `90` degrees, capping the value at `90`.
   ///
-  /// If [relative] is `true`, [amount] will be treated as a percentage nd the
+  /// If [relative] is `true`, [amount] will be treated as a percentage and the
   /// hue will be adjusted by the percent of the distance from the current hue
   /// to `90` that [amount] represents. If `false`, [amount] will be treated
   /// as the number of degrees to adjust the hue by.
@@ -76,7 +76,7 @@ abstract class ColorModel {
   /// Adjusts the [hue] of this color by [amount] towards
   /// `270` degrees, capping the value at `270`.
   ///
-  /// If [relative] is `true`, [amount] will be treated as a percentage nd the
+  /// If [relative] is `true`, [amount] will be treated as a percentage and the
   /// hue will be adjusted by the percent of the distance from the current hue
   /// to `270` that [amount] represents. If `false`, [amount] will be treated
   /// as the number of degrees to adjust the hue by.
