@@ -208,7 +208,7 @@ class ColorConverter {
         : difference / (max + min);
 
     return HslColor.extrapolate(
-        <double>[_getHue(rgbColor), saturation, lightness, rgbColor.alpha]);
+        <double>[getHue(rgbColor), saturation, lightness, rgbColor.alpha]);
   }
 
   /// Converts a HSL color to a RGB color.
@@ -294,7 +294,7 @@ class ColorConverter {
       saturation = 1 - ((green >= red) ? red / blue : green / blue);
     }
 
-    hue ??= _getHue(rgbColor);
+    hue ??= getHue(rgbColor);
 
     return HspColor.extrapolate(
         <double>[hue, saturation, percievedBrightness, rgbColor.alpha]);
@@ -433,7 +433,7 @@ class ColorConverter {
     final saturation = (max == 0.0) ? 0.0 : difference / max;
 
     return HsvColor.extrapolate(
-        <double>[_getHue(rgbColor), saturation, max, rgbColor.alpha]);
+        <double>[getHue(rgbColor), saturation, max, rgbColor.alpha]);
   }
 
   /// Converts a HSV color to a RGB color.
@@ -653,7 +653,7 @@ class ColorConverter {
 
   /// Calculates the [rgbColor]s hue on a 0 to 1 scale,
   /// as used by the HSL, HSP, and HSV color models.
-  static double _getHue(RgbColor rgbColor) {
+  static double getHue(RgbColor rgbColor) {
     assert(rgbColor != null);
 
     double hue;

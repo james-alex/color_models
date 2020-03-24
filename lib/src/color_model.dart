@@ -29,24 +29,23 @@ abstract class ColorModel {
   /// Ranges from `0` to `1`.
   num get alpha;
 
-  /// The hue value of this color. Color spaces without a hue
-  /// value will be converted to HSL to retrieve the value.
+  /// Gets the hue value of this color.
   ///
   /// If you intend to get both the [hue] and [saturation] values,
   /// it is recommended to convert the color to a [HslColor] and
-  /// getting the values from it, to avoid converting the color
-  /// multiple times unnecessarily.
+  /// getting the values from it, to avoid calculating the hue
+  /// multiple times, unnecessarily.
   ///
   /// Ranges from `0` to `360`.
-  num get hue => toHslColor().hue;
+  num get hue => (ColorConverter.getHue(toRgbColor()) * 360) % 360;
 
   /// The saturation value of this color. Color spaces without a saturation
   /// value will be converted to HSL to retrieve the value.
   ///
   /// If you intend to get both the [hue] and [saturation] values,
   /// it is recommended to convert the color to a [HslColor] and
-  /// getting the values from it, to avoid converting the color
-  /// multiple times unnecessarily.
+  /// getting the values from it, to avoid calculating the hue
+  /// multiple times, unnecessarily.
   ///
   /// Ranges from `0` to `360`.
   num get saturation => toHslColor().saturation;
