@@ -2,6 +2,7 @@ import 'package:meta/meta.dart';
 import '../color_model.dart';
 import '../helpers/color_adjustments.dart';
 import '../helpers/color_converter.dart';
+import '../helpers/random.dart';
 import '../helpers/round_values.dart';
 
 /// A color in the HSV (HSB) color space.
@@ -205,6 +206,47 @@ class HsvColor extends ColorModel {
     final alpha = hsv.length == 4 ? hsv[3] : 1.0;
 
     return HsvColor(hsv[0] * 360, hsv[1] * 100, hsv[2] * 100, alpha);
+  }
+
+  /// Generates a [HsvColor] at random.
+  ///
+  /// [minHue] and [maxHue] constrain the generated [hue] value. If
+  /// `minHue < maxHue`, the range will run in a clockwise direction
+  /// between the two, however if `minHue > maxHue`, the range will
+  /// run in a counter-clockwise direction. Both [minHue] and [maxHue]
+  /// must be `>= 0 && <= 360` and must not be `null`.
+  ///
+  /// [minSaturation] and [maxSaturation] constrain the generated [saturation]
+  /// value.
+  ///
+  /// [minValue] and [maxValue] constrain the generated [value] value.
+  ///
+  /// Min and max values, besides hues, must be `min <= max && max >= min`,
+  /// must be in the range of `>= 0 && <= 100`, and must not be `null`.
+  factory HsvColor.random({
+    num minHue = 0,
+    num maxHue = 360,
+    num minSaturation = 0,
+    num maxSaturation = 100,
+    num minValue = 0,
+    num maxValue = 100,
+  }) {
+    assert(minHue != null && minHue >= 0 && minHue <= 360);
+    assert(maxHue != null && maxHue >= 0 && maxHue <= 360);
+    assert(minSaturation != null &&
+        minSaturation >= 0 &&
+        minSaturation <= maxSaturation);
+    assert(maxSaturation != null &&
+        maxSaturation >= minSaturation &&
+        maxSaturation <= 100);
+    assert(minValue != null && minValue >= 0 && minValue <= maxValue);
+    assert(maxValue != null && maxValue >= minValue && maxValue <= 100);
+
+    return HsvColor(
+      randomHue(minHue, maxHue),
+      random(minSaturation, maxSaturation),
+      random(minValue, maxValue),
+    );
   }
 
   @override

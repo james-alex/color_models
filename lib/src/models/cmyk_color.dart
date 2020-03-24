@@ -2,6 +2,7 @@ import 'package:meta/meta.dart';
 import '../color_model.dart';
 import '../helpers/color_adjustments.dart';
 import '../helpers/color_converter.dart';
+import '../helpers/random.dart';
 import '../helpers/round_values.dart';
 
 /// A color in the CMYK color space.
@@ -226,6 +227,45 @@ class CmykColor extends ColorModel {
 
     return CmykColor(
         cmyk[0] * 100, cmyk[1] * 100, cmyk[2] * 100, cmyk[3] * 100, alpha);
+  }
+
+  /// Generates a [CmykColor] at random.
+  ///
+  /// [minCyan] and [maxCyan] constrain the generated [cyan] value.
+  ///
+  /// [minMagenta] and [maxMagenta] constrain the generated [magenta] value.
+  ///
+  /// [minYellow] and [maxYellow] constrain the generated [yellow] value.
+  ///
+  /// [minBlack] and [maxBlack] constrain the generated [black] value.
+  ///
+  /// All min and max values must be `min <= max && max >= min`, must be
+  /// in the range of `>= 0 && <= 100`, and must not be `null`.
+  factory CmykColor.random({
+    num minCyan = 0,
+    num maxCyan = 100,
+    num minMagenta = 0,
+    num maxMagenta = 100,
+    num minYellow = 0,
+    num maxYellow = 100,
+    num minBlack = 0,
+    num maxBlack = 100,
+  }) {
+    assert(minCyan != null && minCyan >= 0 && minCyan <= maxCyan);
+    assert(maxCyan != null && maxCyan >= minCyan && maxCyan <= 100);
+    assert(minMagenta != null && minMagenta >= 0 && minMagenta <= maxMagenta);
+    assert(maxMagenta != null && maxMagenta >= minMagenta && maxMagenta <= 100);
+    assert(minYellow != null && minYellow >= 0 && minYellow <= maxYellow);
+    assert(maxYellow != null && maxYellow >= minYellow && maxYellow <= 100);
+    assert(minBlack != null && minBlack >= 0 && minBlack <= maxBlack);
+    assert(maxBlack != null && maxBlack >= minBlack && maxBlack <= 100);
+
+    return CmykColor(
+      random(minCyan, maxCyan),
+      random(minMagenta, maxMagenta),
+      random(minYellow, maxYellow),
+      random(minBlack, maxBlack),
+    );
   }
 
   @override

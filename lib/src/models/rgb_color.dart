@@ -1,3 +1,4 @@
+import 'dart:math' show Random;
 import 'package:meta/meta.dart';
 import '../color_model.dart';
 import '../helpers/color_adjustments.dart';
@@ -230,6 +231,46 @@ class RgbColor extends ColorModel {
     final alpha = rgb.length == 4 ? rgb[3] : 1.0;
 
     return RgbColor(rgb[0] * 255, rgb[1] * 255, rgb[2] * 255, alpha);
+  }
+
+  /// Generates a [RgbColor] at random.
+  ///
+  /// [minRed] and [maxRed] constrain the generated [red] value.
+  ///
+  /// [minGreen] and [maxGreen] constrain the generated [green] value.
+  ///
+  /// [minBlue] and [maxBlue] constrain the generated [blue] value.
+  ///
+  /// All min and max values must be `min <= max && max >= min` and
+  /// must be in the range of `>= 0 && <= 255`.
+  factory RgbColor.random({
+    int minRed = 0,
+    int maxRed = 255,
+    int minGreen = 0,
+    int maxGreen = 255,
+    int minBlue = 0,
+    int maxBlue = 255,
+  }) {
+    assert(minRed != null && minRed >= 0 && minRed <= maxRed);
+    assert(maxRed != null && maxRed >= minRed && maxRed <= 255);
+    assert(minGreen != null && minGreen >= 0 && minGreen <= maxGreen);
+    assert(maxGreen != null && maxGreen >= minGreen && maxGreen <= 255);
+    assert(minBlue != null && minBlue >= 0 && minBlue <= maxBlue);
+    assert(maxBlue != null && maxBlue >= minBlue && maxBlue <= 255);
+
+    return RgbColor(
+      _random(minRed, maxRed),
+      _random(minGreen, maxGreen),
+      _random(minBlue, maxBlue),
+    );
+  }
+
+  /// Generates a random integer between [min] and [max].
+  static int _random(int min, int max) {
+    assert(min != null && min >= 0 && min <= max);
+    assert(max != null && max >= min && max <= 255);
+
+    return Random().nextInt(max + 1 - min) + min;
   }
 
   @override

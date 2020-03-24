@@ -2,6 +2,7 @@ import 'package:meta/meta.dart';
 import '../color_model.dart';
 import '../helpers/color_adjustments.dart';
 import '../helpers/color_converter.dart';
+import '../helpers/random.dart';
 import '../helpers/round_values.dart';
 
 /// A color in the CIELAB color space.
@@ -200,6 +201,43 @@ class LabColor extends ColorModel {
 
     return LabColor(
         lab[0] * 100, (lab[1] * 255) - 128, (lab[2] * 255) - 128, alpha);
+  }
+
+  /// Generates a [LabColor] at random.
+  ///
+  /// [minLightness] and [maxLightness] constrain the generated [lightness]
+  /// value.
+  ///
+  /// [minA] and [maxA] constrain the generated [a] value.
+  ///
+  /// [minB] and [maxB] constrain the generated [b] value.
+  ///
+  /// All min and max values must be `min <= max && max >= min`, must be
+  /// in the range of `>= 0 && <= 100`, and must not be `null`.
+  factory LabColor.random({
+    num minLightness = 0,
+    num maxLightness = 100,
+    num minA = 0,
+    num maxA = 100,
+    num minB = 0,
+    num maxB = 100,
+  }) {
+    assert(minLightness != null &&
+        minLightness >= 0 &&
+        minLightness <= maxLightness);
+    assert(maxLightness != null &&
+        maxLightness >= minLightness &&
+        maxLightness <= 100);
+    assert(minA != null && minA >= 0 && minA <= maxA);
+    assert(maxA != null && maxA >= minA && maxA <= 100);
+    assert(minB != null && minB >= 0 && minB <= maxB);
+    assert(maxB != null && maxB >= minB && maxB <= 100);
+
+    return LabColor(
+      random(minLightness, maxLightness),
+      random(minA, maxA),
+      random(minB, maxB),
+    );
   }
 
   @override

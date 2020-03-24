@@ -2,6 +2,7 @@ import 'package:meta/meta.dart';
 import '../color_model.dart';
 import '../helpers/color_adjustments.dart';
 import '../helpers/color_converter.dart';
+import '../helpers/random.dart';
 import '../helpers/round_values.dart';
 
 /// A color in the CIEXYZ color space.
@@ -212,6 +213,38 @@ class XyzColor extends ColorModel {
     final alpha = xyz.length == 4 ? xyz[3] : 1.0;
 
     return XyzColor(xyz[0] * 100, xyz[1] * 100, xyz[2] * 100, alpha);
+  }
+
+  /// Generates a [XyzColor] at random.
+  ///
+  /// [minX] and [maxX] constrain the generated [x] value.
+  ///
+  /// [minY] and [maxY] constrain the generated [y] value.
+  ///
+  /// [minZ] and [maxZ] constrain the generated [z] value.
+  ///
+  /// All min and max values must be `min <= max && max >= min`, must be
+  /// in the range of `>= 0 && <= 100`, and must not be `null`.
+  factory XyzColor.random({
+    num minX = 0,
+    num maxX = 100,
+    num minY = 0,
+    num maxY = 100,
+    num minZ = 0,
+    num maxZ = 100,
+  }) {
+    assert(minX != null && minX >= 0 && minX <= maxX);
+    assert(maxX != null && maxX >= minX && maxX <= 100);
+    assert(minY != null && minY >= 0 && minY <= maxY);
+    assert(maxY != null && maxY >= minY && maxY <= 100);
+    assert(minZ != null && minZ >= 0 && minZ <= maxZ);
+    assert(maxZ != null && maxZ >= minZ && maxZ <= 100);
+
+    return XyzColor(
+      random(minX, maxX),
+      random(minY, maxY),
+      random(minZ, maxZ),
+    );
   }
 
   /// The whitepoints used when calculating the XYZ values
