@@ -2,6 +2,7 @@ import 'package:meta/meta.dart';
 import '../color_model.dart';
 import '../helpers/color_adjustments.dart';
 import '../helpers/color_converter.dart';
+import '../helpers/round_values.dart';
 
 /// A color in the CIEXYZ color space.
 @immutable
@@ -229,7 +230,11 @@ class XyzColor extends ColorModel {
 
   @override
   bool operator ==(Object o) =>
-      o is XyzColor && x == o.x && y == o.y && z == o.z && alpha == o.alpha;
+      o is XyzColor &&
+      round(x) == round(o.x) &&
+      round(y) == round(o.y) &&
+      round(z) == round(o.z) &&
+      alpha == o.alpha;
 
   @override
   int get hashCode => x.hashCode ^ y.hashCode ^ z.hashCode ^ alpha.hashCode;

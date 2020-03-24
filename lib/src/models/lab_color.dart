@@ -2,6 +2,7 @@ import 'package:meta/meta.dart';
 import '../color_model.dart';
 import '../helpers/color_adjustments.dart';
 import '../helpers/color_converter.dart';
+import '../helpers/round_values.dart';
 
 /// A color in the CIELAB color space.
 ///
@@ -207,9 +208,9 @@ class LabColor extends ColorModel {
   @override
   bool operator ==(Object o) =>
       o is LabColor &&
-      lightness == o.lightness &&
-      a == o.a &&
-      b == o.b &&
+      round(lightness) == round(o.lightness) &&
+      round(a) == round(o.a) &&
+      round(b) == round(o.b) &&
       alpha == o.alpha;
 
   @override

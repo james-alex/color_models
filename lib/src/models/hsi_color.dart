@@ -2,6 +2,7 @@ import 'package:meta/meta.dart';
 import '../color_model.dart';
 import '../helpers/color_adjustments.dart';
 import '../helpers/color_converter.dart';
+import '../helpers/round_values.dart';
 
 /// A color in the HSI color space.
 ///
@@ -212,9 +213,9 @@ class HsiColor extends ColorModel {
   @override
   bool operator ==(Object o) =>
       o is HsiColor &&
-      hue == o.hue &&
-      saturation == o.saturation &&
-      intensity == o.intensity &&
+      round(hue) == round(o.hue) &&
+      round(saturation) == round(o.saturation) &&
+      round(intensity) == round(o.intensity) &&
       alpha == o.alpha;
 
   @override

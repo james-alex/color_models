@@ -2,6 +2,7 @@ import 'package:meta/meta.dart';
 import '../color_model.dart';
 import '../helpers/color_adjustments.dart';
 import '../helpers/color_converter.dart';
+import '../helpers/round_values.dart';
 
 /// A color in the HSP color space.
 ///
@@ -222,9 +223,9 @@ class HspColor extends ColorModel {
   @override
   bool operator ==(Object o) =>
       o is HspColor &&
-      hue == o.hue &&
-      saturation == o.saturation &&
-      perceivedBrightness == o.perceivedBrightness &&
+      round(hue) == round(o.hue) &&
+      round(saturation) == round(o.saturation) &&
+      round(perceivedBrightness) == round(o.perceivedBrightness) &&
       alpha == o.alpha;
 
   @override

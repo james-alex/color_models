@@ -2,6 +2,7 @@ import 'package:meta/meta.dart';
 import '../color_model.dart';
 import '../helpers/color_adjustments.dart';
 import '../helpers/color_converter.dart';
+import '../helpers/round_values.dart';
 
 /// A color in the CMYK color space.
 ///
@@ -233,10 +234,10 @@ class CmykColor extends ColorModel {
   @override
   bool operator ==(Object o) =>
       o is CmykColor &&
-      cyan == o.cyan &&
-      magenta == o.magenta &&
-      yellow == o.yellow &&
-      black == o.black &&
+      round(cyan) == round(o.cyan) &&
+      round(magenta) == round(o.magenta) &&
+      round(yellow) == round(o.yellow) &&
+      round(black) == round(o.black) &&
       alpha == o.alpha;
 
   @override

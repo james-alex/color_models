@@ -2,6 +2,7 @@ import 'package:meta/meta.dart';
 import '../color_model.dart';
 import '../helpers/color_adjustments.dart';
 import '../helpers/color_converter.dart';
+import '../helpers/round_values.dart';
 
 /// A color in the HSV (HSB) color space.
 ///
@@ -212,9 +213,9 @@ class HsvColor extends ColorModel {
   @override
   bool operator ==(Object o) =>
       o is HsvColor &&
-      hue == o.hue &&
-      saturation == o.saturation &&
-      value == o.value &&
+      round(hue) == round(o.hue) &&
+      round(saturation) == round(o.saturation) &&
+      round(value) == round(o.value) &&
       alpha == o.alpha;
 
   @override
