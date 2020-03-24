@@ -43,9 +43,8 @@ class ColorAdjustments {
     assert(amount != null && amount > 0);
     assert(relative != null);
 
-    final adjustment = relative
-        ? _calculateDistance(hue, 90) * (amount / 100)
-        : amount;
+    final adjustment =
+        relative ? _calculateDistance(hue, 90) * (amount / 100) : amount;
 
     if (hue >= 0 && hue <= 90) {
       hue += adjustment;
@@ -89,9 +88,8 @@ class ColorAdjustments {
     assert(amount != null && amount > 0);
     assert(relative != null);
 
-    final adjustment = relative
-        ? _calculateDistance(hue, 270) * (amount / 100)
-        : amount;
+    final adjustment =
+        relative ? _calculateDistance(hue, 270) * (amount / 100) : amount;
 
     if (hue >= 0 && hue <= 90) {
       hue = (hue - adjustment) % 360;
