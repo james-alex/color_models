@@ -1,6 +1,6 @@
 ## [0.2.5+1] - March 23, 2020
 
-* Fixed a bug and corrected rounding errors in HSP to RGB conversion.
+* Fixed a bug in the HSP to RGB conversion method.
 
 ## [0.2.5] - March 22, 2020
 

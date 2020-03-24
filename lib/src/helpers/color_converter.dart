@@ -407,16 +407,8 @@ class ColorConverter {
       }
     }
 
-    return RgbColor.extrapolate(<double>[
-      _correctRoundingErrors(red),
-      _correctRoundingErrors(green),
-      _correctRoundingErrors(blue),
-      hspColor.alpha,
-    ]);
+    return RgbColor.extrapolate(<double>[red, green, blue, hspColor.alpha]);
   }
-
-  static double _correctRoundingErrors(double value) =>
-      (value * 1000000000).round() / 1000000000;
 
   /// Converts a color from any color space to HSL.
   static HsvColor toHsvColor(ColorModel color) {
