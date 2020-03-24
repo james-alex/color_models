@@ -337,34 +337,34 @@ class ColorConverter {
 
       switch (hueIndex) {
         case 0:
-          blue = calculateFirstValue(_pr, _pg, _pb);
-          red = calculateSecondValue(blue);
-          green = calculateThirdValue(blue, red);
+          blue = calculateFirstValue(_pr, _pg, _pb).clamp(0.0, 1.0);
+          red = calculateSecondValue(blue).clamp(0.0, 1.0);
+          green = calculateThirdValue(blue, red).clamp(0.0, 1.0);
           break;
         case 1:
-          blue = calculateFirstValue(_pg, _pr, _pb);
-          green = calculateSecondValue(blue);
-          red = calculateThirdValue(blue, green);
+          blue = calculateFirstValue(_pg, _pr, _pb).clamp(0.0, 1.0);
+          green = calculateSecondValue(blue).clamp(0.0, 1.0);
+          red = calculateThirdValue(blue, green).clamp(0.0, 1.0);
           break;
         case 2:
-          red = calculateFirstValue(_pg, _pb, _pr);
-          green = calculateSecondValue(red);
-          blue = calculateThirdValue(red, green);
+          red = calculateFirstValue(_pg, _pb, _pr).clamp(0.0, 1.0);
+          green = calculateSecondValue(red).clamp(0.0, 1.0);
+          blue = calculateThirdValue(red, green).clamp(0.0, 1.0);
           break;
         case 3:
-          red = calculateFirstValue(_pb, _pg, _pr);
-          blue = calculateSecondValue(red);
-          green = calculateThirdValue(red, blue);
+          red = calculateFirstValue(_pb, _pg, _pr).clamp(0.0, 1.0);
+          blue = calculateSecondValue(red).clamp(0.0, 1.0);
+          green = calculateThirdValue(red, blue).clamp(0.0, 1.0);
           break;
         case 4:
-          green = calculateFirstValue(_pb, _pr, _pg);
-          blue = calculateSecondValue(green);
-          red = calculateThirdValue(green, blue);
+          green = calculateFirstValue(_pb, _pr, _pg).clamp(0.0, 1.0);
+          blue = calculateSecondValue(green).clamp(0.0, 1.0);
+          red = calculateThirdValue(green, blue).clamp(0.0, 1.0);
           break;
         case 5:
-          green = calculateFirstValue(_pr, _pb, _pg);
-          red = calculateSecondValue(green);
-          blue = calculateThirdValue(green, red);
+          green = calculateFirstValue(_pr, _pb, _pg).clamp(0.0, 1.0);
+          red = calculateSecondValue(green).clamp(0.0, 1.0);
+          blue = calculateThirdValue(green, red).clamp(0.0, 1.0);
           break;
       }
     } else {
@@ -375,44 +375,48 @@ class ColorConverter {
 
       switch (hueIndex) {
         case 0:
-          red = calculateFirstValue(_pr, _pg);
-          green = calculateSecondValue(red);
+          red = calculateFirstValue(_pr, _pg).clamp(0.0, 1.0);
+          green = calculateSecondValue(red).clamp(0.0, 1.0);
           blue = 0;
           break;
         case 1:
-          green = calculateFirstValue(_pg, _pr);
-          red = calculateSecondValue(green);
+          green = calculateFirstValue(_pg, _pr).clamp(0.0, 1.0);
+          red = calculateSecondValue(green).clamp(0.0, 1.0);
           blue = 0;
           break;
         case 2:
-          green = calculateFirstValue(_pg, _pb);
-          blue = calculateSecondValue(green);
+          green = calculateFirstValue(_pg, _pb).clamp(0.0, 1.0);
+          blue = calculateSecondValue(green).clamp(0.0, 1.0);
           red = 0;
           break;
         case 3:
-          blue = calculateFirstValue(_pb, _pg);
-          green = calculateSecondValue(blue);
+          blue = calculateFirstValue(_pb, _pg).clamp(0.0, 1.0);
+          green = calculateSecondValue(blue).clamp(0.0, 1.0);
           red = 0;
           break;
         case 4:
-          blue = calculateFirstValue(_pb, _pr);
-          red = calculateSecondValue(blue);
+          blue = calculateFirstValue(_pb, _pr).clamp(0.0, 1.0);
+          red = calculateSecondValue(blue).clamp(0.0, 1.0);
           green = 0;
           break;
         case 5:
-          red = calculateFirstValue(_pr, _pb);
-          blue = calculateSecondValue(red);
+          red = calculateFirstValue(_pr, _pb).clamp(0.0, 1.0);
+          blue = calculateSecondValue(red).clamp(0.0, 1.0);
           green = 0;
           break;
       }
     }
 
-    if (red > 1) red = 1;
-    if (green > 1) green = 1;
-    if (blue > 1) blue = 1;
-
-    return RgbColor.extrapolate(<double>[red, green, blue, hspColor.alpha]);
+    return RgbColor.extrapolate(<double>[
+      _correctRoundingErrors(red),
+      _correctRoundingErrors(green),
+      _correctRoundingErrors(blue),
+      hspColor.alpha,
+    ]);
   }
+
+  static double _correctRoundingErrors(double value) =>
+      (value * 1000000000).round() / 1000000000;
 
   /// Converts a color from any color space to HSL.
   static HsvColor toHsvColor(ColorModel color) {

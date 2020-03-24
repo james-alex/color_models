@@ -1,3 +1,7 @@
+## [0.2.5+1] - March 23, 2020
+
+* Fixed a bug and corrected rounding errors in HSP to RGB conversion.
+
 ## [0.2.5] - March 22, 2020
 
 * Added the [relative] parameter to the [warmer] and [cooler] methods.
