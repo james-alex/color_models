@@ -1,3 +1,15 @@
+## [0.2.6] - March 24, 2020
+
+* Added the random factory constructor to each [ColorModel].
+
+* The equality operator and some getters now rounds values to the millionth due
+to the slight loss of precision during conversions.
+
+* The [hue] getter now calculates hues directly from RGB,
+rather than doing a full conversion to HSL.
+
+* Added the [isMonochromatic] getter to each [ColorModel].
+
 ## [0.2.5+1] - March 23, 2020
 
 * Fixed a bug in the HSP to RGB conversion method.
