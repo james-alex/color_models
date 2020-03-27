@@ -59,7 +59,7 @@ class XyzColor extends ColorModel {
   @override
   bool get isMonochromatic {
     final x = round(this.x);
-    return  x == round(y) && x == round(z);
+    return x == round(y) && x == round(z);
   }
 
   @override
