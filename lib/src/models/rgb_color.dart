@@ -55,10 +55,13 @@ class RgbColor extends ColorModel {
   final num alpha;
 
   @override
-  bool get isBlack => (red == 0 && green == 0 && blue == 0);
+  bool get isBlack => red == 0 && green == 0 && blue == 0;
 
   @override
-  bool get isWhite => (red == 255 && green == 255 && blue == 255);
+  bool get isWhite => red == 255 && green == 255 && blue == 255;
+
+  @override
+  bool get isMonochromatic => red == green && red == blue;
 
   @override
   RgbColor get inverted {

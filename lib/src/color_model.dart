@@ -56,6 +56,9 @@ abstract class ColorModel {
   /// Returns `true` if this color is pure white.
   bool get isWhite;
 
+  /// Returns `true` if this color is monochromatic.
+  bool get isMonochromatic;
+
   /// Returns the color with the hue opposite of this colors'.
   ColorModel get opposite;
 

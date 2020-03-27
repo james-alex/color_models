@@ -53,10 +53,18 @@ class CmykColor extends ColorModel {
   final num alpha;
 
   @override
-  bool get isBlack => (black == 100);
+  bool get isBlack => round(black) == 100;
 
   @override
-  bool get isWhite => (cyan == 0 && magenta == 0 && yellow == 0 && black == 0);
+  bool get isWhite =>
+      round(cyan) == 0 &&
+      round(magenta) == 0 &&
+      round(yellow) == 0 &&
+      round(black) == 0;
+
+  @override
+  bool get isMonochromatic =>
+      round(cyan) == 0 && round(magenta) == 0 && round(yellow) == 0;
 
   @override
   CmykColor get inverted {

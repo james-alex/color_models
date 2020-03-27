@@ -51,10 +51,16 @@ class XyzColor extends ColorModel {
   final num alpha;
 
   @override
-  bool get isBlack => (x == 0 && y == 0 && z == 0);
+  bool get isBlack => round(x) == 0 && round(y) == 0 && round(z) == 0;
 
   @override
-  bool get isWhite => (x == 100 && y == 100 && z == 100);
+  bool get isWhite => round(x) >= 100 && round(y) >= 100 && round(z) >= 100;
+
+  @override
+  bool get isMonochromatic {
+    final x = round(this.x);
+    return  x == round(y) && x == round(z);
+  }
 
   @override
   XyzColor get inverted {

@@ -54,10 +54,16 @@ class HspColor extends ColorModel {
   final num alpha;
 
   @override
-  bool get isBlack => (perceivedBrightness == 0);
+  bool get isBlack => round(perceivedBrightness) == 0;
 
   @override
-  bool get isWhite => (perceivedBrightness == 1);
+  bool get isWhite => round(saturation) == 0 && round(perceivedBrightness) == 1;
+
+  @override
+  bool get isMonochromatic {
+    final perceivedBrightness = round(this.perceivedBrightness);
+    return perceivedBrightness == 0 || round(saturation) == 0;
+  }
 
   /// Adjusts this colors [hue] by `180` degrees while inverting the
   /// [saturation] and [perceivedBrightness] values.

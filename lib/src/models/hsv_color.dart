@@ -49,10 +49,13 @@ class HsvColor extends ColorModel {
   final num alpha;
 
   @override
-  bool get isBlack => (value == 0);
+  bool get isBlack => round(value) == 0;
 
   @override
-  bool get isWhite => (saturation == 0 && value == 1);
+  bool get isWhite => round(saturation) == 0 && round(value) == 1;
+
+  @override
+  bool get isMonochromatic => round(value) == 0 || round(saturation) == 0;
 
   /// Adjusts this colors [hue] by `180` degrees while inverting the
   /// [saturation] and [value] values.

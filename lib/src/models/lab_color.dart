@@ -52,10 +52,13 @@ class LabColor extends ColorModel {
   final num alpha;
 
   @override
-  bool get isBlack => (lightness == 0 && a == 0 && b == 0);
+  bool get isBlack => round(lightness) == 0 && round(a) == 0 && round(b) == 0;
 
   @override
-  bool get isWhite => (lightness == 1 && a == 0 && b == 0);
+  bool get isWhite => round(lightness) == 1 && round(a) == 0 && round(b) == 0;
+
+  @override
+  bool get isMonochromatic => round(a) == 0 && round(b) == 0;
 
   @override
   LabColor get inverted => LabColor(

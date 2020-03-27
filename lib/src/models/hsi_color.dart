@@ -49,10 +49,13 @@ class HsiColor extends ColorModel {
   final num alpha;
 
   @override
-  bool get isBlack => (intensity == 0);
+  bool get isBlack => round(intensity) == 0;
 
   @override
-  bool get isWhite => (saturation == 0 && intensity == 100);
+  bool get isWhite => round(saturation) == 0 && round(intensity) == 100;
+
+  @override
+  bool get isMonochromatic => round(intensity) == 0 || round(saturation) == 0;
 
   /// Adjusts this colors [hue] by `180` degrees while inverting the
   /// [saturation] and [intensity] values.

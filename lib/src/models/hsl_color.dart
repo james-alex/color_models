@@ -49,10 +49,16 @@ class HslColor extends ColorModel {
   final num alpha;
 
   @override
-  bool get isBlack => (lightness == 0);
+  bool get isBlack => round(lightness) == 0;
 
   @override
-  bool get isWhite => (lightness == 100);
+  bool get isWhite => round(lightness) == 100;
+
+  @override
+  bool get isMonochromatic {
+    final lightness = round(this.lightness);
+    return lightness == 0 || lightness == 100 || round(saturation) == 0;
+  }
 
   /// Adjusts this colors [hue] by `180` degrees while inverting the
   /// [saturation] and [lightness] values.
