@@ -13,5 +13,7 @@ double randomHue(num min, num max) {
   assert(min != null && min >= 0 && min <= 360);
   assert(max != null && max >= 0 && max <= 360);
 
-  return random(min, max) % 360;
+  return min <= max
+      ? random(min, max)
+      : (random(0, (max + 360) - min) + min) % 360;
 }
