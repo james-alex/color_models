@@ -2,7 +2,7 @@ name: color_models
 description: >-
   A set of classes representing the CMYK, HSI, HSL, HSP, HSV, LAB, RGB,
   and XYZ color spaces with methods to convert colors between each space.
-version: 0.2.6
+version: 0.2.6+1
 homepage: https://github.com/james-alex/color_models
 
 environment:

@@ -43,12 +43,12 @@ abstract class ColorModel {
   /// value will be converted to HSL to retrieve the value.
   ///
   /// If you intend to get both the [hue] and [saturation] values,
-  /// it is recommended to convert the color to a [HslColor] and
+  /// it is recommended to convert the color to a [HsvColor] and
   /// getting the values from it, to avoid calculating the hue
   /// multiple times, unnecessarily.
   ///
   /// Ranges from `0` to `360`.
-  num get saturation => toHslColor().saturation;
+  num get saturation => toHsvColor().saturation;
 
   /// Returns `true` if this color is pure black.
   bool get isBlack;
