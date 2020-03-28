@@ -63,6 +63,30 @@ class XyzColor extends ColorModel {
   }
 
   @override
+  List<XyzColor> interpolateTo(
+    ColorModel color,
+    int steps, {
+    bool excludeOriginalColors = false,
+  }) {
+    assert(color != null);
+    assert(steps != null && steps > 0);
+    assert(excludeOriginalColors != null);
+
+    if (color.runtimeType != XyzColor) {
+      color = color.toXyzColor();
+    }
+
+    return List<XyzColor>.from(
+      ColorAdjustments.interpolateColors(
+        this,
+        color,
+        steps,
+        excludeOriginalColors: excludeOriginalColors,
+      ),
+    );
+  }
+
+  @override
   XyzColor get inverted {
     final values = toList();
 

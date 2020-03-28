@@ -4,6 +4,78 @@ import '../color_model.dart';
 class ColorAdjustments {
   ColorAdjustments._();
 
+  /// Interpolates [color1] to [color2] with the number of [steps] inbetween.
+  ///
+  /// If [excludeOriginalColors] is `false`, [color1] and [color2] will not be
+  /// included in the list.
+  static List<ColorModel> interpolateColors(
+    ColorModel color1,
+    ColorModel color2,
+    int steps, {
+    bool excludeOriginalColors = false,
+  }) {
+    assert(color1 != null);
+    assert(color2 != null);
+    assert(color1.runtimeType == color2.runtimeType);
+    assert(steps != null && steps > 0);
+    assert(excludeOriginalColors != null);
+
+    final colors = <ColorModel>[];
+
+    final values1 = color1.toListWithAlpha();
+    final values2 = color2.toListWithAlpha();
+
+    for (var i = 1; i < steps; i++) {
+      final values = <num>[];
+
+      final step = (1 / steps) * i;
+
+      for (var j = 0; j < values1.length; j++) {
+        values.add(_interpolateValue(values1[j], values2[j], step));
+      }
+
+      switch (color1.runtimeType) {
+        case CmykColor:
+          colors.add(CmykColor.fromList(values));
+          break;
+        case HsiColor:
+          colors.add(HsiColor.fromList(values));
+          break;
+        case HslColor:
+          colors.add(HslColor.fromList(values));
+          break;
+        case HspColor:
+          colors.add(HspColor.fromList(values));
+          break;
+        case HsvColor:
+          colors.add(HsvColor.fromList(values));
+          break;
+        case HsiColor:
+          colors.add(HsiColor.fromList(values));
+          break;
+        case LabColor:
+          colors.add(LabColor.fromList(values));
+          break;
+        case RgbColor:
+          colors.add(RgbColor.fromList(values));
+          break;
+        case XyzColor:
+          colors.add(XyzColor.fromList(values));
+          break;
+      }
+    }
+
+    if (!excludeOriginalColors) {
+      colors.insert(0, color1);
+      colors.add(color2);
+    }
+
+    return colors;
+  }
+
+  static num _interpolateValue(num value1, num value2, double step) =>
+      ((1 - step) * value1 + (step * value2)).round();
+
   /// Converts [color] to a [HslColor] and adjusts the hue by [amount].
   static HslColor rotateHue(ColorModel color, num amount) {
     assert(color != null);

@@ -61,6 +61,30 @@ class LabColor extends ColorModel {
   bool get isMonochromatic => round(a) == 0 && round(b) == 0;
 
   @override
+  List<LabColor> interpolateTo(
+    ColorModel color,
+    int steps, {
+    bool excludeOriginalColors = false,
+  }) {
+    assert(color != null);
+    assert(steps != null && steps > 0);
+    assert(excludeOriginalColors != null);
+
+    if (color.runtimeType != LabColor) {
+      color = color.toLabColor();
+    }
+
+    return List<LabColor>.from(
+      ColorAdjustments.interpolateColors(
+        this,
+        color,
+        steps,
+        excludeOriginalColors: excludeOriginalColors,
+      ),
+    );
+  }
+
+  @override
   LabColor get inverted => LabColor(
       100 - lightness, 255 - (a + 128) - 128, 255 - (b + 128) - 128, alpha);
 

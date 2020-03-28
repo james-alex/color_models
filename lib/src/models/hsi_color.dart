@@ -57,6 +57,30 @@ class HsiColor extends ColorModel {
   @override
   bool get isMonochromatic => round(intensity) == 0 || round(saturation) == 0;
 
+  @override
+  List<HsiColor> interpolateTo(
+    ColorModel color,
+    int steps, {
+    bool excludeOriginalColors = false,
+  }) {
+    assert(color != null);
+    assert(steps != null && steps > 0);
+    assert(excludeOriginalColors != null);
+
+    if (color.runtimeType != HsiColor) {
+      color = color.toHsiColor();
+    }
+
+    return List<HsiColor>.from(
+      ColorAdjustments.interpolateColors(
+        this,
+        color,
+        steps,
+        excludeOriginalColors: excludeOriginalColors,
+      ),
+    );
+  }
+
   /// Adjusts this colors [hue] by `180` degrees while inverting the
   /// [saturation] and [intensity] values.
   @override

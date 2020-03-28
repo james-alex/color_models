@@ -65,6 +65,30 @@ class HspColor extends ColorModel {
     return perceivedBrightness == 0 || round(saturation) == 0;
   }
 
+  @override
+  List<HspColor> interpolateTo(
+    ColorModel color,
+    int steps, {
+    bool excludeOriginalColors = false,
+  }) {
+    assert(color != null);
+    assert(steps != null && steps > 0);
+    assert(excludeOriginalColors != null);
+
+    if (color.runtimeType != HspColor) {
+      color = color.toHspColor();
+    }
+
+    return List<HspColor>.from(
+      ColorAdjustments.interpolateColors(
+        this,
+        color,
+        steps,
+        excludeOriginalColors: excludeOriginalColors,
+      ),
+    );
+  }
+
   /// Adjusts this colors [hue] by `180` degrees while inverting the
   /// [saturation] and [perceivedBrightness] values.
   @override

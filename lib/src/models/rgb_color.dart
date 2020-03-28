@@ -64,6 +64,30 @@ class RgbColor extends ColorModel {
   bool get isMonochromatic => red == green && red == blue;
 
   @override
+  List<RgbColor> interpolateTo(
+    ColorModel color,
+    int steps, {
+    bool excludeOriginalColors = false,
+  }) {
+    assert(color != null);
+    assert(steps != null && steps > 0);
+    assert(excludeOriginalColors != null);
+
+    if (color.runtimeType != RgbColor) {
+      color = color.toRgbColor();
+    }
+
+    return List<RgbColor>.from(
+      ColorAdjustments.interpolateColors(
+        this,
+        color,
+        steps,
+        excludeOriginalColors: excludeOriginalColors,
+      ),
+    );
+  }
+
+  @override
   RgbColor get inverted {
     final values = toList();
 

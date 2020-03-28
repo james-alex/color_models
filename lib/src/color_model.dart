@@ -59,12 +59,26 @@ abstract class ColorModel {
   /// Returns `true` if this color is monochromatic.
   bool get isMonochromatic;
 
-  /// Returns the color with the hue opposite of this colors'.
-  ColorModel get opposite;
+  /// Returns the interpolated [steps] between this color and [color].
+  ///
+  /// The returned [ColorModel]'s values will be interpolated in
+  /// this color's color space.
+  ///
+  /// If [excludeOriginalColors] is `false`, this color and [color] will not be
+  /// included in the list. If [color] is in a different color space, it will be
+  /// converted to this color's color space.
+  List<ColorModel> interpolateTo(
+    ColorModel color,
+    int steps, {
+    bool excludeOriginalColors,
+  });
 
   /// Inverts the values of this [ColorModel],
   /// excluding [alpha], in its own color space.
   ColorModel get inverted;
+
+  /// Returns the color with the hue opposite of this colors'.
+  ColorModel get opposite;
 
   /// Adjusts the [hue] of this color by [amount] towards
   /// `90` degrees, capping the value at `90`.

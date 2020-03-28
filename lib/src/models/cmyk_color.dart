@@ -67,6 +67,30 @@ class CmykColor extends ColorModel {
       round(cyan) == 0 && round(magenta) == 0 && round(yellow) == 0;
 
   @override
+  List<CmykColor> interpolateTo(
+    ColorModel color,
+    int steps, {
+    bool excludeOriginalColors = false,
+  }) {
+    assert(color != null);
+    assert(steps != null && steps > 0);
+    assert(excludeOriginalColors != null);
+
+    if (color.runtimeType != CmykColor) {
+      color = color.toCmykColor();
+    }
+
+    return List<CmykColor>.from(
+      ColorAdjustments.interpolateColors(
+        this,
+        color,
+        steps,
+        excludeOriginalColors: excludeOriginalColors,
+      ),
+    );
+  }
+
+  @override
   CmykColor get inverted {
     final values = toList();
 

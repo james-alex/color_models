@@ -57,6 +57,30 @@ class HsvColor extends ColorModel {
   @override
   bool get isMonochromatic => round(value) == 0 || round(saturation) == 0;
 
+  @override
+  List<HsvColor> interpolateTo(
+    ColorModel color,
+    int steps, {
+    bool excludeOriginalColors = false,
+  }) {
+    assert(color != null);
+    assert(steps != null && steps > 0);
+    assert(excludeOriginalColors != null);
+
+    if (color.runtimeType != HsvColor) {
+      color = color.toHsvColor();
+    }
+
+    return List<HsvColor>.from(
+      ColorAdjustments.interpolateColors(
+        this,
+        color,
+        steps,
+        excludeOriginalColors: excludeOriginalColors,
+      ),
+    );
+  }
+
   /// Adjusts this colors [hue] by `180` degrees while inverting the
   /// [saturation] and [value] values.
   @override

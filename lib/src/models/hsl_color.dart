@@ -60,6 +60,30 @@ class HslColor extends ColorModel {
     return lightness == 0 || lightness == 100 || round(saturation) == 0;
   }
 
+  @override
+  List<HslColor> interpolateTo(
+    ColorModel color,
+    int steps, {
+    bool excludeOriginalColors = false,
+  }) {
+    assert(color != null);
+    assert(steps != null && steps > 0);
+    assert(excludeOriginalColors != null);
+
+    if (color.runtimeType != HslColor) {
+      color = color.toHslColor();
+    }
+
+    return List<HslColor>.from(
+      ColorAdjustments.interpolateColors(
+        this,
+        color,
+        steps,
+        excludeOriginalColors: excludeOriginalColors,
+      ),
+    );
+  }
+
   /// Adjusts this colors [hue] by `180` degrees while inverting the
   /// [saturation] and [lightness] values.
   @override
