@@ -7,9 +7,10 @@ A package with models for defining colors in the CMYK, HSI, HSL, HSP, HSV,
 LAB, RGB, and XYZ color spaces, with methods for converting colors between
 spaces and adjusting their properties.
 
-For use with Flutter, see:
-https://pub.dev/packages/flutter_color_models
+__For use with Flutter, see:__ https://pub.dev/packages/flutter_color_models
 
+Check out [palette](https://pub.dev/packages/palette), a package for creating,
+generating, and modifying color palettes.
 
 # Usage
 
