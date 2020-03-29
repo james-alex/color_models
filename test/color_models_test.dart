@@ -28,6 +28,9 @@ const List<ColorModel> _testColors = <ColorModel>[
   LabColor(0, -128, 127),
 ];
 
+/// Each of the color models' types.
+enum _ColorModels { cmyk, hsi, hsl, hsp, hsv, lab, rgb, xyz }
+
 /// The following tests convert each of the test colors from RGB
 /// to each of the other color spaces. They are then converted
 /// back to the RGB color space and are expected to equal the
@@ -125,6 +128,53 @@ void main() {
   });
 
   group('Color Adjustments', () {
+    test('Interpolate', () {
+      for (var i = 0; i < _testColors.length; i++) {
+        for (var j = 0; j < _testColors.length; j++) {
+          for (var colorModel1 in _ColorModels.values) {
+            final color1 = _toColorModel(colorModel1, _testColors[i]);
+            final values1 = color1 is RgbColor
+                ? color1.toPreciseListWithAlpha()
+                : color1.toListWithAlpha();
+
+            for (var colorModel2 in _ColorModels.values) {
+              final color2 = _toColorModel(colorModel2, _testColors[j]);
+              final values2 = color1 is RgbColor
+                  ? color2.toRgbColor().toPreciseListWithAlpha()
+                  : _toColorModel(colorModel1, color2).toListWithAlpha();
+
+              for (var steps = 1; steps <= 100; steps++) {
+                final colors = color1.interpolateTo(color2, steps);
+
+                for (var k = 0; k < colors.length; k++) {
+                  final step = (1 / (steps + 1)) * k;
+                  final color = colors[k];
+                  final values = color is RgbColor
+                      ? color.toPreciseListWithAlpha()
+                      : color.toListWithAlpha();
+
+                  for (var l = 0; l < values.length; l++) {
+                    final expectedValue = k == colors.length - 1
+                        ? _round(values2[l])
+                        : _interpolateValue(values1[l], values2[l], step);
+
+                    if (color2 is LabColor ||
+                        _testColors[i] is LabColor ||
+                        _testColors[j] is LabColor) {
+                      expect(
+                          _closeEnough(values[l], expectedValue), equals(true));
+                    } else {
+                      expect(_round(values[l]), equals(expectedValue));
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    });
+
     test('Rotate Hues', () {
       for (var color in _testColors) {
         color = color.toRgbColor();
@@ -142,3 +192,48 @@ void main() {
     });
   });
 }
+
+/// Converts [color] to the color space defined by [colorModel].
+ColorModel _toColorModel(_ColorModels colorModel, ColorModel color) {
+  assert(colorModel != null);
+  assert(color != null);
+
+  switch (colorModel) {
+    case _ColorModels.cmyk:
+      color = color.toCmykColor();
+      break;
+    case _ColorModels.hsi:
+      color = color.toHsiColor();
+      break;
+    case _ColorModels.hsl:
+      color = color.toHslColor();
+      break;
+    case _ColorModels.hsp:
+      color = color.toHspColor();
+      break;
+    case _ColorModels.hsv:
+      color = color.toHsvColor();
+      break;
+    case _ColorModels.lab:
+      color = color.toLabColor();
+      break;
+    case _ColorModels.rgb:
+      color = color.toRgbColor();
+      break;
+    case _ColorModels.xyz:
+      color = color.toXyzColor();
+      break;
+  }
+
+  return color;
+}
+
+num _interpolateValue(num value1, num value2, double step) =>
+    ((((1 - step) * value1) + (step * value2)) * 1000000).round() / 1000000;
+
+/// Rounds [value] to the millionth.
+num _round(num value) => (value * 1000000).round() / 1000000;
+
+/// Due to a loss of precision in the LAB color space,
+/// values are checked to be within 1/5th of a point.
+bool _closeEnough(num value1, num value2) => (value1 - value2).abs() <= 0.25;
