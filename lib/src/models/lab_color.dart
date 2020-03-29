@@ -157,6 +157,9 @@ class LabColor extends ColorModel {
   RgbColor toRgbColor() => ColorConverter.labToRgb(this);
 
   @override
+  LabColor toLabColor() => this;
+
+  @override
   XyzColor toXyzColor() => ColorConverter.labToXyz(this);
 
   /// Returns a fixed-length [List] containing the [lightness],

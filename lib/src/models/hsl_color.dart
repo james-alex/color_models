@@ -150,6 +150,9 @@ class HslColor extends ColorModel {
   @override
   RgbColor toRgbColor() => ColorConverter.hslToRgb(this);
 
+  @override
+  HslColor toHslColor() => this;
+
   /// Returns a fixed-length [List] containing the [hue],
   /// [saturation], and [lightness] values, in that order.
   @override

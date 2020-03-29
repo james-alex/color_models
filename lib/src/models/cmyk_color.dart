@@ -176,6 +176,9 @@ class CmykColor extends ColorModel {
   @override
   RgbColor toRgbColor() => ColorConverter.cmykToRgb(this);
 
+  @override
+  CmykColor toCmykColor() => this;
+
   /// Returns a fixed-length [List] containing the [cyan],
   /// [magenta], [yellow], and [black] values, in that order.
   @override

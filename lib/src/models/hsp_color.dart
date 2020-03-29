@@ -157,6 +157,9 @@ class HspColor extends ColorModel {
   @override
   RgbColor toRgbColor() => ColorConverter.hspToRgb(this);
 
+  @override
+  HspColor toHspColor() => this;
+
   /// Returns a fixed-length [List] containing the [hue], [saturation],
   /// and [perceivedBrightness] values, in that order.
   @override

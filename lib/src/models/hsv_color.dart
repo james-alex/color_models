@@ -147,6 +147,9 @@ class HsvColor extends ColorModel {
   @override
   RgbColor toRgbColor() => ColorConverter.hsvToRgb(this);
 
+  @override
+  HsvColor toHsvColor() => this;
+
   /// Returns a fixed-length [List] containing the [hue],
   /// [saturation], and [value] values, in that order.
   @override

@@ -147,6 +147,9 @@ class HsiColor extends ColorModel {
   @override
   RgbColor toRgbColor() => ColorConverter.hsiToRgb(this);
 
+  @override
+  HsiColor toHsiColor() => this;
+
   /// Returns a fixed-length [List] containing the [hue],
   /// [saturation], and [intensity] values, in that order.
   @override

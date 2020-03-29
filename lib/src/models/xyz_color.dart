@@ -166,6 +166,9 @@ class XyzColor extends ColorModel {
   @override
   RgbColor toRgbColor() => ColorConverter.xyzToRgb(this);
 
+  @override
+  XyzColor toXyzColor() => this;
+
   /// Returns a fixed-length [List] containing the
   /// [x], [y], and [z] values, in that order.
   @override
