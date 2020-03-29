@@ -527,9 +527,9 @@ class ColorConverter {
     final y = xyz[1];
     final z = xyz[2];
 
-    final lightness = (116 * y) - 16;
-    final a = (x - y) * 500;
-    final b = (y - z) * 200;
+    final lightness = ((116 * y) - 16).clamp(0.0, 100.0);
+    final a = ((x - y) * 500).clamp(-128.0, 127.0);
+    final b = ((y - z) * 200).clamp(-128.0, 127.0);
 
     return LabColor(lightness, a, b, xyzColor.alpha);
   }
