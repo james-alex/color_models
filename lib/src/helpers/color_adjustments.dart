@@ -25,10 +25,10 @@ class ColorAdjustments {
     final values1 = color1.toListWithAlpha();
     final values2 = color2.toListWithAlpha();
 
-    for (var i = 1; i < steps; i++) {
+    for (var i = 1; i <= steps; i++) {
       final values = <num>[];
 
-      final step = (1 / steps) * i;
+      final step = (1 / (steps + 1)) * i;
 
       for (var j = 0; j < values1.length; j++) {
         values.add(_interpolateValue(values1[j], values2[j], step));
@@ -74,7 +74,7 @@ class ColorAdjustments {
   }
 
   static num _interpolateValue(num value1, num value2, double step) =>
-      ((1 - step) * value1 + (step * value2)).round();
+      ((((1 - step) * value1) + (step * value2)) * 1000000).round() / 1000000;
 
   /// Converts [color] to a [HslColor] and adjusts the hue by [amount].
   static HslColor rotateHue(ColorModel color, num amount) {
