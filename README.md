@@ -156,3 +156,27 @@ print(orange.warmer(30)); // RgbColor(239, 255, 0);
 
 print(orange.cooler(30)); // RgbColor(255, 17, 0);
 ```
+
+## Interpolating Between Colors
+
+Each color model has a method, [interpolateTo], that calculates a specified number
+of steps between `this` color and a color provided to the method, returning all of
+the colors inbetween the two colors in a list. Colors will be returned in the color
+space of the color the method is called on.
+
+```dart
+final color1 = RgbColor(255, 0, 0); // red
+final color2 = RgbColor(0, 0, 255); // blue
+
+/// Calculate a [List<RgbColor>] of 5 colors: [color1], [color2] and the 3 steps inbetween.
+final colors = color1.interpolateTo(color2, 3);
+
+// [RgbColor(255, 0, 0, 1.0), RgbColor(191, 0, 64, 1.0), RgbColor(128, 0, 128, 1.0), RgbColor(64, 0, 191, 1.0), RgbColor(0, 0, 255, 1.0)]
+print(colors);
+
+/// To return only the steps in between [color1] and [color2], the [excludeOriginalColors] parameter can be set to `true`.
+final steps = color1.interpolateTo(color2, 3, excludeOriginalColors: true);
+
+// [RgbColor(191, 0, 64, 1.0), RgbColor(128, 0, 128, 1.0), RgbColor(64, 0, 191, 1.0)]
+print(steps);
+```
