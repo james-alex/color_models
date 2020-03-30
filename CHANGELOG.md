@@ -1,3 +1,12 @@
+## [0.2.8] - March 29, 2020
+
+* Removed [isBlack] and [isWhite] conversion condition from the CMYK color space.
+
+* Added [isMonochromatic] conversion condition to the H color spaces.
+
+* Rounding error fix calculating hues from [XyzColor]s. Affected some colors with
+RGB values equaling `255`.
+
 ## [0.2.7] - March 29, 2020
 
 * Added the [interpolateTo] method to each color model.
