@@ -89,7 +89,7 @@ class RgbColor extends ColorModel {
 
   @override
   RgbColor get inverted {
-    final values = toList();
+    final values = toPreciseList();
 
     return RgbColor.fromList(
         List<num>.generate(values.length, (i) => 255 - values[i])..add(alpha));
@@ -257,7 +257,18 @@ class RgbColor extends ColorModel {
 
     final alpha = rgb.length == 4 ? rgb[3] : 1.0;
 
-    return RgbColor(rgb[0] * 255, rgb[1] * 255, rgb[2] * 255, alpha);
+    final red = _extrapolate(rgb[0]);
+    final green = _extrapolate(rgb[1]);
+    final blue = _extrapolate(rgb[2]);
+
+    return RgbColor(red, green, blue, alpha);
+  }
+
+  /// Extrapolates [value] from a `0` to `1` scale to a `0` to `255` scale.
+  static num _extrapolate(num value) {
+    if (1 - value < 0.000001) value = 1;
+
+    return value * 255;
   }
 
   /// Generates a [RgbColor] at random.
