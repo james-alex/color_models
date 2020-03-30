@@ -22,8 +22,12 @@ class ColorAdjustments {
 
     final colors = <ColorModel>[];
 
-    final values1 = color1.toListWithAlpha();
-    final values2 = color2.toListWithAlpha();
+    final values1 = color1 is RgbColor
+        ? color1.toPreciseListWithAlpha()
+        : color1.toListWithAlpha();
+    final values2 = color2 is RgbColor
+        ? color2.toPreciseListWithAlpha()
+        : color2.toListWithAlpha();
 
     for (var i = 1; i <= steps; i++) {
       final values = <num>[];
