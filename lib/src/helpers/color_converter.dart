@@ -54,20 +54,19 @@ class ColorConverter {
   static CmykColor rgbToCmyk(RgbColor rgbColor) {
     assert(rgbColor != null);
 
-    if (rgbColor.isBlack) return CmykColor(0, 0, 0, 100, rgbColor.alpha);
-    if (rgbColor.isWhite) return CmykColor(0, 0, 0, 0, rgbColor.alpha);
-
     final rgb = rgbColor.toFactoredList();
 
     final cmy = rgb.map((rgbValue) => 1 - rgbValue).toList();
 
-    final k = cmy.reduce(math.min);
+    final k = cmy.reduce(math.min).clamp(0.0, 1.0);
 
-    final cmyk = cmy.map((cmyValue) => (cmyValue - k) / (1 - k)).toList()
-      ..add(k)
-      ..add(rgbColor.alpha);
+    final cmyk = cmy
+        .map((cmyValue) => ((cmyValue - k) / (1 - k)).clamp(0.0, 1.0))
+        .toList()
+          ..add(k)
+          ..add(rgbColor.alpha);
 
-    return CmykColor.extrapolate(cmyk);
+    return CmykColor.extrapolate(List<double>.from(cmyk));
   }
 
   /// Converts a CMYK color to a RGB color.
@@ -101,6 +100,9 @@ class ColorConverter {
 
     if (rgbColor.isBlack) return HsiColor(0, 0, 0, rgbColor.alpha);
     if (rgbColor.isWhite) return HsiColor(0, 0, 100, rgbColor.alpha);
+    if (rgbColor.isMonochromatic) {
+      return HsiColor(0, 0, rgbColor.red / 255 * 100, rgbColor.alpha);
+    }
 
     final rgb = rgbColor.toPreciseList();
 
@@ -194,6 +196,9 @@ class ColorConverter {
 
     if (rgbColor.isBlack) return HslColor(0, 0, 0, rgbColor.alpha);
     if (rgbColor.isWhite) return HslColor(0, 0, 100, rgbColor.alpha);
+    if (rgbColor.isMonochromatic) {
+      return HslColor(0, 0, rgbColor.red / 255 * 100, rgbColor.alpha);
+    }
 
     final rgb = rgbColor.toFactoredList();
 
@@ -267,6 +272,9 @@ class ColorConverter {
 
     if (rgbColor.isBlack) return HspColor(0, 0, 0, rgbColor.alpha);
     if (rgbColor.isWhite) return HspColor(0, 0, 100, rgbColor.alpha);
+    if (rgbColor.isMonochromatic) {
+      return HspColor(0, 0, rgbColor.red / 255 * 100, rgbColor.alpha);
+    }
 
     final rgb = rgbColor.toFactoredList();
 
@@ -421,8 +429,11 @@ class ColorConverter {
   static HsvColor rgbToHsv(RgbColor rgbColor) {
     assert(rgbColor != null);
 
-    if (rgbColor.isBlack) HsvColor(0, 0, 0);
-    if (rgbColor.isWhite) HsvColor(0, 0, 100);
+    if (rgbColor.isBlack) HsvColor(0, 0, 0, rgbColor.alpha);
+    if (rgbColor.isWhite) HsvColor(0, 0, 100, rgbColor.alpha);
+    if (rgbColor.isMonochromatic) {
+      return HsvColor(0, 0, rgbColor.red / 255 * 100, rgbColor.alpha);
+    }
 
     final rgb = rgbColor.toFactoredList();
 
