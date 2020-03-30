@@ -158,13 +158,12 @@ void main() {
                         ? _round(values2[l])
                         : _interpolateValue(values1[l], values2[l], step);
 
-                    if (color2 is LabColor ||
-                        _testColors[i] is LabColor ||
-                        _testColors[j] is LabColor) {
-                      expect(
-                          _closeEnough(values[l], expectedValue), equals(true));
+                    if (color2 is LabColor || color2 is HspColor) {
+                      expect((values[l] - expectedValue).abs() < 0.25,
+                          equals(true));
                     } else {
-                      expect(_round(values[l]), equals(expectedValue));
+                      expect((values[l] - expectedValue).abs() < 0.00001,
+                          equals(true));
                     }
                   }
                 }
@@ -233,7 +232,3 @@ num _interpolateValue(num value1, num value2, double step) =>
 
 /// Rounds [value] to the millionth.
 num _round(num value) => (value * 1000000).round() / 1000000;
-
-/// Due to a loss of precision in the LAB color space,
-/// values are checked to be within 1/5th of a point.
-bool _closeEnough(num value1, num value2) => (value1 - value2).abs() <= 0.25;
