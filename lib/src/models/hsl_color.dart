@@ -119,6 +119,7 @@ class HslColor extends ColorModel {
   }
 
   /// Returns this [HslColor] modified with the provided [hue] value.
+  @override
   HslColor withHue(num hue) {
     assert(hue != null && hue >= 0 && hue <= 360);
 

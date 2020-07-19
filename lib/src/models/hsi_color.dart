@@ -116,6 +116,7 @@ class HsiColor extends ColorModel {
   }
 
   /// Returns this [HsiColor] modified with the provided [hue] value.
+  @override
   HsiColor withHue(num hue) {
     assert(hue != null && hue >= 0 && hue <= 360);
 
