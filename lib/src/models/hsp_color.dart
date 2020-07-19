@@ -124,6 +124,7 @@ class HspColor extends ColorModel {
   }
 
   /// Returns this [HspColor] modified with the provided [hue] value.
+  @override
   HspColor withHue(num hue) {
     assert(hue != null && hue >= 0 && hue <= 360);
 

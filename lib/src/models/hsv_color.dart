@@ -116,6 +116,7 @@ class HsvColor extends ColorModel {
   }
 
   /// Returns this [HsvColor] modified with the provided [hue] value.
+  @override
   HsvColor withHue(num hue) {
     assert(hue != null && hue >= 0 && hue <= 360);
 
