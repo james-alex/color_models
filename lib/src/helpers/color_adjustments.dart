@@ -1,4 +1,5 @@
 import '../color_model.dart';
+import './calculate_distance.dart';
 
 /// A utility class with methods for adjusting the hues of colors.
 class ColorAdjustments {
@@ -92,7 +93,7 @@ class ColorAdjustments {
   static HslColor warmer(
     ColorModel color,
     num amount, {
-    bool relative,
+    bool relative = true,
   }) {
     assert(color != null);
     assert(amount != null && amount > 0);
@@ -110,14 +111,14 @@ class ColorAdjustments {
   static num warmerHue(
     num hue,
     num amount, {
-    bool relative,
+    bool relative = true,
   }) {
     assert(hue != null);
     assert(amount != null && amount > 0);
     assert(relative != null);
 
     final adjustment =
-        relative ? _calculateDistance(hue, 90) * (amount / 100) : amount;
+        relative ? calculateDistance(hue, 90) * (amount / 100) : amount;
 
     if (hue >= 0 && hue <= 90) {
       hue += adjustment;
@@ -137,7 +138,7 @@ class ColorAdjustments {
   static HslColor cooler(
     ColorModel color,
     num amount, {
-    bool relative,
+    bool relative = true,
   }) {
     assert(color != null);
     assert(amount != null && amount > 0);
@@ -155,14 +156,14 @@ class ColorAdjustments {
   static num coolerHue(
     num hue,
     num amount, {
-    bool relative,
+    bool relative = true,
   }) {
     assert(hue != null);
     assert(amount != null && amount > 0);
     assert(relative != null);
 
     final adjustment =
-        relative ? _calculateDistance(hue, 270) * (amount / 100) : amount;
+        relative ? calculateDistance(hue, 270) * (amount / 100) : amount;
 
     if (hue >= 0 && hue <= 90) {
       hue = (hue - adjustment) % 360;
@@ -175,16 +176,5 @@ class ColorAdjustments {
     }
 
     return hue;
-  }
-
-  /// Calculates the distance between [hue1] and [hue2].
-  static num _calculateDistance(num hue1, num hue2) {
-    assert(hue1 != null && hue1 >= 0 && hue1 <= 360);
-    assert(hue2 != null && hue2 >= 0 && hue2 <= 360);
-
-    final distance1 = hue1 > hue2 ? hue1 - hue2 : hue2 - hue1;
-    final distance2 = hue1 > hue2 ? (hue2 + 360) - hue1 : (hue1 + 360) - hue2;
-
-    return distance1 < distance2 ? distance1 : distance2;
   }
 }

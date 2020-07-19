@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+import './helpers/calculate_distance.dart';
 import './helpers/color_converter.dart';
 import './models/cmyk_color.dart';
 import './models/hsi_color.dart';
@@ -106,6 +107,14 @@ abstract class ColorModel {
 
   /// Returns this [ColorModel] with the provided [hue] value.
   ColorModel withHue(num hue);
+
+  /// Returns the distance between `this` color's
+  /// hue and [color]'s hue in degrees.
+  double distanceTo(ColorModel color) {
+    assert(color != null);
+
+    return calculateDistance(hue, color.hue);
+  }
 
   /// Compares colors in the RGB color space.
   ///
