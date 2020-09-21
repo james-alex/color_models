@@ -29,8 +29,9 @@ Each model is constant and extends [ColorModel].
 ## Creating Colors
 
 Colors can be created by constructing a [ColorModel] directly, or with the
-[fromList] or [extrapolate] constructors. [extrapolate] accepts each model's respective values on a `0` to `1` scale,
-and extrapolates them to their normal scale.
+[fromList] or [extrapolate] constructors. [extrapolate] accepts each model's
+respective values on a `0` to `1` scale, and extrapolates them to their normal
+scale.
 
 Each model posesses values for each property of their respective acronyms,
 as well as an optional [alpha] value.
@@ -45,8 +46,8 @@ RgbColor.extrapolate(<num>[1.0, 0.0, 0.0]);
 
 // RGB with alpha
 RgbColor(255, 0, 0, 1.0);
-RgbColor.fromList(<num>[255, 0, 0, 1.0]);
-RgbColor.extrapolate(<num>[1.0, 0.0, 0.0, 1.0]);
+RgbColor.fromList(<num>[255, 0, 0, 255]);
+RgbColor.extrapolate(<num>[1.0, 0.0, 0.0, 255]);
 
 // CMYK without alpha
 CmykColor(0.0, 100.0, 100.0, 0.0);
@@ -55,8 +56,8 @@ CmykColor.extrapolate(<num>[0.0, 1.0, 1.0, 0.0]);
 
 // CMYK with alpha
 CmykColor(0.0, 100.0, 100.0, 0.0, 1.0);
-CmykColor.fromList(<num>[0.0, 100.0, 100.0, 0.0, 1.0]);
-CmykColor.extrapolate(<num>[0.0, 1.0, 1.0, 0.0, 1.0]);
+CmykColor.fromList(<num>[0.0, 100.0, 100.0, 0.0, 255]);
+CmykColor.extrapolate(<num>[0.0, 1.0, 1.0, 0.0, 255]);
 
 // HSL without alpha
 HslColor(0.0, 100.0, 50.0);
@@ -65,8 +66,8 @@ HslColor.extrapolate(<num>[0.0, 1.0, 0.5]);
 
 // HSL with alpha
 HslColor(0.0, 100.0, 50.0, 1.0);
-HslColor.fromList(<num>[0.0, 100.0, 50.0, 1.0]);
-HslColor.extrapolate(<num>[0.0, 1.0, 0.5, 1.0]);
+HslColor.fromList(<num>[0.0, 100.0, 50.0, 255]);
+HslColor.extrapolate(<num>[0.0, 1.0, 0.5, 255]);
 ```
 
 ## Converting Colors Between Spaces
@@ -171,12 +172,12 @@ final color2 = RgbColor(0, 0, 255); // blue
 /// Calculate a [List<RgbColor>] of 5 colors: [color1], [color2] and the 3 steps inbetween.
 final colors = color1.interpolateTo(color2, 3);
 
-// [RgbColor(255, 0, 0, 1.0), RgbColor(191, 0, 64, 1.0), RgbColor(128, 0, 128, 1.0), RgbColor(64, 0, 191, 1.0), RgbColor(0, 0, 255, 1.0)]
+// [RgbColor(255, 0, 0, 255), RgbColor(191, 0, 64, 255), RgbColor(128, 0, 128, 255), RgbColor(64, 0, 191, 255), RgbColor(0, 0, 255, 255)]
 print(colors);
 
 /// To return only the steps in between [color1] and [color2], the [excludeOriginalColors] parameter can be set to `true`.
 final steps = color1.interpolateTo(color2, 3, excludeOriginalColors: true);
 
-// [RgbColor(191, 0, 64, 1.0), RgbColor(128, 0, 128, 1.0), RgbColor(64, 0, 191, 1.0)]
+// [RgbColor(191, 0, 64, 255), RgbColor(128, 0, 128, 255), RgbColor(64, 0, 191, 255)]
 print(steps);
 ```
