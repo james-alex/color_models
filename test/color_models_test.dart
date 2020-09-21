@@ -29,7 +29,7 @@ const List<ColorModel> _testColors = <ColorModel>[
 ];
 
 /// Each of the color models' types.
-enum _ColorModels { cmyk, hsi, hsl, hsp, hsv, lab, rgb, xyz }
+enum _ColorModels { cmyk, hsi, hsl, hsp, hsb, lab, rgb, xyz }
 
 /// The following tests convert each of the test colors from RGB
 /// to each of the other color spaces. They are then converted
@@ -65,10 +65,10 @@ void main() {
       }
     });
 
-    test('HSV Conversions', () {
+    test('HSB Conversions', () {
       for (var color in _testColors) {
-        final hsvColor = color.toHsvColor();
-        expect(color.equals(hsvColor), equals(true));
+        final hsbColor = color.toHsbColor();
+        expect(color.equals(hsbColor), equals(true));
       }
     });
 
@@ -112,8 +112,8 @@ void main() {
         copy = hspColor.toRgbColor();
         expect(copy, equals(color));
 
-        final hsvColor = HsvColor.from(copy);
-        copy = hsvColor.toRgbColor();
+        final hsbColor = HsbColor.from(copy);
+        copy = hsbColor.toRgbColor();
         expect(copy, equals(color));
 
         final labColor = LabColor.from(copy);
@@ -210,8 +210,8 @@ ColorModel _toColorModel(_ColorModels colorModel, ColorModel color) {
     case _ColorModels.hsp:
       color = color.toHspColor();
       break;
-    case _ColorModels.hsv:
-      color = color.toHsvColor();
+    case _ColorModels.hsb:
+      color = color.toHsbColor();
       break;
     case _ColorModels.lab:
       color = color.toLabColor();

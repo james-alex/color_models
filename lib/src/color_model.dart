@@ -2,19 +2,19 @@ import 'package:meta/meta.dart';
 import './helpers/calculate_distance.dart';
 import './helpers/color_converter.dart';
 import './models/cmyk_color.dart';
+import './models/hsb_color.dart';
 import './models/hsi_color.dart';
 import './models/hsl_color.dart';
 import './models/hsp_color.dart';
-import './models/hsv_color.dart';
 import './models/lab_color.dart';
 import './models/rgb_color.dart';
 import './models/xyz_color.dart';
 
 export './models/cmyk_color.dart';
+export './models/hsb_color.dart';
 export './models/hsi_color.dart';
 export './models/hsl_color.dart';
 export './models/hsp_color.dart';
-export './models/hsv_color.dart';
 export './models/lab_color.dart';
 export './models/rgb_color.dart';
 export './models/xyz_color.dart';
@@ -48,12 +48,12 @@ abstract class ColorModel {
   /// value will be converted to HSL to retrieve the value.
   ///
   /// If you intend to get both the [hue] and [saturation] values,
-  /// it is recommended to convert the color to a [HsvColor] and
+  /// it is recommended to convert the color to a [HsbColor] and
   /// getting the values from it, to avoid calculating the hue
   /// multiple times, unnecessarily.
   ///
   /// Ranges from `0` to `360`.
-  num get saturation => toHsvColor().saturation;
+  num get saturation => toHsbColor().saturation;
 
   /// Returns `true` if this color is pure black.
   bool get isBlack;
@@ -142,8 +142,8 @@ abstract class ColorModel {
   /// Converts `this` to the HSP color space.
   HspColor toHspColor() => ColorConverter.toHspColor(this);
 
-  /// Converts `this` to the HSV color space.
-  HsvColor toHsvColor() => ColorConverter.toHsvColor(this);
+  /// Converts `this` to the HSB color space.
+  HsbColor toHsbColor() => ColorConverter.toHsbColor(this);
 
   /// Converts `this` to the LAB color space.
   LabColor toLabColor() => ColorConverter.toLabColor(this);

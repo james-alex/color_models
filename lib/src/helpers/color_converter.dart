@@ -7,7 +7,7 @@
 /// The LAB to XYZ conversion algorithm was adapted from:
 /// https://stackoverflow.com/questions/46627367/convert-lab-to-xyz
 ///
-/// The HSL and HSV conversion algorithms were adapted from:
+/// The HSL and HSB conversion algorithms were adapted from:
 /// http://axonflux.com/handy-rgb-to-hsl-and-rgb-to-hsv-color-model-c
 ///
 /// The HSP conversion algorithms were adapted from:
@@ -431,20 +431,20 @@ class ColorConverter {
   }
 
   /// Converts a color from any color space to HSL.
-  static HsvColor toHsvColor(ColorModel color) {
+  static HsbColor toHsbColor(ColorModel color) {
     assert(color != null);
 
-    return rgbToHsv(color.toRgbColor());
+    return rgbToHsb(color.toRgbColor());
   }
 
-  /// Converts a RGB color to a HSV color.
-  static HsvColor rgbToHsv(RgbColor rgbColor) {
+  /// Converts a RGB color to a HSB color.
+  static HsbColor rgbToHsb(RgbColor rgbColor) {
     assert(rgbColor != null);
 
-    if (rgbColor.isBlack) HsvColor(0, 0, 0, rgbColor.alpha);
-    if (rgbColor.isWhite) HsvColor(0, 0, 100, rgbColor.alpha);
+    if (rgbColor.isBlack) HsbColor(0, 0, 0, rgbColor.alpha);
+    if (rgbColor.isWhite) HsbColor(0, 0, 100, rgbColor.alpha);
     if (rgbColor.isMonochromatic) {
-      return HsvColor(0, 0, rgbColor.red / 255 * 100, rgbColor.alpha);
+      return HsbColor(0, 0, rgbColor.red / 255 * 100, rgbColor.alpha);
     }
 
     final rgb = rgbColor.toFactoredList();
@@ -457,19 +457,19 @@ class ColorConverter {
 
     final alpha = rgbColor.alpha / 255;
 
-    return HsvColor.extrapolate(
+    return HsbColor.extrapolate(
         <double>[getHue(rgbColor), saturation, max, alpha]);
   }
 
-  /// Converts a HSV color to a RGB color.
-  static RgbColor hsvToRgb(HsvColor hsvColor) {
-    assert(hsvColor != null);
+  /// Converts a HSB color to a RGB color.
+  static RgbColor hsbToRgb(HsbColor hsbColor) {
+    assert(hsbColor != null);
 
-    final hsv = hsvColor.toFactoredList();
+    final hsb = hsbColor.toFactoredList();
 
-    final hue = hsv[0];
-    final saturation = hsv[1];
-    final value = hsv[2];
+    final hue = hsb[0];
+    final saturation = hsb[1];
+    final value = hsb[2];
 
     double red, green, blue;
 
@@ -515,7 +515,7 @@ class ColorConverter {
         break;
     }
 
-    final alpha = hsvColor.alpha / 255;
+    final alpha = hsbColor.alpha / 255;
 
     return RgbColor.extrapolate(<double>[red, green, blue, alpha]);
   }
@@ -683,7 +683,7 @@ class ColorConverter {
   }
 
   /// Calculates the [rgbColor]s hue on a 0 to 1 scale,
-  /// as used by the HSL, HSP, and HSV color models.
+  /// as used by the HSL, HSP, and HSB color models.
   static double getHue(RgbColor rgbColor) {
     assert(rgbColor != null);
 

@@ -2,7 +2,7 @@
 
 [![pub package](https://img.shields.io/pub/v/color_models.svg)](https://pub.dartlang.org/packages/color_models)
 
-A package with models for defining colors in the CMYK, HSI, HSL, HSP, HSV,
+A package with models for defining colors in the CMYK, HSI, HSL, HSP, HSB,
 LAB, RGB, and XYZ color spaces, with methods for converting colors between
 spaces and adjusting their properties.
 
@@ -19,9 +19,9 @@ import 'package:color_models/color_models.dart';
 
 ## Color Spaces
 
-color_models exposes models for the CMYK, HSI, HSL, HSP, HSV, LAB, RGB,
+color_models exposes models for the CMYK, HSI, HSL, HSP, HSB, LAB, RGB,
 and XYZ color spaces; represented as [CmykColor], [HsiColor], [HslColor],
-[HspColor], [HsvColor], [LabColor], [RgbColor], and [XyzColor] respectively.
+[HspColor], [HsbColor], [LabColor], [RgbColor], and [XyzColor] respectively.
 
 Each model is constant and extends [ColorModel].
 
@@ -82,7 +82,7 @@ HslColor toHslColor();
 
 HspColor toHspColor();
 
-HsvColor toHsvColor();
+HsbColor toHsbColor();
 
 LabColor toLabColor();
 
@@ -95,8 +95,8 @@ Altenatively, each color model has a constructor [ColorModel.from] that returns
 a color from any color space in the color space being called.
 
 ```dart
-// Create a HSV color
-var originalColor = HsvColor(0.3, 0.8, 0.7);
+// Create a HSB color
+var originalColor = HsbColor(0.3, 0.8, 0.7);
 
 // Convert it to RGB => RgbColor(64, 179, 36)
 var rgbColor = RgbColor.from(originalColor);
@@ -104,8 +104,8 @@ var rgbColor = RgbColor.from(originalColor);
 // Then to CMYK => CmykColor(64.25, 0, 79.89, 29.8)
 var cmykColor = CmykColor.from(rgbColor);
 
-// Back to HSV => HsvColor(0.3, 0.8, 0.7)
-var hsvColor = HsvColor.from(cmykColor);
+// Back to HSB => HsbColor(0.3, 0.8, 0.7)
+var hsbColor = HsbColor.from(cmykColor);
 ```
 
 __Note:__ All color conversions use the RGB color space as an

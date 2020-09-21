@@ -52,8 +52,8 @@ class ColorAdjustments {
         case HspColor:
           colors.add(HspColor.fromList(values));
           break;
-        case HsvColor:
-          colors.add(HsvColor.fromList(values));
+        case HsbColor:
+          colors.add(HsbColor.fromList(values));
           break;
         case LabColor:
           colors.add(LabColor.fromList(values));
