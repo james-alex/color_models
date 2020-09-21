@@ -1,3 +1,8 @@
+## [0.3.0] - September 21, 2020
+
+* Normalized all [alpha] values to be on a `0` to `255` scale to be in line
+with Flutter's [Color] class. They were on a `0` to `1` scale.
+
 ## [0.2.8] - March 29, 2020
 
 * Removed [isBlack] and [isWhite] conversion condition from the CMYK color space.
