@@ -11,7 +11,7 @@ import '../helpers/round_values.dart';
 /// [saturation], and [intensity].
 @immutable
 class HsiColor extends ColorModel {
-  /// A color in the HSV (HSB) color space.
+  /// A color in the HSI color space.
   ///
   /// [hue] must be `>= 0` and `<= 360`.
   ///
