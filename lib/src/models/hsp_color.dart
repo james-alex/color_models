@@ -25,13 +25,14 @@ class HspColor extends ColorModel {
     this.hue,
     this.saturation,
     this.perceivedBrightness, [
-    this.alpha = 1.0,
+    int alpha = 255,
   ])  : assert(hue != null && hue >= 0 && hue <= 360),
         assert(saturation != null && saturation >= 0 && saturation <= 100),
         assert(perceivedBrightness != null &&
             perceivedBrightness >= 0 &&
             perceivedBrightness <= 100),
-        assert(alpha != null && alpha >= 0 && alpha <= 1);
+        assert(alpha != null && alpha >= 0 && alpha <= 255),
+        super(alpha);
 
   /// The hue value of this color.
   ///
@@ -49,9 +50,6 @@ class HspColor extends ColorModel {
   ///
   /// Ranges from `0` to `100`.
   final num perceivedBrightness;
-
-  @override
-  final num alpha;
 
   @override
   bool get isBlack => round(perceivedBrightness) == 0;
@@ -150,7 +148,7 @@ class HspColor extends ColorModel {
   /// Returns this [HspColor] modified with the provided [alpha] value.
   @override
   HspColor withAlpha(num alpha) {
-    assert(alpha != null && alpha >= 0 && alpha <= 1);
+    assert(alpha != null && alpha >= 0 && alpha <= 255);
 
     return HspColor(hue, saturation, perceivedBrightness, alpha);
   }
@@ -189,7 +187,7 @@ class HspColor extends ColorModel {
         hue / 360,
         saturation / 100,
         perceivedBrightness / 100,
-        alpha,
+        alpha / 255,
       ], growable: false);
 
   /// Constructs a [HspColor] from [color].
@@ -207,17 +205,17 @@ class HspColor extends ColorModel {
   ///
   /// The saturation and perceived brightness must both be `>= 0` and `<= 100`.
   ///
-  /// The [alpha] value, if included, must be `>= 0 && <= 1`.
+  /// The [alpha] value, if included, must be `>= 0 && <= 255`.
   factory HspColor.fromList(List<num> hsp) {
     assert(hsp != null && (hsp.length == 3 || hsp.length == 4));
     assert(hsp[0] != null && hsp[0] >= 0 && hsp[0] <= 360);
     assert(hsp[1] != null && hsp[1] >= 0 && hsp[1] <= 100);
     assert(hsp[2] != null && hsp[2] >= 0 && hsp[2] <= 100);
     if (hsp.length == 4) {
-      assert(hsp[3] != null && hsp[3] >= 0 && hsp[3] <= 1);
+      assert(hsp[3] != null && hsp[3] >= 0 && hsp[3] <= 255);
     }
 
-    final alpha = hsp.length == 4 ? hsp[3] : 1.0;
+    final alpha = hsp.length == 4 ? hsp[3].round() : 255;
 
     return HspColor(hsp[0], hsp[1], hsp[2], alpha);
   }
@@ -246,7 +244,7 @@ class HspColor extends ColorModel {
       assert(hsp[3] != null && hsp[3] >= 0 && hsp[3] <= 1);
     }
 
-    final alpha = hsp.length == 4 ? hsp[3] : 1.0;
+    final alpha = hsp.length == 4 ? (hsp[3] * 255).round() : 255;
 
     return HspColor(hsp[0] * 360, hsp[1] * 100, hsp[2] * 100, alpha);
   }

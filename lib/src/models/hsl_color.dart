@@ -22,11 +22,12 @@ class HslColor extends ColorModel {
     this.hue,
     this.saturation,
     this.lightness, [
-    this.alpha = 1.0,
+    int alpha = 255,
   ])  : assert(hue != null && hue >= 0 && hue <= 360),
         assert(saturation != null && saturation >= 0 && saturation <= 100),
         assert(lightness != null && lightness >= 0 && lightness <= 100),
-        assert(alpha != null && alpha >= 0 && alpha <= 1);
+        assert(alpha != null && alpha >= 0 && alpha <= 255),
+        super(alpha);
 
   /// The hue value of this color.
   ///
@@ -44,9 +45,6 @@ class HslColor extends ColorModel {
   ///
   /// Ranges from `0` to `100`.
   final num lightness;
-
-  @override
-  final num alpha;
 
   @override
   bool get isBlack => round(lightness) == 0;
@@ -143,7 +141,7 @@ class HslColor extends ColorModel {
   /// Returns this [HslColor] modified with the provided [alpha] value.
   @override
   HslColor withAlpha(num alpha) {
-    assert(alpha != null && alpha >= 0 && alpha <= 1);
+    assert(alpha != null && alpha >= 0 && alpha <= 255);
 
     return HslColor(hue, saturation, lightness, alpha);
   }
@@ -180,7 +178,7 @@ class HslColor extends ColorModel {
         hue / 360,
         saturation / 100,
         lightness / 100,
-        alpha,
+        alpha / 255,
       ], growable: false);
 
   /// Constructs a [HslColor] from [color].
@@ -198,17 +196,17 @@ class HslColor extends ColorModel {
   ///
   /// The saturation and lightness must both be `>= 0` and `<= 100`.
   ///
-  /// The [alpha] value, if included, must be `>= 0 && <= 1`.
+  /// The [alpha] value, if included, must be `>= 0 && <= 255`.
   factory HslColor.fromList(List<num> hsl) {
     assert(hsl != null && (hsl.length == 3 || hsl.length == 4));
     assert(hsl[0] != null && hsl[0] >= 0 && hsl[0] <= 360);
     assert(hsl[1] != null && hsl[1] >= 0 && hsl[1] <= 100);
     assert(hsl[2] != null && hsl[2] >= 0 && hsl[2] <= 100);
     if (hsl.length == 4) {
-      assert(hsl[3] != null && hsl[3] >= 0 && hsl[3] <= 1);
+      assert(hsl[3] != null && hsl[3] >= 0 && hsl[3] <= 255);
     }
 
-    final alpha = hsl.length == 4 ? hsl[3] : 1.0;
+    final alpha = hsl.length == 4 ? hsl[3].round() : 255;
 
     return HslColor(hsl[0], hsl[1], hsl[2], alpha);
   }
@@ -237,7 +235,7 @@ class HslColor extends ColorModel {
       assert(hsl[3] != null && hsl[3] >= 0 && hsl[3] <= 1);
     }
 
-    final alpha = hsl.length == 4 ? hsl[3] : 1.0;
+    final alpha = hsl.length == 4 ? (hsl[3] * 255).round() : 255;
 
     return HslColor(hsl[0] * 360, hsl[1] * 100, hsl[2] * 100, alpha);
   }

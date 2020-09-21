@@ -24,14 +24,15 @@ class RgbColor extends ColorModel {
     num red,
     num green,
     num blue, [
-    this.alpha = 1.0,
+    int alpha = 255,
   ])  : assert(red != null && red >= 0 && red <= 255),
         assert(green != null && green >= 0 && green <= 255),
         assert(blue != null && blue >= 0 && blue <= 255),
-        assert(alpha != null && alpha >= 0 && alpha <= 1),
+        assert(alpha != null && alpha >= 0 && alpha <= 255),
         _red = red,
         _green = green,
-        _blue = blue;
+        _blue = blue,
+        super(alpha);
 
   /// The red value of this color.
   ///
@@ -50,9 +51,6 @@ class RgbColor extends ColorModel {
   /// Ranges from `0` to `255`.
   int get blue => _blue.round();
   final num _blue;
-
-  @override
-  final num alpha;
 
   @override
   bool get isBlack => red == 0 && green == 0 && blue == 0;
@@ -149,7 +147,7 @@ class RgbColor extends ColorModel {
   /// Returns this [RgbColor] modified with the provided [alpha] value.
   @override
   RgbColor withAlpha(num alpha) {
-    assert(alpha != null && alpha >= 0 && alpha <= 1);
+    assert(alpha != null && alpha >= 0 && alpha <= 255);
 
     return RgbColor(red, green, blue, alpha);
   }
@@ -200,7 +198,7 @@ class RgbColor extends ColorModel {
         _red / 255,
         _green / 255,
         _blue / 255,
-        alpha,
+        alpha / 255,
       ], growable: false);
 
   /// Constructs a [RgbColor] from [color].
@@ -216,17 +214,17 @@ class RgbColor extends ColorModel {
   ///
   /// Each color value must be `>= 0 && <= 255`.
   ///
-  /// The [alpha] value, if included, must be `>= 0 && <= 1`.
+  /// The [alpha] value, if included, must be `>= 0 && <= 255`.
   factory RgbColor.fromList(List<num> rgb) {
     assert(rgb != null && (rgb.length == 3 || rgb.length == 4));
     assert(rgb[0] != null && rgb[0] >= 0 && rgb[0] <= 255);
     assert(rgb[1] != null && rgb[1] >= 0 && rgb[1] <= 255);
     assert(rgb[2] != null && rgb[2] >= 0 && rgb[2] <= 255);
     if (rgb.length == 4) {
-      assert(rgb[3] != null && rgb[3] >= 0 && rgb[3] <= 1);
+      assert(rgb[3] != null && rgb[3] >= 0 && rgb[3] <= 255);
     }
 
-    final alpha = rgb.length == 4 ? rgb[3] : 1.0;
+    final alpha = rgb.length == 4 ? rgb[3].round() : 255;
 
     return RgbColor(rgb[0], rgb[1], rgb[2], alpha);
   }
@@ -255,7 +253,7 @@ class RgbColor extends ColorModel {
       assert(rgb[3] != null && rgb[3] >= 0 && rgb[3] <= 1);
     }
 
-    final alpha = rgb.length == 4 ? rgb[3] : 1.0;
+    final alpha = rgb.length == 4 ? (rgb[3] * 255).round() : 255;
 
     final red = _extrapolate(rgb[0]);
     final green = _extrapolate(rgb[1]);

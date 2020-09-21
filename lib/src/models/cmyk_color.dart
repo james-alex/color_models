@@ -22,12 +22,13 @@ class CmykColor extends ColorModel {
     this.magenta,
     this.yellow,
     this.black, [
-    this.alpha = 1.0,
+    int alpha = 255,
   ])  : assert(cyan != null && cyan >= 0 && cyan <= 100),
         assert(magenta != null && magenta >= 0 && magenta <= 100),
         assert(yellow != null && yellow >= 0 && yellow <= 100),
         assert(black != null && black >= 0 && black <= 100),
-        assert(alpha != null && alpha >= 0 && alpha <= 1);
+        assert(alpha != null && alpha >= 0 && alpha <= 255),
+        super(alpha);
 
   /// The cyan value of this color.
   ///
@@ -48,9 +49,6 @@ class CmykColor extends ColorModel {
   ///
   /// Ranges from `0` to `100`.
   final num black;
-
-  @override
-  final num alpha;
 
   @override
   bool get isBlack => round(black) == 100;
@@ -158,7 +156,7 @@ class CmykColor extends ColorModel {
 
   @override
   CmykColor withAlpha(num alpha) {
-    assert(alpha != null && alpha >= 0 && alpha <= 1);
+    assert(alpha != null && alpha >= 0 && alpha <= 255);
 
     return CmykColor(cyan, magenta, yellow, black, alpha);
   }
@@ -199,9 +197,13 @@ class CmykColor extends ColorModel {
 
   /// Returns a fixed-length list containing the [cyan], [magenta], [yelllow],
   /// [black], and [alpha] values factored to be on 0 to 1 scale.
-  List<double> toFactoredListWithAlpha() => List<double>.from(
-      <double>[cyan / 100, magenta / 100, yellow / 100, black / 100, alpha],
-      growable: false);
+  List<double> toFactoredListWithAlpha() => List<double>.from(<double>[
+        cyan / 100,
+        magenta / 100,
+        yellow / 100,
+        black / 100,
+        alpha / 255,
+      ], growable: false);
 
   /// Constructs a [CmykColor] from [color].
   factory CmykColor.from(ColorModel color) {
@@ -216,7 +218,7 @@ class CmykColor extends ColorModel {
   ///
   /// Each color value must be `>= 0 && <= 100`.
   ///
-  /// The [alpha] value, if included, must be `>= 0 && <= 1`.
+  /// The [alpha] value, if included, must be `>= 0 && <= 255`.
   factory CmykColor.fromList(List<num> cmyk) {
     assert(cmyk != null && (cmyk.length == 4 || cmyk.length == 5));
     assert(cmyk[0] != null && cmyk[0] >= 0 && cmyk[0] <= 100);
@@ -224,10 +226,10 @@ class CmykColor extends ColorModel {
     assert(cmyk[2] != null && cmyk[2] >= 0 && cmyk[2] <= 100);
     assert(cmyk[3] != null && cmyk[3] >= 0 && cmyk[3] <= 100);
     if (cmyk.length == 5) {
-      assert(cmyk[4] != null && cmyk[4] >= 0 && cmyk[4] <= 1);
+      assert(cmyk[4] != null && cmyk[4] >= 0 && cmyk[4] <= 255);
     }
 
-    final alpha = cmyk.length == 5 ? cmyk[4] : 1.0;
+    final alpha = cmyk.length == 5 ? cmyk[4].round() : 255;
 
     return CmykColor(cmyk[0], cmyk[1], cmyk[2], cmyk[3], alpha);
   }
@@ -255,10 +257,10 @@ class CmykColor extends ColorModel {
     assert(cmyk[2] != null && cmyk[2] >= 0 && cmyk[2] <= 1);
     assert(cmyk[3] != null && cmyk[3] >= 0 && cmyk[3] <= 1);
     if (cmyk.length == 5) {
-      assert(cmyk[4] != null && cmyk[4] >= 0 && cmyk[4] <= 1);
+      assert(cmyk[4] != null && cmyk[4] >= 0 && cmyk[4] <= 255);
     }
 
-    final alpha = cmyk.length == 5 ? cmyk[4] : 1.0;
+    final alpha = cmyk.length == 5 ? (cmyk[4] * 255).round() : 255;
 
     return CmykColor(
         cmyk[0] * 100, cmyk[1] * 100, cmyk[2] * 100, cmyk[3] * 100, alpha);

@@ -22,11 +22,12 @@ class HsiColor extends ColorModel {
     this.hue,
     this.saturation,
     this.intensity, [
-    this.alpha = 1.0,
+    int alpha = 255,
   ])  : assert(hue != null && hue >= 0 && hue <= 360),
         assert(saturation != null && saturation >= 0 && saturation <= 100),
         assert(intensity != null && intensity >= 0 && intensity <= 100),
-        assert(alpha != null && alpha >= 0 && alpha <= 1);
+        assert(alpha != null && alpha >= 0 && alpha <= 255),
+        super(alpha);
 
   /// The hue value of this color.
   ///
@@ -44,9 +45,6 @@ class HsiColor extends ColorModel {
   ///
   /// Ranges from `0` to `100`.
   final num intensity;
-
-  @override
-  final num alpha;
 
   @override
   bool get isBlack => round(intensity) == 0;
@@ -140,7 +138,7 @@ class HsiColor extends ColorModel {
   /// Returns this [HsiColor] modified with the provided [alpha] value.
   @override
   HsiColor withAlpha(num alpha) {
-    assert(alpha != null && alpha >= 0 && alpha <= 1);
+    assert(alpha != null && alpha >= 0 && alpha <= 255);
 
     return HsiColor(hue, saturation, intensity, alpha);
   }
@@ -177,7 +175,7 @@ class HsiColor extends ColorModel {
         hue / 360,
         saturation / 100,
         intensity / 100,
-        alpha,
+        alpha / 255,
       ], growable: false);
 
   /// Constructs a [HsiColor] from [color].
@@ -195,17 +193,17 @@ class HsiColor extends ColorModel {
   ///
   /// The saturation and intensity must both be `>= 0` and `<= 100`.
   ///
-  /// The [alpha] value, if included, must be `>= 0 && <= 1`.
+  /// The [alpha] value, if included, must be `>= 0 && <= 255`.
   factory HsiColor.fromList(List<num> hsi) {
     assert(hsi != null && (hsi.length == 3 || hsi.length == 4));
     assert(hsi[0] != null && hsi[0] >= 0 && hsi[0] <= 360);
     assert(hsi[1] != null && hsi[1] >= 0 && hsi[1] <= 100);
     assert(hsi[2] != null && hsi[2] >= 0 && hsi[2] <= 100);
     if (hsi.length == 4) {
-      assert(hsi[3] != null && hsi[3] >= 0 && hsi[3] <= 1);
+      assert(hsi[3] != null && hsi[3] >= 0 && hsi[3] <= 255);
     }
 
-    final alpha = hsi.length == 4 ? hsi[3] : 1.0;
+    final alpha = hsi.length == 4 ? hsi[3].round() : 255;
 
     return HsiColor(hsi[0], hsi[1], hsi[2], alpha);
   }
@@ -234,7 +232,7 @@ class HsiColor extends ColorModel {
       assert(hsi[3] != null && hsi[3] >= 0 && hsi[3] <= 1);
     }
 
-    final alpha = hsi.length == 4 ? hsi[3] : 1.0;
+    final alpha = hsi.length == 4 ? (hsi[3] * 255).round() : 255;
 
     return HsiColor(hsi[0] * 360, hsi[1] * 100, hsi[2] * 100, alpha);
   }

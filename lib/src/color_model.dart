@@ -23,12 +23,16 @@ export './models/xyz_color.dart';
 @immutable
 abstract class ColorModel {
   /// The base color model class.
-  const ColorModel();
+  const ColorModel(this.alpha)
+      : assert(alpha != null && alpha >= 0 && alpha <= 255);
 
   /// The alpha value of this color.
   ///
-  /// Ranges from `0` to `1`.
-  num get alpha;
+  /// Ranges from `0` to `255`.
+  final int alpha;
+
+  /// The [alpha] value as a double normalized to a `0.0` to `1.0` range.
+  double get opacity => alpha / 255;
 
   /// Gets the hue value of this color.
   ///

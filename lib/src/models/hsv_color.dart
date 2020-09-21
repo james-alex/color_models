@@ -22,11 +22,12 @@ class HsvColor extends ColorModel {
     this.hue,
     this.saturation,
     this.value, [
-    this.alpha = 1.0,
+    int alpha = 255,
   ])  : assert(hue != null && hue >= 0 && hue <= 360),
         assert(saturation != null && saturation >= 0 && saturation <= 100),
         assert(value != null && value >= 0 && value <= 100),
-        assert(alpha != null && alpha >= 0 && alpha <= 1);
+        assert(alpha != null && alpha >= 0 && alpha <= 255),
+        super(alpha);
 
   /// The hue value of this color.
   ///
@@ -44,9 +45,6 @@ class HsvColor extends ColorModel {
   ///
   /// Ranges from `0` to `100`.
   final num value;
-
-  @override
-  final num alpha;
 
   @override
   bool get isBlack => round(value) == 0;
@@ -140,7 +138,7 @@ class HsvColor extends ColorModel {
   /// Returns this [HsvColor] modified with the provided [alpha] value.
   @override
   HsvColor withAlpha(num alpha) {
-    assert(alpha != null && alpha >= 0 && alpha <= 1);
+    assert(alpha != null && alpha >= 0 && alpha <= 255);
 
     return HsvColor(hue, saturation, value, alpha);
   }
@@ -177,7 +175,7 @@ class HsvColor extends ColorModel {
         hue / 360,
         saturation / 100,
         value / 100,
-        alpha,
+        alpha / 255,
       ], growable: false);
 
   /// Constructs a [HsvColor] from [color].
@@ -195,17 +193,17 @@ class HsvColor extends ColorModel {
   ///
   /// The saturation and value must both be `>= 0` and `<= 100`.
   ///
-  /// The [alpha] value, if included, must be `>= 0 && <= 1`.
+  /// The [alpha] value, if included, must be `>= 0 && <= 255`.
   factory HsvColor.fromList(List<num> hsv) {
     assert(hsv != null && (hsv.length == 3 || hsv.length == 4));
     assert(hsv[0] != null && hsv[0] >= 0 && hsv[0] <= 360);
     assert(hsv[1] != null && hsv[1] >= 0 && hsv[1] <= 100);
     assert(hsv[2] != null && hsv[2] >= 0 && hsv[2] <= 100);
     if (hsv.length == 4) {
-      assert(hsv[3] != null && hsv[3] >= 0 && hsv[3] <= 1);
+      assert(hsv[3] != null && hsv[3] >= 0 && hsv[3] <= 255);
     }
 
-    final alpha = hsv.length == 4 ? hsv[3] : 1.0;
+    final alpha = hsv.length == 4 ? hsv[3].round() : 255;
 
     return HsvColor(hsv[0], hsv[1], hsv[2], alpha);
   }
@@ -234,7 +232,7 @@ class HsvColor extends ColorModel {
       assert(hsv[3] != null && hsv[3] >= 0 && hsv[3] <= 1);
     }
 
-    final alpha = hsv.length == 4 ? hsv[3] : 1.0;
+    final alpha = hsv.length == 4 ? (hsv[3] * 255).round() : 255;
 
     return HsvColor(hsv[0] * 360, hsv[1] * 100, hsv[2] * 100, alpha);
   }

@@ -23,11 +23,12 @@ class LabColor extends ColorModel {
     this.lightness,
     this.a,
     this.b, [
-    this.alpha = 1.0,
+    int alpha = 255,
   ])  : assert(lightness != null && lightness >= 0 && lightness <= 100),
         assert(a != null && a >= -128 && a <= 127),
         assert(b != null && b >= -128 && b <= 127),
-        assert(alpha != null && alpha >= 0 && alpha <= 1);
+        assert(alpha != null && alpha >= 0 && alpha <= 255),
+        super(alpha);
 
   /// Lightness represents the black to white value.
   ///
@@ -47,9 +48,6 @@ class LabColor extends ColorModel {
   ///
   /// Blue is represented in the positive value range (`0` to `127`)
   final num b;
-
-  @override
-  final num alpha;
 
   @override
   bool get isBlack => round(lightness) == 0 && round(a) == 0 && round(b) == 0;
@@ -138,7 +136,7 @@ class LabColor extends ColorModel {
   /// Returns this [LabColor] modified with the provided [alpha] value.
   @override
   LabColor withAlpha(num alpha) {
-    assert(alpha != null && alpha >= 0 && alpha <= 1);
+    assert(alpha != null && alpha >= 0 && alpha <= 255);
 
     return LabColor(lightness, a, b, alpha);
   }
@@ -188,17 +186,17 @@ class LabColor extends ColorModel {
   ///
   /// The A and B values must be `>= -128 && <= 127`.
   ///
-  /// The [alpha] value, if included, must be `>= 0 && <= 1`.
+  /// The [alpha] value, if included, must be `>= 0 && <= 255`.
   factory LabColor.fromList(List<num> lab) {
     assert(lab != null && (lab.length == 3 || lab.length == 4));
     assert(lab[0] != null && lab[0] >= 0 && lab[0] <= 100);
     assert(lab[1] != null && lab[1] >= -128 && lab[1] <= 127);
     assert(lab[2] != null && lab[2] >= -128 && lab[2] <= 127);
     if (lab.length == 4) {
-      assert(lab[3] != null && lab[3] >= 0 && lab[3] <= 1);
+      assert(lab[3] != null && lab[3] >= 0 && lab[3] <= 255);
     }
 
-    final alpha = lab.length == 4 ? lab[3] : 1.0;
+    final alpha = lab.length == 4 ? lab[3].round() : 255;
 
     return LabColor(lab[0], lab[1], lab[2], alpha);
   }
@@ -227,7 +225,7 @@ class LabColor extends ColorModel {
       assert(lab[3] != null && lab[3] >= 0 && lab[3] <= 1);
     }
 
-    final alpha = lab.length == 4 ? lab[3] : 1.0;
+    final alpha = lab.length == 4 ? (lab[3] * 255).round() : 255;
 
     return LabColor(
         lab[0] * 100, (lab[1] * 255) - 128, (lab[2] * 255) - 128, alpha);

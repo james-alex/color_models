@@ -23,11 +23,12 @@ class XyzColor extends ColorModel {
     this.x,
     this.y,
     this.z, [
-    this.alpha = 1.0,
+    int alpha = 255,
   ])  : assert(x != null && x >= 0),
         assert(y != null && y >= 0),
         assert(z != null && z >= 0),
-        assert(alpha != null && alpha >= 0 && alpha <= 1);
+        assert(alpha != null && alpha >= 0 && alpha <= 255),
+        super(alpha);
 
   /// The x value of this color.
   ///
@@ -46,9 +47,6 @@ class XyzColor extends ColorModel {
   /// Ranges from `0` to `100` in the normal sRGB spectrum, but colors
   /// outside of the sRGB spectrum are upwardly unbounded.
   final num z;
-
-  @override
-  final num alpha;
 
   @override
   bool get isBlack => round(x) == 0 && round(y) == 0 && round(z) == 0;
@@ -145,7 +143,7 @@ class XyzColor extends ColorModel {
   /// Returns this [XyzColor] modified with the provided [alpha] value.
   @override
   XyzColor withAlpha(num alpha) {
-    assert(alpha != null && alpha >= 0 && alpha <= 1);
+    assert(alpha != null && alpha >= 0 && alpha <= 255);
 
     return XyzColor(x, y, z, alpha);
   }
@@ -188,7 +186,7 @@ class XyzColor extends ColorModel {
   /// Returns a fixed-length list containing the [x], [y], and
   /// [z] values factored to be on a 0 to 1 scale.
   List<double> toFactoredListWithAlpha() =>
-      List<double>.from(<double>[x / 100, y / 100, z / 100, alpha],
+      List<double>.from(<double>[x / 100, y / 100, z / 100, alpha / 255],
           growable: false);
 
   /// Constructs a [XyzColor] from [color].
@@ -204,17 +202,17 @@ class XyzColor extends ColorModel {
   ///
   /// [x], [y], and [z] all must not be null and must be `>= 0`.
   ///
-  /// The [alpha] value, if included, must be `>= 0 && <= 1`.
+  /// The [alpha] value, if included, must be `>= 0 && <= 255`.
   factory XyzColor.fromList(List<num> xyz) {
     assert(xyz != null && (xyz.length == 3 || xyz.length == 4));
     assert(xyz[0] != null && xyz[0] >= 0);
     assert(xyz[1] != null && xyz[1] >= 0);
     assert(xyz[2] != null && xyz[2] >= 0);
     if (xyz.length == 4) {
-      assert(xyz[3] != null && xyz[3] >= 0 && xyz[3] <= 1);
+      assert(xyz[3] != null && xyz[3] >= 0 && xyz[3] <= 255);
     }
 
-    final alpha = xyz.length == 4 ? xyz[3] : 1.0;
+    final alpha = xyz.length == 4 ? xyz[3].round() : 255;
 
     return XyzColor(xyz[0], xyz[1], xyz[2], alpha);
   }
@@ -243,7 +241,7 @@ class XyzColor extends ColorModel {
       assert(xyz[3] != null && xyz[3] >= 0 && xyz[3] <= 1);
     }
 
-    final alpha = xyz.length == 4 ? xyz[3] : 1.0;
+    final alpha = xyz.length == 4 ? (xyz[3] * 255).round() : 255;
 
     return XyzColor(xyz[0] * 100, xyz[1] * 100, xyz[2] * 100, alpha);
   }
