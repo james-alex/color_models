@@ -109,6 +109,15 @@ abstract class ColorModel {
   /// Returns this [ColorModel] with the provided [alpha] value.
   ColorModel withAlpha(int alpha);
 
+  /// Returns this [ColorModel] with the provided [opacity] value.
+  ///
+  /// [opacity] is the equivalent of [alpha] normalized to a `0` to `1` scale.
+  ColorModel withOpacity(double opacity) {
+    assert(opacity != null && opacity >= 0.0 && opacity <= 1.0);
+
+    return withAlpha((opacity * 255).round());
+  }
+
   /// Returns this [ColorModel] with the provided [hue] value.
   ColorModel withHue(num hue);
 
