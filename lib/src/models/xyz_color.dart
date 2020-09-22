@@ -142,7 +142,7 @@ class XyzColor extends ColorModel {
 
   /// Returns this [XyzColor] modified with the provided [alpha] value.
   @override
-  XyzColor withAlpha(num alpha) {
+  XyzColor withAlpha(int alpha) {
     assert(alpha != null && alpha >= 0 && alpha <= 255);
 
     return XyzColor(x, y, z, alpha);

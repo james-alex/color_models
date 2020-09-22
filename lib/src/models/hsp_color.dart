@@ -147,7 +147,7 @@ class HspColor extends ColorModel {
 
   /// Returns this [HspColor] modified with the provided [alpha] value.
   @override
-  HspColor withAlpha(num alpha) {
+  HspColor withAlpha(int alpha) {
     assert(alpha != null && alpha >= 0 && alpha <= 255);
 
     return HspColor(hue, saturation, perceivedBrightness, alpha);

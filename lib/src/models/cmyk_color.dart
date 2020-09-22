@@ -155,7 +155,7 @@ class CmykColor extends ColorModel {
   }
 
   @override
-  CmykColor withAlpha(num alpha) {
+  CmykColor withAlpha(int alpha) {
     assert(alpha != null && alpha >= 0 && alpha <= 255);
 
     return CmykColor(cyan, magenta, yellow, black, alpha);

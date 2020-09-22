@@ -137,7 +137,7 @@ class HsiColor extends ColorModel {
 
   /// Returns this [HsiColor] modified with the provided [alpha] value.
   @override
-  HsiColor withAlpha(num alpha) {
+  HsiColor withAlpha(int alpha) {
     assert(alpha != null && alpha >= 0 && alpha <= 255);
 
     return HsiColor(hue, saturation, intensity, alpha);

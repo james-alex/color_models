@@ -137,7 +137,7 @@ class HsbColor extends ColorModel {
 
   /// Returns this [HsbColor] modified with the provided [alpha] value.
   @override
-  HsbColor withAlpha(num alpha) {
+  HsbColor withAlpha(int alpha) {
     assert(alpha != null && alpha >= 0 && alpha <= 255);
 
     return HsbColor(hue, saturation, brightness, alpha);

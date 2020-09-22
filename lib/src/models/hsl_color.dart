@@ -140,7 +140,7 @@ class HslColor extends ColorModel {
 
   /// Returns this [HslColor] modified with the provided [alpha] value.
   @override
-  HslColor withAlpha(num alpha) {
+  HslColor withAlpha(int alpha) {
     assert(alpha != null && alpha >= 0 && alpha <= 255);
 
     return HslColor(hue, saturation, lightness, alpha);

@@ -107,7 +107,7 @@ abstract class ColorModel {
   ColorModel rotateHue(num amount);
 
   /// Returns this [ColorModel] with the provided [alpha] value.
-  ColorModel withAlpha(num alpha);
+  ColorModel withAlpha(int alpha);
 
   /// Returns this [ColorModel] with the provided [hue] value.
   ColorModel withHue(num hue);

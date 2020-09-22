@@ -146,7 +146,7 @@ class RgbColor extends ColorModel {
 
   /// Returns this [RgbColor] modified with the provided [alpha] value.
   @override
-  RgbColor withAlpha(num alpha) {
+  RgbColor withAlpha(int alpha) {
     assert(alpha != null && alpha >= 0 && alpha <= 255);
 
     return RgbColor(red, green, blue, alpha);

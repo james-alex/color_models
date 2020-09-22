@@ -135,7 +135,7 @@ class LabColor extends ColorModel {
 
   /// Returns this [LabColor] modified with the provided [alpha] value.
   @override
-  LabColor withAlpha(num alpha) {
+  LabColor withAlpha(int alpha) {
     assert(alpha != null && alpha >= 0 && alpha <= 255);
 
     return LabColor(lightness, a, b, alpha);
