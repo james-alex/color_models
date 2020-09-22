@@ -154,6 +154,13 @@ class HspColor extends ColorModel {
   }
 
   @override
+  HspColor withOpacity(double opacity) {
+    assert(opacity != null && opacity >= 0.0 && opacity <= 1.0);
+
+    return withAlpha((opacity * 255).round());
+  }
+
+  @override
   RgbColor toRgbColor() => ColorConverter.hspToRgb(this);
 
   @override

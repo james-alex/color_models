@@ -147,6 +147,13 @@ class HslColor extends ColorModel {
   }
 
   @override
+  HslColor withOpacity(double opacity) {
+    assert(opacity != null && opacity >= 0.0 && opacity <= 1.0);
+
+    return withAlpha((opacity * 255).round());
+  }
+
+  @override
   RgbColor toRgbColor() => ColorConverter.hslToRgb(this);
 
   @override

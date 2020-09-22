@@ -148,6 +148,13 @@ class XyzColor extends ColorModel {
     return XyzColor(x, y, z, alpha);
   }
 
+  @override
+  XyzColor withOpacity(double opacity) {
+    assert(opacity != null && opacity >= 0.0 && opacity <= 1.0);
+
+    return withAlpha((opacity * 255).round());
+  }
+
   /// Returns this [XyzColor] modified with the provided [hue] value.
   @override
   XyzColor withHue(num hue) {

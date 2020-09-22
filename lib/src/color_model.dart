@@ -112,6 +112,11 @@ abstract class ColorModel {
   /// Returns this [ColorModel] with the provided [alpha] value.
   ColorModel withAlpha(int alpha);
 
+  /// Returns this [ColorModel] with the provided [opacity] value.
+  ///
+  /// [opacity] is the equivalent of [alpha] normalized to a `0` to `1` value.
+  ColorModel withOpacity(int opacity);
+
   /// Returns the distance between `this` color's
   /// hue and [color]'s hue in degrees.
   double distanceTo(ColorModel color) {

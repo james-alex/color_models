@@ -152,6 +152,13 @@ class RgbColor extends ColorModel {
     return RgbColor(red, green, blue, alpha);
   }
 
+  @override
+  RgbColor withOpacity(double opacity) {
+    assert(opacity != null && opacity >= 0.0 && opacity <= 1.0);
+
+    return withAlpha((opacity * 255).round());
+  }
+
   /// Returns this [RgbColor] modified with the provided [hue] value.
   @override
   RgbColor withHue(num hue) {

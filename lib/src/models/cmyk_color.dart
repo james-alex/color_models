@@ -161,6 +161,13 @@ class CmykColor extends ColorModel {
     return CmykColor(cyan, magenta, yellow, black, alpha);
   }
 
+  @override
+  CmykColor withOpacity(double opacity) {
+    assert(opacity != null && opacity >= 0.0 && opacity <= 1.0);
+
+    return withAlpha((opacity * 255).round());
+  }
+
   /// Returns this [XyzColor] modified with the provided [hue] value.
   @override
   CmykColor withHue(num hue) {
