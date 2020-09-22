@@ -61,7 +61,7 @@ class XyzColor extends ColorModel {
   }
 
   @override
-  List<XyzColor> interpolateTo(
+  List<XyzColor> lerpTo(
     ColorModel color,
     int steps, {
     bool excludeOriginalColors = false,

@@ -64,7 +64,7 @@ class HspColor extends ColorModel {
   }
 
   @override
-  List<HspColor> interpolateTo(
+  List<HspColor> lerpTo(
     ColorModel color,
     int steps, {
     bool excludeOriginalColors = false,

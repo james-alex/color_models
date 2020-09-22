@@ -17,7 +17,7 @@ RGB values equaling `255`.
 
 ## [0.2.7] - March 29, 2020
 
-* Added the [interpolateTo] method to each color model.
+* Added the [lerpTo] method to each color model.
 
 * Override the conversion methods on each color model that return their own
 respective color spaces. Colors were being unnecessarily converted back and

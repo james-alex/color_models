@@ -59,7 +59,7 @@ class HslColor extends ColorModel {
   }
 
   @override
-  List<HslColor> interpolateTo(
+  List<HslColor> lerpTo(
     ColorModel color,
     int steps, {
     bool excludeOriginalColors = false,

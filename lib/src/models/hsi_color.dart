@@ -56,7 +56,7 @@ class HsiColor extends ColorModel {
   bool get isMonochromatic => round(intensity) == 0 || round(saturation) == 0;
 
   @override
-  List<HsiColor> interpolateTo(
+  List<HsiColor> lerpTo(
     ColorModel color,
     int steps, {
     bool excludeOriginalColors = false,

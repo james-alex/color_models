@@ -62,7 +62,7 @@ class RgbColor extends ColorModel {
   bool get isMonochromatic => red == green && red == blue;
 
   @override
-  List<RgbColor> interpolateTo(
+  List<RgbColor> lerpTo(
     ColorModel color,
     int steps, {
     bool excludeOriginalColors = false,

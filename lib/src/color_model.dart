@@ -72,7 +72,7 @@ abstract class ColorModel {
   /// If [excludeOriginalColors] is `false`, this color and [color] will not be
   /// included in the list. If [color] is in a different color space, it will be
   /// converted to this color's color space.
-  List<ColorModel> interpolateTo(
+  List<ColorModel> lerpTo(
     ColorModel color,
     int steps, {
     bool excludeOriginalColors,

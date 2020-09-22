@@ -65,7 +65,7 @@ class CmykColor extends ColorModel {
       round(cyan) == 0 && round(magenta) == 0 && round(yellow) == 0;
 
   @override
-  List<CmykColor> interpolateTo(
+  List<CmykColor> lerpTo(
     ColorModel color,
     int steps, {
     bool excludeOriginalColors = false,

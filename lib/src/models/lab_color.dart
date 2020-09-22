@@ -59,7 +59,7 @@ class LabColor extends ColorModel {
   bool get isMonochromatic => round(a) == 0 && round(b) == 0;
 
   @override
-  List<LabColor> interpolateTo(
+  List<LabColor> lerpTo(
     ColorModel color,
     int steps, {
     bool excludeOriginalColors = false,
