@@ -1,5 +1,5 @@
 import '../color_model.dart';
-import './calculate_distance.dart';
+import 'calculate_distance.dart';
 
 /// A utility class with methods for adjusting the hues of colors.
 class ColorAdjustments {
