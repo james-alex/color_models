@@ -106,11 +106,11 @@ abstract class ColorModel {
   /// Rotates the hue of this color by [amount] in degrees.
   ColorModel rotateHue(num amount);
 
-  /// Returns this [ColorModel] with the provided [alpha] value.
-  ColorModel withAlpha(int alpha);
-
   /// Returns this [ColorModel] with the provided [hue] value.
   ColorModel withHue(num hue);
+
+  /// Returns this [ColorModel] with the provided [alpha] value.
+  ColorModel withAlpha(int alpha);
 
   /// Returns the distance between `this` color's
   /// hue and [color]'s hue in degrees.
