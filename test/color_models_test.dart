@@ -194,9 +194,6 @@ void main() {
 
 /// Converts [color] to the color space defined by [colorModel].
 ColorModel _toColorModel(_ColorModels colorModel, ColorModel color) {
-  assert(colorModel != null);
-  assert(color != null);
-
   switch (colorModel) {
     case _ColorModels.cmyk:
       color = color.toCmykColor();

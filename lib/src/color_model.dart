@@ -23,8 +23,7 @@ export 'models/xyz_color.dart';
 @immutable
 abstract class ColorModel {
   /// The base color model class.
-  const ColorModel(this.alpha)
-      : assert(alpha != null && alpha >= 0 && alpha <= 255);
+  const ColorModel(this.alpha) : assert(alpha >= 0 && alpha <= 255);
 
   /// The alpha value of this color.
   ///
@@ -75,7 +74,7 @@ abstract class ColorModel {
   List<ColorModel> lerpTo(
     ColorModel color,
     int steps, {
-    bool excludeOriginalColors,
+    bool? excludeOriginalColors,
   });
 
   /// Inverts the values of this [ColorModel],
@@ -92,7 +91,7 @@ abstract class ColorModel {
   /// hue will be adjusted by the percent of the distance from the current hue
   /// to `90` that [amount] represents. If `false`, [amount] will be treated
   /// as the number of degrees to adjust the hue by.
-  ColorModel warmer(num amount, {bool relative});
+  ColorModel warmer(num amount, {bool? relative});
 
   /// Adjusts the [hue] of this color by [amount] towards
   /// `270` degrees, capping the value at `270`.
@@ -101,7 +100,7 @@ abstract class ColorModel {
   /// hue will be adjusted by the percent of the distance from the current hue
   /// to `270` that [amount] represents. If `false`, [amount] will be treated
   /// as the number of degrees to adjust the hue by.
-  ColorModel cooler(num amount, {bool relative});
+  ColorModel cooler(num amount, {bool? relative});
 
   /// Rotates the hue of this color by [amount] in degrees.
   ColorModel rotateHue(num amount);
@@ -120,9 +119,7 @@ abstract class ColorModel {
   /// Returns the distance between `this` color's
   /// hue and [color]'s hue in degrees.
   double distanceTo(ColorModel color) {
-    assert(color != null);
-
-    return calculateDistance(hue, color.hue);
+    return calculateDistance(hue, color.hue) as double;
   }
 
   /// Compares colors in the RGB color space.
@@ -130,8 +127,6 @@ abstract class ColorModel {
   /// If comparing two colors from the same color space,
   /// you can alternatively use the `==` operator.
   bool equals(ColorModel color) {
-    assert(color != null);
-
     return RgbColor.from(this) == RgbColor.from(color);
   }
 

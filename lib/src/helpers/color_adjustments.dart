@@ -15,11 +15,8 @@ class ColorAdjustments {
     int steps, {
     bool excludeOriginalColors = false,
   }) {
-    assert(color1 != null);
-    assert(color2 != null);
     assert(color1.runtimeType == color2.runtimeType);
-    assert(steps != null && steps > 0);
-    assert(excludeOriginalColors != null);
+    assert(steps > 0);
 
     final colors = <ColorModel>[];
 
@@ -80,9 +77,6 @@ class ColorAdjustments {
 
   /// Converts [color] to a [HslColor] and adjusts the hue by [amount].
   static HslColor rotateHue(ColorModel color, num amount) {
-    assert(color != null);
-    assert(amount != null);
-
     final hslColor = color.toHslColor();
 
     return hslColor.withHue((hslColor.hue + amount) % 360);
@@ -95,9 +89,7 @@ class ColorAdjustments {
     num amount, {
     bool relative = true,
   }) {
-    assert(color != null);
-    assert(amount != null && amount > 0);
-    assert(relative != null);
+    assert(amount > 0);
 
     final hslColor = color.toHslColor();
 
@@ -113,9 +105,7 @@ class ColorAdjustments {
     num amount, {
     bool relative = true,
   }) {
-    assert(hue != null);
-    assert(amount != null && amount > 0);
-    assert(relative != null);
+    assert(amount > 0);
 
     final adjustment =
         relative ? calculateDistance(hue, 90) * (amount / 100) : amount;
@@ -140,9 +130,7 @@ class ColorAdjustments {
     num amount, {
     bool relative = true,
   }) {
-    assert(color != null);
-    assert(amount != null && amount > 0);
-    assert(relative != null);
+    assert(amount > 0);
 
     final hslColor = color.toHslColor();
 
@@ -158,9 +146,7 @@ class ColorAdjustments {
     num amount, {
     bool relative = true,
   }) {
-    assert(hue != null);
-    assert(amount != null && amount > 0);
-    assert(relative != null);
+    assert(amount > 0);
 
     final adjustment =
         relative ? calculateDistance(hue, 270) * (amount / 100) : amount;

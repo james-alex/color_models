@@ -24,10 +24,10 @@ class XyzColor extends ColorModel {
     this.y,
     this.z, [
     int alpha = 255,
-  ])  : assert(x != null && x >= 0),
-        assert(y != null && y >= 0),
-        assert(z != null && z >= 0),
-        assert(alpha != null && alpha >= 0 && alpha <= 255),
+  ])  : assert(x >= 0),
+        assert(y >= 0),
+        assert(z >= 0),
+        assert(alpha >= 0 && alpha <= 255),
         super(alpha);
 
   /// The x value of this color.
@@ -64,10 +64,9 @@ class XyzColor extends ColorModel {
   List<XyzColor> lerpTo(
     ColorModel color,
     int steps, {
-    bool excludeOriginalColors = false,
+    bool? excludeOriginalColors = false,
   }) {
-    assert(color != null);
-    assert(steps != null && steps > 0);
+    assert(steps > 0);
     assert(excludeOriginalColors != null);
 
     if (color.runtimeType != XyzColor) {
@@ -79,7 +78,7 @@ class XyzColor extends ColorModel {
         this,
         color,
         steps,
-        excludeOriginalColors: excludeOriginalColors,
+        excludeOriginalColors: excludeOriginalColors!,
       ),
     );
   }
@@ -98,44 +97,42 @@ class XyzColor extends ColorModel {
 
   @override
   XyzColor rotateHue(num amount) {
-    assert(amount != null);
-
     return ColorAdjustments.rotateHue(this, amount).toXyzColor();
   }
 
   @override
-  XyzColor warmer(num amount, {bool relative = true}) {
-    assert(amount != null && amount > 0);
+  XyzColor warmer(num amount, {bool? relative = true}) {
+    assert(amount > 0);
 
-    return ColorAdjustments.warmer(this, amount, relative: relative)
+    return ColorAdjustments.warmer(this, amount, relative: relative!)
         .toXyzColor();
   }
 
   @override
-  XyzColor cooler(num amount, {bool relative = true}) {
-    assert(amount != null && amount > 0);
+  XyzColor cooler(num amount, {bool? relative = true}) {
+    assert(amount > 0);
 
-    return ColorAdjustments.cooler(this, amount, relative: relative)
+    return ColorAdjustments.cooler(this, amount, relative: relative!)
         .toXyzColor();
   }
 
   /// Returns this [XyzColor] modified with the provided [x] value.
   XyzColor withX(num x) {
-    assert(x != null && x >= 0);
+    assert(x >= 0);
 
     return XyzColor(x, y, z, alpha);
   }
 
   /// Returns this [XyzColor] modified with the provided [y] value.
   XyzColor withY(num y) {
-    assert(y != null && y >= 0);
+    assert(y >= 0);
 
     return XyzColor(x, y, z, alpha);
   }
 
   /// Returns this [XyzColor] modified with the provided [z] value.
   XyzColor withZ(num z) {
-    assert(z != null && z >= 0);
+    assert(z >= 0);
 
     return XyzColor(x, y, z, alpha);
   }
@@ -143,14 +140,14 @@ class XyzColor extends ColorModel {
   /// Returns this [XyzColor] modified with the provided [alpha] value.
   @override
   XyzColor withAlpha(int alpha) {
-    assert(alpha != null && alpha >= 0 && alpha <= 255);
+    assert(alpha >= 0 && alpha <= 255);
 
     return XyzColor(x, y, z, alpha);
   }
 
   @override
   XyzColor withOpacity(double opacity) {
-    assert(opacity != null && opacity >= 0.0 && opacity <= 1.0);
+    assert(opacity >= 0.0 && opacity <= 1.0);
 
     return withAlpha((opacity * 255).round());
   }
@@ -158,7 +155,7 @@ class XyzColor extends ColorModel {
   /// Returns this [XyzColor] modified with the provided [hue] value.
   @override
   XyzColor withHue(num hue) {
-    assert(hue != null && hue >= 0 && hue <= 360);
+    assert(hue >= 0 && hue <= 360);
 
     final hslColor = toHslColor();
 
@@ -198,8 +195,6 @@ class XyzColor extends ColorModel {
 
   /// Constructs a [XyzColor] from [color].
   factory XyzColor.from(ColorModel color) {
-    assert(color != null);
-
     return color.toXyzColor();
   }
 
@@ -211,12 +206,12 @@ class XyzColor extends ColorModel {
   ///
   /// The [alpha] value, if included, must be `>= 0 && <= 255`.
   factory XyzColor.fromList(List<num> xyz) {
-    assert(xyz != null && (xyz.length == 3 || xyz.length == 4));
-    assert(xyz[0] != null && xyz[0] >= 0);
-    assert(xyz[1] != null && xyz[1] >= 0);
-    assert(xyz[2] != null && xyz[2] >= 0);
+    assert((xyz.length == 3 || xyz.length == 4));
+    assert(xyz[0] >= 0);
+    assert(xyz[1] >= 0);
+    assert(xyz[2] >= 0);
     if (xyz.length == 4) {
-      assert(xyz[3] != null && xyz[3] >= 0 && xyz[3] <= 255);
+      assert(xyz[3] >= 0 && xyz[3] <= 255);
     }
 
     final alpha = xyz.length == 4 ? xyz[3].round() : 255;
@@ -229,8 +224,6 @@ class XyzColor extends ColorModel {
   /// [hex] is case-insensitive and must be `3` or `6` characters
   /// in length, excluding an optional leading `#`.
   factory XyzColor.fromHex(String hex) {
-    assert(hex != null);
-
     return ColorConverter.hexToRgb(hex).toXyzColor();
   }
 
@@ -240,12 +233,12 @@ class XyzColor extends ColorModel {
   ///
   /// Each of the values must be `>= 0` and `<= 1`.
   factory XyzColor.extrapolate(List<double> xyz) {
-    assert(xyz != null && (xyz.length == 3 || xyz.length == 4));
-    assert(xyz[0] != null && xyz[0] >= 0);
-    assert(xyz[1] != null && xyz[1] >= 0);
-    assert(xyz[2] != null && xyz[2] >= 0);
+    assert((xyz.length == 3 || xyz.length == 4));
+    assert(xyz[0] >= 0);
+    assert(xyz[1] >= 0);
+    assert(xyz[2] >= 0);
     if (xyz.length == 4) {
-      assert(xyz[3] != null && xyz[3] >= 0 && xyz[3] <= 1);
+      assert(xyz[3] >= 0 && xyz[3] <= 1);
     }
 
     final alpha = xyz.length == 4 ? (xyz[3] * 255).round() : 255;
@@ -271,12 +264,12 @@ class XyzColor extends ColorModel {
     num minZ = 0,
     num maxZ = 100,
   }) {
-    assert(minX != null && minX >= 0 && minX <= maxX);
-    assert(maxX != null && maxX >= minX && maxX <= 100);
-    assert(minY != null && minY >= 0 && minY <= maxY);
-    assert(maxY != null && maxY >= minY && maxY <= 100);
-    assert(minZ != null && minZ >= 0 && minZ <= maxZ);
-    assert(maxZ != null && maxZ >= minZ && maxZ <= 100);
+    assert(minX >= 0 && minX <= maxX);
+    assert(maxX >= minX && maxX <= 100);
+    assert(minY >= 0 && minY <= maxY);
+    assert(maxY >= minY && maxY <= 100);
+    assert(minZ >= 0 && minZ <= maxZ);
+    assert(maxZ >= minZ && maxZ <= 100);
 
     return XyzColor(
       random(minX, maxX),
@@ -313,12 +306,10 @@ class XyzColor extends ColorModel {
 
 class _WhitePoints {
   const _WhitePoints({
-    @required this.x,
-    @required this.y,
-    @required this.z,
-  })  : assert(x != null),
-        assert(y != null),
-        assert(z != null);
+    required this.x,
+    required this.y,
+    required this.z,
+  });
 
   final num x;
   final num y;
