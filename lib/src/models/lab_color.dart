@@ -2,8 +2,7 @@ import 'package:meta/meta.dart';
 import '../color_model.dart';
 import '../helpers/color_adjustments.dart';
 import '../helpers/color_converter.dart';
-import '../helpers/random.dart';
-import '../helpers/round_values.dart';
+import '../helpers/color_math.dart';
 
 /// A color in the CIELAB color space.
 ///
@@ -50,13 +49,20 @@ class LabColor extends ColorModel {
   final num b;
 
   @override
-  bool get isBlack => round(lightness) == 0 && round(a) == 0 && round(b) == 0;
+  bool get isBlack =>
+      ColorMath.round(lightness) == 0 &&
+      ColorMath.round(a) == 0 &&
+      ColorMath.round(b) == 0;
 
   @override
-  bool get isWhite => round(lightness) == 1 && round(a) == 0 && round(b) == 0;
+  bool get isWhite =>
+      ColorMath.round(lightness) == 1 &&
+      ColorMath.round(a) == 0 &&
+      ColorMath.round(b) == 0;
 
   @override
-  bool get isMonochromatic => round(a) == 0 && round(b) == 0;
+  bool get isMonochromatic =>
+      ColorMath.round(a) == 0 && ColorMath.round(b) == 0;
 
   @override
   List<LabColor> lerpTo(
@@ -269,9 +275,9 @@ class LabColor extends ColorModel {
     assert(maxB != null && maxB >= minB && maxB <= 100);
 
     return LabColor(
-      random(minLightness, maxLightness),
-      random(minA, maxA),
-      random(minB, maxB),
+      ColorMath.random(minLightness, maxLightness),
+      ColorMath.random(minA, maxA),
+      ColorMath.random(minB, maxB),
     );
   }
 
@@ -281,9 +287,9 @@ class LabColor extends ColorModel {
   @override
   bool operator ==(Object o) =>
       o is LabColor &&
-      round(lightness) == round(o.lightness) &&
-      round(a) == round(o.a) &&
-      round(b) == round(o.b) &&
+      ColorMath.round(lightness) == ColorMath.round(o.lightness) &&
+      ColorMath.round(a) == ColorMath.round(o.a) &&
+      ColorMath.round(b) == ColorMath.round(o.b) &&
       alpha == o.alpha;
 
   @override

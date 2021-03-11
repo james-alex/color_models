@@ -1,5 +1,5 @@
 import '../color_model.dart';
-import 'calculate_distance.dart';
+import 'color_math.dart';
 
 /// A utility class with methods for adjusting the hues of colors.
 class ColorAdjustments {
@@ -15,11 +15,8 @@ class ColorAdjustments {
     int steps, {
     bool excludeOriginalColors = false,
   }) {
-    assert(color1 != null);
-    assert(color2 != null);
     assert(color1.runtimeType == color2.runtimeType);
-    assert(steps != null && steps > 0);
-    assert(excludeOriginalColors != null);
+    assert(steps > 0);
 
     final colors = <ColorModel>[];
 
@@ -80,11 +77,7 @@ class ColorAdjustments {
 
   /// Converts [color] to a [HslColor] and adjusts the hue by [amount].
   static HslColor rotateHue(ColorModel color, num amount) {
-    assert(color != null);
-    assert(amount != null);
-
     final hslColor = color.toHslColor();
-
     return hslColor.withHue((hslColor.hue + amount) % 360);
   }
 
@@ -95,14 +88,9 @@ class ColorAdjustments {
     num amount, {
     bool relative = true,
   }) {
-    assert(color != null);
-    assert(amount != null && amount > 0);
-    assert(relative != null);
-
+    assert(amount > 0);
     final hslColor = color.toHslColor();
-
     final hue = warmerHue(hslColor.hue, amount, relative: relative);
-
     return hslColor.withHue(hue);
   }
 
@@ -113,12 +101,11 @@ class ColorAdjustments {
     num amount, {
     bool relative = true,
   }) {
-    assert(hue != null);
-    assert(amount != null && amount > 0);
-    assert(relative != null);
+    assert(amount > 0);
 
-    final adjustment =
-        relative ? calculateDistance(hue, 90) * (amount / 100) : amount;
+    final adjustment = relative
+        ? ColorMath.calculateDistance(hue, 90) * (amount / 100)
+        : amount;
 
     if (hue >= 0 && hue <= 90) {
       hue += adjustment;
@@ -140,14 +127,9 @@ class ColorAdjustments {
     num amount, {
     bool relative = true,
   }) {
-    assert(color != null);
-    assert(amount != null && amount > 0);
-    assert(relative != null);
-
+    assert(amount > 0);
     final hslColor = color.toHslColor();
-
     final hue = coolerHue(hslColor.hue, amount, relative: relative);
-
     return hslColor.withHue(hue);
   }
 
@@ -158,12 +140,11 @@ class ColorAdjustments {
     num amount, {
     bool relative = true,
   }) {
-    assert(hue != null);
-    assert(amount != null && amount > 0);
-    assert(relative != null);
+    assert(amount > 0);
 
-    final adjustment =
-        relative ? calculateDistance(hue, 270) * (amount / 100) : amount;
+    final adjustment = relative
+        ? ColorMath.calculateDistance(hue, 270) * (amount / 100)
+        : amount;
 
     if (hue >= 0 && hue <= 90) {
       hue = (hue - adjustment) % 360;

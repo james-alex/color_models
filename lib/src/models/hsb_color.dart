@@ -2,8 +2,7 @@ import 'package:meta/meta.dart';
 import '../color_model.dart';
 import '../helpers/color_adjustments.dart';
 import '../helpers/color_converter.dart';
-import '../helpers/random.dart';
-import '../helpers/round_values.dart';
+import '../helpers/color_math.dart';
 
 /// A color in the hsb (HSB) color space.
 ///
@@ -47,13 +46,15 @@ class HsbColor extends ColorModel {
   final num brightness;
 
   @override
-  bool get isBlack => round(brightness) == 0;
+  bool get isBlack => ColorMath.round(brightness) == 0;
 
   @override
-  bool get isWhite => round(saturation) == 0 && round(brightness) == 1;
+  bool get isWhite =>
+      ColorMath.round(saturation) == 0 && ColorMath.round(brightness) == 1;
 
   @override
-  bool get isMonochromatic => round(brightness) == 0 || round(saturation) == 0;
+  bool get isMonochromatic =>
+      ColorMath.round(brightness) == 0 || ColorMath.round(saturation) == 0;
 
   @override
   List<HsbColor> lerpTo(
@@ -284,9 +285,9 @@ class HsbColor extends ColorModel {
         maxBrightness <= 100);
 
     return HsbColor(
-      randomHue(minHue, maxHue),
-      random(minSaturation, maxSaturation),
-      random(minBrightness, maxBrightness),
+      ColorMath.randomHue(minHue, maxHue),
+      ColorMath.random(minSaturation, maxSaturation),
+      ColorMath.random(minBrightness, maxBrightness),
     );
   }
 
@@ -296,9 +297,9 @@ class HsbColor extends ColorModel {
   @override
   bool operator ==(Object o) =>
       o is HsbColor &&
-      round(hue) == round(o.hue) &&
-      round(saturation) == round(o.saturation) &&
-      round(brightness) == round(o.brightness) &&
+      ColorMath.round(hue) == ColorMath.round(o.hue) &&
+      ColorMath.round(saturation) == ColorMath.round(o.saturation) &&
+      ColorMath.round(brightness) == ColorMath.round(o.brightness) &&
       alpha == o.alpha;
 
   @override

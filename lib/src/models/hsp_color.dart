@@ -2,8 +2,7 @@ import 'package:meta/meta.dart';
 import '../color_model.dart';
 import '../helpers/color_adjustments.dart';
 import '../helpers/color_converter.dart';
-import '../helpers/random.dart';
-import '../helpers/round_values.dart';
+import '../helpers/color_math.dart';
 
 /// A color in the HSP color space.
 ///
@@ -52,15 +51,17 @@ class HspColor extends ColorModel {
   final num perceivedBrightness;
 
   @override
-  bool get isBlack => round(perceivedBrightness) == 0;
+  bool get isBlack => ColorMath.round(perceivedBrightness) == 0;
 
   @override
-  bool get isWhite => round(saturation) == 0 && round(perceivedBrightness) == 1;
+  bool get isWhite =>
+      ColorMath.round(saturation) == 0 &&
+      ColorMath.round(perceivedBrightness) == 1;
 
   @override
   bool get isMonochromatic {
-    final perceivedBrightness = round(this.perceivedBrightness);
-    return perceivedBrightness == 0 || round(saturation) == 0;
+    final perceivedBrightness = ColorMath.round(this.perceivedBrightness);
+    return perceivedBrightness == 0 || ColorMath.round(saturation) == 0;
   }
 
   @override
@@ -296,9 +297,9 @@ class HspColor extends ColorModel {
         maxPerceivedBrightness <= 100);
 
     return HspColor(
-      randomHue(minHue, maxHue),
-      random(minSaturation, maxSaturation),
-      random(minPerceivedBrightness, maxPerceivedBrightness),
+      ColorMath.randomHue(minHue, maxHue),
+      ColorMath.random(minSaturation, maxSaturation),
+      ColorMath.random(minPerceivedBrightness, maxPerceivedBrightness),
     );
   }
 
@@ -309,9 +310,10 @@ class HspColor extends ColorModel {
   @override
   bool operator ==(Object o) =>
       o is HspColor &&
-      round(hue) == round(o.hue) &&
-      round(saturation) == round(o.saturation) &&
-      round(perceivedBrightness) == round(o.perceivedBrightness) &&
+      ColorMath.round(hue) == ColorMath.round(o.hue) &&
+      ColorMath.round(saturation) == ColorMath.round(o.saturation) &&
+      ColorMath.round(perceivedBrightness) ==
+          ColorMath.round(o.perceivedBrightness) &&
       alpha == o.alpha;
 
   @override

@@ -2,8 +2,7 @@ import 'package:meta/meta.dart';
 import '../color_model.dart';
 import '../helpers/color_adjustments.dart';
 import '../helpers/color_converter.dart';
-import '../helpers/random.dart';
-import '../helpers/round_values.dart';
+import '../helpers/color_math.dart';
 
 /// A color in the HSI color space.
 ///
@@ -47,13 +46,15 @@ class HsiColor extends ColorModel {
   final num intensity;
 
   @override
-  bool get isBlack => round(intensity) == 0;
+  bool get isBlack => ColorMath.round(intensity) == 0;
 
   @override
-  bool get isWhite => round(saturation) == 0 && round(intensity) == 100;
+  bool get isWhite =>
+      ColorMath.round(saturation) == 0 && ColorMath.round(intensity) == 100;
 
   @override
-  bool get isMonochromatic => round(intensity) == 0 || round(saturation) == 0;
+  bool get isMonochromatic =>
+      ColorMath.round(intensity) == 0 || ColorMath.round(saturation) == 0;
 
   @override
   List<HsiColor> lerpTo(
@@ -284,9 +285,9 @@ class HsiColor extends ColorModel {
         maxIntensity <= 100);
 
     return HsiColor(
-      randomHue(minHue, maxHue),
-      random(minSaturation, maxSaturation),
-      random(minIntensity, maxIntensity),
+      ColorMath.randomHue(minHue, maxHue),
+      ColorMath.random(minSaturation, maxSaturation),
+      ColorMath.random(minIntensity, maxIntensity),
     );
   }
 
@@ -296,9 +297,9 @@ class HsiColor extends ColorModel {
   @override
   bool operator ==(Object o) =>
       o is HsiColor &&
-      round(hue) == round(o.hue) &&
-      round(saturation) == round(o.saturation) &&
-      round(intensity) == round(o.intensity) &&
+      ColorMath.round(hue) == ColorMath.round(o.hue) &&
+      ColorMath.round(saturation) == ColorMath.round(o.saturation) &&
+      ColorMath.round(intensity) == ColorMath.round(o.intensity) &&
       alpha == o.alpha;
 
   @override

@@ -2,8 +2,7 @@ import 'package:meta/meta.dart';
 import '../color_model.dart';
 import '../helpers/color_adjustments.dart';
 import '../helpers/color_converter.dart';
-import '../helpers/random.dart';
-import '../helpers/round_values.dart';
+import '../helpers/color_math.dart';
 
 /// A color in the HSL color space.
 ///
@@ -47,15 +46,17 @@ class HslColor extends ColorModel {
   final num lightness;
 
   @override
-  bool get isBlack => round(lightness) == 0;
+  bool get isBlack => ColorMath.round(lightness) == 0;
 
   @override
-  bool get isWhite => round(lightness) == 100;
+  bool get isWhite => ColorMath.round(lightness) == 100;
 
   @override
   bool get isMonochromatic {
-    final lightness = round(this.lightness);
-    return lightness == 0 || lightness == 100 || round(saturation) == 0;
+    final lightness = ColorMath.round(this.lightness);
+    return lightness == 0 ||
+        lightness == 100 ||
+        ColorMath.round(saturation) == 0;
   }
 
   @override
@@ -287,9 +288,9 @@ class HslColor extends ColorModel {
         maxLightness <= 100);
 
     return HslColor(
-      randomHue(minHue, maxHue),
-      random(minSaturation, maxSaturation),
-      random(minLightness, maxLightness),
+      ColorMath.randomHue(minHue, maxHue),
+      ColorMath.random(minSaturation, maxSaturation),
+      ColorMath.random(minLightness, maxLightness),
     );
   }
 
@@ -299,9 +300,9 @@ class HslColor extends ColorModel {
   @override
   bool operator ==(Object o) =>
       o is HslColor &&
-      round(hue) == round(o.hue) &&
-      round(saturation) == round(o.saturation) &&
-      round(lightness) == round(o.lightness) &&
+      ColorMath.round(hue) == ColorMath.round(o.hue) &&
+      ColorMath.round(saturation) == ColorMath.round(o.saturation) &&
+      ColorMath.round(lightness) == ColorMath.round(o.lightness) &&
       alpha == o.alpha;
 
   @override

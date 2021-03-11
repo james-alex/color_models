@@ -2,8 +2,7 @@ import 'package:meta/meta.dart';
 import '../color_model.dart';
 import '../helpers/color_adjustments.dart';
 import '../helpers/color_converter.dart';
-import '../helpers/random.dart';
-import '../helpers/round_values.dart';
+import '../helpers/color_math.dart';
 
 /// A color in the CIEXYZ color space.
 @immutable
@@ -49,15 +48,21 @@ class XyzColor extends ColorModel {
   final num z;
 
   @override
-  bool get isBlack => round(x) == 0 && round(y) == 0 && round(z) == 0;
+  bool get isBlack =>
+      ColorMath.round(x) == 0 &&
+      ColorMath.round(y) == 0 &&
+      ColorMath.round(z) == 0;
 
   @override
-  bool get isWhite => round(x) >= 100 && round(y) >= 100 && round(z) >= 100;
+  bool get isWhite =>
+      ColorMath.round(x) >= 100 &&
+      ColorMath.round(y) >= 100 &&
+      ColorMath.round(z) >= 100;
 
   @override
   bool get isMonochromatic {
-    final x = round(this.x);
-    return x == round(y) && x == round(z);
+    final x = ColorMath.round(this.x);
+    return x == ColorMath.round(y) && x == ColorMath.round(z);
   }
 
   @override
@@ -279,9 +284,9 @@ class XyzColor extends ColorModel {
     assert(maxZ != null && maxZ >= minZ && maxZ <= 100);
 
     return XyzColor(
-      random(minX, maxX),
-      random(minY, maxY),
-      random(minZ, maxZ),
+      ColorMath.random(minX, maxX),
+      ColorMath.random(minY, maxY),
+      ColorMath.random(minZ, maxZ),
     );
   }
 
@@ -302,9 +307,9 @@ class XyzColor extends ColorModel {
   @override
   bool operator ==(Object o) =>
       o is XyzColor &&
-      round(x) == round(o.x) &&
-      round(y) == round(o.y) &&
-      round(z) == round(o.z) &&
+      ColorMath.round(x) == ColorMath.round(o.x) &&
+      ColorMath.round(y) == ColorMath.round(o.y) &&
+      ColorMath.round(z) == ColorMath.round(o.z) &&
       alpha == o.alpha;
 
   @override

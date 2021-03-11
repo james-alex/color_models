@@ -2,8 +2,7 @@ import 'package:meta/meta.dart';
 import '../color_model.dart';
 import '../helpers/color_adjustments.dart';
 import '../helpers/color_converter.dart';
-import '../helpers/random.dart';
-import '../helpers/round_values.dart';
+import '../helpers/color_math.dart';
 
 /// A color in the CMYK color space.
 ///
@@ -51,18 +50,20 @@ class CmykColor extends ColorModel {
   final num black;
 
   @override
-  bool get isBlack => round(black) == 100;
+  bool get isBlack => ColorMath.round(black) == 100;
 
   @override
   bool get isWhite =>
-      round(cyan) == 0 &&
-      round(magenta) == 0 &&
-      round(yellow) == 0 &&
-      round(black) == 0;
+      ColorMath.round(cyan) == 0 &&
+      ColorMath.round(magenta) == 0 &&
+      ColorMath.round(yellow) == 0 &&
+      ColorMath.round(black) == 0;
 
   @override
   bool get isMonochromatic =>
-      round(cyan) == 0 && round(magenta) == 0 && round(yellow) == 0;
+      ColorMath.round(cyan) == 0 &&
+      ColorMath.round(magenta) == 0 &&
+      ColorMath.round(yellow) == 0;
 
   @override
   List<CmykColor> lerpTo(
@@ -305,10 +306,10 @@ class CmykColor extends ColorModel {
     assert(maxBlack != null && maxBlack >= minBlack && maxBlack <= 100);
 
     return CmykColor(
-      random(minCyan, maxCyan),
-      random(minMagenta, maxMagenta),
-      random(minYellow, maxYellow),
-      random(minBlack, maxBlack),
+      ColorMath.random(minCyan, maxCyan),
+      ColorMath.random(minMagenta, maxMagenta),
+      ColorMath.random(minYellow, maxYellow),
+      ColorMath.random(minBlack, maxBlack),
     );
   }
 
@@ -318,10 +319,10 @@ class CmykColor extends ColorModel {
   @override
   bool operator ==(Object o) =>
       o is CmykColor &&
-      round(cyan) == round(o.cyan) &&
-      round(magenta) == round(o.magenta) &&
-      round(yellow) == round(o.yellow) &&
-      round(black) == round(o.black) &&
+      ColorMath.round(cyan) == ColorMath.round(o.cyan) &&
+      ColorMath.round(magenta) == ColorMath.round(o.magenta) &&
+      ColorMath.round(yellow) == ColorMath.round(o.yellow) &&
+      ColorMath.round(black) == ColorMath.round(o.black) &&
       alpha == o.alpha;
 
   @override
