@@ -23,8 +23,6 @@ class ColorConverter {
 
   /// Returns a [hex] color as a RGB color.
   static RgbColor hexToRgb(String hex) {
-    assert(hex != null);
-
     hex = hex.replaceFirst('#', '').toLowerCase();
 
     assert(hex.length == 3 || hex.length == 6);
@@ -44,16 +42,11 @@ class ColorConverter {
   }
 
   /// Converts a color from any color space to CMYK.
-  static CmykColor toCmykColor(ColorModel color) {
-    assert(color != null);
-
-    return rgbToCmyk(color.toRgbColor());
-  }
+  static CmykColor toCmykColor(ColorModel color) =>
+      rgbToCmyk(color.toRgbColor());
 
   /// Converts a RGB color to a CMYK color.
   static CmykColor rgbToCmyk(RgbColor rgbColor) {
-    assert(rgbColor != null);
-
     final rgb = rgbColor.toFactoredList();
 
     final cmy = rgb.map((rgbValue) => 1 - rgbValue).toList();
@@ -71,8 +64,6 @@ class ColorConverter {
 
   /// Converts a CMYK color to a RGB color.
   static RgbColor cmykToRgb(CmykColor cmykColor) {
-    assert(cmykColor != null);
-
     final cmyk = cmykColor.toFactoredList();
 
     final cmy = cmyk.sublist(0, 3);
@@ -89,16 +80,10 @@ class ColorConverter {
   }
 
   /// Converts a color from any color space to HSI.
-  static HsiColor toHsiColor(ColorModel color) {
-    assert(color != null);
-
-    return rgbToHsi(color.toRgbColor());
-  }
+  static HsiColor toHsiColor(ColorModel color) => rgbToHsi(color.toRgbColor());
 
   /// Converts a RGB color to a HSI color.
   static HsiColor rgbToHsi(RgbColor rgbColor) {
-    assert(rgbColor != null);
-
     if (rgbColor.isBlack) return HsiColor(0, 0, 0, rgbColor.alpha);
     if (rgbColor.isWhite) return HsiColor(0, 0, 100, rgbColor.alpha);
     if (rgbColor.isMonochromatic) {
@@ -106,9 +91,7 @@ class ColorConverter {
     }
 
     final rgb = rgbColor.toPreciseList();
-
     final sum = rgb.reduce((a, b) => a + b);
-
     final red = rgb[0] / sum;
     final green = rgb[1] / sum;
     final blue = rgb[2] / sum;
@@ -127,11 +110,8 @@ class ColorConverter {
     }
 
     final min = <double>[red, green, blue].reduce(math.min);
-
     final saturation = 1 - 3 * min;
-
     final intensity = sum / 3 / 255;
-
     final alpha = rgbColor.alpha / 255;
 
     return HsiColor.extrapolate(<double>[hue, saturation, intensity, alpha]);
@@ -139,8 +119,6 @@ class ColorConverter {
 
   /// Converts a HSI color to a RGB color.
   static RgbColor hsiToRgb(HsiColor hsiColor) {
-    assert(hsiColor != null);
-
     final hsi = hsiColor.toFactoredList();
 
     var hue = hsi[0] * math.pi * 2;
@@ -188,16 +166,10 @@ class ColorConverter {
   }
 
   /// Converts a color from any color space to HSL.
-  static HslColor toHslColor(ColorModel color) {
-    assert(color != null);
-
-    return rgbToHsl(color.toRgbColor());
-  }
+  static HslColor toHslColor(ColorModel color) => rgbToHsl(color.toRgbColor());
 
   /// Converts a RGB color to a HSL color.
   static HslColor rgbToHsl(RgbColor rgbColor) {
-    assert(rgbColor != null);
-
     if (rgbColor.isBlack) return HslColor(0, 0, 0, rgbColor.alpha);
     if (rgbColor.isWhite) return HslColor(0, 0, 100, rgbColor.alpha);
     if (rgbColor.isMonochromatic) {
@@ -211,11 +183,9 @@ class ColorConverter {
     final difference = max - min;
 
     final lightness = (max + min) / 2;
-
     final saturation = (lightness > 0.5)
         ? difference / (2 - max - min)
         : difference / (max + min);
-
     final alpha = rgbColor.alpha / 255;
 
     return HslColor.extrapolate(
@@ -224,8 +194,6 @@ class ColorConverter {
 
   /// Converts a HSL color to a RGB color.
   static RgbColor hslToRgb(HslColor hslColor) {
-    assert(hslColor != null);
-
     final hsl = hslColor.toFactoredList();
 
     final hue = hsl[0];
@@ -268,16 +236,10 @@ class ColorConverter {
   }
 
   /// Converts a color from any color space to HSL.
-  static HspColor toHspColor(ColorModel color) {
-    assert(color != null);
-
-    return rgbToHsp(color.toRgbColor());
-  }
+  static HspColor toHspColor(ColorModel color) => rgbToHsp(color.toRgbColor());
 
   /// Converts a RGB color to a HSP color.
   static HspColor rgbToHsp(RgbColor rgbColor) {
-    assert(rgbColor != null);
-
     if (rgbColor.isBlack) return HspColor(0, 0, 0, rgbColor.alpha);
     if (rgbColor.isWhite) return HspColor(0, 0, 100, rgbColor.alpha);
     if (rgbColor.isMonochromatic) {
@@ -296,8 +258,8 @@ class ColorConverter {
     final max = rgb.reduce(math.max);
     final min = rgb.reduce(math.min);
 
-    double hue;
-    double saturation;
+    double? hue;
+    late double saturation;
 
     if (max == min) {
       hue = 0;
@@ -320,8 +282,6 @@ class ColorConverter {
 
   /// Converts a HSP color to a RGB color.
   static RgbColor hspToRgb(HspColor hspColor) {
-    assert(hspColor != null);
-
     final hsp = hspColor.toFactoredList();
 
     var hue = hsp[0];
@@ -329,13 +289,12 @@ class ColorConverter {
     final perceivedBrightness = hsp[2];
 
     final hueIndex = (hue * 6).floor() % 6;
-
     final hueSegment = (hueIndex.isEven) ? hueIndex : hueIndex + 1;
     final hueSegmentSign = (hueIndex.isEven) ? 1 : -1;
     hue =
         6 * ((hueSegmentSign * hue) + (-1 * hueSegmentSign * (hueSegment / 6)));
 
-    double red, green, blue;
+    late double red, green, blue;
 
     if (saturation < 1) {
       final invertSaturation = 1 - saturation;
@@ -346,10 +305,8 @@ class ColorConverter {
           math.sqrt((a / invertSaturation / invertSaturation) +
               (b * part * part) +
               c);
-
       double calculateSecondValue(double firstValue) =>
           firstValue / invertSaturation;
-
       double calculateThirdValue(double firstValue, double secondValue) =>
           firstValue + (hue * (secondValue - firstValue));
 
@@ -388,7 +345,6 @@ class ColorConverter {
     } else {
       double calculateFirstValue(double a, double b) => math.sqrt(
           (perceivedBrightness * perceivedBrightness) / (a + (b * hue * hue)));
-
       double calculateSecondValue(double firstValue) => firstValue * hue;
 
       switch (hueIndex) {
@@ -431,16 +387,10 @@ class ColorConverter {
   }
 
   /// Converts a color from any color space to HSL.
-  static HsbColor toHsbColor(ColorModel color) {
-    assert(color != null);
-
-    return rgbToHsb(color.toRgbColor());
-  }
+  static HsbColor toHsbColor(ColorModel color) => rgbToHsb(color.toRgbColor());
 
   /// Converts a RGB color to a HSB color.
   static HsbColor rgbToHsb(RgbColor rgbColor) {
-    assert(rgbColor != null);
-
     if (rgbColor.isBlack) HsbColor(0, 0, 0, rgbColor.alpha);
     if (rgbColor.isWhite) HsbColor(0, 0, 100, rgbColor.alpha);
     if (rgbColor.isMonochromatic) {
@@ -448,13 +398,10 @@ class ColorConverter {
     }
 
     final rgb = rgbColor.toFactoredList();
-
     final max = rgb.reduce(math.max);
     final min = rgb.reduce(math.min);
     final difference = max - min;
-
     final saturation = (max == 0.0) ? 0.0 : difference / max;
-
     final alpha = rgbColor.alpha / 255;
 
     return HsbColor.extrapolate(
@@ -463,15 +410,13 @@ class ColorConverter {
 
   /// Converts a HSB color to a RGB color.
   static RgbColor hsbToRgb(HsbColor hsbColor) {
-    assert(hsbColor != null);
-
     final hsb = hsbColor.toFactoredList();
 
     final hue = hsb[0];
     final saturation = hsb[1];
     final value = hsb[2];
 
-    double red, green, blue;
+    late double red, green, blue;
 
     final hueIndex = (hue * 6).floor();
 
@@ -521,27 +466,18 @@ class ColorConverter {
   }
 
   /// Converts a color from any color space to HSL.
-  static LabColor toLabColor(ColorModel color) {
-    assert(color != null);
-
-    return rgbToLab(color.toRgbColor());
-  }
+  static LabColor toLabColor(ColorModel color) => rgbToLab(color.toRgbColor());
 
   /// Converts a RGB color to a LAB color using the
   /// XYZ color space as an intermediary.
   static LabColor rgbToLab(RgbColor rgbColor) {
-    assert(rgbColor != null);
-
     if (rgbColor.isBlack) return LabColor(0, 0, 0, rgbColor.alpha);
     if (rgbColor.isWhite) return LabColor(100, 0, 0, rgbColor.alpha);
-
     return xyzToLab(rgbColor.toXyzColor());
   }
 
   /// Converts an XYZ color to a LAB color.
   static LabColor xyzToLab(XyzColor xyzColor) {
-    assert(xyzColor != null);
-
     final xyz = xyzColor
         .toFactoredList()
         .map((xyzValue) => ((xyzValue > 0.008856)
@@ -563,16 +499,10 @@ class ColorConverter {
 
   /// Converts a LAB color to a RGB color using the
   /// XYZ color space as an intermediary.
-  static RgbColor labToRgb(LabColor labColor) {
-    assert(labColor != null);
-
-    return xyzToRgb(labToXyz(labColor));
-  }
+  static RgbColor labToRgb(LabColor labColor) => xyzToRgb(labToXyz(labColor));
 
   /// Converts a XYZ color to a LAB color.
   static XyzColor labToXyz(LabColor labColor) {
-    assert(labColor != null);
-
     final lightness = labColor.lightness;
     final a = labColor.a;
     final b = labColor.b;
@@ -585,11 +515,9 @@ class ColorConverter {
     final z3 = z * z * z;
 
     x = (x3 > 0.008856) ? x3 : (116 * x - 16) / 903.3;
-
     y = (lightness > 0.008856 * 903.3)
-        ? math.pow((lightness + 16) / 116, 3)
+        ? math.pow((lightness + 16) / 116, 3).toDouble()
         : lightness / 903.3;
-
     z = (z3 > 0.008856) ? z3 : (116 * z - 16) / 903.3;
 
     // LAB colors with their `a` values beneath and `b` values above the
@@ -605,16 +533,10 @@ class ColorConverter {
   }
 
   /// Converts a color from any color space to XYZ.
-  static XyzColor toXyzColor(ColorModel color) {
-    assert(color != null);
-
-    return rgbToXyz(color.toRgbColor());
-  }
+  static XyzColor toXyzColor(ColorModel color) => rgbToXyz(color.toRgbColor());
 
   /// Converts an RGB color to a XYZ color.
   static XyzColor rgbToXyz(RgbColor rgbColor) {
-    assert(rgbColor != null);
-
     if (rgbColor.isBlack) return XyzColor(0, 0, 0, rgbColor.alpha);
     if (rgbColor.isWhite) return XyzColor(100, 100, 100, rgbColor.alpha);
 
@@ -648,8 +570,6 @@ class ColorConverter {
 
   /// Converts an XYZ color to a RGB color.
   static RgbColor xyzToRgb(XyzColor xyzColor) {
-    assert(xyzColor != null);
-
     final x = xyzColor.x / XyzColor.whitePoint.x;
     final y = xyzColor.y / XyzColor.whitePoint.y;
     final z = xyzColor.z / XyzColor.whitePoint.z;
@@ -685,8 +605,6 @@ class ColorConverter {
   /// Calculates the [rgbColor]s hue on a 0 to 1 scale,
   /// as used by the HSL, HSP, and HSB color models.
   static double getHue(RgbColor rgbColor) {
-    assert(rgbColor != null);
-
     double hue;
 
     final rgb = rgbColor.toFactoredList();

@@ -22,10 +22,10 @@ class HslColor extends ColorModel {
     this.saturation,
     this.lightness, [
     int alpha = 255,
-  ])  : assert(hue != null && hue >= 0 && hue <= 360),
-        assert(saturation != null && saturation >= 0 && saturation <= 100),
-        assert(lightness != null && lightness >= 0 && lightness <= 100),
-        assert(alpha != null && alpha >= 0 && alpha <= 255),
+  ])  : assert(hue >= 0 && hue <= 360),
+        assert(saturation >= 0 && saturation <= 100),
+        assert(lightness >= 0 && lightness <= 100),
+        assert(alpha >= 0 && alpha <= 255),
         super(alpha);
 
   /// The hue value of this color.
@@ -65,9 +65,7 @@ class HslColor extends ColorModel {
     int steps, {
     bool excludeOriginalColors = false,
   }) {
-    assert(color != null);
-    assert(steps != null && steps > 0);
-    assert(excludeOriginalColors != null);
+    assert(steps > 0);
 
     if (color.runtimeType != HslColor) {
       color = color.toHslColor();
@@ -93,64 +91,51 @@ class HslColor extends ColorModel {
   HslColor get opposite => rotateHue(180);
 
   @override
-  HslColor rotateHue(num amount) {
-    assert(amount != null);
-
-    return withHue((hue + amount) % 360);
-  }
+  HslColor rotateHue(num amount) => withHue((hue + amount) % 360);
 
   @override
   HslColor warmer(num amount, {bool relative = true}) {
-    assert(amount != null && amount > 0);
-    assert(relative != null);
+    assert(amount > 0);
     if (relative) assert(amount <= 100);
-
     return withHue(ColorAdjustments.warmerHue(hue, amount, relative: relative));
   }
 
   @override
   HslColor cooler(num amount, {bool relative = true}) {
-    assert(amount != null && amount > 0);
-    assert(relative != null);
+    assert(amount > 0);
     if (relative) assert(amount <= 100);
-
     return withHue(ColorAdjustments.coolerHue(hue, amount, relative: relative));
   }
 
   /// Returns this [HslColor] modified with the provided [hue] value.
   @override
   HslColor withHue(num hue) {
-    assert(hue != null && hue >= 0 && hue <= 360);
-
+    assert(hue >= 0 && hue <= 360);
     return HslColor(hue, saturation, lightness, alpha);
   }
 
   /// Returns this [HslColor] modified with the provided [saturation] value.
   HslColor withSaturation(num saturation) {
-    assert(saturation != null && saturation >= 0 && saturation <= 100);
-
+    assert(saturation >= 0 && saturation <= 100);
     return HslColor(hue, saturation, lightness, alpha);
   }
 
   /// Returns this [HslColor] modified with the provided [lightness] value.
   HslColor withLightness(num lightness) {
-    assert(lightness != null && lightness >= 0 && lightness <= 100);
-
+    assert(lightness >= 0 && lightness <= 100);
     return HslColor(hue, saturation, lightness, alpha);
   }
 
   /// Returns this [HslColor] modified with the provided [alpha] value.
   @override
   HslColor withAlpha(int alpha) {
-    assert(alpha != null && alpha >= 0 && alpha <= 255);
-
+    assert(alpha >= 0 && alpha <= 255);
     return HslColor(hue, saturation, lightness, alpha);
   }
 
   @override
   HslColor withOpacity(double opacity) {
-    assert(opacity != null && opacity >= 0.0 && opacity <= 1.0);
-
+    assert(opacity >= 0.0 && opacity <= 1.0);
     return withAlpha((opacity * 255).round());
   }
 
@@ -190,11 +175,7 @@ class HslColor extends ColorModel {
       ], growable: false);
 
   /// Constructs a [HslColor] from [color].
-  factory HslColor.from(ColorModel color) {
-    assert(color != null);
-
-    return color.toHslColor();
-  }
+  factory HslColor.from(ColorModel color) => color.toHslColor();
 
   /// Constructs a [HslColor] from a list of [hsl] values.
   ///
@@ -206,16 +187,12 @@ class HslColor extends ColorModel {
   ///
   /// The [alpha] value, if included, must be `>= 0 && <= 255`.
   factory HslColor.fromList(List<num> hsl) {
-    assert(hsl != null && (hsl.length == 3 || hsl.length == 4));
-    assert(hsl[0] != null && hsl[0] >= 0 && hsl[0] <= 360);
-    assert(hsl[1] != null && hsl[1] >= 0 && hsl[1] <= 100);
-    assert(hsl[2] != null && hsl[2] >= 0 && hsl[2] <= 100);
-    if (hsl.length == 4) {
-      assert(hsl[3] != null && hsl[3] >= 0 && hsl[3] <= 255);
-    }
-
+    assert(hsl.length == 3 || hsl.length == 4);
+    assert(hsl[0] >= 0 && hsl[0] <= 360);
+    assert(hsl[1] >= 0 && hsl[1] <= 100);
+    assert(hsl[2] >= 0 && hsl[2] <= 100);
+    if (hsl.length == 4) assert(hsl[3] >= 0 && hsl[3] <= 255);
     final alpha = hsl.length == 4 ? hsl[3].round() : 255;
-
     return HslColor(hsl[0], hsl[1], hsl[2], alpha);
   }
 
@@ -223,11 +200,8 @@ class HslColor extends ColorModel {
   ///
   /// [hex] is case-insensitive and must be `3` or `6` characters
   /// in length, excluding an optional leading `#`.
-  factory HslColor.fromHex(String hex) {
-    assert(hex != null);
-
-    return ColorConverter.hexToRgb(hex).toHslColor();
-  }
+  factory HslColor.fromHex(String hex) =>
+      ColorConverter.hexToRgb(hex).toHslColor();
 
   /// Constructs a [HslColor] from a list of [hsl] values on a `0` to `1` scale.
   ///
@@ -235,16 +209,12 @@ class HslColor extends ColorModel {
   ///
   /// Each of the values must be `>= 0` and `<= 1`.
   factory HslColor.extrapolate(List<double> hsl) {
-    assert(hsl != null && (hsl.length == 3 || hsl.length == 4));
-    assert(hsl[0] != null && hsl[0] >= 0 && hsl[0] <= 1);
-    assert(hsl[1] != null && hsl[1] >= 0 && hsl[1] <= 1);
-    assert(hsl[2] != null && hsl[2] >= 0 && hsl[2] <= 1);
-    if (hsl.length == 4) {
-      assert(hsl[3] != null && hsl[3] >= 0 && hsl[3] <= 1);
-    }
-
+    assert(hsl.length == 3 || hsl.length == 4);
+    assert(hsl[0] >= 0 && hsl[0] <= 1);
+    assert(hsl[1] >= 0 && hsl[1] <= 1);
+    assert(hsl[2] >= 0 && hsl[2] <= 1);
+    if (hsl.length == 4) assert(hsl[3] >= 0 && hsl[3] <= 1);
     final alpha = hsl.length == 4 ? (hsl[3] * 255).round() : 255;
-
     return HslColor(hsl[0] * 360, hsl[1] * 100, hsl[2] * 100, alpha);
   }
 
@@ -272,21 +242,12 @@ class HslColor extends ColorModel {
     num minLightness = 0,
     num maxLightness = 100,
   }) {
-    assert(minHue != null && minHue >= 0 && minHue <= 360);
-    assert(maxHue != null && maxHue >= 0 && maxHue <= 360);
-    assert(minSaturation != null &&
-        minSaturation >= 0 &&
-        minSaturation <= maxSaturation);
-    assert(maxSaturation != null &&
-        maxSaturation >= minSaturation &&
-        maxSaturation <= 100);
-    assert(minLightness != null &&
-        minLightness >= 0 &&
-        minLightness <= maxLightness);
-    assert(maxLightness != null &&
-        maxLightness >= minLightness &&
-        maxLightness <= 100);
-
+    assert(minHue >= 0 && minHue <= 360);
+    assert(maxHue >= 0 && maxHue <= 360);
+    assert(minSaturation >= 0 && minSaturation <= maxSaturation);
+    assert(maxSaturation >= minSaturation && maxSaturation <= 100);
+    assert(minLightness >= 0 && minLightness <= maxLightness);
+    assert(maxLightness >= minLightness && maxLightness <= 100);
     return HslColor(
       ColorMath.randomHue(minHue, maxHue),
       ColorMath.random(minSaturation, maxSaturation),

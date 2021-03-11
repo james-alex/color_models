@@ -177,15 +177,11 @@ void main() {
     test('Rotate Hues', () {
       for (var color in _testColors) {
         color = color.toRgbColor();
-
         final adjustment = 360 / 30;
-
         var copy = color;
-
         for (var i = 0; i < 30; i++) {
           copy = copy.rotateHue(adjustment);
         }
-
         expect(copy, equals(color));
       }
     });
@@ -194,9 +190,6 @@ void main() {
 
 /// Converts [color] to the color space defined by [colorModel].
 ColorModel _toColorModel(_ColorModels colorModel, ColorModel color) {
-  assert(colorModel != null);
-  assert(color != null);
-
   switch (colorModel) {
     case _ColorModels.cmyk:
       color = color.toCmykColor();

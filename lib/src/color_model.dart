@@ -23,8 +23,7 @@ export 'models/xyz_color.dart';
 @immutable
 abstract class ColorModel {
   /// The base color model class.
-  const ColorModel(this.alpha)
-      : assert(alpha != null && alpha >= 0 && alpha <= 255);
+  const ColorModel(this.alpha) : assert(alpha >= 0 && alpha <= 255);
 
   /// The alpha value of this color.
   ///
@@ -126,11 +125,7 @@ abstract class ColorModel {
   ///
   /// If comparing two colors from the same color space,
   /// you can alternatively use the `==` operator.
-  bool equals(ColorModel color) {
-    assert(color != null);
-
-    return RgbColor.from(this) == RgbColor.from(color);
-  }
+  bool equals(ColorModel color) => RgbColor.from(this) == RgbColor.from(color);
 
   /// Converts `this` to the CMYK color space.
   CmykColor toCmykColor() => ColorConverter.toCmykColor(this);

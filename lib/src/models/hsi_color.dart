@@ -22,10 +22,10 @@ class HsiColor extends ColorModel {
     this.saturation,
     this.intensity, [
     int alpha = 255,
-  ])  : assert(hue != null && hue >= 0 && hue <= 360),
-        assert(saturation != null && saturation >= 0 && saturation <= 100),
-        assert(intensity != null && intensity >= 0 && intensity <= 100),
-        assert(alpha != null && alpha >= 0 && alpha <= 255),
+  ])  : assert(hue >= 0 && hue <= 360),
+        assert(saturation >= 0 && saturation <= 100),
+        assert(intensity >= 0 && intensity <= 100),
+        assert(alpha >= 0 && alpha <= 255),
         super(alpha);
 
   /// The hue value of this color.
@@ -62,9 +62,7 @@ class HsiColor extends ColorModel {
     int steps, {
     bool excludeOriginalColors = false,
   }) {
-    assert(color != null);
-    assert(steps != null && steps > 0);
-    assert(excludeOriginalColors != null);
+    assert(steps > 0);
 
     if (color.runtimeType != HsiColor) {
       color = color.toHsiColor();
@@ -90,64 +88,51 @@ class HsiColor extends ColorModel {
   HsiColor get opposite => rotateHue(180);
 
   @override
-  HsiColor rotateHue(num amount) {
-    assert(amount != null);
-
-    return withHue((hue + amount) % 360);
-  }
+  HsiColor rotateHue(num amount) => withHue((hue + amount) % 360);
 
   @override
   HsiColor warmer(num amount, {bool relative = true}) {
-    assert(amount != null && amount > 0);
-    assert(relative != null);
+    assert(amount > 0);
     if (relative) assert(amount <= 100);
-
     return withHue(ColorAdjustments.warmerHue(hue, amount, relative: relative));
   }
 
   @override
   HsiColor cooler(num amount, {bool relative = true}) {
-    assert(amount != null && amount > 0);
-    assert(relative != null);
+    assert(amount > 0);
     if (relative) assert(amount <= 100);
-
     return withHue(ColorAdjustments.coolerHue(hue, amount, relative: relative));
   }
 
   /// Returns this [HsiColor] modified with the provided [hue] value.
   @override
   HsiColor withHue(num hue) {
-    assert(hue != null && hue >= 0 && hue <= 360);
-
+    assert(hue >= 0 && hue <= 360);
     return HsiColor(hue, saturation, intensity, alpha);
   }
 
   /// Returns this [HsiColor] modified with the provided [saturation] value.
   HsiColor withSaturation(num saturation) {
-    assert(saturation != null && saturation >= 0 && saturation <= 100);
-
+    assert(saturation >= 0 && saturation <= 100);
     return HsiColor(hue, saturation, intensity, alpha);
   }
 
   /// Returns this [HsiColor] modified with the provided [intensity] value.
   HsiColor withIntensity(num intensity) {
-    assert(intensity != null && intensity >= 0 && intensity <= 100);
-
+    assert(intensity >= 0 && intensity <= 100);
     return HsiColor(hue, saturation, intensity, alpha);
   }
 
   /// Returns this [HsiColor] modified with the provided [alpha] value.
   @override
   HsiColor withAlpha(int alpha) {
-    assert(alpha != null && alpha >= 0 && alpha <= 255);
-
+    assert(alpha >= 0 && alpha <= 255);
     return HsiColor(hue, saturation, intensity, alpha);
   }
 
   @override
   HsiColor withOpacity(double opacity) {
-    assert(opacity != null && opacity >= 0.0 && opacity <= 1.0);
-
+    assert(opacity >= 0.0 && opacity <= 1.0);
     return withAlpha((opacity * 255).round());
   }
 
@@ -187,11 +172,7 @@ class HsiColor extends ColorModel {
       ], growable: false);
 
   /// Constructs a [HsiColor] from [color].
-  factory HsiColor.from(ColorModel color) {
-    assert(color != null);
-
-    return color.toHsiColor();
-  }
+  factory HsiColor.from(ColorModel color) => color.toHsiColor();
 
   /// Constructs a [HsiColor] from a list of [hsi] values.
   ///
@@ -203,16 +184,12 @@ class HsiColor extends ColorModel {
   ///
   /// The [alpha] value, if included, must be `>= 0 && <= 255`.
   factory HsiColor.fromList(List<num> hsi) {
-    assert(hsi != null && (hsi.length == 3 || hsi.length == 4));
-    assert(hsi[0] != null && hsi[0] >= 0 && hsi[0] <= 360);
-    assert(hsi[1] != null && hsi[1] >= 0 && hsi[1] <= 100);
-    assert(hsi[2] != null && hsi[2] >= 0 && hsi[2] <= 100);
-    if (hsi.length == 4) {
-      assert(hsi[3] != null && hsi[3] >= 0 && hsi[3] <= 255);
-    }
-
+    assert(hsi.length == 3 || hsi.length == 4);
+    assert(hsi[0] >= 0 && hsi[0] <= 360);
+    assert(hsi[1] >= 0 && hsi[1] <= 100);
+    assert(hsi[2] >= 0 && hsi[2] <= 100);
+    if (hsi.length == 4) assert(hsi[3] >= 0 && hsi[3] <= 255);
     final alpha = hsi.length == 4 ? hsi[3].round() : 255;
-
     return HsiColor(hsi[0], hsi[1], hsi[2], alpha);
   }
 
@@ -220,11 +197,8 @@ class HsiColor extends ColorModel {
   ///
   /// [hex] is case-insensitive and must be `3` or `6` characters
   /// in length, excluding an optional leading `#`.
-  factory HsiColor.fromHex(String hex) {
-    assert(hex != null);
-
-    return ColorConverter.hexToRgb(hex).toHsiColor();
-  }
+  factory HsiColor.fromHex(String hex) =>
+      ColorConverter.hexToRgb(hex).toHsiColor();
 
   /// Constructs a [HsiColor] from a list of [hsi] values on a `0` to `1` scale.
   ///
@@ -232,16 +206,12 @@ class HsiColor extends ColorModel {
   ///
   /// Each of the values must be `>= 0` and `<= 1`.
   factory HsiColor.extrapolate(List<double> hsi) {
-    assert(hsi != null && (hsi.length == 3 || hsi.length == 4));
-    assert(hsi[0] != null && hsi[0] >= 0 && hsi[0] <= 1);
-    assert(hsi[1] != null && hsi[1] >= 0 && hsi[1] <= 1);
-    assert(hsi[2] != null && hsi[2] >= 0 && hsi[2] <= 1);
-    if (hsi.length == 4) {
-      assert(hsi[3] != null && hsi[3] >= 0 && hsi[3] <= 1);
-    }
-
+    assert(hsi.length == 3 || hsi.length == 4);
+    assert(hsi[0] >= 0 && hsi[0] <= 1);
+    assert(hsi[1] >= 0 && hsi[1] <= 1);
+    assert(hsi[2] >= 0 && hsi[2] <= 1);
+    if (hsi.length == 4) assert(hsi[3] >= 0 && hsi[3] <= 1);
     final alpha = hsi.length == 4 ? (hsi[3] * 255).round() : 255;
-
     return HsiColor(hsi[0] * 360, hsi[1] * 100, hsi[2] * 100, alpha);
   }
 
@@ -269,21 +239,12 @@ class HsiColor extends ColorModel {
     num minIntensity = 0,
     num maxIntensity = 100,
   }) {
-    assert(minHue != null && minHue >= 0 && minHue <= 360);
-    assert(maxHue != null && maxHue >= 0 && maxHue <= 360);
-    assert(minSaturation != null &&
-        minSaturation >= 0 &&
-        minSaturation <= maxSaturation);
-    assert(maxSaturation != null &&
-        maxSaturation >= minSaturation &&
-        maxSaturation <= 100);
-    assert(minIntensity != null &&
-        minIntensity >= 0 &&
-        minIntensity <= maxIntensity);
-    assert(maxIntensity != null &&
-        maxIntensity >= minIntensity &&
-        maxIntensity <= 100);
-
+    assert(minHue >= 0 && minHue <= 360);
+    assert(maxHue >= 0 && maxHue <= 360);
+    assert(minSaturation >= 0 && minSaturation <= maxSaturation);
+    assert(maxSaturation >= minSaturation && maxSaturation <= 100);
+    assert(minIntensity >= 0 && minIntensity <= maxIntensity);
+    assert(maxIntensity >= minIntensity && maxIntensity <= 100);
     return HsiColor(
       ColorMath.randomHue(minHue, maxHue),
       ColorMath.random(minSaturation, maxSaturation),

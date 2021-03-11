@@ -23,10 +23,10 @@ class LabColor extends ColorModel {
     this.a,
     this.b, [
     int alpha = 255,
-  ])  : assert(lightness != null && lightness >= 0 && lightness <= 100),
-        assert(a != null && a >= -128 && a <= 127),
-        assert(b != null && b >= -128 && b <= 127),
-        assert(alpha != null && alpha >= 0 && alpha <= 255),
+  ])  : assert(lightness >= 0 && lightness <= 100),
+        assert(a >= -128 && a <= 127),
+        assert(b >= -128 && b <= 127),
+        assert(alpha >= 0 && alpha <= 255),
         super(alpha);
 
   /// Lightness represents the black to white value.
@@ -70,9 +70,7 @@ class LabColor extends ColorModel {
     int steps, {
     bool excludeOriginalColors = false,
   }) {
-    assert(color != null);
-    assert(steps != null && steps > 0);
-    assert(excludeOriginalColors != null);
+    assert(steps > 0);
 
     if (color.runtimeType != LabColor) {
       color = color.toLabColor();
@@ -96,71 +94,59 @@ class LabColor extends ColorModel {
   LabColor get opposite => rotateHue(180);
 
   @override
-  LabColor rotateHue(num amount) {
-    assert(amount != null);
-
-    return ColorAdjustments.rotateHue(this, amount).toLabColor();
-  }
+  LabColor rotateHue(num amount) =>
+      ColorAdjustments.rotateHue(this, amount).toLabColor();
 
   @override
   LabColor warmer(num amount, {bool relative = true}) {
-    assert(amount != null && amount > 0);
-
+    assert(amount > 0);
     return ColorAdjustments.warmer(this, amount, relative: relative)
         .toLabColor();
   }
 
   @override
   LabColor cooler(num amount, {bool relative = true}) {
-    assert(amount != null && amount > 0);
-
+    assert(amount > 0);
     return ColorAdjustments.cooler(this, amount, relative: relative)
         .toLabColor();
   }
 
   /// Returns this [LabColor] modified with the provided [lightness] value.
   LabColor withLightness(num lightness) {
-    assert(lightness != null && lightness >= 0 && lightness <= 100);
-
+    assert(lightness >= 0 && lightness <= 100);
     return LabColor(lightness, a, b, alpha);
   }
 
   /// Returns this [LabColor] modified with the provided [a] value.
   LabColor withA(num a) {
-    assert(a != null && a >= -128 && a <= 127);
-
+    assert(a >= -128 && a <= 127);
     return LabColor(lightness, a, b, alpha);
   }
 
   /// Returns this [LabColor] modified with the provided [b] value.
   LabColor withB(num b) {
-    assert(b != null && b >= -128 && b <= 127);
-
+    assert(b >= -128 && b <= 127);
     return LabColor(lightness, a, b, alpha);
   }
 
   /// Returns this [LabColor] modified with the provided [alpha] value.
   @override
   LabColor withAlpha(int alpha) {
-    assert(alpha != null && alpha >= 0 && alpha <= 255);
-
+    assert(alpha >= 0 && alpha <= 255);
     return LabColor(lightness, a, b, alpha);
   }
 
   /// Returns this [LabColor] modified with the provided [hue] value.
   @override
   LabColor withHue(num hue) {
-    assert(hue != null && hue >= 0 && hue <= 360);
-
+    assert(hue >= 0 && hue <= 360);
     final hslColor = toHslColor();
-
     return hslColor.withHue((hslColor.hue + hue) % 360).toLabColor();
   }
 
   @override
   LabColor withOpacity(double opacity) {
-    assert(opacity != null && opacity >= 0.0 && opacity <= 1.0);
-
+    assert(opacity >= 0.0 && opacity <= 1.0);
     return withAlpha((opacity * 255).round());
   }
 
@@ -185,11 +171,7 @@ class LabColor extends ColorModel {
       List<num>.from(<num>[lightness, a, b, alpha], growable: false);
 
   /// Constructs a [LabColor] from [color].
-  factory LabColor.from(ColorModel color) {
-    assert(color != null);
-
-    return color.toLabColor();
-  }
+  factory LabColor.from(ColorModel color) => color.toLabColor();
 
   /// Constructs a [LabColor] from a list of [lab] values.
   ///
@@ -201,16 +183,12 @@ class LabColor extends ColorModel {
   ///
   /// The [alpha] value, if included, must be `>= 0 && <= 255`.
   factory LabColor.fromList(List<num> lab) {
-    assert(lab != null && (lab.length == 3 || lab.length == 4));
-    assert(lab[0] != null && lab[0] >= 0 && lab[0] <= 100);
-    assert(lab[1] != null && lab[1] >= -128 && lab[1] <= 127);
-    assert(lab[2] != null && lab[2] >= -128 && lab[2] <= 127);
-    if (lab.length == 4) {
-      assert(lab[3] != null && lab[3] >= 0 && lab[3] <= 255);
-    }
-
+    assert(lab.length == 3 || lab.length == 4);
+    assert(lab[0] >= 0 && lab[0] <= 100);
+    assert(lab[1] >= -128 && lab[1] <= 127);
+    assert(lab[2] >= -128 && lab[2] <= 127);
+    if (lab.length == 4) assert(lab[3] >= 0 && lab[3] <= 255);
     final alpha = lab.length == 4 ? lab[3].round() : 255;
-
     return LabColor(lab[0], lab[1], lab[2], alpha);
   }
 
@@ -218,11 +196,8 @@ class LabColor extends ColorModel {
   ///
   /// [hex] is case-insensitive and must be `3` or `6` characters
   /// in length, excluding an optional leading `#`.
-  factory LabColor.fromHex(String hex) {
-    assert(hex != null);
-
-    return ColorConverter.hexToRgb(hex).toLabColor();
-  }
+  factory LabColor.fromHex(String hex) =>
+      ColorConverter.hexToRgb(hex).toLabColor();
 
   /// Constructs a [LabColor] from a list of [lab] values on a `0` to `1` scale.
   ///
@@ -230,16 +205,12 @@ class LabColor extends ColorModel {
   ///
   /// Each of the values must be `>= 0` and `<= 1`.
   factory LabColor.extrapolate(List<double> lab) {
-    assert(lab != null && (lab.length == 3 || lab.length == 4));
-    assert(lab[0] != null && lab[0] >= 0 && lab[0] <= 1);
-    assert(lab[1] != null && lab[1] >= 0 && lab[1] <= 1);
-    assert(lab[2] != null && lab[2] >= 0 && lab[2] <= 1);
-    if (lab.length == 4) {
-      assert(lab[3] != null && lab[3] >= 0 && lab[3] <= 1);
-    }
-
+    assert(lab.length == 3 || lab.length == 4);
+    assert(lab[0] >= 0 && lab[0] <= 1);
+    assert(lab[1] >= 0 && lab[1] <= 1);
+    assert(lab[2] >= 0 && lab[2] <= 1);
+    if (lab.length == 4) assert(lab[3] >= 0 && lab[3] <= 1);
     final alpha = lab.length == 4 ? (lab[3] * 255).round() : 255;
-
     return LabColor(
         lab[0] * 100, (lab[1] * 255) - 128, (lab[2] * 255) - 128, alpha);
   }
@@ -263,17 +234,12 @@ class LabColor extends ColorModel {
     num minB = 0,
     num maxB = 100,
   }) {
-    assert(minLightness != null &&
-        minLightness >= 0 &&
-        minLightness <= maxLightness);
-    assert(maxLightness != null &&
-        maxLightness >= minLightness &&
-        maxLightness <= 100);
-    assert(minA != null && minA >= 0 && minA <= maxA);
-    assert(maxA != null && maxA >= minA && maxA <= 100);
-    assert(minB != null && minB >= 0 && minB <= maxB);
-    assert(maxB != null && maxB >= minB && maxB <= 100);
-
+    assert(minLightness >= 0 && minLightness <= maxLightness);
+    assert(maxLightness >= minLightness && maxLightness <= 100);
+    assert(minA >= 0 && minA <= maxA);
+    assert(maxA >= minA && maxA <= 100);
+    assert(minB >= 0 && minB <= maxB);
+    assert(maxB >= minB && maxB <= 100);
     return LabColor(
       ColorMath.random(minLightness, maxLightness),
       ColorMath.random(minA, maxA),

@@ -22,11 +22,11 @@ class CmykColor extends ColorModel {
     this.yellow,
     this.black, [
     int alpha = 255,
-  ])  : assert(cyan != null && cyan >= 0 && cyan <= 100),
-        assert(magenta != null && magenta >= 0 && magenta <= 100),
-        assert(yellow != null && yellow >= 0 && yellow <= 100),
-        assert(black != null && black >= 0 && black <= 100),
-        assert(alpha != null && alpha >= 0 && alpha <= 255),
+  ])  : assert(cyan >= 0 && cyan <= 100),
+        assert(magenta >= 0 && magenta <= 100),
+        assert(yellow >= 0 && yellow <= 100),
+        assert(black >= 0 && black <= 100),
+        assert(alpha >= 0 && alpha <= 255),
         super(alpha);
 
   /// The cyan value of this color.
@@ -71,9 +71,7 @@ class CmykColor extends ColorModel {
     int steps, {
     bool excludeOriginalColors = false,
   }) {
-    assert(color != null);
-    assert(steps != null && steps > 0);
-    assert(excludeOriginalColors != null);
+    assert(steps > 0);
 
     if (color.runtimeType != CmykColor) {
       color = color.toCmykColor();
@@ -92,7 +90,6 @@ class CmykColor extends ColorModel {
   @override
   CmykColor get inverted {
     final values = toList();
-
     return CmykColor.fromList(
         List<num>.generate(values.length, (i) => 100 - values[i])..add(alpha));
   }
@@ -101,81 +98,66 @@ class CmykColor extends ColorModel {
   CmykColor get opposite => rotateHue(180);
 
   @override
-  CmykColor rotateHue(num amount) {
-    assert(amount != null);
-
-    return ColorAdjustments.rotateHue(this, amount).toCmykColor();
-  }
+  CmykColor rotateHue(num amount) =>
+      ColorAdjustments.rotateHue(this, amount).toCmykColor();
 
   @override
   CmykColor warmer(num amount, {bool relative = true}) {
-    assert(amount != null && amount > 0);
-    assert(relative != null);
+    assert(amount > 0);
     if (relative) assert(amount <= 100);
-
     return ColorAdjustments.warmer(this, amount, relative: relative)
         .toCmykColor();
   }
 
   @override
   CmykColor cooler(num amount, {bool relative = true}) {
-    assert(amount != null && amount > 0);
-    assert(relative != null);
+    assert(amount > 0);
     if (relative) assert(amount <= 100);
-
     return ColorAdjustments.cooler(this, amount, relative: relative)
         .toCmykColor();
   }
 
   /// Returns this [CmykColor] modified with the provided [cyan] value.
   CmykColor withCyan(num cyan) {
-    assert(cyan != null && cyan >= 0 && cyan <= 100);
-
+    assert(cyan >= 0 && cyan <= 100);
     return CmykColor(cyan, magenta, yellow, black, alpha);
   }
 
   /// Returns this [CmykColor] modified with the provided [magenta] value.
   CmykColor withMagenta(num magenta) {
-    assert(magenta != null && magenta >= 0 && magenta <= 100);
-
+    assert(magenta >= 0 && magenta <= 100);
     return CmykColor(cyan, magenta, yellow, black, alpha);
   }
 
   /// Returns this [CmykColor] modified with the provided [yellow] value.
   CmykColor withYellow(num yellow) {
-    assert(yellow != null && yellow >= 0 && yellow <= 100);
-
+    assert(yellow >= 0 && yellow <= 100);
     return CmykColor(cyan, magenta, yellow, black, alpha);
   }
 
   /// Returns this [CmykColor] modified with the provided [black] value.
   CmykColor withBlack(num black) {
-    assert(black != null && black >= 0 && black <= 100);
-
+    assert(black >= 0 && black <= 100);
     return CmykColor(cyan, magenta, yellow, black, alpha);
   }
 
   @override
   CmykColor withAlpha(int alpha) {
-    assert(alpha != null && alpha >= 0 && alpha <= 255);
-
+    assert(alpha >= 0 && alpha <= 255);
     return CmykColor(cyan, magenta, yellow, black, alpha);
   }
 
   @override
   CmykColor withOpacity(double opacity) {
-    assert(opacity != null && opacity >= 0.0 && opacity <= 1.0);
-
+    assert(opacity >= 0.0 && opacity <= 1.0);
     return withAlpha((opacity * 255).round());
   }
 
   /// Returns this [XyzColor] modified with the provided [hue] value.
   @override
   CmykColor withHue(num hue) {
-    assert(hue != null && hue >= 0 && hue <= 360);
-
+    assert(hue >= 0 && hue <= 360);
     final hslColor = toHslColor();
-
     return hslColor.withHue((hslColor.hue + hue) % 360).toCmykColor();
   }
 
@@ -214,11 +196,7 @@ class CmykColor extends ColorModel {
       ], growable: false);
 
   /// Constructs a [CmykColor] from [color].
-  factory CmykColor.from(ColorModel color) {
-    assert(color != null);
-
-    return color.toCmykColor();
-  }
+  factory CmykColor.from(ColorModel color) => color.toCmykColor();
 
   /// Constructs a [CmykColor] from a list of [cmyk] values.
   ///
@@ -228,14 +206,12 @@ class CmykColor extends ColorModel {
   ///
   /// The [alpha] value, if included, must be `>= 0 && <= 255`.
   factory CmykColor.fromList(List<num> cmyk) {
-    assert(cmyk != null && (cmyk.length == 4 || cmyk.length == 5));
-    assert(cmyk[0] != null && cmyk[0] >= 0 && cmyk[0] <= 100);
-    assert(cmyk[1] != null && cmyk[1] >= 0 && cmyk[1] <= 100);
-    assert(cmyk[2] != null && cmyk[2] >= 0 && cmyk[2] <= 100);
-    assert(cmyk[3] != null && cmyk[3] >= 0 && cmyk[3] <= 100);
-    if (cmyk.length == 5) {
-      assert(cmyk[4] != null && cmyk[4] >= 0 && cmyk[4] <= 255);
-    }
+    assert(cmyk.length == 4 || cmyk.length == 5);
+    assert(cmyk[0] >= 0 && cmyk[0] <= 100);
+    assert(cmyk[1] >= 0 && cmyk[1] <= 100);
+    assert(cmyk[2] >= 0 && cmyk[2] <= 100);
+    assert(cmyk[3] >= 0 && cmyk[3] <= 100);
+    if (cmyk.length == 5) assert(cmyk[4] >= 0 && cmyk[4] <= 255);
 
     final alpha = cmyk.length == 5 ? cmyk[4].round() : 255;
 
@@ -246,11 +222,8 @@ class CmykColor extends ColorModel {
   ///
   /// [hex] is case-insensitive and must be `3` or `6` characters
   /// in length, excluding an optional leading `#`.
-  factory CmykColor.fromHex(String hex) {
-    assert(hex != null);
-
-    return ColorConverter.hexToRgb(hex).toCmykColor();
-  }
+  factory CmykColor.fromHex(String hex) =>
+      ColorConverter.hexToRgb(hex).toCmykColor();
 
   /// Constructs a [CmykColor] from a list of [cmyk] values
   /// on a `0` to `1` scale.
@@ -259,17 +232,13 @@ class CmykColor extends ColorModel {
   ///
   /// Each of the values must be `>= 0` and `<= 1`.
   factory CmykColor.extrapolate(List<double> cmyk) {
-    assert(cmyk != null && (cmyk.length == 4 || cmyk.length == 5));
-    assert(cmyk[0] != null && cmyk[0] >= 0 && cmyk[0] <= 1);
-    assert(cmyk[1] != null && cmyk[1] >= 0 && cmyk[1] <= 1);
-    assert(cmyk[2] != null && cmyk[2] >= 0 && cmyk[2] <= 1);
-    assert(cmyk[3] != null && cmyk[3] >= 0 && cmyk[3] <= 1);
-    if (cmyk.length == 5) {
-      assert(cmyk[4] != null && cmyk[4] >= 0 && cmyk[4] <= 255);
-    }
-
+    assert(cmyk.length == 4 || cmyk.length == 5);
+    assert(cmyk[0] >= 0 && cmyk[0] <= 1);
+    assert(cmyk[1] >= 0 && cmyk[1] <= 1);
+    assert(cmyk[2] >= 0 && cmyk[2] <= 1);
+    assert(cmyk[3] >= 0 && cmyk[3] <= 1);
+    if (cmyk.length == 5) assert(cmyk[4] >= 0 && cmyk[4] <= 255);
     final alpha = cmyk.length == 5 ? (cmyk[4] * 255).round() : 255;
-
     return CmykColor(
         cmyk[0] * 100, cmyk[1] * 100, cmyk[2] * 100, cmyk[3] * 100, alpha);
   }
@@ -296,14 +265,14 @@ class CmykColor extends ColorModel {
     num minBlack = 0,
     num maxBlack = 100,
   }) {
-    assert(minCyan != null && minCyan >= 0 && minCyan <= maxCyan);
-    assert(maxCyan != null && maxCyan >= minCyan && maxCyan <= 100);
-    assert(minMagenta != null && minMagenta >= 0 && minMagenta <= maxMagenta);
-    assert(maxMagenta != null && maxMagenta >= minMagenta && maxMagenta <= 100);
-    assert(minYellow != null && minYellow >= 0 && minYellow <= maxYellow);
-    assert(maxYellow != null && maxYellow >= minYellow && maxYellow <= 100);
-    assert(minBlack != null && minBlack >= 0 && minBlack <= maxBlack);
-    assert(maxBlack != null && maxBlack >= minBlack && maxBlack <= 100);
+    assert(minCyan >= 0 && minCyan <= maxCyan);
+    assert(maxCyan >= minCyan && maxCyan <= 100);
+    assert(minMagenta >= 0 && minMagenta <= maxMagenta);
+    assert(maxMagenta >= minMagenta && maxMagenta <= 100);
+    assert(minYellow >= 0 && minYellow <= maxYellow);
+    assert(maxYellow >= minYellow && maxYellow <= 100);
+    assert(minBlack >= 0 && minBlack <= maxBlack);
+    assert(maxBlack >= minBlack && maxBlack <= 100);
 
     return CmykColor(
       ColorMath.random(minCyan, maxCyan),
