@@ -1,3 +1,13 @@
+## [1.0.0] - March 11, 2020
+
+* Migrated to null-safe code.
+
+* Moved the [calculateDistance], [random], [randomHue] and [round]
+utility methods into a utility class: [ColorMath].
+
+* Changed [ColorModel]'s [alpha] parameter from a positional parameter
+to a named parameter with a default value of `255`.
+
 ## [0.3.0] - September 21, 2020
 
 * Normalized all [alpha] values to be on a `0` to `255` scale to be in line
