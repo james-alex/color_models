@@ -1,4 +1,4 @@
-## [1.0.0] - March 11, 2020
+## [1.0.0] - March 11, 2021
 
 * Migrated to null-safe code.
 
