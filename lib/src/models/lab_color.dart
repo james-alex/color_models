@@ -27,7 +27,7 @@ class LabColor extends ColorModel {
         assert(a >= -128 && a <= 127),
         assert(b >= -128 && b <= 127),
         assert(alpha >= 0 && alpha <= 255),
-        super(alpha);
+        super(alpha: alpha);
 
   /// Lightness represents the black to white value.
   ///

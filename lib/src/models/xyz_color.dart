@@ -27,7 +27,7 @@ class XyzColor extends ColorModel {
         assert(y >= 0),
         assert(z >= 0),
         assert(alpha >= 0 && alpha <= 255),
-        super(alpha);
+        super(alpha: alpha);
 
   /// The x value of this color.
   ///

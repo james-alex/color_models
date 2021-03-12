@@ -27,7 +27,7 @@ class CmykColor extends ColorModel {
         assert(yellow >= 0 && yellow <= 100),
         assert(black >= 0 && black <= 100),
         assert(alpha >= 0 && alpha <= 255),
-        super(alpha);
+        super(alpha: alpha);
 
   /// The cyan value of this color.
   ///

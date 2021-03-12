@@ -29,7 +29,7 @@ class HspColor extends ColorModel {
         assert(saturation >= 0 && saturation <= 100),
         assert(perceivedBrightness >= 0 && perceivedBrightness <= 100),
         assert(alpha >= 0 && alpha <= 255),
-        super(alpha);
+        super(alpha: alpha);
 
   /// The hue value of this color.
   ///

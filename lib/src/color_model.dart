@@ -23,7 +23,7 @@ export 'models/xyz_color.dart';
 @immutable
 abstract class ColorModel {
   /// The base color model class.
-  const ColorModel(this.alpha) : assert(alpha >= 0 && alpha <= 255);
+  const ColorModel({this.alpha = 255}) : assert(alpha >= 0 && alpha <= 255);
 
   /// The alpha value of this color.
   ///

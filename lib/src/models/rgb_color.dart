@@ -32,7 +32,7 @@ class RgbColor extends ColorModel {
         _red = red,
         _green = green,
         _blue = blue,
-        super(alpha);
+        super(alpha: alpha);
 
   /// The red value of this color.
   ///
