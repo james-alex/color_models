@@ -260,17 +260,6 @@ class XyzColor extends ColorModel {
     );
   }
 
-  /// The whitepoints used when calculating the XYZ values
-  /// to normalize all 3 values to the 0 to 100 range.
-  ///
-  /// These white points were calculated for this plugin, as such they
-  /// are not derived from one of the CIE standard illuminants.
-  static const _WhitePoints whitePoint = _WhitePoints(
-    x: 105.21266389510953,
-    y: 100.0000000000007,
-    z: 91.82249511582535,
-  );
-
   @override
   String toString() => 'XyzColor($x, $y, $z, $alpha)';
 
@@ -284,14 +273,4 @@ class XyzColor extends ColorModel {
 
   @override
   int get hashCode => x.hashCode ^ y.hashCode ^ z.hashCode ^ alpha.hashCode;
-}
-
-class _WhitePoints {
-  const _WhitePoints({
-    required this.x,
-    required this.y,
-    required this.z,
-  });
-
-  final num x, y, z;
 }

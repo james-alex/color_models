@@ -552,15 +552,15 @@ class ColorConverter {
     final green = rgb[1];
     final blue = rgb[2];
 
-    final x = XyzColor.whitePoint.x *
+    final x = _WhitePoints.rgb.x *
         ((red * 0.41239079926595) +
             (green * 0.35758433938387) +
             (blue * 0.18048078840183));
-    final y = XyzColor.whitePoint.y *
+    final y = _WhitePoints.rgb.y *
         ((red * 0.21263900587151) +
             (green * 0.71516867876775) +
             (blue * 0.072192315360733));
-    final z = XyzColor.whitePoint.z *
+    final z = _WhitePoints.rgb.z *
         ((red * 0.019330818715591) +
             (green * 0.11919477979462) +
             (blue * 0.95053215224966));
@@ -570,9 +570,9 @@ class ColorConverter {
 
   /// Converts an XYZ color to a RGB color.
   static RgbColor xyzToRgb(XyzColor xyzColor) {
-    final x = xyzColor.x / XyzColor.whitePoint.x;
-    final y = xyzColor.y / XyzColor.whitePoint.y;
-    final z = xyzColor.z / XyzColor.whitePoint.z;
+    final x = xyzColor.x / _WhitePoints.rgb.x;
+    final y = xyzColor.y / _WhitePoints.rgb.y;
+    final z = xyzColor.z / _WhitePoints.rgb.z;
 
     double red, green, blue;
 
@@ -657,4 +657,25 @@ class ColorConverter {
   ///
   /// Used to calculate the HSP color space's [percievedBrightness] value.
   static const double _pb = 0.114;
+}
+
+class _WhitePoints {
+  const _WhitePoints({
+    required this.x,
+    required this.y,
+    required this.z,
+  });
+
+  final num x, y, z;
+
+  /// The whitepoints used when converting RGB colors to/from
+  /// the LAB color space.
+  ///
+  /// These white points were calculated for this package, as such they
+  /// are not derived from one of the CIE standard illuminants.
+  static const _WhitePoints rgb = _WhitePoints(
+    x: 105.21266389510953,
+    y: 100.0000000000007,
+    z: 91.82249511582535,
+  );
 }
