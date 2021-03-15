@@ -73,6 +73,14 @@ class RgbColor extends cm.RgbColor
     return super.cooler(amount, relative: relative).cast();
   }
 
+  /// Returns this [RgbColor] modified with the provided [hue] value.
+  @override
+  RgbColor withHue(num hue) {
+    assert(hue >= 0 && hue <= 360);
+    final hslColor = toHslColor();
+    return hslColor.withHue((hslColor.hue + hue) % 360).toRgbColor();
+  }
+
   @override
   RgbColor withRed(num red) {
     assert(red >= 0 && red <= 255);
@@ -91,6 +99,7 @@ class RgbColor extends cm.RgbColor
     return RgbColor(red, green, blue, alpha);
   }
 
+  @deprecated
   @override
   RgbColor withAlpha(int alpha) {
     assert(alpha >= 0 && alpha <= 255);
@@ -100,15 +109,31 @@ class RgbColor extends cm.RgbColor
   @override
   RgbColor withOpacity(double opacity) {
     assert(opacity >= 0.0 && opacity <= 1.0);
-    return withAlpha((opacity * 255).round());
+    return copyWith(alpha: (opacity * 255).round());
   }
 
-  /// Returns this [RgbColor] modified with the provided [hue] value.
   @override
-  RgbColor withHue(num hue) {
-    assert(hue >= 0 && hue <= 360);
-    final hslColor = toHslColor();
-    return hslColor.withHue((hslColor.hue + hue) % 360).toRgbColor();
+  RgbColor withValues(List<num> values) {
+    assert(values.length == 3 || values.length == 4);
+    assert(values[0] >= 0 && values[0] <= 255);
+    assert(values[1] >= 0 && values[1] <= 255);
+    assert(values[2] >= 0 && values[2] <= 255);
+    if (values.length == 4) assert(values[3] >= 0 && values[3] <= 255);
+    return RgbColor.fromList(values);
+  }
+
+  @override
+  RgbColor copyWith({num? red, num? green, num? blue, int? alpha}) {
+    assert(red == null || (red >= 0 && red <= 255));
+    assert(green == null || (green >= 0 && green <= 255));
+    assert(blue == null || (blue >= 0 && blue <= 255));
+    assert(alpha == null || (alpha >= 0 && alpha <= 255));
+    return RgbColor(
+      red ?? this.red,
+      green ?? this.green,
+      blue ?? this.blue,
+      alpha ?? this.alpha,
+    );
   }
 
   @override

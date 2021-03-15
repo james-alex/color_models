@@ -4,6 +4,8 @@ import '../helpers/color_adjustments.dart';
 import '../helpers/color_converter.dart';
 import '../helpers/color_math.dart';
 
+// TODO: Expand XYZ to allow for custom whitepoints.
+
 /// A color in the CIEXYZ color space.
 @immutable
 class XyzColor extends ColorModel {
@@ -113,25 +115,45 @@ class XyzColor extends ColorModel {
         .toXyzColor();
   }
 
+  /// Returns this [XyzColor] modified with the provided [hue] value.
+  @override
+  XyzColor withHue(num hue) {
+    assert(hue >= 0 && hue <= 360);
+    final hslColor = toHslColor();
+    return hslColor.withHue((hslColor.hue + hue) % 360).toXyzColor();
+  }
+
   /// Returns this [XyzColor] modified with the provided [x] value.
+  ///
+  /// __NOTICE:__ [withX] has been deprecated, use [copyWith] instead.
+  @deprecated
   XyzColor withX(num x) {
     assert(x >= 0);
     return XyzColor(x, y, z, alpha);
   }
 
   /// Returns this [XyzColor] modified with the provided [y] value.
+  ///
+  /// __NOTICE:__ [withY] has been deprecated, use [copyWith] instead.
+  @deprecated
   XyzColor withY(num y) {
     assert(y >= 0);
     return XyzColor(x, y, z, alpha);
   }
 
   /// Returns this [XyzColor] modified with the provided [z] value.
+  ///
+  /// __NOTICE:__ [withZ] has been deprecated, use [copyWith] instead.
+  @deprecated
   XyzColor withZ(num z) {
     assert(z >= 0);
     return XyzColor(x, y, z, alpha);
   }
 
   /// Returns this [XyzColor] modified with the provided [alpha] value.
+  ///
+  /// __NOTICE:__ [withAlpha] has been deprecated, use [copyWith] instead.
+  @deprecated
   @override
   XyzColor withAlpha(int alpha) {
     assert(alpha >= 0 && alpha <= 255);
@@ -141,15 +163,36 @@ class XyzColor extends ColorModel {
   @override
   XyzColor withOpacity(double opacity) {
     assert(opacity >= 0.0 && opacity <= 1.0);
-    return withAlpha((opacity * 255).round());
+    return copyWith(alpha: (opacity * 255).round());
   }
 
-  /// Returns this [XyzColor] modified with the provided [hue] value.
   @override
-  XyzColor withHue(num hue) {
-    assert(hue >= 0 && hue <= 360);
-    final hslColor = toHslColor();
-    return hslColor.withHue((hslColor.hue + hue) % 360).toXyzColor();
+  XyzColor withValues(List<num> values) {
+    assert(values.length == 3 || values.length == 4);
+    assert(values[0] >= 0);
+    assert(values[1] >= 0);
+    assert(values[2] >= 0);
+    if (values.length == 4) assert(values[3] >= 0 && values[3] <= 255);
+    return XyzColor.fromList(values);
+  }
+
+  @override
+  XyzColor copyWith({
+    num? x,
+    num? y,
+    num? z,
+    int? alpha,
+  }) {
+    assert(x == null || x >= 0);
+    assert(y == null || y >= 0);
+    assert(z == null || z >= 0);
+    assert(alpha == null || (alpha >= 0 && alpha <= 255));
+    return XyzColor(
+      x ?? this.x,
+      y ?? this.y,
+      z ?? this.z,
+      alpha ?? this.alpha,
+    );
   }
 
   @override

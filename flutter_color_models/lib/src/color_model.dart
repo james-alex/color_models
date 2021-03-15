@@ -34,11 +34,20 @@ abstract class ColorModel implements cm.ColorModel, Color {
   });
 
 
+
+  /// __NOTICE:__ [withAlpha] has been deprecated, use [copyWith] instead.
+  @deprecated
   @override
   ColorModel withAlpha(int alpha);
 
   @override
   ColorModel withOpacity(double opacity);
+
+  @override
+  ColorModel withValues(List<num> values);
+
+  @override
+  ColorModel copyWith({int? alpha});
 
   @override
   ColorModel convert(cm.ColorModel other);

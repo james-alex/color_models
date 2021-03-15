@@ -73,23 +73,34 @@ class CmykColor extends cm.CmykColor
   }
 
   @override
+  CmykColor withHue(num hue) {
+    assert(hue >= 0 && hue <= 360);
+    final hslColor = toHslColor();
+    return hslColor.withHue((hslColor.hue + hue) % 360).toCmykColor();
+  }
+
+  @deprecated
+  @override
   CmykColor withCyan(num cyan) {
     assert(cyan >= 0 && cyan <= 100);
     return CmykColor(cyan, magenta, yellow, black, alpha);
   }
 
+  @deprecated
   @override
   CmykColor withMagenta(num magenta) {
     assert(magenta >= 0 && magenta <= 100);
     return CmykColor(cyan, magenta, yellow, black, alpha);
   }
 
+  @deprecated
   @override
   CmykColor withYellow(num yellow) {
     assert(yellow >= 0 && yellow <= 100);
     return CmykColor(cyan, magenta, yellow, black, alpha);
   }
 
+  @deprecated
   @override
   CmykColor withBlack(num black) {
     assert(black >= 0 && black <= 100);
@@ -114,6 +125,7 @@ class CmykColor extends cm.CmykColor
     return toRgbColor().withBlue(blue).toCmykColor();
   }
 
+  @deprecated
   @override
   CmykColor withAlpha(int alpha) {
     assert(alpha >= 0 && alpha <= 255);
@@ -123,14 +135,39 @@ class CmykColor extends cm.CmykColor
   @override
   CmykColor withOpacity(double opacity) {
     assert(opacity >= 0.0 && opacity <= 1.0);
-    return withAlpha((opacity * 255).round());
+    return copyWith(alpha: (opacity * 255).round());
   }
 
   @override
-  CmykColor withHue(num hue) {
-    assert(hue >= 0 && hue <= 360);
-    final hslColor = toHslColor();
-    return hslColor.withHue((hslColor.hue + hue) % 360).toCmykColor();
+  CmykColor withValues(List<num> values) {
+    assert(values.length == 4 || values.length == 5);
+    assert(values[0] >= 0 && values[0] <= 100);
+    assert(values[1] >= 0 && values[1] <= 100);
+    assert(values[2] >= 0 && values[2] <= 100);
+    assert(values[3] >= 0 && values[3] <= 100);
+    return CmykColor.fromList(values);
+  }
+
+  @override
+  CmykColor copyWith({
+    num? cyan,
+    num? magenta,
+    num? yellow,
+    num? black,
+    int? alpha,
+  }) {
+    assert(cyan == null || (cyan >= 0 && cyan <= 100));
+    assert(magenta == null || (magenta >= 0 && magenta <= 100));
+    assert(yellow == null || (yellow >= 0 && yellow <= 100));
+    assert(black == null || (black >= 0 && black <= 100));
+    assert(alpha == null || (alpha >= 0 && alpha <= 255));
+    return CmykColor(
+      cyan ?? this.cyan,
+      magenta ?? this.magenta,
+      yellow ?? this.yellow,
+      black ?? this.black,
+      alpha ?? this.alpha,
+    );
   }
 
   @override

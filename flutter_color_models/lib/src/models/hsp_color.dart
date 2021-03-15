@@ -80,12 +80,14 @@ class HspColor extends cm.HspColor
     return HspColor(hue, saturation, perceivedBrightness, alpha);
   }
 
+  @deprecated
   @override
   HspColor withSaturation(num saturation) {
     assert(saturation >= 0 && saturation <= 100);
     return HspColor(hue, saturation, perceivedBrightness, alpha);
   }
 
+  @deprecated
   @override
   HspColor withPerceivedBrightness(num perceivedBrightness) {
     assert(perceivedBrightness >= 0 && perceivedBrightness <= 100);
@@ -110,6 +112,7 @@ class HspColor extends cm.HspColor
     return toRgbColor().withBlue(blue).toHspColor();
   }
 
+  @deprecated
   @override
   HspColor withAlpha(int alpha) {
     assert(alpha >= 0 && alpha <= 255);
@@ -119,7 +122,37 @@ class HspColor extends cm.HspColor
   @override
   HspColor withOpacity(double opacity) {
     assert(opacity >= 0.0 && opacity <= 1.0);
-    return withAlpha((opacity * 255).round());
+    return copyWith(alpha: (opacity * 255).round());
+  }
+
+  @override
+  HspColor withValues(List<num> values) {
+    assert(values.length == 3 || values.length == 4);
+    assert(values[0] >= 0 && values[0] <= 360);
+    assert(values[1] >= 0 && values[1] <= 100);
+    assert(values[2] >= 0 && values[2] <= 100);
+    if (values.length == 4) assert(values[3] >= 0 && values[3] <= 255);
+    return HspColor.fromList(values);
+  }
+
+  @override
+  HspColor copyWith({
+    num? hue,
+    num? saturation,
+    num? perceivedBrightness,
+    int? alpha,
+  }) {
+    assert(hue == null || (hue >= 0 && hue <= 360));
+    assert(saturation == null || (saturation >= 0 && saturation <= 100));
+    assert(perceivedBrightness == null ||
+        (perceivedBrightness >= 0 && perceivedBrightness <= 100));
+    assert(alpha == null || (alpha >= 0 && alpha <= 255));
+    return HspColor(
+      hue ?? this.hue,
+      saturation ?? this.saturation,
+      perceivedBrightness ?? this.perceivedBrightness,
+      alpha ?? this.alpha,
+    );
   }
 
   @override

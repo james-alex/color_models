@@ -107,31 +107,6 @@ class LabColor extends ColorModel {
         .toLabColor();
   }
 
-  /// Returns this [LabColor] modified with the provided [lightness] value.
-  LabColor withLightness(num lightness) {
-    assert(lightness >= 0 && lightness <= 100);
-    return LabColor(lightness, a, b, alpha);
-  }
-
-  /// Returns this [LabColor] modified with the provided [a] value.
-  LabColor withA(num a) {
-    assert(a >= -128 && a <= 127);
-    return LabColor(lightness, a, b, alpha);
-  }
-
-  /// Returns this [LabColor] modified with the provided [b] value.
-  LabColor withB(num b) {
-    assert(b >= -128 && b <= 127);
-    return LabColor(lightness, a, b, alpha);
-  }
-
-  /// Returns this [LabColor] modified with the provided [alpha] value.
-  @override
-  LabColor withAlpha(int alpha) {
-    assert(alpha >= 0 && alpha <= 255);
-    return LabColor(lightness, a, b, alpha);
-  }
-
   /// Returns this [LabColor] modified with the provided [hue] value.
   @override
   LabColor withHue(num hue) {
@@ -140,10 +115,71 @@ class LabColor extends ColorModel {
     return hslColor.withHue((hslColor.hue + hue) % 360).toLabColor();
   }
 
+  /// Returns this [LabColor] modified with the provided [lightness] value.
+  ///
+  /// __NOTICE:__ [withLightness] has been deprecated, use [copyWith] instead.
+  @deprecated
+  LabColor withLightness(num lightness) {
+    assert(lightness >= 0 && lightness <= 100);
+    return LabColor(lightness, a, b, alpha);
+  }
+
+  /// Returns this [LabColor] modified with the provided [a] value.
+  ///
+  /// __NOTICE:__ [withA] has been deprecated, use [copyWith] instead.
+  @deprecated
+  LabColor withA(num a) {
+    assert(a >= -128 && a <= 127);
+    return LabColor(lightness, a, b, alpha);
+  }
+
+  /// Returns this [LabColor] modified with the provided [b] value.
+  ///
+  /// __NOTICE:__ [withB] has been deprecated, use [copyWith] instead.
+  @deprecated
+  LabColor withB(num b) {
+    assert(b >= -128 && b <= 127);
+    return LabColor(lightness, a, b, alpha);
+  }
+
+  /// Returns this [LabColor] modified with the provided [alpha] value.
+  ///
+  /// __NOTICE:__ [withAlpha] has been deprecated, use [copyWith] instead.
+  @deprecated
+  @override
+  LabColor withAlpha(int alpha) {
+    assert(alpha >= 0 && alpha <= 255);
+    return LabColor(lightness, a, b, alpha);
+  }
+
   @override
   LabColor withOpacity(double opacity) {
     assert(opacity >= 0.0 && opacity <= 1.0);
-    return withAlpha((opacity * 255).round());
+    return copyWith(alpha: (opacity * 255).round());
+  }
+
+  @override
+  LabColor withValues(List<num> values) {
+    assert(values.length == 3 || values.length == 4);
+    assert(values[0] >= 0 && values[0] <= 100);
+    assert(values[1] >= -128 && values[1] <= 127);
+    assert(values[2] >= -128 && values[2] <= 127);
+    if (values.length == 4) assert(values[3] >= 0 && values[3] <= 255);
+    return LabColor.fromList(values);
+  }
+
+  @override
+  LabColor copyWith({num? lightness, num? a, num? b, int? alpha}) {
+    assert(lightness == null || (lightness >= 0 && lightness <= 100));
+    assert(a == null || (a >= -128 && a <= 127));
+    assert(b == null || (b >= -128 && b <= 127));
+    assert(alpha == null || (alpha >= 0 && alpha <= 255));
+    return LabColor(
+      lightness ?? this.lightness,
+      a ?? this.a,
+      b ?? this.b,
+      alpha ?? this.alpha,
+    );
   }
 
   @override

@@ -111,18 +111,27 @@ class HslColor extends ColorModel {
   }
 
   /// Returns this [HslColor] modified with the provided [saturation] value.
+  ///
+  /// __NOTICE:__ [withSaturation] has been deprecated, use [copyWith] instead.
+  @deprecated
   HslColor withSaturation(num saturation) {
     assert(saturation >= 0 && saturation <= 100);
     return HslColor(hue, saturation, lightness, alpha);
   }
 
   /// Returns this [HslColor] modified with the provided [lightness] value.
+  ///
+  /// __NOTICE:__ [withLightness] has been deprecated, use [copyWith] instead.
+  @deprecated
   HslColor withLightness(num lightness) {
     assert(lightness >= 0 && lightness <= 100);
     return HslColor(hue, saturation, lightness, alpha);
   }
 
   /// Returns this [HslColor] modified with the provided [alpha] value.
+  ///
+  /// __NOTICE:__ [withAlpha] has been deprecated, use [copyWith] instead.
+  @deprecated
   @override
   HslColor withAlpha(int alpha) {
     assert(alpha >= 0 && alpha <= 255);
@@ -132,7 +141,31 @@ class HslColor extends ColorModel {
   @override
   HslColor withOpacity(double opacity) {
     assert(opacity >= 0.0 && opacity <= 1.0);
-    return withAlpha((opacity * 255).round());
+    return copyWith(alpha: (opacity * 255).round());
+  }
+
+  @override
+  HslColor withValues(List<num> values) {
+    assert(values.length == 3 || values.length == 4);
+    assert(values[0] >= 0 && values[0] <= 360);
+    assert(values[1] >= 0 && values[1] <= 100);
+    assert(values[2] >= 0 && values[2] <= 100);
+    if (values.length == 4) assert(values[3] >= 0 && values[3] <= 255);
+    return HslColor.fromList(values);
+  }
+
+  @override
+  HslColor copyWith({num? hue, num? saturation, num? lightness, int? alpha}) {
+    assert(hue == null || (hue >= 0 && hue <= 360));
+    assert(saturation == null || (saturation >= 0 && saturation <= 100));
+    assert(lightness == null || (lightness >= 0 && lightness <= 100));
+    assert(alpha == null || (alpha >= 0 && alpha <= 255));
+    return HslColor(
+      hue ?? this.hue,
+      saturation ?? this.saturation,
+      lightness ?? this.lightness,
+      alpha ?? this.alpha,
+    );
   }
 
   @override

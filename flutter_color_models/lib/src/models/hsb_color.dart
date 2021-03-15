@@ -77,12 +77,14 @@ class HsbColor extends cm.HsbColor
     return HsbColor(hue, saturation, brightness, alpha);
   }
 
+  @deprecated
   @override
   HsbColor withSaturation(num saturation) {
     assert(saturation >= 0 && saturation <= 100);
     return HsbColor(hue, saturation, brightness, alpha);
   }
 
+  @deprecated
   @override
   HsbColor withBrightness(num brightness) {
     assert(brightness >= 0 && brightness <= 100);
@@ -107,6 +109,7 @@ class HsbColor extends cm.HsbColor
     return toRgbColor().withBlue(blue).toHsbColor();
   }
 
+  @deprecated
   @override
   HsbColor withAlpha(int alpha) {
     assert(alpha >= 0 && alpha <= 255);
@@ -116,7 +119,36 @@ class HsbColor extends cm.HsbColor
   @override
   HsbColor withOpacity(double opacity) {
     assert(opacity >= 0.0 && opacity <= 1.0);
-    return withAlpha((opacity * 255).round());
+    return copyWith(alpha: (opacity * 255).round());
+  }
+
+  @override
+  HsbColor withValues(List<num> values) {
+    assert(values.length == 3 || values.length == 4);
+    assert(values[0] >= 0 && values[0] <= 360);
+    assert(values[1] >= 0 && values[1] <= 100);
+    assert(values[2] >= 0 && values[2] <= 100);
+    if (values.length == 4) assert(values[3] >= 0 && values[3] <= 255);
+    return HsbColor.fromList(values);
+  }
+
+  @override
+  HsbColor copyWith({
+    num? hue,
+    num? saturation,
+    num? brightness,
+    int? alpha,
+  }) {
+    assert(hue == null || (hue >= 0 && hue <= 360));
+    assert(saturation == null || (saturation >= 0 && saturation <= 100));
+    assert(brightness == null || (brightness >= 0 && brightness <= 100));
+    assert(alpha == null || (alpha >= 0 && alpha <= 255));
+    return HsbColor(
+      hue ?? this.hue,
+      saturation ?? this.saturation,
+      brightness ?? this.brightness,
+      alpha ?? this.alpha,
+    );
   }
 
   @override

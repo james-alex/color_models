@@ -72,18 +72,29 @@ class LabColor extends cm.LabColor
     return super.cooler(amount, relative: relative).cast();
   }
 
+  /// Returns this [LabColor] modified with the provided [hue] value.
+  @override
+  LabColor withHue(num hue) {
+    assert(hue >= 0 && hue <= 360);
+    final hslColor = toHslColor();
+    return hslColor.withHue((hslColor.hue + hue) % 360).toLabColor();
+  }
+
+  @deprecated
   @override
   LabColor withLightness(num lightness) {
     assert(lightness >= 0 && lightness <= 100);
     return LabColor(lightness, a, b, alpha);
   }
 
+  @deprecated
   @override
   LabColor withA(num a) {
     assert(a >= -128 && a <= 127);
     return LabColor(lightness, a, b, alpha);
   }
 
+  @deprecated
   @override
   LabColor withB(num b) {
     assert(b >= -128 && b <= 127);
@@ -108,6 +119,7 @@ class LabColor extends cm.LabColor
     return toRgbColor().withBlue(blue).toLabColor();
   }
 
+  @deprecated
   @override
   LabColor withAlpha(int alpha) {
     assert(alpha >= 0 && alpha <= 255);
@@ -117,15 +129,31 @@ class LabColor extends cm.LabColor
   @override
   LabColor withOpacity(double opacity) {
     assert(opacity >= 0.0 && opacity <= 1.0);
-    return withAlpha((opacity * 255).round());
+    return copyWith(alpha: (opacity * 255).round());
   }
 
-  /// Returns this [LabColor] modified with the provided [hue] value.
   @override
-  LabColor withHue(num hue) {
-    assert(hue >= 0 && hue <= 360);
-    final hslColor = toHslColor();
-    return hslColor.withHue((hslColor.hue + hue) % 360).toLabColor();
+  LabColor withValues(List<num> values) {
+    assert(values.length == 3 || values.length == 4);
+    assert(values[0] >= 0 && values[0] <= 100);
+    assert(values[1] >= -128 && values[1] <= 127);
+    assert(values[2] >= -128 && values[2] <= 127);
+    if (values.length == 4) assert(values[3] >= 0 && values[3] <= 255);
+    return LabColor.fromList(values);
+  }
+
+  @override
+  LabColor copyWith({num? lightness, num? a, num? b, int? alpha}) {
+    assert(lightness == null || (lightness >= 0 && lightness <= 100));
+    assert(a == null || (a >= -128 && a <= 127));
+    assert(b == null || (b >= -128 && b <= 127));
+    assert(alpha == null || (alpha >= 0 && alpha <= 255));
+    return LabColor(
+      lightness ?? this.lightness,
+      a ?? this.a,
+      b ?? this.b,
+      alpha ?? this.alpha,
+    );
   }
 
   @override

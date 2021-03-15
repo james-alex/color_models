@@ -77,12 +77,14 @@ class HsiColor extends cm.HsiColor
     return HsiColor(hue, saturation, intensity, alpha);
   }
 
+  @deprecated
   @override
   HsiColor withSaturation(num saturation) {
     assert(saturation >= 0 && saturation <= 100);
     return HsiColor(hue, saturation, intensity, alpha);
   }
 
+  @deprecated
   @override
   HsiColor withIntensity(num intensity) {
     assert(intensity >= 0 && intensity <= 100);
@@ -107,6 +109,7 @@ class HsiColor extends cm.HsiColor
     return toRgbColor().withBlue(blue).toHsiColor();
   }
 
+  @deprecated
   @override
   HsiColor withAlpha(int alpha) {
     assert(alpha >= 0 && alpha <= 255);
@@ -116,7 +119,31 @@ class HsiColor extends cm.HsiColor
   @override
   HsiColor withOpacity(double opacity) {
     assert(opacity >= 0.0 && opacity <= 1.0);
-    return withAlpha((opacity * 255).round());
+    return copyWith(alpha: (opacity * 255).round());
+  }
+
+  @override
+  HsiColor withValues(List<num> values) {
+    assert(values.length == 3 || values.length == 4);
+    assert(values[0] >= 0 && values[0] <= 360);
+    assert(values[1] >= 0 && values[1] <= 100);
+    assert(values[2] >= 0 && values[2] <= 100);
+    if (values.length == 4) assert(values[3] >= 0 && values[3] <= 255);
+    return HsiColor.fromList(values);
+  }
+
+  @override
+  HsiColor copyWith({num? hue, num? saturation, num? intensity, int? alpha}) {
+    assert(hue == null || (hue >= 0 && hue <= 360));
+    assert(saturation == null || (saturation >= 0 && saturation <= 100));
+    assert(intensity == null || (intensity >= 0 && intensity <= 100));
+    assert(alpha == null || (alpha >= 0 && alpha <= 255));
+    return HsiColor(
+      hue ?? this.hue,
+      saturation ?? this.saturation,
+      intensity ?? this.intensity,
+      alpha ?? this.alpha,
+    );
   }
 
   @override
