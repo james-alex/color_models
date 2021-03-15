@@ -252,12 +252,12 @@ class HsbColor extends ColorModel {
   String toString() => 'HsbColor($hue, $saturation, $brightness, $alpha)';
 
   @override
-  bool operator ==(Object o) =>
-      o is HsbColor &&
-      ColorMath.round(hue) == ColorMath.round(o.hue) &&
-      ColorMath.round(saturation) == ColorMath.round(o.saturation) &&
-      ColorMath.round(brightness) == ColorMath.round(o.brightness) &&
-      alpha == o.alpha;
+  bool operator ==(Object other) =>
+      other is HsbColor &&
+      ColorMath.round(hue) == ColorMath.round(other.hue) &&
+      ColorMath.round(saturation) == ColorMath.round(other.saturation) &&
+      ColorMath.round(brightness) == ColorMath.round(other.brightness) &&
+      alpha == other.alpha;
 
   @override
   int get hashCode =>

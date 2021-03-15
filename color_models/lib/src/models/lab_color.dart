@@ -247,12 +247,12 @@ class LabColor extends ColorModel {
   String toString() => 'LabColor($lightness, $a, $b, $alpha)';
 
   @override
-  bool operator ==(Object o) =>
-      o is LabColor &&
-      ColorMath.round(lightness) == ColorMath.round(o.lightness) &&
-      ColorMath.round(a) == ColorMath.round(o.a) &&
-      ColorMath.round(b) == ColorMath.round(o.b) &&
-      alpha == o.alpha;
+  bool operator ==(Object other) =>
+      other is LabColor &&
+      ColorMath.round(lightness) == ColorMath.round(other.lightness) &&
+      ColorMath.round(a) == ColorMath.round(other.a) &&
+      ColorMath.round(b) == ColorMath.round(other.b) &&
+      alpha == other.alpha;
 
   @override
   int get hashCode =>

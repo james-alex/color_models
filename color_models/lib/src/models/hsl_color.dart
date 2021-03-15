@@ -255,12 +255,12 @@ class HslColor extends ColorModel {
   String toString() => 'HslColor($hue, $saturation, $lightness, $alpha)';
 
   @override
-  bool operator ==(Object o) =>
-      o is HslColor &&
-      ColorMath.round(hue) == ColorMath.round(o.hue) &&
-      ColorMath.round(saturation) == ColorMath.round(o.saturation) &&
-      ColorMath.round(lightness) == ColorMath.round(o.lightness) &&
-      alpha == o.alpha;
+  bool operator ==(Object other) =>
+      other is HslColor &&
+      ColorMath.round(hue) == ColorMath.round(other.hue) &&
+      ColorMath.round(saturation) == ColorMath.round(other.saturation) &&
+      ColorMath.round(lightness) == ColorMath.round(other.lightness) &&
+      alpha == other.alpha;
 
   @override
   int get hashCode =>

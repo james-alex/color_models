@@ -260,12 +260,12 @@ class XyzColor extends ColorModel {
   String toString() => 'XyzColor($x, $y, $z, $alpha)';
 
   @override
-  bool operator ==(Object o) =>
-      o is XyzColor &&
-      ColorMath.round(x) == ColorMath.round(o.x) &&
-      ColorMath.round(y) == ColorMath.round(o.y) &&
-      ColorMath.round(z) == ColorMath.round(o.z) &&
-      alpha == o.alpha;
+  bool operator ==(Object other) =>
+      other is XyzColor &&
+      ColorMath.round(x) == ColorMath.round(other.x) &&
+      ColorMath.round(y) == ColorMath.round(other.y) &&
+      ColorMath.round(z) == ColorMath.round(other.z) &&
+      alpha == other.alpha;
 
   @override
   int get hashCode => x.hashCode ^ y.hashCode ^ z.hashCode ^ alpha.hashCode;

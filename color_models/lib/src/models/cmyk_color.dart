@@ -275,13 +275,13 @@ class CmykColor extends ColorModel {
   String toString() => 'CmykColor($cyan, $magenta, $yellow, $black, $alpha)';
 
   @override
-  bool operator ==(Object o) =>
-      o is CmykColor &&
-      ColorMath.round(cyan) == ColorMath.round(o.cyan) &&
-      ColorMath.round(magenta) == ColorMath.round(o.magenta) &&
-      ColorMath.round(yellow) == ColorMath.round(o.yellow) &&
-      ColorMath.round(black) == ColorMath.round(o.black) &&
-      alpha == o.alpha;
+  bool operator ==(Object other) =>
+      other is CmykColor &&
+      ColorMath.round(cyan) == ColorMath.round(other.cyan) &&
+      ColorMath.round(magenta) == ColorMath.round(other.magenta) &&
+      ColorMath.round(yellow) == ColorMath.round(other.yellow) &&
+      ColorMath.round(black) == ColorMath.round(other.black) &&
+      alpha == other.alpha;
 
   @override
   int get hashCode =>

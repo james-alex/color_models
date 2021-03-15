@@ -280,12 +280,12 @@ class RgbColor extends ColorModel {
   String toString() => 'RgbColor($red, $green, $blue, $alpha)';
 
   @override
-  bool operator ==(Object o) =>
-      o is RgbColor &&
-      red == o.red &&
-      green == o.green &&
-      blue == o.blue &&
-      alpha == o.alpha;
+  bool operator ==(Object other) =>
+      other is RgbColor &&
+      red == other.red &&
+      green == other.green &&
+      blue == other.blue &&
+      alpha == other.alpha;
 
   @override
   int get hashCode =>

@@ -263,13 +263,13 @@ class HspColor extends ColorModel {
       'HspColor($hue, $saturation, $perceivedBrightness, $alpha)';
 
   @override
-  bool operator ==(Object o) =>
-      o is HspColor &&
-      ColorMath.round(hue) == ColorMath.round(o.hue) &&
-      ColorMath.round(saturation) == ColorMath.round(o.saturation) &&
+  bool operator ==(Object other) =>
+      other is HspColor &&
+      ColorMath.round(hue) == ColorMath.round(other.hue) &&
+      ColorMath.round(saturation) == ColorMath.round(other.saturation) &&
       ColorMath.round(perceivedBrightness) ==
-          ColorMath.round(o.perceivedBrightness) &&
-      alpha == o.alpha;
+          ColorMath.round(other.perceivedBrightness) &&
+      alpha == other.alpha;
 
   @override
   int get hashCode =>
