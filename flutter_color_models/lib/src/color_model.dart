@@ -23,6 +23,16 @@ export 'models/xyz_color.dart';
 abstract class ColorModel implements cm.ColorModel, Color {
   /// Returns `this` as a [Color], converting the model to RGB if necessary.
   Color toColor();
+  @override
+  ColorModel interpolate(cm.ColorModel end, double step);
+
+  @override
+  List<ColorModel> lerpTo(
+    cm.ColorModel color,
+    int steps, {
+    bool excludeOriginalColors,
+  });
+
 
   @override
   ColorModel withAlpha(int alpha);

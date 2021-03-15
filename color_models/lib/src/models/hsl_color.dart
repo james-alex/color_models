@@ -60,25 +60,21 @@ class HslColor extends ColorModel {
   }
 
   @override
+  HslColor interpolate(ColorModel end, double step) {
+    assert(step >= 0.0 && step <= 1.0);
+    return super.interpolate(end, step) as HslColor;
+  }
+
+  @override
   List<HslColor> lerpTo(
     ColorModel color,
     int steps, {
     bool excludeOriginalColors = false,
   }) {
     assert(steps > 0);
-
-    if (color.runtimeType != HslColor) {
-      color = color.toHslColor();
-    }
-
-    return List<HslColor>.from(
-      ColorAdjustments.interpolateColors(
-        this,
-        color,
-        steps,
-        excludeOriginalColors: excludeOriginalColors,
-      ),
-    );
+    return super
+        .lerpTo(color, steps, excludeOriginalColors: excludeOriginalColors)
+        .cast<HslColor>();
   }
 
   /// Adjusts this colors [hue] by `180` degrees while inverting the

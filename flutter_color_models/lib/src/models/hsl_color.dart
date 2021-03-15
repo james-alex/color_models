@@ -32,6 +32,12 @@ class HslColor extends cm.HslColor
   int get value => toColor().value;
 
   @override
+  HslColor interpolate(cm.ColorModel end, double step) {
+    assert(step >= 0.0 && step <= 1.0);
+    return super.interpolate(end, step).cast();
+  }
+
+  @override
   List<HslColor> lerpTo(
     cm.ColorModel color,
     int steps, {

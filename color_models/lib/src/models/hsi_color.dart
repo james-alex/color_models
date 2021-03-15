@@ -57,25 +57,21 @@ class HsiColor extends ColorModel {
       ColorMath.round(intensity) == 0 || ColorMath.round(saturation) == 0;
 
   @override
+  HsiColor interpolate(ColorModel end, double step) {
+    assert(step >= 0.0 && step <= 1.0);
+    return super.interpolate(end, step) as HsiColor;
+  }
+
+  @override
   List<HsiColor> lerpTo(
     ColorModel color,
     int steps, {
     bool excludeOriginalColors = false,
   }) {
     assert(steps > 0);
-
-    if (color.runtimeType != HsiColor) {
-      color = color.toHsiColor();
-    }
-
-    return List<HsiColor>.from(
-      ColorAdjustments.interpolateColors(
-        this,
-        color,
-        steps,
-        excludeOriginalColors: excludeOriginalColors,
-      ),
-    );
+    return super
+        .lerpTo(color, steps, excludeOriginalColors: excludeOriginalColors)
+        .cast<HsiColor>();
   }
 
   /// Adjusts this colors [hue] by `180` degrees while inverting the

@@ -65,25 +65,21 @@ class LabColor extends ColorModel {
       ColorMath.round(a) == 0 && ColorMath.round(b) == 0;
 
   @override
+  LabColor interpolate(ColorModel end, double step) {
+    assert(step >= 0.0 && step <= 1.0);
+    return super.interpolate(end, step) as LabColor;
+  }
+
+  @override
   List<LabColor> lerpTo(
     ColorModel color,
     int steps, {
     bool excludeOriginalColors = false,
   }) {
     assert(steps > 0);
-
-    if (color.runtimeType != LabColor) {
-      color = color.toLabColor();
-    }
-
-    return List<LabColor>.from(
-      ColorAdjustments.interpolateColors(
-        this,
-        color,
-        steps,
-        excludeOriginalColors: excludeOriginalColors,
-      ),
-    );
+    return super
+        .lerpTo(color, steps, excludeOriginalColors: excludeOriginalColors)
+        .cast<LabColor>();
   }
 
   @override

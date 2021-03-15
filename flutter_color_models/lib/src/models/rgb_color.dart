@@ -34,6 +34,12 @@ class RgbColor extends cm.RgbColor
   int get value => toColor().value;
 
   @override
+  RgbColor interpolate(cm.ColorModel end, double step) {
+    assert(step >= 0.0 && step <= 1.0);
+    return super.interpolate(end, step).cast();
+  }
+
+  @override
   List<RgbColor> lerpTo(
     cm.ColorModel color,
     int steps, {

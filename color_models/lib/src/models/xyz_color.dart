@@ -66,25 +66,21 @@ class XyzColor extends ColorModel {
   }
 
   @override
+  XyzColor interpolate(ColorModel end, double step) {
+    assert(step >= 0.0 && step <= 1.0);
+    return super.interpolate(end, step) as XyzColor;
+  }
+
+  @override
   List<XyzColor> lerpTo(
     ColorModel color,
     int steps, {
     bool excludeOriginalColors = false,
   }) {
     assert(steps > 0);
-
-    if (color.runtimeType != XyzColor) {
-      color = color.toXyzColor();
-    }
-
-    return List<XyzColor>.from(
-      ColorAdjustments.interpolateColors(
-        this,
-        color,
-        steps,
-        excludeOriginalColors: excludeOriginalColors,
-      ),
-    );
+    return super
+        .lerpTo(color, steps, excludeOriginalColors: excludeOriginalColors)
+        .cast<XyzColor>();
   }
 
   @override

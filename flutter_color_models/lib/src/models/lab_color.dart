@@ -33,6 +33,12 @@ class LabColor extends cm.LabColor
   int get value => toColor().value;
 
   @override
+  LabColor interpolate(cm.ColorModel end, double step) {
+    assert(step >= 0.0 && step <= 1.0);
+    return super.interpolate(end, step).cast();
+  }
+
+  @override
   List<LabColor> lerpTo(
     cm.ColorModel color,
     int steps, {

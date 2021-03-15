@@ -62,25 +62,21 @@ class RgbColor extends ColorModel {
   bool get isMonochromatic => red == green && red == blue;
 
   @override
+  RgbColor interpolate(ColorModel end, double step) {
+    assert(step >= 0.0 && step <= 1.0);
+    return super.interpolate(end, step) as RgbColor;
+  }
+
+  @override
   List<RgbColor> lerpTo(
     ColorModel color,
     int steps, {
     bool excludeOriginalColors = false,
   }) {
     assert(steps > 0);
-
-    if (color.runtimeType != RgbColor) {
-      color = color.toRgbColor();
-    }
-
-    return List<RgbColor>.from(
-      ColorAdjustments.interpolateColors(
-        this,
-        color,
-        steps,
-        excludeOriginalColors: excludeOriginalColors,
-      ),
-    );
+    return super
+        .lerpTo(color, steps, excludeOriginalColors: excludeOriginalColors)
+        .cast<RgbColor>();
   }
 
   @override

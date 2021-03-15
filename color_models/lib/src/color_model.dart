@@ -63,6 +63,18 @@ abstract class ColorModel {
   /// Returns `true` if this color is monochromatic.
   bool get isMonochromatic;
 
+  /// Interpolates to [step] between `this` and [end].
+  ColorModel interpolate(ColorModel end, double step) {
+    end = convert(end);
+    final valuesA = this is RgbColor
+        ? (this as RgbColor).toPreciseListWithAlpha()
+        : toListWithAlpha();
+    final valuesB =
+        end is RgbColor ? end.toPreciseListWithAlpha() : end.toListWithAlpha();
+    return withValues(List<num>.generate(valuesA.length,
+        (index) => _interpolateValue(valuesA[index], valuesB[index], step)));
+  }
+
   /// Returns the interpolated [steps] between this color and [color].
   ///
   /// The returned [ColorModel]'s values will be interpolated in
@@ -74,8 +86,42 @@ abstract class ColorModel {
   List<ColorModel> lerpTo(
     ColorModel color,
     int steps, {
-    bool excludeOriginalColors,
-  });
+    bool excludeOriginalColors = false,
+  }) {
+    assert(steps > 0);
+
+    color = convert(color);
+
+    final colors = <ColorModel>[];
+
+    final valuesA = this is RgbColor
+        ? (this as RgbColor).toPreciseListWithAlpha()
+        : toListWithAlpha();
+    final valuesB = color is RgbColor
+        ? color.toPreciseListWithAlpha()
+        : color.toListWithAlpha();
+    final slice = 1 / (steps + 1);
+    for (var i = 1; i <= steps; i++) {
+      final values = <num>[];
+      final step = slice * i;
+      for (var j = 0; j < valuesA.length; j++) {
+        values.add(_interpolateValue(valuesA[j], valuesB[j], step));
+      }
+      colors.add(withValues(values));
+    }
+
+    if (!excludeOriginalColors) {
+      colors.insert(0, this);
+      colors.add(color);
+    }
+
+    return colors;
+  }
+
+  /// Calculates the position at [step] between [value1] and [value2],
+  /// rounded to the millionth.
+  static num _interpolateValue(num value1, num value2, double step) =>
+      ((((1 - step) * value1) + (step * value2)) * 1000000).round() / 1000000;
 
   /// Inverts the values of this [ColorModel],
   /// excluding [alpha], in its own color space.

@@ -57,25 +57,21 @@ class HsbColor extends ColorModel {
       ColorMath.round(brightness) == 0 || ColorMath.round(saturation) == 0;
 
   @override
+  HsbColor interpolate(ColorModel end, double step) {
+    assert(step >= 0.0 && step <= 1.0);
+    return super.interpolate(end, step) as HsbColor;
+  }
+
+  @override
   List<HsbColor> lerpTo(
     ColorModel color,
     int steps, {
     bool excludeOriginalColors = false,
   }) {
     assert(steps > 0);
-
-    if (color.runtimeType != HsbColor) {
-      color = color.toHsbColor();
-    }
-
-    return List<HsbColor>.from(
-      ColorAdjustments.interpolateColors(
-        this,
-        color,
-        steps,
-        excludeOriginalColors: excludeOriginalColors,
-      ),
-    );
+    return super
+        .lerpTo(color, steps, excludeOriginalColors: excludeOriginalColors)
+        .cast<HsbColor>();
   }
 
   /// Adjusts this colors [hue] by `180` degrees while inverting the
