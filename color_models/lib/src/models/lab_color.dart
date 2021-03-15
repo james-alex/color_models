@@ -171,7 +171,7 @@ class LabColor extends ColorModel {
 
   /// Constructs a [LabColor] from a list of [lab] values.
   ///
-  /// [lab] must not be null and must have exactly `3` or `4` values.
+  /// [lab] must have exactly `3` or `4` values.
   ///
   /// The first value (L) must be `>= 0 && <= 100`.
   ///
@@ -188,7 +188,7 @@ class LabColor extends ColorModel {
     return LabColor(values[0], values[1], values[2], alpha);
   }
 
-  /// Constructs a [LabColor] from a [hex] color.
+  /// Constructs a [LabColor] from a RGB [hex] color.
   ///
   /// [hex] is case-insensitive and must be `3` or `6` characters
   /// in length, excluding an optional leading `#`.
@@ -220,8 +220,8 @@ class LabColor extends ColorModel {
   ///
   /// [minB] and [maxB] constrain the generated [b] value.
   ///
-  /// All min and max values must be `min <= max && max >= min`, must be
-  /// in the range of `>= 0 && <= 100`, and must not be `null`.
+  /// All min and max values must be `min <= max && max >= min`, must
+  /// be in the range of `>= 0 && <= 100`, and must not be `null`.
   factory LabColor.random({
     num minLightness = 0,
     num maxLightness = 100,

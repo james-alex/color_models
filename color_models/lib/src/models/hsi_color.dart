@@ -189,7 +189,7 @@ class HsiColor extends ColorModel {
     return HsiColor(values[0], values[1], values[2], alpha);
   }
 
-  /// Constructs a [HsiColor] from a [hex] color.
+  /// Constructs a [HsiColor] from a RGB [hex] color.
   ///
   /// [hex] is case-insensitive and must be `3` or `6` characters
   /// in length, excluding an optional leading `#`.

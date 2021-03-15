@@ -207,7 +207,7 @@ class CmykColor extends ColorModel {
     return CmykColor(values[0], values[1], values[2], values[3], alpha);
   }
 
-  /// Constructs a [CmykColor] from a [hex] color.
+  /// Constructs a [CmykColor] from a RGB [hex] color.
   ///
   /// [hex] is case-insensitive and must be `3` or `6` characters
   /// in length, excluding an optional leading `#`.

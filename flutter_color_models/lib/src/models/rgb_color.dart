@@ -136,7 +136,7 @@ class RgbColor extends cm.RgbColor
   factory RgbColor.fromColor(Color color) =>
       RgbColor(color.red, color.green, color.blue, color.alpha);
 
-  /// Constructs a [RgbColor] from a [hex] color.
+  /// Constructs a [RgbColor] from a RGB [hex] color.
   ///
   /// [hex] is case-insensitive and must be `3` or `6` characters
   /// in length, excluding an optional leading `#`.

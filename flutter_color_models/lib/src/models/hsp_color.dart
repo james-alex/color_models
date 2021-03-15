@@ -149,7 +149,7 @@ class HspColor extends cm.HspColor
   factory HspColor.fromColor(Color color) =>
       RgbColor.fromColor(color).toHspColor();
 
-  /// Constructs a [HspColor] from a [hex] color.
+  /// Constructs a [HspColor] from a RGB [hex] color.
   ///
   /// [hex] is case-insensitive and must be `3` or `6` characters
   /// in length, excluding an optional leading `#`.

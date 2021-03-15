@@ -197,7 +197,7 @@ class HspColor extends ColorModel {
     return HspColor(values[0], values[1], values[2], alpha);
   }
 
-  /// Constructs a [HspColor] from a [hex] color.
+  /// Constructs a [HspColor] from a RGB [hex] color.
   ///
   /// [hex] is case-insensitive and must be `3` or `6` characters
   /// in length, excluding an optional leading `#`.

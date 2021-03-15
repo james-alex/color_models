@@ -144,7 +144,7 @@ class HslColor extends cm.HslColor
   factory HslColor.fromColor(Color color) =>
       RgbColor.fromColor(color).toHslColor();
 
-  /// Constructs a [HslColor] from a [hex] color.
+  /// Constructs a [HslColor] from a RGB [hex] color.
   ///
   /// [hex] is case-insensitive and must be `3` or `6` characters
   /// in length, excluding an optional leading `#`.

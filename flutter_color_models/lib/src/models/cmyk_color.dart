@@ -114,7 +114,6 @@ class CmykColor extends cm.CmykColor
     return toRgbColor().withBlue(blue).toCmykColor();
   }
 
-  /// Returns this [CmykColor] modified with the provided [alpha] value.
   @override
   CmykColor withAlpha(int alpha) {
     assert(alpha >= 0 && alpha <= 255);
@@ -160,7 +159,7 @@ class CmykColor extends cm.CmykColor
   factory CmykColor.fromColor(Color color) =>
       RgbColor.fromColor(color).toCmykColor();
 
-  /// Constructs a [CmykColor] from a [hex] color.
+  /// Constructs a [CmykColor] from a RGB [hex] color.
   ///
   /// [hex] is case-insensitive and must be `3` or `6` characters
   /// in length, excluding an optional leading `#`.

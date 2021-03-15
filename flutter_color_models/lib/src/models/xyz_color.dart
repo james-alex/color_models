@@ -159,7 +159,7 @@ class XyzColor extends cm.XyzColor
   factory XyzColor.fromColor(Color color) =>
       RgbColor.fromColor(color).toXyzColor();
 
-  /// Constructs a [XyzColor] from a [hex] color.
+  /// Constructs a [XyzColor] from a RGB [hex] color.
   ///
   /// [hex] is case-insensitive and must be `3` or `6` characters
   /// in length, excluding an optional leading `#`.

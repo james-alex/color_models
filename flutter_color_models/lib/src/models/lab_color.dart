@@ -155,7 +155,7 @@ class LabColor extends cm.LabColor
   factory LabColor.fromColor(Color color) =>
       RgbColor.fromColor(color).toLabColor();
 
-  /// Constructs a [LabColor] from a [hex] color.
+  /// Constructs a [LabColor] from a RGB [hex] color.
   ///
   /// [hex] is case-insensitive and must be `3` or `6` characters
   /// in length, excluding an optional leading `#`.

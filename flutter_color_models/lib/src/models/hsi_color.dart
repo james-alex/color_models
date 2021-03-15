@@ -146,7 +146,7 @@ class HsiColor extends cm.HsiColor
   factory HsiColor.fromColor(Color color) =>
       RgbColor.fromColor(color).toHsiColor();
 
-  /// Constructs a [HsiColor] from a [hex] color.
+  /// Constructs a [HsiColor] from a RGB [hex] color.
   ///
   /// [hex] is case-insensitive and must be `3` or `6` characters
   /// in length, excluding an optional leading `#`.
