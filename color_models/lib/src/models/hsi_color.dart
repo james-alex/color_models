@@ -249,6 +249,9 @@ class HsiColor extends ColorModel {
   }
 
   @override
+  HsiColor convert(ColorModel other) => other.toHsiColor();
+
+  @override
   String toString() => 'HsiColor($hue, $saturation, $intensity, $alpha)';
 
   @override

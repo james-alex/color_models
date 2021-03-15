@@ -272,6 +272,9 @@ class CmykColor extends ColorModel {
   }
 
   @override
+  CmykColor convert(ColorModel other) => other.toCmykColor();
+
+  @override
   String toString() => 'CmykColor($cyan, $magenta, $yellow, $black, $alpha)';
 
   @override

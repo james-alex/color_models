@@ -252,6 +252,9 @@ class HslColor extends ColorModel {
   }
 
   @override
+  HslColor convert(ColorModel other) => other.toHslColor();
+
+  @override
   String toString() => 'HslColor($hue, $saturation, $lightness, $alpha)';
 
   @override

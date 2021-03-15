@@ -39,6 +39,9 @@ abstract class ColorModel implements cm.ColorModel, Color {
 
   @override
   ColorModel withOpacity(double opacity);
+
+  @override
+  ColorModel convert(cm.ColorModel other);
 }
 
 extension ToColorModel on Color {

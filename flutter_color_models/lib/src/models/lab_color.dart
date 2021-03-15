@@ -211,4 +211,7 @@ class LabColor extends cm.LabColor
       maxB: maxB,
     ).cast();
   }
+
+  @override
+  LabColor convert(cm.ColorModel other) => other.toLabColor().cast();
 }

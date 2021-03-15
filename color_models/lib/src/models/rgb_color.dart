@@ -277,6 +277,9 @@ class RgbColor extends ColorModel {
   }
 
   @override
+  RgbColor convert(ColorModel other) => other.toRgbColor();
+
+  @override
   String toString() => 'RgbColor($red, $green, $blue, $alpha)';
 
   @override

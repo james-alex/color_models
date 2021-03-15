@@ -205,4 +205,7 @@ class HsbColor extends cm.HsbColor
       maxBrightness: maxBrightness,
     ).cast();
   }
+
+  @override
+  HsbColor convert(cm.ColorModel other) => other.toHsbColor().cast();
 }

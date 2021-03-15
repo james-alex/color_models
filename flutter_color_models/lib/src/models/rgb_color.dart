@@ -190,4 +190,7 @@ class RgbColor extends cm.RgbColor
       maxBlue: maxBlue,
     ).cast();
   }
+
+  @override
+  RgbColor convert(cm.ColorModel other) => other.toRgbColor().cast();
 }

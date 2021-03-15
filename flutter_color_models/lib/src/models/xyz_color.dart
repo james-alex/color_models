@@ -213,4 +213,7 @@ class XyzColor extends cm.XyzColor
       maxZ: maxZ,
     ).cast();
   }
+
+  @override
+  XyzColor convert(cm.ColorModel other) => other.toXyzColor().cast();
 }

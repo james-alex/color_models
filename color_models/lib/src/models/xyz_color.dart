@@ -257,6 +257,9 @@ class XyzColor extends ColorModel {
   }
 
   @override
+  XyzColor convert(ColorModel other) => other.toXyzColor();
+
+  @override
   String toString() => 'XyzColor($x, $y, $z, $alpha)';
 
   @override

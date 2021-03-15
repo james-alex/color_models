@@ -249,6 +249,9 @@ class HsbColor extends ColorModel {
   }
 
   @override
+  HsbColor convert(ColorModel other) => other.toHsbColor();
+
+  @override
   String toString() => 'HsbColor($hue, $saturation, $brightness, $alpha)';
 
   @override

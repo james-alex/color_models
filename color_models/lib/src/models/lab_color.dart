@@ -244,6 +244,9 @@ class LabColor extends ColorModel {
   }
 
   @override
+  LabColor convert(ColorModel other) => other.toLabColor();
+
+  @override
   String toString() => 'LabColor($lightness, $a, $b, $alpha)';
 
   @override

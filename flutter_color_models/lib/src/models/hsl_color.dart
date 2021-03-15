@@ -205,4 +205,7 @@ class HslColor extends cm.HslColor
       maxLightness: maxLightness,
     ).cast();
   }
+
+  @override
+  HslColor convert(cm.ColorModel other) => other.toHslColor().cast();
 }

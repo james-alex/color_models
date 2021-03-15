@@ -211,4 +211,7 @@ class HspColor extends cm.HspColor
       maxPerceivedBrightness: maxPerceivedBrightness,
     ).cast();
   }
+
+  @override
+  HspColor convert(cm.ColorModel other) => other.toHspColor().cast();
 }

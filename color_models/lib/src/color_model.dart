@@ -217,4 +217,7 @@ abstract class ColorModel {
 
     return hex;
   }
+
+  /// Converts [other] to this color's color space.
+  ColorModel convert(ColorModel other);
 }

@@ -226,4 +226,7 @@ class CmykColor extends cm.CmykColor
       maxBlack: maxBlack,
     ).cast();
   }
+
+  @override
+  CmykColor convert(cm.ColorModel other) => other.toCmykColor().cast();
 }

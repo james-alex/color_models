@@ -206,4 +206,7 @@ class HsiColor extends cm.HsiColor
       maxIntensity: maxIntensity,
     ).cast();
   }
+
+  @override
+  HsiColor convert(cm.ColorModel other) => other.toHsiColor().cast();
 }

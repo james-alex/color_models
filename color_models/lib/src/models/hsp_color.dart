@@ -259,6 +259,9 @@ class HspColor extends ColorModel {
   }
 
   @override
+  HspColor convert(ColorModel other) => other.toHspColor();
+
+  @override
   String toString() =>
       'HspColor($hue, $saturation, $perceivedBrightness, $alpha)';
 
