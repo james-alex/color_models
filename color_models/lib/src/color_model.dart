@@ -155,12 +155,24 @@ abstract class ColorModel {
   ColorModel withHue(num hue);
 
   /// Returns this [ColorModel] with the provided [alpha] value.
+  ///
+  /// __NOTICE:__ [withAlpha] has been deprecated, use [copyWith] instead.
+  @deprecated
   ColorModel withAlpha(int alpha);
 
   /// Returns this [ColorModel] with the provided [opacity] value.
   ///
   /// [opacity] is the equivalent of [alpha] normalized to a `0` to `1` value.
   ColorModel withOpacity(double opacity);
+
+  /// Returns a color in this color's color space with the values provided.
+  ///
+  /// [values] should contain one value for each parameter of the color space;
+  /// the alpha value is optional.
+  ColorModel withValues(List<num> values);
+
+  /// Returns a copy of this color modified with the provided values.
+  ColorModel copyWith({int? alpha});
 
   /// Returns the distance between `this` color's
   /// hue and [color]'s hue in degrees.
