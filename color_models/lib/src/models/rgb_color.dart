@@ -82,9 +82,9 @@ class RgbColor extends ColorModel {
   @override
   RgbColor get inverted {
     final values = toPreciseList();
-
     return RgbColor.fromList(
-        List<num>.generate(values.length, (i) => 255 - values[i])..add(alpha));
+      List<num>.generate(values.length, (i) => 255 - values[i])..add(alpha),
+    );
   }
 
   @override
@@ -217,12 +217,9 @@ class RgbColor extends ColorModel {
 
   /// Returns a fixed-length list containing the [red], [green],
   /// [blue], and [alpha] values factored to be on 0 to 1 scale.
-  List<double> toFactoredListWithAlpha() => List<double>.from(<double>[
-        _red / 255,
-        _green / 255,
-        _blue / 255,
-        alpha / 255,
-      ], growable: false);
+  List<double> toFactoredListWithAlpha() => toPreciseListWithAlpha()
+      .map<double>((value) => value / 255)
+      .toList(growable: false);
 
   /// Constructs a [RgbColor] from [color].
   factory RgbColor.from(ColorModel color) => color.toRgbColor();
