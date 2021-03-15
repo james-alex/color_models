@@ -17,11 +17,10 @@ import 'package:flutter_color_models/flutter_color_models.dart';
 
 ## Color Spaces
 
-color_models exposes models for the CMYK, HSI, HSL, HSP, HSB, LAB, RGB,
+color_models exposes models for the CMYK, HSI, HSL, HSP, HSB, LAB, Oklab, RGB,
 and XYZ color spaces; represented as [CmykColor], [HsiColor], [HslColor],
-[HspColor], [HsbColor], [LabColor], [RgbColor], and [XyzColor] respectively.
-
-Each model is constant and extends [ColorModel].
+[HspColor], [HsbColor], [LabColor], [OklabColor], [RgbColor], and [XyzColor]
+respectively.
 
 ## Creating Colors
 
@@ -126,6 +125,8 @@ HspColor toHspColor();
 HsbColor toHsbColor();
 
 LabColor toLabColor();
+
+OklabColor toOklabColor();
 
 RgbColor toRgbColor();
 

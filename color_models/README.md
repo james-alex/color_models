@@ -3,8 +3,8 @@
 [![pub package](https://img.shields.io/pub/v/color_models.svg)](https://pub.dartlang.org/packages/color_models)
 
 A package with models for defining colors in the CMYK, HSI, HSL, HSP, HSB,
-LAB, RGB, and XYZ color spaces, with methods for converting colors between
-spaces and adjusting their properties.
+LAB, Oklab, RGB, and XYZ color spaces, with methods for converting colors
+between spaces and adjusting their properties.
 
 __For use with Flutter, see:__ https://pub.dev/packages/flutter_color_models
 
@@ -21,9 +21,8 @@ import 'package:color_models/color_models.dart';
 
 color_models exposes models for the CMYK, HSI, HSL, HSP, HSB, LAB, RGB,
 and XYZ color spaces; represented as [CmykColor], [HsiColor], [HslColor],
-[HspColor], [HsbColor], [LabColor], [RgbColor], and [XyzColor] respectively.
-
-Each model is constant and extends [ColorModel].
+[HspColor], [HsbColor], [LabColor], [OklabColor] [RgbColor], and [XyzColor]
+respectively.
 
 ## Creating Colors
 
@@ -85,6 +84,8 @@ HspColor toHspColor();
 HsbColor toHsbColor();
 
 LabColor toLabColor();
+
+OklabColor toOklabColor();
 
 RgbColor toRgbColor();
 
