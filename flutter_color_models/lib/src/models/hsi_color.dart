@@ -5,18 +5,11 @@ import 'helpers/as_color.dart';
 import 'helpers/rgb_getters.dart';
 import 'helpers/cast_to_color.dart';
 
-/// A color in the HSI color space.
-///
-/// The HSI color space contains channels for [hue],
-/// [saturation], and [intensity].
+/// {@macro color_models.HsiColor}
 class HsiColor extends cm.HsiColor
     with AsColor, RgbGetters, CastToColor
     implements ColorModel {
-  /// A color in the HSI color space.
-  ///
-  /// [hue] must be `>= 0` and `<= 360`.
-  ///
-  /// [saturation] and [intensity] must both be `>= 0` and `<= 100`.
+  /// {@macro color_models.HsiColor.constructor}
   const HsiColor(
     num hue,
     num saturation,

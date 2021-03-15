@@ -4,6 +4,8 @@ import '../color_model.dart';
 import '../helpers/color_adjustments.dart';
 import '../helpers/color_converter.dart';
 
+/// {@template color_models.RgbColor}
+///
 /// A color in the sRGB color space.
 ///
 /// The sRGB color space contains channels for [red], [green], and [blue].
@@ -13,13 +15,19 @@ import '../helpers/color_converter.dart';
 /// getters set for [red], [green], and [blue] that return the rounded
 /// [int] values. The precise values can returned as a list with the
 /// `toPreciseList()` method.
+///
+/// {@endtemplate}
 @immutable
 class RgbColor extends ColorModel {
+  /// {@template color_models.RgbColor.constructor}
+  ///
   /// A color in the sRGB color space.
   ///
   /// [red], [green], and [blue] must all be `>= 0` and `<= 255`.
   ///
   /// [alpha] must be `>= 0` and `<= 255`.
+  ///
+  /// {@endtemplate}
   const RgbColor(
     num red,
     num green,

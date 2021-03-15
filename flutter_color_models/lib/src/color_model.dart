@@ -19,6 +19,7 @@ export 'models/lab_color.dart';
 export 'models/rgb_color.dart';
 export 'models/xyz_color.dart';
 
+/// {@macro color_models.ColorModel}
 @immutable
 abstract class ColorModel implements cm.ColorModel, Color {
   @override

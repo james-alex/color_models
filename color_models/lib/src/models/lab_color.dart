@@ -4,13 +4,19 @@ import '../helpers/color_adjustments.dart';
 import '../helpers/color_converter.dart';
 import '../helpers/color_math.dart';
 
+/// {@template color_models.LabColor}
+///
 /// A color in the CIELAB color space.
 ///
 /// The CIELAB color space contains channels for [lightness],
 /// [a] (red and green opponent values), and [b] (blue and
 /// yellow opponent values.)
+///
+/// {@endtemplate}
 @immutable
 class LabColor extends ColorModel {
+  /// {@template color_models.LabColor.constructor}
+  ///
   /// A color in the CIELAB color space.
   ///
   /// [lightness] must be `>= 0` and `<= 100`.
@@ -18,6 +24,8 @@ class LabColor extends ColorModel {
   /// [a] and [b] must both be `>= -128` and `<= 127`.
   ///
   /// [alpha] must be `>= 0` and `<= 255`.
+  ///
+  /// {@endtemplate}
   const LabColor(
     this.lightness,
     this.a,

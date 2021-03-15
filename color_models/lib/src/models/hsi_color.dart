@@ -4,12 +4,18 @@ import '../helpers/color_adjustments.dart';
 import '../helpers/color_converter.dart';
 import '../helpers/color_math.dart';
 
+/// {@template color_models.HsiColor}
+///
 /// A color in the HSI color space.
 ///
 /// The HSI color space contains channels for [hue],
 /// [saturation], and [intensity].
+///
+/// {@endtemplate}
 @immutable
 class HsiColor extends ColorModel {
+  /// {@template color_models.HsiColor.constructor}
+  ///
   /// A color in the HSI color space.
   ///
   /// [hue] must be `>= 0` and `<= 360`.
@@ -17,6 +23,8 @@ class HsiColor extends ColorModel {
   /// [saturation] and [intensity] must both be `>= 0` and `<= 100`.
   ///
   /// [alpha] must be `>= 0` and `<= 255`.
+  ///
+  /// {@endtemplate}
   const HsiColor(
     this.hue,
     this.saturation,

@@ -5,19 +5,11 @@ import 'helpers/as_color.dart';
 import 'helpers/rgb_getters.dart';
 import 'helpers/cast_to_color.dart';
 
-/// A color in the CIEXYZ color space.
+/// {@macro color_models.XyzColor}
 class XyzColor extends cm.XyzColor
     with AsColor, RgbGetters, CastToColor
     implements ColorModel {
-  /// A color in the CIEXYZ color space.
-  ///
-  /// [x], [y], and [z] must all be `>= 0`.
-  ///
-  /// The XYZ values have been normalized to a 0 to 100 range that
-  /// represents the whole of the sRGB color space, but have been
-  /// left upwardly unbounded to allow to allow for conversions
-  /// between the XYZ and LAB color spaces that fall outside of
-  /// the sRGB color space's bounds.
+  /// /// {@macro color_models.XyzColor.constructor}
   const XyzColor(
     num x,
     num y,

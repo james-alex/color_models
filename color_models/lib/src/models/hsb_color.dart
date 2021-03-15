@@ -4,12 +4,18 @@ import '../helpers/color_adjustments.dart';
 import '../helpers/color_converter.dart';
 import '../helpers/color_math.dart';
 
+/// {@template color_models.HsbColor}
+///
 /// A color in the hsb (HSB) color space.
 ///
 /// The hsb color space contains channels for [hue],
 /// [saturation], and [brightness].
+///
+/// {@endtemplate}
 @immutable
 class HsbColor extends ColorModel {
+  /// {@template color_models.HsbColor.constructor}
+  ///
   /// A color in the hsb (HSB) color space.
   ///
   /// [hue] must be `>= 0` and `<= 360`.
@@ -17,6 +23,8 @@ class HsbColor extends ColorModel {
   /// [saturation] and [brightness] must both be `>= 0` and `<= 100`.
   ///
   /// [alpha] must be `>= 0` and `<= 255`.
+  ///
+  /// {@endtemplate}
   const HsbColor(
     this.hue,
     this.saturation,

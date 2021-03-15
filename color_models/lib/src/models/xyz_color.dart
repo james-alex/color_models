@@ -6,9 +6,15 @@ import '../helpers/color_math.dart';
 
 // TODO: Expand XYZ to allow for custom whitepoints.
 
+/// {@template color_models.XyzColor}
+///
 /// A color in the CIEXYZ color space.
+///
+/// {@endtemplate}
 @immutable
 class XyzColor extends ColorModel {
+  /// {@template color_models.XyzColor.constructor}
+  ///
   /// A color in the CIEXYZ color space.
   ///
   /// [x], [y], and [z] must all be `>= 0`.
@@ -20,6 +26,8 @@ class XyzColor extends ColorModel {
   /// left upwardly unbounded to allow to allow for conversions
   /// between the XYZ and LAB color spaces that fall outside of
   /// the sRGB color space's bounds.
+  ///
+  /// {@endtemplate}
   const XyzColor(
     this.x,
     this.y,

@@ -4,12 +4,18 @@ import '../helpers/color_adjustments.dart';
 import '../helpers/color_converter.dart';
 import '../helpers/color_math.dart';
 
+/// {@template color_models.HslColor}
+///
 /// A color in the HSL color space.
 ///
 /// The HSL color space contains channels for [hue],
 /// [saturation], and [lightness].
+///
+/// {@endtemplate}
 @immutable
 class HslColor extends ColorModel {
+  /// {@template color_models.HslColor.constructor}
+  ///
   /// A color in the HSL color space.
   ///
   /// [hue] must be `>= 0` and `<= 360`.
@@ -17,6 +23,8 @@ class HslColor extends ColorModel {
   /// [saturation] and [lightness] must both be `>= 0` and `<= 100`.
   ///
   /// [alpha] must be `>= 0` and `<= 255`.
+  ///
+  /// {@endtemplate}
   const HslColor(
     this.hue,
     this.saturation,

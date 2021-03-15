@@ -5,17 +5,11 @@ import 'helpers/as_color.dart';
 import 'helpers/rgb_getters.dart';
 import 'helpers/cast_to_color.dart';
 
-/// A color in the CMYK color space.
-///
-/// The CMYK color space contains channels for [cyan],
-/// [magenta], [yellow], and [black].
+/// {@macro color_models.CmykColor}
 class CmykColor extends cm.CmykColor
     with AsColor, RgbGetters, CastToColor
     implements ColorModel {
-  /// A color in the CMYK color space.
-  ///
-  /// [cyan], [magenta], [yellow], and [black]
-  /// must all be `>= 0` and `<= 100`.
+  /// {@macro color_models.CmykColor.constructor}
   const CmykColor(
     num cyan,
     num magenta,

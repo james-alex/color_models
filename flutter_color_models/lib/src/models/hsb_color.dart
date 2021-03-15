@@ -5,18 +5,11 @@ import 'helpers/as_color.dart';
 import 'helpers/rgb_getters.dart';
 import 'helpers/cast_to_color.dart';
 
-/// A color in the HSB (HSB) color space.
-///
-/// The HSB color space contains channels for [hue],
-/// [saturation], and [brightness].
+/// {@macro color_models.HsbColor}
 class HsbColor extends cm.HsbColor
     with AsColor, RgbGetters, CastToColor
     implements ColorModel {
-  /// A color in the HSB (HSB) color space.
-  ///
-  /// [hue] must be `>= 0` and `<= 360`.
-  ///
-  /// [saturation] and [brightness] must both be `>= 0` and `<= 100`.
+  /// {@macro color_models.HsbColor.constructor}
   const HsbColor(
     num hue,
     num saturation,

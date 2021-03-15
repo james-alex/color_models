@@ -5,21 +5,11 @@ import 'helpers/as_color.dart';
 import 'helpers/rgb_getters.dart';
 import 'helpers/cast_to_color.dart';
 
-/// A color in the HSP color space.
-///
-/// The HSP color space contains channels for [hue],
-/// [saturation], and [perceivedBrightness].
-///
-/// The HSP color space was created in 2006 by Darel Rex Finley.
-/// Read about it here: http://alienryderflex.com/hsp.html
+/// {@macro color_models.HspColor}
 class HspColor extends cm.HspColor
     with AsColor, RgbGetters, CastToColor
     implements ColorModel {
-  /// A color in the HSP color space.
-  ///
-  /// [hue] must be `>= 0` and `<= 360`.
-  ///
-  /// [saturation] and [perceivedBrightness] must both be `>= 0` and `<= 100`.
+  /// {@macro color_models.HspColor.constructor}
   const HspColor(
     num hue,
     num saturation,

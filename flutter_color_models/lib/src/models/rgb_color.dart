@@ -4,21 +4,11 @@ import '../color_model.dart';
 import 'helpers/as_color.dart';
 import 'helpers/cast_to_color.dart';
 
-/// A color in the sRGB color space.
-///
-/// The sRGB color space contains channels for [red], [green], and [blue].
-///
-/// [RgbColor] stores RGB values as [num]s privately in order to avoid
-/// a loss of precision when converting between color spaces, but has
-/// getters set for [red], [green], and [blue] that return the rounded
-/// [int] values. The precise values can returned as a list with the
-/// [toPreciseList] and [toPreciseListWithAlpha] methods.
+/// {@macro color_models.RgbColor}
 class RgbColor extends cm.RgbColor
     with AsColor, CastToColor
     implements ColorModel {
-  /// A color in the sRGB color space.
-  ///
-  /// [_red], [_green], and [_blue] must all be `>= 0` and `<= 255`.
+  /// /// {@macro color_models.RgbColor.constructor}
   const RgbColor(
     num red,
     num green,

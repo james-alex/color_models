@@ -19,7 +19,11 @@ export 'models/lab_color.dart';
 export 'models/rgb_color.dart';
 export 'models/xyz_color.dart';
 
+/// {@template color_models.ColorModel}
+///
 /// The base color model class.
+///
+/// {@endtemplate}
 @immutable
 abstract class ColorModel {
   /// The base color model class.

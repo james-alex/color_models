@@ -4,14 +4,20 @@ import '../helpers/color_adjustments.dart';
 import '../helpers/color_converter.dart';
 import '../helpers/color_math.dart';
 
+/// {@template color_models.HspColor}
+///
 /// A color in the HSP color space.
 ///
 /// The HSP color space contains channels for [hue],
 /// [saturation], and [perceivedBrightness].
 ///
 /// __See:__ http://alienryderflex.com/hsp.html
+///
+/// {@endtemplate}
 @immutable
 class HspColor extends ColorModel {
+  /// {@template color_models.HspColor.constructor}
+  ///
   /// A color in the HSP color space.
   ///
   /// [hue] must be `>= 0` and `<= 360`.
@@ -21,6 +27,8 @@ class HspColor extends ColorModel {
   /// [alpha] must be `>= 0` and `<= 255`.
   ///
   /// __See:__ http://alienryderflex.com/hsp.html
+  ///
+  /// {@endtemplate}
   const HspColor(
     this.hue,
     this.saturation,

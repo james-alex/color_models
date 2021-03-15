@@ -5,19 +5,11 @@ import 'helpers/as_color.dart';
 import 'helpers/rgb_getters.dart';
 import 'helpers/cast_to_color.dart';
 
-/// A color in the CIELAB color space.
-///
-/// The CIELAB color space contains channels for [lightness],
-/// [a] (red and green opponent values), and [b] (blue and
-/// yellow opponent values.)
+/// {@macro color_models.LabColor}
 class LabColor extends cm.LabColor
     with AsColor, RgbGetters, CastToColor
     implements ColorModel {
-  /// A color in the CIELAB color space.
-  ///
-  /// [lightness] must be `>= 0` and `<= 100`.
-  ///
-  /// [a] and [b] must both be `>= -128` and `<= 127`.
+  /// {@macro color_models.LabColor.constructor}
   const LabColor(
     num lightness,
     num a,

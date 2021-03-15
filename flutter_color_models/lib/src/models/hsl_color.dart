@@ -5,18 +5,11 @@ import 'helpers/as_color.dart';
 import 'helpers/rgb_getters.dart';
 import 'helpers/cast_to_color.dart';
 
-/// A color in the HSL color space.
-///
-/// The HSL color space contains channels for [hue],
-/// [saturation], and [lightness].
+/// {@macro color_models.HslColor}
 class HslColor extends cm.HslColor
     with AsColor, RgbGetters, CastToColor
     implements ColorModel {
-  /// A color in the HSL color space.
-  ///
-  /// [hue] must be `>= 0` and `<= 360`.
-  ///
-  /// [saturation] and [lightness] must both be `>= 0` and `<= 100`.
+  /// {@macro color_models.HslColor.constructor}
   const HslColor(
     num hue,
     num saturation,

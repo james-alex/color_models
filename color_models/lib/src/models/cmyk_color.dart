@@ -4,18 +4,26 @@ import '../helpers/color_adjustments.dart';
 import '../helpers/color_converter.dart';
 import '../helpers/color_math.dart';
 
+/// {@template color_models.CmykColor}
+///
 /// A color in the CMYK color space.
 ///
 /// The CMYK color space contains channels for [cyan],
 /// [magenta], [yellow], and [black].
+///
+/// {@endtemplate}
 @immutable
 class CmykColor extends ColorModel {
+  /// {@template color_models.CmykColor.constructor}
+  ///
   /// A color in the CMYK color space.
   ///
   /// [cyan], [magenta], [yellow], and [black]
   /// must all be `>= 0` and `<= 100`.
   ///
   /// [alpha] must be `>= 0` and `<= 255`.
+  ///
+  /// {@endtemplate}
   const CmykColor(
     this.cyan,
     this.magenta,
