@@ -289,3 +289,82 @@ extension ConvertToColorSpace on ColorSpace {
 
   String get name => toString().split('.').last;
 }
+
+extension AugmentColorModels on Iterable<ColorModel> {
+  /// {@template color_models.AugumentColorModels.augment}
+  ///
+  /// Returns a new color palette derived from this one; containing
+  /// the number of colors defined by [newLength].
+  ///
+  /// If [colorSpace] is `null`, the colors will be interpolated in
+  /// the color space of the starting color within any pair of colors.
+  ///
+  /// [stops] can be provided to map the positions of the colors in the
+  /// palette within the abstract gradient the augmented palette is derived
+  /// from. If provided, there must be as many stops as there are colors
+  /// in the palette. (`stops.length == length`)
+  ///
+  /// If [reversed] is `true` and [colorSpace] is `null`, colors will be
+  /// interpolated in the color space of the ending color within any pair
+  /// of colors. [reversed] has no effect if a [colorSpace] is provided.
+  ///
+  /// {@endtemplate}
+  List<ColorModel> augment(
+    int newLength, {
+    List<double>? stops,
+    ColorSpace? colorSpace,
+    bool reversed = false,
+  }) {
+    assert(stops == null || stops.length == length);
+
+    final colors = <ColorModel>[];
+    final slice = 1 / newLength;
+    stops ??= List<double>.generate(length, (index) => 1 / index);
+
+    for (var i = 0; i < newLength; i++) {
+      // Calculate the position of the color within the palette.
+      final step = i * slice;
+
+      // If the position is equal to one of the stops, the color
+      // at that stop should remain in the palette.
+      if (stops.contains(step)) {
+        colors.add(elementAt(stops.indexOf(step)));
+        continue;
+      }
+
+      // Otherwise, calculate the new color by interpolating
+      // between the colors around its position.
+      late ColorModel colorA, colorB;
+      late double stopA, stopB;
+      for (var j = 0; j < length - 1; j++) {
+        if (step >= stops[j] && step < stops[j + 1]) {
+          if (reversed) {
+            colorA = elementAt(j + 1);
+            colorB = elementAt(j);
+            stopA = stops[j + 1];
+            stopB = stops[j];
+          } else {
+            colorA = elementAt(j);
+            colorB = elementAt(j + 1);
+            stopA = stops[j];
+            stopB = stops[j + 1];
+          }
+          break;
+        }
+      }
+
+      // If [colorSpace] is defined, convert both colors to that space.
+      if (colorSpace != null) {
+        colorA = colorSpace.from(colorA);
+        colorB = colorSpace.from(colorB);
+      }
+
+      // Calculate the new color and add it to the list.
+      final substep = reversed
+          ? (step - stopB) / (stopA - stopB)
+          : (step - stopA) / (stopB - stopA);
+      colors.add(colorA.interpolate(colorB, substep));
+    }
+    return colors;
+  }
+}

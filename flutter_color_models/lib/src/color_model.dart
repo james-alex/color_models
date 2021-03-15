@@ -209,3 +209,39 @@ extension ConvertToColorSpace on ColorSpace {
 
   String get name => toString().split('.').last;
 }
+
+extension AugmentColorModels on Iterable<ColorModel> {
+  /// {@macro colorModels.AugmentColorModels.augment}
+  List<ColorModel> augment(
+    int newLength, {
+    List<double>? stops,
+    ColorSpace? colorSpace,
+  }) {
+    assert(stops == null || stops.length == length);
+    return cast<cm.ColorModel>()
+        .augment(newLength, stops: stops, colorSpace: colorSpace)
+        .cast<ColorModel>();
+  }
+}
+
+extension AugmentColors on Iterable<Color> {
+  /// {@macro colorModels.AugmentColorModels.augment}
+  List<Color> augment(
+    int newLength, {
+    List<double>? stops,
+    ColorSpace? colorSpace,
+  }) {
+    final palette = List<Color>.from(this);
+
+    // Cast any [Color]s in the list to [RgbColor]s.
+    for (var i = 0; i < length; i++) {
+      if (palette[i] is! ColorModel) {
+        palette[i] = RgbColor.fromColor(palette[i]);
+      }
+    }
+
+    return palette
+        .cast<ColorModel>()
+        .augment(newLength, colorSpace: colorSpace);
+  }
+}
