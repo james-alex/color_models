@@ -17,7 +17,7 @@ class LabColor extends ColorModel {
   ///
   /// [a] and [b] must both be `>= -128` and `<= 127`.
   ///
-  /// [alpha] must be `>= 0` and `<= 1`.
+  /// [alpha] must be `>= 0` and `<= 255`.
   const LabColor(
     this.lightness,
     this.a,
@@ -191,12 +191,12 @@ class LabColor extends ColorModel {
   @override
   XyzColor toXyzColor() => ColorConverter.labToXyz(this);
 
-  /// Returns a fixed-length [List] containing the [lightness],
+  /// Returns a fixed-lenght list containing the [lightness],
   /// [a], and [b] values, in that order.
   @override
   List<num> toList() => List<num>.from(<num>[lightness, a, b], growable: false);
 
-  /// Returns a fixed-length [List] containing the [lightness],
+  /// Returns a fixed-lenght list containing the [lightness],
   /// [a], [b], and [alpha] values, in that order.
   @override
   List<num> toListWithAlpha() =>

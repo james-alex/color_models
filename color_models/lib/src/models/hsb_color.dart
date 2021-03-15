@@ -16,7 +16,7 @@ class HsbColor extends ColorModel {
   ///
   /// [saturation] and [brightness] must both be `>= 0` and `<= 100`.
   ///
-  /// [alpha] must be `>= 0` and `<= 1`.
+  /// [alpha] must be `>= 0` and `<= 255`.
   const HsbColor(
     this.hue,
     this.saturation,
@@ -176,13 +176,13 @@ class HsbColor extends ColorModel {
   @override
   HsbColor toHsbColor() => this;
 
-  /// Returns a fixed-length [List] containing the [hue],
+  /// Returns a fixed-lenght list containing the [hue],
   /// [saturation], and [brightness] values, in that order.
   @override
   List<num> toList() =>
       List<num>.from(<num>[hue, saturation, brightness], growable: false);
 
-  /// Returns a fixed-length [List] containing the [hue], [saturation],
+  /// Returns a fixed-lenght list containing the [hue], [saturation],
   /// [brightness], and [alpha] values, in that order.
   @override
   List<num> toListWithAlpha() =>

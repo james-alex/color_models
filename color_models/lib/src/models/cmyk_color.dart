@@ -15,7 +15,7 @@ class CmykColor extends ColorModel {
   /// [cyan], [magenta], [yellow], and [black]
   /// must all be `>= 0` and `<= 100`.
   ///
-  /// [alpha] must be `>= 0` and `<= 1`.
+  /// [alpha] must be `>= 0` and `<= 255`.
   const CmykColor(
     this.cyan,
     this.magenta,
@@ -212,13 +212,13 @@ class CmykColor extends ColorModel {
   @override
   CmykColor toCmykColor() => this;
 
-  /// Returns a fixed-length [List] containing the [cyan],
+  /// Returns a fixed-lenght list containing the [cyan],
   /// [magenta], [yellow], and [black] values, in that order.
   @override
   List<num> toList() =>
       List<num>.from(<num>[cyan, magenta, yellow, black], growable: false);
 
-  /// Returns a fixed-length [List] containing the [cyan], [magenta],
+  /// Returns a fixed-lenght list containing the [cyan], [magenta],
   /// [yellow], [black], and [alpha] values, in that order.
   @override
   List<num> toListWithAlpha() =>

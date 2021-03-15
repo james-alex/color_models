@@ -16,7 +16,7 @@ class HsiColor extends ColorModel {
   ///
   /// [saturation] and [intensity] must both be `>= 0` and `<= 100`.
   ///
-  /// [alpha] must be `>= 0` and `<= 1`.
+  /// [alpha] must be `>= 0` and `<= 255`.
   const HsiColor(
     this.hue,
     this.saturation,
@@ -171,13 +171,13 @@ class HsiColor extends ColorModel {
   @override
   HsiColor toHsiColor() => this;
 
-  /// Returns a fixed-length [List] containing the [hue],
+  /// Returns a fixed-lenght list containing the [hue],
   /// [saturation], and [intensity] values, in that order.
   @override
   List<num> toList() =>
       List<num>.from(<num>[hue, saturation, intensity], growable: false);
 
-  /// Returns a fixed-length [List] containing the [hue], [saturation],
+  /// Returns a fixed-lenght list containing the [hue], [saturation],
   /// [intensity], and [alpha] values, in that order.
   @override
   List<num> toListWithAlpha() =>

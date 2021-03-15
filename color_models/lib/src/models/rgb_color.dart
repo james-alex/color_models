@@ -19,7 +19,7 @@ class RgbColor extends ColorModel {
   ///
   /// [red], [green], and [blue] must all be `>= 0` and `<= 255`.
   ///
-  /// [alpha] must be `>= 0` and `<= 1`.
+  /// [alpha] must be `>= 0` and `<= 255`.
   const RgbColor(
     num red,
     num green,

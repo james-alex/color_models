@@ -13,7 +13,7 @@ class XyzColor extends ColorModel {
   ///
   /// [x], [y], and [z] must all be `>= 0`.
   ///
-  /// [alpha] must be `>= 0` and `<= 1`.
+  /// [alpha] must be `>= 0` and `<= 255`.
   ///
   /// The XYZ values have been normalized to a 0 to 100 range that
   /// represents the whole of the sRGB color space, but have been
@@ -204,12 +204,12 @@ class XyzColor extends ColorModel {
   @override
   XyzColor toXyzColor() => this;
 
-  /// Returns a fixed-length [List] containing the
+  /// Returns a fixed-lenght list containing the
   /// [x], [y], and [z] values, in that order.
   @override
   List<num> toList() => List<num>.from(<num>[x, y, z], growable: false);
 
-  /// Returns a fixed-length [List] containing the
+  /// Returns a fixed-lenght list containing the
   /// [x], [y], [z], and [alpha] values, in that order.
   @override
   List<num> toListWithAlpha() =>

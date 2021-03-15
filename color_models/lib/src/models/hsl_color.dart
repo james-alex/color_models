@@ -16,7 +16,7 @@ class HslColor extends ColorModel {
   ///
   /// [saturation] and [lightness] must both be `>= 0` and `<= 100`.
   ///
-  /// [alpha] must be `>= 0` and `<= 1`.
+  /// [alpha] must be `>= 0` and `<= 255`.
   const HslColor(
     this.hue,
     this.saturation,
@@ -174,13 +174,13 @@ class HslColor extends ColorModel {
   @override
   HslColor toHslColor() => this;
 
-  /// Returns a fixed-length [List] containing the [hue],
+  /// Returns a fixed-lenght list containing the [hue],
   /// [saturation], and [lightness] values, in that order.
   @override
   List<num> toList() =>
       List<num>.from(<num>[hue, saturation, lightness], growable: false);
 
-  /// Returns a fixed-length [List] containing the [hue], [saturation],
+  /// Returns a fixed-lenght list containing the [hue], [saturation],
   /// [lightness], and [alpha] values, in that order.
   @override
   List<num> toListWithAlpha() =>

@@ -9,8 +9,7 @@ import '../helpers/color_math.dart';
 /// The HSP color space contains channels for [hue],
 /// [saturation], and [perceivedBrightness].
 ///
-/// The HSP color space was created in 2006 by Darel Rex Finley.
-/// Read about it here: http://alienryderflex.com/hsp.html
+/// __See:__ http://alienryderflex.com/hsp.html
 @immutable
 class HspColor extends ColorModel {
   /// A color in the HSP color space.
@@ -19,7 +18,9 @@ class HspColor extends ColorModel {
   ///
   /// [saturation] and [perceivedBrightness] must both be `>= 0` and `<= 100`.
   ///
-  /// [alpha] must be `>= 0` and `<= 1`.
+  /// [alpha] must be `>= 0` and `<= 255`.
+  ///
+  /// __See:__ http://alienryderflex.com/hsp.html
   const HspColor(
     this.hue,
     this.saturation,
@@ -183,14 +184,14 @@ class HspColor extends ColorModel {
   @override
   HspColor toHspColor() => this;
 
-  /// Returns a fixed-length [List] containing the [hue], [saturation],
+  /// Returns a fixed-lenght list containing the [hue], [saturation],
   /// and [perceivedBrightness] values, in that order.
   @override
   List<num> toList() =>
       List<num>.from(<num>[hue, saturation, perceivedBrightness],
           growable: false);
 
-  /// Returns a fixed-length [List] containing the [hue], [saturation],
+  /// Returns a fixed-lenght list containing the [hue], [saturation],
   /// [perceivedBrightness], and [alpha] values, in that order.
   @override
   List<num> toListWithAlpha() =>
