@@ -220,13 +220,13 @@ class CmykColor extends ColorModel {
   @override
   CmykColor toCmykColor() => this;
 
-  /// Returns a fixed-lenght list containing the [cyan],
+  /// Returns a fixed-length list containing the [cyan],
   /// [magenta], [yellow], and [black] values, in that order.
   @override
   List<num> toList() =>
       List<num>.from(<num>[cyan, magenta, yellow, black], growable: false);
 
-  /// Returns a fixed-lenght list containing the [cyan], [magenta],
+  /// Returns a fixed-length list containing the [cyan], [magenta],
   /// [yellow], [black], and [alpha] values, in that order.
   @override
   List<num> toListWithAlpha() =>

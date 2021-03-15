@@ -167,13 +167,13 @@ class OklabColor extends ColorModel {
   @override
   OklabColor toOklabColor() => this;
 
-  /// Returns a fixed-lenght list containing the [lightness],
+  /// Returns a fixed-length list containing the [lightness],
   /// [a], and [b] values, in that order.
   @override
   List<double> toList() =>
       List<double>.from(<double>[lightness, a, b], growable: false);
 
-  /// Returns a fixed-lenght list containing the [lightness],
+  /// Returns a fixed-length list containing the [lightness],
   /// [a], [b], and [alpha] values, in that order.
   @override
   List<num> toListWithAlpha() =>

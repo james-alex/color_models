@@ -184,13 +184,13 @@ class HsbColor extends ColorModel {
   @override
   HsbColor toHsbColor() => this;
 
-  /// Returns a fixed-lenght list containing the [hue],
+  /// Returns a fixed-length list containing the [hue],
   /// [saturation], and [brightness] values, in that order.
   @override
   List<num> toList() =>
       List<num>.from(<num>[hue, saturation, brightness], growable: false);
 
-  /// Returns a fixed-lenght list containing the [hue], [saturation],
+  /// Returns a fixed-length list containing the [hue], [saturation],
   /// [brightness], and [alpha] values, in that order.
   @override
   List<num> toListWithAlpha() =>

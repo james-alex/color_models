@@ -212,12 +212,12 @@ class XyzColor extends ColorModel {
   @override
   XyzColor toXyzColor() => this;
 
-  /// Returns a fixed-lenght list containing the
+  /// Returns a fixed-length list containing the
   /// [x], [y], and [z] values, in that order.
   @override
   List<num> toList() => List<num>.from(<num>[x, y, z], growable: false);
 
-  /// Returns a fixed-lenght list containing the
+  /// Returns a fixed-length list containing the
   /// [x], [y], [z], and [alpha] values, in that order.
   @override
   List<num> toListWithAlpha() =>

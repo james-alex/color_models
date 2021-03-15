@@ -8,7 +8,7 @@ import 'helpers/cast_to_color.dart';
 class RgbColor extends cm.RgbColor
     with AsColor, CastToColor
     implements ColorModel {
-  /// /// {@macro color_models.RgbColor.constructor}
+  /// {@macro color_models.RgbColor.constructor}
   const RgbColor(
     num red,
     num green,

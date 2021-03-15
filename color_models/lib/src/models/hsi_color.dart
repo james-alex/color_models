@@ -179,13 +179,13 @@ class HsiColor extends ColorModel {
   @override
   HsiColor toHsiColor() => this;
 
-  /// Returns a fixed-lenght list containing the [hue],
+  /// Returns a fixed-length list containing the [hue],
   /// [saturation], and [intensity] values, in that order.
   @override
   List<num> toList() =>
       List<num>.from(<num>[hue, saturation, intensity], growable: false);
 
-  /// Returns a fixed-lenght list containing the [hue], [saturation],
+  /// Returns a fixed-length list containing the [hue], [saturation],
   /// [intensity], and [alpha] values, in that order.
   @override
   List<num> toListWithAlpha() =>

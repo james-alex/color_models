@@ -192,14 +192,14 @@ class HspColor extends ColorModel {
   @override
   HspColor toHspColor() => this;
 
-  /// Returns a fixed-lenght list containing the [hue], [saturation],
+  /// Returns a fixed-length list containing the [hue], [saturation],
   /// and [perceivedBrightness] values, in that order.
   @override
   List<num> toList() =>
       List<num>.from(<num>[hue, saturation, perceivedBrightness],
           growable: false);
 
-  /// Returns a fixed-lenght list containing the [hue], [saturation],
+  /// Returns a fixed-length list containing the [hue], [saturation],
   /// [perceivedBrightness], and [alpha] values, in that order.
   @override
   List<num> toListWithAlpha() =>

@@ -199,12 +199,12 @@ class LabColor extends ColorModel {
   @override
   XyzColor toXyzColor() => ColorConverter.labToXyz(this);
 
-  /// Returns a fixed-lenght list containing the [lightness],
+  /// Returns a fixed-length list containing the [lightness],
   /// [a], and [b] values, in that order.
   @override
   List<num> toList() => List<num>.from(<num>[lightness, a, b], growable: false);
 
-  /// Returns a fixed-lenght list containing the [lightness],
+  /// Returns a fixed-length list containing the [lightness],
   /// [a], [b], and [alpha] values, in that order.
   @override
   List<num> toListWithAlpha() =>
