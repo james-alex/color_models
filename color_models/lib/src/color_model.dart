@@ -241,4 +241,7 @@ abstract class ColorModel {
 
   /// Converts [other] to this color's color space.
   ColorModel convert(ColorModel other);
+
+  /// Converts this color to [other]'s color space.
+  ColorModel castTo(ColorModel other) => other.convert(this);
 }
