@@ -87,6 +87,15 @@ void main() {
       }
     });
 
+    test('Oklab Conversions', () {
+      for (var color in _testColors) {
+        final rgbColor = RgbColor.fromColor(color);
+        final oklabColor = rgbColor.toOklabColor();
+        expect(rgbColor.equals(oklabColor), equals(true));
+        expect(oklabColor.toColor(), equals(color));
+      }
+    });
+
     test('XYZ Conversions', () {
       for (var color in _testColors) {
         final rgbColor = RgbColor.fromColor(color);

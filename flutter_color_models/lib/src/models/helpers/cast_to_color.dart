@@ -31,6 +31,9 @@ mixin CastToColor on cm.ColorModel {
   @override
   LabColor toLabColor() => _cast().toLabColor().cast();
 
+  @override
+  OklabColor toOklabColor() => _cast().toOklabColor().cast();
+
   /// Converts `this` to the RGB color space.
   @override
   RgbColor toRgbColor() => _cast().toRgbColor().cast();
@@ -60,6 +63,9 @@ mixin CastToColor on cm.ColorModel {
           break;
         case LabColor:
           colorModel = cm.LabColor.fromList(toListWithAlpha());
+          break;
+        case OklabColor:
+          colorModel = cm.OklabColor.fromList(toListWithAlpha());
           break;
         case RgbColor:
           colorModel = cm.RgbColor.fromList(toListWithAlpha());
@@ -145,6 +151,18 @@ extension CastFromLabColor on LabColor {
   /// Casts a [LabColor] from the `color_models` package to a
   /// [LabColor] from the `flutter_color_models` package.
   cm.LabColor cast() => cm.LabColor(lightness, a, b, alpha);
+}
+
+extension CastToOklabColor on cm.OklabColor {
+  /// Casts a [OklabColor] from the `color_models` package to a
+  /// [OklabColor] from the `flutter_color_models` package.
+  OklabColor cast() => OklabColor(lightness, a, b, alpha);
+}
+
+extension CastFromOklabColor on OklabColor {
+  /// Casts a [OklabColor] from the `color_models` package to a
+  /// [OklabColor] from the `flutter_color_models` package.
+  cm.OklabColor cast() => cm.OklabColor(lightness, a, b, alpha);
 }
 
 extension CastToRgbColor on cm.RgbColor {

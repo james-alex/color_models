@@ -7,6 +7,9 @@
 /// The LAB to XYZ conversion algorithm was adapted from:
 /// https://stackoverflow.com/questions/46627367/convert-lab-to-xyz
 ///
+/// The Oklab to RGB conversion algorithm was adapted from:
+/// https://bottosson.github.io/posts/oklab/
+///
 /// The HSL and HSB conversion algorithms were adapted from:
 /// http://axonflux.com/handy-rgb-to-hsl-and-rgb-to-hsv-color-model-c
 ///
@@ -14,6 +17,7 @@
 /// http://alienryderflex.com/hsp.html
 
 import 'dart:math' as math;
+import 'package:powers/powers.dart';
 import '../color_model.dart';
 
 /// A utility class with color conversion methods to and
@@ -532,6 +536,67 @@ class ColorConverter {
     return XyzColor.extrapolate(<double>[x, y, z, alpha]);
   }
 
+  /// Converts a color from any color space to Oklab.
+  static OklabColor toOklabColor(ColorModel color) =>
+      rgbToOklab(color.toRgbColor());
+
+  /// Converts an sRGB color to an Oklab color.
+  static OklabColor rgbToOklab(RgbColor rgbColor) {
+    if (rgbColor.isBlack) return OklabColor(0.0, 0.0, 0.0, rgbColor.alpha);
+    if (rgbColor.isWhite) return OklabColor(1.0, 0.0, 0.0, rgbColor.alpha);
+
+    final lrgb = rgbColor.linearize();
+
+    final l = ((0.4122214708 * lrgb.red) +
+            (0.5363325363 * lrgb.green) +
+            (0.0514459929 * lrgb.blue))
+        .cbrt();
+    final m = ((0.2119034982 * lrgb.red) +
+            (0.6806995451 * lrgb.green) +
+            (0.1073969566 * lrgb.blue))
+        .cbrt();
+    final s = ((0.0883024619 * lrgb.red) +
+            (0.2817188376 * lrgb.green) +
+            (0.6299787005 * lrgb.blue))
+        .cbrt();
+
+    return OklabColor(
+      (0.2104542553 * l) + (0.7936177850 * m) - (0.0040720468 * s),
+      (1.9779984951 * l) - (2.4285922050 * m) + (0.4505937099 * s),
+      (0.0259040371 * l) + (0.7827717662 * m) - (0.8086757660 * s),
+      rgbColor.alpha,
+    );
+  }
+
+  /// Converts an Oklab color to an RGB color.
+  static RgbColor oklabToRgb(OklabColor oklabColor) {
+    if (oklabColor.isBlack) {
+      return RgbColor(0, 0, 0, oklabColor.alpha);
+    }
+    if (oklabColor.isWhite) {
+      return RgbColor(255, 255, 255, oklabColor.alpha);
+    }
+
+    final l = (oklabColor.lightness +
+            (0.3963377774 * oklabColor.a) +
+            (0.2158037573 * oklabColor.b))
+        .cubed();
+    final m = (oklabColor.lightness -
+            (0.1055613458 * oklabColor.a) -
+            (0.0638541728 * oklabColor.b))
+        .cubed();
+    final s = (oklabColor.lightness -
+            (0.0894841775 * oklabColor.a) -
+            (1.2914855480 * oklabColor.b))
+        .cubed();
+
+    return _LinearRgbColor(
+      (4.0767416621 * l) - (3.3077115913 * m) + (0.2309699292 * s),
+      (-1.2684380046 * l) + (2.6097574011 * m) - (0.3413193965 * s),
+      (-0.0041960863 * l) - (0.7034186147 * m) + (1.7076147010 * s),
+    ).normalize().withAlpha(oklabColor.alpha);
+  }
+
   /// Converts a color from any color space to XYZ.
   static XyzColor toXyzColor(ColorModel color) => rgbToXyz(color.toRgbColor());
 
@@ -678,4 +743,46 @@ class _WhitePoints {
     y: 100.0000000000007,
     z: 91.82249511582535,
   );
+}
+
+extension _LinearizeRgbColor on RgbColor {
+  /// Converts this [RgbColor] to a linear RGB color.
+  _LinearRgbColor linearize() => _LinearRgbColor.fromList(
+        toFactoredList()
+            .map<double>((value) => value >= 0.0031308
+                ? (1.055 * math.pow(value, 1.0 / 2.4)) - 0.055
+                : 12.92 * value)
+            .toList(),
+      );
+}
+
+/// A linearized RGB color.
+class _LinearRgbColor {
+  const _LinearRgbColor(
+    this.red,
+    this.green,
+    this.blue,
+  );
+
+  /// Constructs a linear RGB color from a list of [values].
+  factory _LinearRgbColor.fromList(List<double> values) {
+    assert(values.length == 3);
+    return _LinearRgbColor(values[0], values[1], values[2]);
+  }
+
+  final double red, green, blue;
+
+  /// Returns this linear RGB color as a list of values.
+  List<double> toList() => <double>[red, green, blue];
+
+  /// Converts this linear RGB color back to a [RgbColor].
+  RgbColor normalize() => RgbColor.fromList(
+        toList()
+            .map<double>((value) => ((value >= 0.04045
+                        ? math.pow((value + 0.055) / 1.055, 2.4).toDouble()
+                        : value / 12.92) *
+                    255)
+                .clamp(0, 255))
+            .toList(),
+      );
 }

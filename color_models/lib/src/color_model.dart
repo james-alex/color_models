@@ -7,6 +7,7 @@ import 'models/hsi_color.dart';
 import 'models/hsl_color.dart';
 import 'models/hsp_color.dart';
 import 'models/lab_color.dart';
+import 'models/oklab_color.dart';
 import 'models/rgb_color.dart';
 import 'models/xyz_color.dart';
 
@@ -16,6 +17,7 @@ export 'models/hsi_color.dart';
 export 'models/hsl_color.dart';
 export 'models/hsp_color.dart';
 export 'models/lab_color.dart';
+export 'models/oklab_color.dart';
 export 'models/rgb_color.dart';
 export 'models/xyz_color.dart';
 
@@ -206,6 +208,9 @@ abstract class ColorModel {
 
   /// Converts `this` to the LAB color space.
   LabColor toLabColor() => ColorConverter.toLabColor(this);
+
+  /// Converts `this` to the Oklab color space.
+  OklabColor toOklabColor() => ColorConverter.toOklabColor(this);
 
   /// Converts `this` to the RGB color space.
   RgbColor toRgbColor();
