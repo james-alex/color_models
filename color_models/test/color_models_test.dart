@@ -28,9 +28,6 @@ const List<ColorModel> _testColors = <ColorModel>[
   LabColor(0, -128, 127),
 ];
 
-/// Each of the color models' types.
-enum _ColorModels { cmyk, hsi, hsl, hsp, hsb, lab, rgb, xyz }
-
 /// The following tests convert each of the test colors from RGB
 /// to each of the other color spaces. They are then converted
 /// back to the RGB color space and are expected to equal the
@@ -103,33 +100,11 @@ void main() {
 
         var copy = color;
 
-        final cmykColor = CmykColor.from(copy);
-        copy = cmykColor.toRgbColor();
-        expect(copy, equals(color));
-
-        final hsiColor = HsiColor.from(copy);
-        copy = hsiColor.toRgbColor();
-        expect(copy, equals(color));
-
-        final hslColor = HslColor.from(copy);
-        copy = hslColor.toRgbColor();
-        expect(copy, equals(color));
-
-        final hspColor = HspColor.from(copy);
-        copy = hspColor.toRgbColor();
-        expect(copy, equals(color));
-
-        final hsbColor = HsbColor.from(copy);
-        copy = hsbColor.toRgbColor();
-        expect(copy, equals(color));
-
-        final labColor = LabColor.from(copy);
-        copy = labColor.toRgbColor();
-        expect(copy, equals(color));
-
-        final xyzColor = XyzColor.from(copy);
-        copy = xyzColor.toRgbColor();
-        expect(copy, equals(color));
+        for (var colorSpace in ColorSpace.values) {
+          final convertedColor = colorSpace.from(copy);
+          copy = convertedColor.toRgbColor();
+          expect(copy, equals(color));
+        }
       }
     });
   });
@@ -138,17 +113,17 @@ void main() {
     test('Interpolate', () {
       for (var i = 0; i < _testColors.length; i++) {
         for (var j = 0; j < _testColors.length; j++) {
-          for (var colorModel1 in _ColorModels.values) {
-            final color1 = _toColorModel(colorModel1, _testColors[i]);
+          for (var colorModel1 in ColorSpace.values) {
+            final color1 = colorModel1.from(_testColors[i]);
             final values1 = color1 is RgbColor
                 ? color1.toPreciseListWithAlpha()
                 : color1.toListWithAlpha();
 
-            for (var colorModel2 in _ColorModels.values) {
-              final color2 = _toColorModel(colorModel2, _testColors[j]);
+            for (var colorModel2 in ColorSpace.values) {
+              final color2 = colorModel2.from(_testColors[j]);
               final values2 = color1 is RgbColor
                   ? color2.toRgbColor().toPreciseListWithAlpha()
-                  : _toColorModel(colorModel1, color2).toListWithAlpha();
+                  : colorModel1.from(color2).toListWithAlpha();
 
               for (var steps = 1; steps <= 100; steps++) {
                 final colors = color1.lerpTo(color2, steps);
@@ -193,38 +168,7 @@ void main() {
       }
     });
   });
-}
 
-/// Converts [color] to the color space defined by [colorModel].
-ColorModel _toColorModel(_ColorModels colorModel, ColorModel color) {
-  switch (colorModel) {
-    case _ColorModels.cmyk:
-      color = color.toCmykColor();
-      break;
-    case _ColorModels.hsi:
-      color = color.toHsiColor();
-      break;
-    case _ColorModels.hsl:
-      color = color.toHslColor();
-      break;
-    case _ColorModels.hsp:
-      color = color.toHspColor();
-      break;
-    case _ColorModels.hsb:
-      color = color.toHsbColor();
-      break;
-    case _ColorModels.lab:
-      color = color.toLabColor();
-      break;
-    case _ColorModels.rgb:
-      color = color.toRgbColor();
-      break;
-    case _ColorModels.xyz:
-      color = color.toXyzColor();
-      break;
-  }
-
-  return color;
 }
 
 num _interpolateValue(num value1, num value2, double step) =>

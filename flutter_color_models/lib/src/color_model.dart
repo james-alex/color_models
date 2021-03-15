@@ -1,4 +1,5 @@
-import 'package:color_models/color_models.dart' as cm show ColorModel;
+import 'package:color_models/color_models.dart' as cm;
+import 'package:color_models/color_models.dart' show ColorSpace;
 import 'package:flutter/painting.dart' show Color;
 import 'package:meta/meta.dart';
 import 'models/cmyk_color.dart';
@@ -129,4 +130,82 @@ extension ToColorModel on Color {
 
   /// Returns this color as a [XyzColor].
   XyzColor toXyzColor() => XyzColor.fromColor(this);
+}
+
+extension ConvertToColorSpace on ColorSpace {
+  /// Converts [color] to this color space.
+  ColorModel from(cm.ColorModel color) {
+    late ColorModel newColor;
+
+    switch (this) {
+      case ColorSpace.cmyk:
+        newColor = CmykColor.from(color);
+        break;
+      case ColorSpace.hsb:
+        newColor = HsbColor.from(color);
+        break;
+      case ColorSpace.hsi:
+        newColor = HsiColor.from(color);
+        break;
+      case ColorSpace.hsl:
+        newColor = HslColor.from(color);
+        break;
+      case ColorSpace.hsp:
+        newColor = HspColor.from(color);
+        break;
+      case ColorSpace.lab:
+        newColor = LabColor.from(color);
+        break;
+      case ColorSpace.oklab:
+        newColor = OklabColor.from(color);
+        break;
+      case ColorSpace.rgb:
+        newColor = RgbColor.from(color);
+        break;
+      case ColorSpace.xyz:
+        newColor = XyzColor.from(color);
+        break;
+    }
+
+    return newColor;
+  }
+
+  /// Converts [color] to a [ColorModel] in this color space.
+  ColorModel fromColor(Color color) {
+    late ColorModel newColor;
+
+    switch (this) {
+      case ColorSpace.cmyk:
+        newColor = CmykColor.fromColor(color);
+        break;
+      case ColorSpace.hsb:
+        newColor = HsbColor.fromColor(color);
+        break;
+      case ColorSpace.hsi:
+        newColor = HsiColor.fromColor(color);
+        break;
+      case ColorSpace.hsl:
+        newColor = HslColor.fromColor(color);
+        break;
+      case ColorSpace.hsp:
+        newColor = HspColor.fromColor(color);
+        break;
+      case ColorSpace.lab:
+        newColor = LabColor.fromColor(color);
+        break;
+      case ColorSpace.oklab:
+        newColor = OklabColor.fromColor(color);
+        break;
+      case ColorSpace.rgb:
+        newColor = RgbColor.fromColor(color);
+        break;
+      case ColorSpace.xyz:
+        newColor = XyzColor.fromColor(color);
+        break;
+    }
+
+    return newColor;
+  }
+
+  String get name => toString().split('.').last;
 }

@@ -23,9 +23,6 @@ const List<Color> _testColors = <Color>[
   Color(0xFFFF00FF), // pink
 ];
 
-/// Each of the color models' types.
-enum _ColorModels { cmyk, hsi, hsl, hsp, hsb, lab, rgb, xyz }
-
 /// The following tests convert each of the test [Color]s from
 /// RGB to each of the other color spaces. They are then converted
 /// back to the RGB color space and are expected to equal the
@@ -109,124 +106,12 @@ void main() {
       for (var color in _testColors) {
         var copy = color;
 
-        final cmykColor = CmykColor.fromColor(copy);
-        copy = cmykColor.toColor();
-        expect(copy, equals(color));
-
-        final hsiColor = HsiColor.fromColor(copy);
-        copy = hsiColor.toColor();
-        expect(copy, equals(color));
-
-        final hslColor = HslColor.fromColor(copy);
-        copy = hslColor.toColor();
-        expect(copy, equals(color));
-
-        final hspColor = HspColor.fromColor(copy);
-        copy = hspColor.toColor();
-        expect(copy, equals(color));
-
-        final hsbColor = HsbColor.fromColor(copy);
-        copy = hsbColor.toColor();
-        expect(copy, equals(color));
-
-        final labColor = LabColor.fromColor(copy);
-        copy = labColor.toColor();
-        expect(copy, equals(color));
-
-        final rgbColor = RgbColor.fromColor(copy);
-        copy = rgbColor.toColor();
-        expect(copy, equals(color));
-
-        final xyzColor = XyzColor.fromColor(copy);
-        copy = xyzColor.toColor();
-        expect(copy, equals(color));
+        for (var colorSpace in ColorSpace.values) {
+          final convertedColor = colorSpace.fromColor(copy);
+          copy = convertedColor.toColor();
+          expect(copy, equals(color));
+        }
       }
     });
   });
-
-  test('Interpolate', () {
-    for (var i = 0; i < _testColors.length; i++) {
-      for (var j = 0; j < _testColors.length; j++) {
-        for (var colorModel1 in _ColorModels.values) {
-          final color1 = _toColorModel(colorModel1, _testColors[i]);
-          final values1 = color1 is RgbColor
-              ? color1.toPreciseListWithAlpha()
-              : color1.toListWithAlpha();
-
-          for (var colorModel2 in _ColorModels.values) {
-            final color2 = _toColorModel(colorModel2, _testColors[j]);
-            final values2 = color1 is RgbColor
-                ? color2.toRgbColor().toPreciseListWithAlpha()
-                : _toColorModel(colorModel1, _testColors[j]).toListWithAlpha();
-
-            for (var steps = 1; steps <= 100; steps++) {
-              final colors = color1.lerpTo(color2, steps);
-
-              for (var k = 0; k < colors.length; k++) {
-                final step = (1 / (steps + 1)) * k;
-                final color = colors[k];
-                final values = color is RgbColor
-                    ? color.toPreciseListWithAlpha()
-                    : color.toListWithAlpha();
-
-                for (var l = 0; l < values.length; l++) {
-                  final expectedValue = k == colors.length - 1
-                      ? _round(values2[l])
-                      : _interpolateValue(values1[l], values2[l], step);
-
-                  if (color2 is LabColor || color2 is HspColor) {
-                    expect(
-                        (values[l] - expectedValue).abs() < 0.25, equals(true));
-                  } else {
-                    expect((values[l] - expectedValue).abs() < 0.00001,
-                        equals(true));
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  });
 }
-
-/// Converts [color] to the color space defined by [colorModel].
-ColorModel _toColorModel(_ColorModels colorModel, Color color) {
-  ColorModel _color;
-
-  switch (colorModel) {
-    case _ColorModels.cmyk:
-      _color = CmykColor.fromColor(color);
-      break;
-    case _ColorModels.hsi:
-      _color = HsiColor.fromColor(color);
-      break;
-    case _ColorModels.hsl:
-      _color = HslColor.fromColor(color);
-      break;
-    case _ColorModels.hsp:
-      _color = HspColor.fromColor(color);
-      break;
-    case _ColorModels.hsb:
-      _color = HsbColor.fromColor(color);
-      break;
-    case _ColorModels.lab:
-      _color = LabColor.fromColor(color);
-      break;
-    case _ColorModels.rgb:
-      _color = RgbColor.fromColor(color);
-      break;
-    case _ColorModels.xyz:
-      _color = XyzColor.fromColor(color);
-      break;
-  }
-
-  return _color;
-}
-
-num _interpolateValue(num value1, num value2, double step) =>
-    ((((1 - step) * value1) + (step * value2)) * 1000000).round() / 1000000;
-
-/// Rounds [value] to the millionth.
-num _round(num value) => (value * 1000000).round() / 1000000;

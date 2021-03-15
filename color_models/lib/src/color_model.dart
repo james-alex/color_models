@@ -245,3 +245,47 @@ abstract class ColorModel {
   /// Converts this color to [other]'s color space.
   ColorModel castTo(ColorModel other) => other.convert(this);
 }
+
+/// An enumeration representing the color spaces defined in this package.
+enum ColorSpace { cmyk, hsb, hsi, hsl, hsp, lab, oklab, rgb, xyz }
+
+extension ConvertToColorSpace on ColorSpace {
+  /// Converts [color] to this color space.
+  ColorModel from(ColorModel color) {
+    late ColorModel newColor;
+
+    switch (this) {
+      case ColorSpace.cmyk:
+        newColor = CmykColor.from(color);
+        break;
+      case ColorSpace.hsb:
+        newColor = HsbColor.from(color);
+        break;
+      case ColorSpace.hsi:
+        newColor = HsiColor.from(color);
+        break;
+      case ColorSpace.hsl:
+        newColor = HslColor.from(color);
+        break;
+      case ColorSpace.hsp:
+        newColor = HspColor.from(color);
+        break;
+      case ColorSpace.lab:
+        newColor = LabColor.from(color);
+        break;
+      case ColorSpace.oklab:
+        newColor = OklabColor.from(color);
+        break;
+      case ColorSpace.rgb:
+        newColor = RgbColor.from(color);
+        break;
+      case ColorSpace.xyz:
+        newColor = XyzColor.from(color);
+        break;
+    }
+
+    return newColor;
+  }
+
+  String get name => toString().split('.').last;
+}
