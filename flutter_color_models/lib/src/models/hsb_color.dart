@@ -147,16 +147,10 @@ class HsbColor extends cm.HsbColor
   @override
   HsbColor toHsbColor() => this;
 
-  /// Constructs a [HsbColor] from [color].
+  /// {@macro color_models.HsbColor.from}
   factory HsbColor.from(cm.ColorModel color) => color.toHsbColor().cast();
 
-  /// Constructs a [HsbColor] from a list of [hsb] values.
-  ///
-  /// [hsb] must not be null and must have exactly `3` or `4` values.
-  ///
-  /// The hue must be `>= 0` and `<= 360`.
-  ///
-  /// The saturation and value must both be `>= 0` and `<= 100`.
+  /// {@macro color_models.HsbColor.fromList}
   factory HsbColor.fromList(List<num> values) {
     assert(values.length == 3 || values.length == 4);
     assert(values[0] >= 0 && values[0] <= 360);
@@ -171,17 +165,10 @@ class HsbColor extends cm.HsbColor
   factory HsbColor.fromColor(Color color) =>
       RgbColor.fromColor(color).toHsbColor();
 
-  /// Constructs a [HsbColor] from a RGB [hex] color.
-  ///
-  /// [hex] is case-insensitive and must be `3` or `6` characters
-  /// in length, excluding an optional leading `#`.
+  /// {@macro color_models.HsbColor.fromHex}
   factory HsbColor.fromHex(String hex) => cm.HsbColor.fromHex(hex).cast();
 
-  /// Constructs a [HsbColor] from a list of [hsb] values on a `0` to `1` scale.
-  ///
-  /// [hsb] must not be null and must have exactly `3` or `4` values.
-  ///
-  /// Each of the values must be `>= 0` and `<= 1`.
+  /// {@macro color_models.HsbColor.extrapolate}
   factory HsbColor.extrapolate(List<double> values) {
     assert(values.length == 3 || values.length == 4);
     assert(values[0] >= 0 && values[0] <= 1);
@@ -192,21 +179,7 @@ class HsbColor extends cm.HsbColor
     return HsbColor(values[0] * 360, values[1] * 100, values[2] * 100, alpha);
   }
 
-  /// Generates a [HsbColor] at random.
-  ///
-  /// [minHue] and [maxHue] constrain the generated [hue] value. If
-  /// `minHue < maxHue`, the range will run in a clockwise direction
-  /// between the two, however if `minHue > maxHue`, the range will
-  /// run in a counter-clockwise direction. Both [minHue] and [maxHue]
-  /// must be `>= 0 && <= 360` and must not be `null`.
-  ///
-  /// [minSaturation] and [maxSaturation] constrain the generated [saturation]
-  /// value.
-  ///
-  /// [minBrightness] and [maxBrightness] constrain the generated [brightness] value.
-  ///
-  /// Min and max values, besides hues, must be `min <= max && max >= min`,
-  /// must be in the range of `>= 0 && <= 100`, and must not be `null`.
+  /// {@macro color_models.HsbColor.random}
   factory HsbColor.random({
     num minHue = 0,
     num maxHue = 360,

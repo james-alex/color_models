@@ -210,18 +210,26 @@ class LabColor extends ColorModel {
   List<num> toListWithAlpha() =>
       List<num>.from(<num>[lightness, a, b, alpha], growable: false);
 
+  /// {@template color_models.LabColor.from}
+  ///
   /// Constructs a [LabColor] from [color].
+  ///
+  /// {@endtemplate}
   factory LabColor.from(ColorModel color) => color.toLabColor();
 
-  /// Constructs a [LabColor] from a list of [lab] values.
+  /// {@template color_models.LabColor.fromList}
   ///
-  /// [lab] must have exactly `3` or `4` values.
+  /// Constructs a [LabColor] from a list of LAB values.
+  ///
+  /// [values] must have exactly `3` or `4` values.
   ///
   /// The first value (L) must be `>= 0 && <= 100`.
   ///
   /// The A and B values must be `>= -128 && <= 127`.
   ///
   /// The [alpha] value, if included, must be `>= 0 && <= 255`.
+  ///
+  /// {@endtemplate}
   factory LabColor.fromList(List<num> values) {
     assert(values.length == 3 || values.length == 4);
     assert(values[0] >= 0 && values[0] <= 100);
@@ -232,18 +240,26 @@ class LabColor extends ColorModel {
     return LabColor(values[0], values[1], values[2], alpha);
   }
 
+  /// {@template color_models.LabColor.from}
+  ///
   /// Constructs a [LabColor] from a RGB [hex] color.
   ///
   /// [hex] is case-insensitive and must be `3` or `6` characters
   /// in length, excluding an optional leading `#`.
+  ///
+  /// {@endtemplate}
   factory LabColor.fromHex(String hex) =>
       ColorConverter.hexToRgb(hex).toLabColor();
 
+  /// {@template color_models.LabColor.extrapolate}
+  ///
   /// Constructs a [LabColor] from a list of [lab] values on a `0` to `1` scale.
   ///
   /// [lab] must not be null and must have exactly `3` or `4` values.
   ///
   /// Each of the values must be `>= 0` and `<= 1`.
+  ///
+  /// {@endtemplate}
   factory LabColor.extrapolate(List<double> values) {
     assert(values.length == 3 || values.length == 4);
     assert(values[0] >= 0 && values[0] <= 1);
@@ -255,6 +271,8 @@ class LabColor extends ColorModel {
         (values[2] * 255) - 128, alpha);
   }
 
+  /// {@template color_models.LabColor.random}
+  ///
   /// Generates a [LabColor] at random.
   ///
   /// [minLightness] and [maxLightness] constrain the generated [lightness]
@@ -266,6 +284,8 @@ class LabColor extends ColorModel {
   ///
   /// All min and max values must be `min <= max && max >= min`, must
   /// be in the range of `>= 0 && <= 100`, and must not be `null`.
+  ///
+  /// {@endtemplate}
   factory LabColor.random({
     num minLightness = 0,
     num maxLightness = 100,

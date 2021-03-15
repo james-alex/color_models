@@ -148,16 +148,10 @@ class HspColor extends cm.HspColor
   @override
   HspColor toHspColor() => this;
 
-  /// Constructs a [HspColor] from [color].
+  /// {@macro color_models.HspColor.from}
   factory HspColor.from(cm.ColorModel color) => color.toHspColor().cast();
 
-  /// Constructs a [HspColor] from a list of [hsp] values.
-  ///
-  /// [hsp] must not be null and must have exactly `3` or `4` values.
-  ///
-  /// The hue must be `>= 0` and `<= 360`.
-  ///
-  /// The saturation and perceived brightness must both be `>= 0` and `<= 100`.
+  /// {@macro color_models.HspColor.fromList}
   factory HspColor.fromList(List<num> values) {
     assert(values.length == 3 || values.length == 4);
     assert(values[0] >= 0 && values[0] <= 360);
@@ -172,17 +166,10 @@ class HspColor extends cm.HspColor
   factory HspColor.fromColor(Color color) =>
       RgbColor.fromColor(color).toHspColor();
 
-  /// Constructs a [HspColor] from a RGB [hex] color.
-  ///
-  /// [hex] is case-insensitive and must be `3` or `6` characters
-  /// in length, excluding an optional leading `#`.
+  /// {@macro color_models.HspColor.fromHex}
   factory HspColor.fromHex(String hex) => cm.HspColor.fromHex(hex).cast();
 
-  /// Constructs a [HspColor] from a list of [hsp] values on a `0` to `1` scale.
-  ///
-  /// [hsp] must not be null and must have exactly `3` or `4` values.
-  ///
-  /// Each of the values must be `>= 0` and `<= 1`.
+  /// {@macro color_models.HspColor.extrapolate}
   factory HspColor.extrapolate(List<double> values) {
     assert(values.length == 3 || values.length == 4);
     assert(values[0] >= 0 && values[0] <= 1);
@@ -193,22 +180,7 @@ class HspColor extends cm.HspColor
     return HspColor(values[0] * 360, values[1] * 100, values[2] * 100, alpha);
   }
 
-  /// Generates a [HspColor] at random.
-  ///
-  /// [minHue] and [maxHue] constrain the generated [hue] value. If
-  /// `minHue < maxHue`, the range will run in a clockwise direction
-  /// between the two, however if `minHue > maxHue`, the range will
-  /// run in a counter-clockwise direction. Both [minHue] and [maxHue]
-  /// must be `>= 0 && <= 360` and must not be `null`.
-  ///
-  /// [minSaturation] and [maxSaturation] constrain the generated [saturation]
-  /// value.
-  ///
-  /// [minPerceivedBrightness] and [maxPerceivedBrightness] constrain the
-  /// generated [perceivedBrightness] value.
-  ///
-  /// Min and max values, besides hues, must be `min <= max && max >= min`,
-  /// must be in the range of `>= 0 && <= 100`, and must not be `null`.
+  /// {@macro color_models.HspColor.random}
   factory HspColor.random({
     num minHue = 0,
     num maxHue = 360,

@@ -248,9 +248,15 @@ class CmykColor extends ColorModel {
         alpha / 255,
       ], growable: false);
 
+  /// {@template color_models.CmykColor.from}
+  ///
   /// Constructs a [CmykColor] from [color].
+  ///
+  /// {@endtemplate}
   factory CmykColor.from(ColorModel color) => color.toCmykColor();
 
+  /// {@template color_models.CmykColor.fromList}
+  ///
   /// Constructs a [CmykColor] from a list of [cmyk] values.
   ///
   /// [cmyk] must not be null and must have exactly `4` or `5` values.
@@ -258,6 +264,8 @@ class CmykColor extends ColorModel {
   /// Each color value must be `>= 0 && <= 100`.
   ///
   /// The [alpha] value, if included, must be `>= 0 && <= 255`.
+  ///
+  /// {@endtemplate}
   factory CmykColor.fromList(List<num> values) {
     assert(values.length == 4 || values.length == 5);
     assert(values[0] >= 0 && values[0] <= 100);
@@ -269,19 +277,27 @@ class CmykColor extends ColorModel {
     return CmykColor(values[0], values[1], values[2], values[3], alpha);
   }
 
+  /// {@template color_models.CmykColor.fromHex}
+  ///
   /// Constructs a [CmykColor] from a RGB [hex] color.
   ///
   /// [hex] is case-insensitive and must be `3` or `6` characters
   /// in length, excluding an optional leading `#`.
+  ///
+  /// {@endtemplate}
   factory CmykColor.fromHex(String hex) =>
       ColorConverter.hexToRgb(hex).toCmykColor();
 
+  /// {@template color_models.CmykColor.extrapolate}
+  ///
   /// Constructs a [CmykColor] from a list of [cmyk] values
   /// on a `0` to `1` scale.
   ///
   /// [cmyk] must not be null and must have exactly `4` or `5` values.
   ///
   /// Each of the values must be `>= 0` and `<= 1`.
+  ///
+  /// {@endtemplate}
   factory CmykColor.extrapolate(List<double> values) {
     assert(values.length == 4 || values.length == 5);
     assert(values[0] >= 0 && values[0] <= 1);
@@ -294,6 +310,8 @@ class CmykColor extends ColorModel {
         values[3] * 100, alpha);
   }
 
+  /// {@template color_models.CmykColor.random}
+  ///
   /// Generates a [CmykColor] at random.
   ///
   /// [minCyan] and [maxCyan] constrain the generated [cyan] value.
@@ -306,6 +324,8 @@ class CmykColor extends ColorModel {
   ///
   /// All min and max values must be `min <= max && max >= min`, must be
   /// in the range of `>= 0 && <= 100`, and must not be `null`.
+  ///
+  /// {@endtemplate}
   factory CmykColor.random({
     num minCyan = 0,
     num maxCyan = 100,

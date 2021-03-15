@@ -211,9 +211,15 @@ class HslColor extends ColorModel {
         alpha / 255,
       ], growable: false);
 
+  /// {@template color_models.HslColor.from}
+  ///
   /// Constructs a [HslColor] from [color].
+  ///
+  /// {@endtemplate}
   factory HslColor.from(ColorModel color) => color.toHslColor();
 
+  /// {@template color_models.HslColor.fromList}
+  ///
   /// Constructs a [HslColor] from a list of [hsl] values.
   ///
   /// [hsl] must not be null and must have exactly `3` or `4` values.
@@ -223,6 +229,8 @@ class HslColor extends ColorModel {
   /// The saturation and lightness must both be `>= 0` and `<= 100`.
   ///
   /// The [alpha] value, if included, must be `>= 0 && <= 255`.
+  ///
+  /// {@endtemplate}
   factory HslColor.fromList(List<num> values) {
     assert(values.length == 3 || values.length == 4);
     assert(values[0] >= 0 && values[0] <= 360);
@@ -233,18 +241,26 @@ class HslColor extends ColorModel {
     return HslColor(values[0], values[1], values[2], alpha);
   }
 
+  /// {@template color_models.HslColor.fromHex}
+  ///
   /// Constructs a [HslColor] from a RGB [hex] color.
   ///
   /// [hex] is case-insensitive and must be `3` or `6` characters
   /// in length, excluding an optional leading `#`.
+  ///
+  /// {@endtemplate}
   factory HslColor.fromHex(String hex) =>
       ColorConverter.hexToRgb(hex).toHslColor();
 
+  /// {@template color_models.HslColor.extrapolate}
+  ///
   /// Constructs a [HslColor] from a list of [hsl] values on a `0` to `1` scale.
   ///
   /// [hsl] must not be null and must have exactly `3` or `4` values.
   ///
   /// Each of the values must be `>= 0` and `<= 1`.
+  ///
+  /// {@endtemplate}
   factory HslColor.extrapolate(List<double> values) {
     assert(values.length == 3 || values.length == 4);
     assert(values[0] >= 0 && values[0] <= 1);
@@ -255,6 +271,8 @@ class HslColor extends ColorModel {
     return HslColor(values[0] * 360, values[1] * 100, values[2] * 100, alpha);
   }
 
+  /// {@template color_models.HslColor.random}
+  ///
   /// Generates a [HslColor] at random.
   ///
   /// [minHue] and [maxHue] constrain the generated [hue] value. If
@@ -271,6 +289,8 @@ class HslColor extends ColorModel {
   ///
   /// Min and max values, besides hues, must be `min <= max && max >= min`,
   /// must be in the range of `>= 0 && <= 100`, and must not be `null`.
+  ///
+  /// {@endtemplate}
   factory HslColor.random({
     num minHue = 0,
     num maxHue = 360,

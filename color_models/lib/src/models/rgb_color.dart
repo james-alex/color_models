@@ -229,9 +229,15 @@ class RgbColor extends ColorModel {
       .map<double>((value) => value / 255)
       .toList(growable: false);
 
+  /// {@template color_models.RgbColor.from}
+  ///
   /// Constructs a [RgbColor] from [color].
+  ///
+  /// {@endtemplate}
   factory RgbColor.from(ColorModel color) => color.toRgbColor();
 
+  /// {@template color_models.RgbColor.fromList}
+  ///
   /// Constructs a [RgbColor] from a list of [rgb] values.
   ///
   /// [rgb] must not be null and must have exactly `3` or `4` values.
@@ -239,6 +245,8 @@ class RgbColor extends ColorModel {
   /// Each color value must be `>= 0 && <= 255`.
   ///
   /// The [alpha] value, if included, must be `>= 0 && <= 255`.
+  ///
+  /// {@endtemplate}
   factory RgbColor.fromList(List<num> values) {
     assert(values.length == 3 || values.length == 4);
     assert(values[0] >= 0 && values[0] <= 255);
@@ -249,17 +257,25 @@ class RgbColor extends ColorModel {
     return RgbColor(values[0], values[1], values[2], alpha);
   }
 
+  /// {@template color_models.RgbColor.fromHex}
+  ///
   /// Constructs a [RgbColor] from a RGB [hex] color.
   ///
   /// [hex] is case-insensitive and must be `3` or `6` characters
   /// in length, excluding an optional leading `#`.
+  ///
+  /// {@endtemplate}
   factory RgbColor.fromHex(String hex) => ColorConverter.hexToRgb(hex);
 
+  /// {@template color_models.RgbColor.extrapolate}
+  ///
   /// Constructs a [RgbColor] from a list of [rgb] values on a `0` to `1` scale.
   ///
   /// [rgb] must not be null and must have exactly `3` or `4` values.
   ///
   /// Each of the values must be `>= 0` and `<= 1`.
+  ///
+  /// {@endtemplate}
   factory RgbColor.extrapolate(List<double> values) {
     assert(values.length == 3 || values.length == 4);
     assert(values[0] >= 0 && values[0] <= 1);
@@ -279,6 +295,8 @@ class RgbColor extends ColorModel {
     return value * 255;
   }
 
+  /// {@template color_models.RgbColor.random}
+  ///
   /// Generates a [RgbColor] at random.
   ///
   /// [minRed] and [maxRed] constrain the generated [red] value.
@@ -289,6 +307,8 @@ class RgbColor extends ColorModel {
   ///
   /// All min and max values must be `min <= max && max >= min` and
   /// must be in the range of `>= 0 && <= 255`.
+  ///
+  /// {@endtemplate}
   factory RgbColor.random({
     int minRed = 0,
     int maxRed = 255,

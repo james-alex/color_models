@@ -214,9 +214,15 @@ class HsbColor extends ColorModel {
         alpha / 255,
       ], growable: false);
 
+  /// {@template color_models.HsbColor.from}
+  ///
   /// Constructs a [HsbColor] from [color].
+  ///
+  /// {@endtemplate}
   factory HsbColor.from(ColorModel color) => color.toHsbColor();
 
+  /// {@template color_models.HsbColor.fromList}
+  ///
   /// Constructs a [HsbColor] from a list of [hsb] values.
   ///
   /// [hsb] must not be null and must have exactly `3` or `4` values.
@@ -226,6 +232,8 @@ class HsbColor extends ColorModel {
   /// The [saturation] and [brightness] must both be `>= 0` and `<= 100`.
   ///
   /// The [alpha] value, if included, must be `>= 0 && <= 255`.
+  ///
+  /// {@endtemplate}
   factory HsbColor.fromList(List<num> values) {
     assert(values.length == 3 || values.length == 4);
     assert(values[0] >= 0 && values[0] <= 360);
@@ -236,18 +244,26 @@ class HsbColor extends ColorModel {
     return HsbColor(values[0], values[1], values[2], alpha);
   }
 
+  /// {@template color_models.HsbColor.fromHex}
+  ///
   /// Constructs a [HsbColor] from a RGB [hex] color.
   ///
   /// [hex] is case-insensitive and must be `3` or `6` characters
   /// in length, excluding an optional leading `#`.
+  ///
+  /// {@endtemplate}
   factory HsbColor.fromHex(String hex) =>
       ColorConverter.hexToRgb(hex).toHsbColor();
 
+  /// {@template color_models.HsbColor.extrapolate}
+  ///
   /// Constructs a [HsbColor] from a list of [hsb] values on a `0` to `1` scale.
   ///
   /// [hsb] must not be null and must have exactly `3` or `4` values.
   ///
   /// Each of the values must be `>= 0` and `<= 1`.
+  ///
+  /// {@endtemplate}
   factory HsbColor.extrapolate(List<double> values) {
     assert(values.length == 3 || values.length == 4);
     assert(values[0] >= 0 && values[0] <= 1);
@@ -258,6 +274,8 @@ class HsbColor extends ColorModel {
     return HsbColor(values[0] * 360, values[1] * 100, values[2] * 100, alpha);
   }
 
+  /// {@template color_models.HsbColor.random}
+  ///
   /// Generates a [HsbColor] at random.
   ///
   /// [minHue] and [maxHue] constrain the generated [hue] value. If
@@ -273,6 +291,8 @@ class HsbColor extends ColorModel {
   ///
   /// Min and max values, besides hues, must be `min <= max && max >= min`,
   /// must be in the range of `>= 0 && <= 100`, and must not be `null`.
+  ///
+  /// {@endtemplate}
   factory HsbColor.random({
     num minHue = 0,
     num maxHue = 360,

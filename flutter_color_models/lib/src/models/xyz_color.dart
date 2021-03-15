@@ -156,20 +156,10 @@ class XyzColor extends cm.XyzColor
   @override
   XyzColor toXyzColor() => this;
 
-  /// Constructs a [XyzColor] from [color].
+  /// {@macro color_models.XyzColor.from}
   factory XyzColor.from(cm.ColorModel color) => color.toXyzColor().cast();
 
-  /// Constructs a [XyzColor] from a list of [xyz] values.
-  ///
-  /// [xyz] must not be null and must have exactly `3` or `4` values.
-  ///
-  /// [x] must be `>= 0` and `<= 95`.
-  ///
-  /// [y] must be `>= 0` and `<= 100`.
-  ///
-  /// [z] must be `>= 0` and `<= 109`.
-  ///
-  /// None of the color values may be null.
+  /// {@macro color_models.XyzColor.fromList}
   factory XyzColor.fromList(List<num> values) {
     assert(values.length == 3 || values.length == 4);
     assert(values[0] >= 0 && values[0] <= 100);
@@ -184,17 +174,10 @@ class XyzColor extends cm.XyzColor
   factory XyzColor.fromColor(Color color) =>
       RgbColor.fromColor(color).toXyzColor();
 
-  /// Constructs a [XyzColor] from a RGB [hex] color.
-  ///
-  /// [hex] is case-insensitive and must be `3` or `6` characters
-  /// in length, excluding an optional leading `#`.
+  /// {@macro color_models.XyzColor.fromHex}
   factory XyzColor.fromHex(String hex) => cm.XyzColor.fromHex(hex).cast();
 
-  /// Constructs a [XyzColor] from a list of [xyz] values on a `0` to `1` scale.
-  ///
-  /// [xyz] must not be null and must have exactly `3` or `4` values.
-  ///
-  /// Each of the values must be `>= 0` and `<= 1`.
+  /// {@macro color_models.XyzColor.extrapolate}
   factory XyzColor.extrapolate(List<double> values) {
     assert(values.length == 3 || values.length == 4);
     assert(values[0] >= 0 && values[0] <= 1);
@@ -205,16 +188,7 @@ class XyzColor extends cm.XyzColor
     return XyzColor(values[0] * 100, values[1] * 100, values[2] * 100, alpha);
   }
 
-  /// Generates a [XyzColor] at random.
-  ///
-  /// [minX] and [maxX] constrain the generated [x] value.
-  ///
-  /// [minY] and [maxY] constrain the generated [y] value.
-  ///
-  /// [minZ] and [maxZ] constrain the generated [z] value.
-  ///
-  /// All min and max values must be `min <= max && max >= min`, must be
-  /// in the range of `>= 0 && <= 100`, and must not be `null`.
+  /// {@macro color_models.XyzColor.random}
   factory XyzColor.random({
     num minX = 0,
     num maxX = 100,

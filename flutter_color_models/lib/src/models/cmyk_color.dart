@@ -167,14 +167,10 @@ class CmykColor extends cm.CmykColor
   @override
   CmykColor toCmykColor() => this;
 
-  /// Constructs a [CmykColor] from [color].
+  /// {@macro color_models.CmykColor.from}
   factory CmykColor.from(cm.ColorModel color) => color.toCmykColor().cast();
 
-  /// Constructs a [CmykColor] from a list of [cmyk] values.
-  ///
-  /// [cmyk] must not be null and must have exactly `4` or `5` values.
-  ///
-  /// Each color value must be `>= 0 && <= 100`.
+  /// {@macro color_models.CmykColor.fromList}
   factory CmykColor.fromList(List<num> values) {
     assert(values.length == 4 || values.length == 5);
     assert(values[0] >= 0 && values[0] <= 100);
@@ -190,18 +186,10 @@ class CmykColor extends cm.CmykColor
   factory CmykColor.fromColor(Color color) =>
       RgbColor.fromColor(color).toCmykColor();
 
-  /// Constructs a [CmykColor] from a RGB [hex] color.
-  ///
-  /// [hex] is case-insensitive and must be `3` or `6` characters
-  /// in length, excluding an optional leading `#`.
+  /// {@macro color_models.CmykColor.fromHex}
   factory CmykColor.fromHex(String hex) => cm.CmykColor.fromHex(hex).cast();
 
-  /// Constructs a [CmykColor] from a list of [cmyk] values
-  /// on a `0` to `1` scale.
-  ///
-  /// [cmyk] must not be null and must have exactly `4` or `5` values.
-  ///
-  /// Each of the values must be `>= 0` and `<= 1`.
+  /// {@macro color_models.CmykColor.extrapolate}
   factory CmykColor.extrapolate(List<double> values) {
     assert(values.length == 4 || values.length == 5);
     assert(values[0] >= 0 && values[0] <= 1);
@@ -214,18 +202,7 @@ class CmykColor extends cm.CmykColor
         values[3] * 100, alpha);
   }
 
-  /// Generates a [CmykColor] at random.
-  ///
-  /// [minCyan] and [maxCyan] constrain the generated [cyan] value.
-  ///
-  /// [minMagenta] and [maxMagenta] constrain the generated [magenta] value.
-  ///
-  /// [minYellow] and [maxYellow] constrain the generated [yellow] value.
-  ///
-  /// [minBlack] and [maxBlack] constrain the generated [black] value.
-  ///
-  /// All min and max values must be `min <= max && max >= min`, must be
-  /// in the range of `>= 0 && <= 100`, and must not be `null`.
+  /// {@macro color_models.CmykColor.random}
   factory CmykColor.random({
     num minCyan = 0,
     num maxCyan = 100,

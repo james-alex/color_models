@@ -129,14 +129,10 @@ class RgbColor extends cm.RgbColor
   @override
   RgbColor toRgbColor() => this;
 
-  /// Constructs a [RgbColor] from [color].
+  /// {@macro color_models.RgbColor.from}
   factory RgbColor.from(cm.ColorModel color) => color.toRgbColor().cast();
 
-  /// Constructs a [RgbColor] from a list of [rgb] values.
-  ///
-  /// [rgb] must not be null and must have exactly `3` or `4` values.
-  ///
-  /// Each color value must be `>= 0 && <= 255`.
+  /// {@macro color_models.RgbColor.fromList}
   factory RgbColor.fromList(List<num> values) {
     assert(values.length == 3 || values.length == 4);
     assert(values[0] >= 0 && values[0] <= 255);
@@ -151,17 +147,10 @@ class RgbColor extends cm.RgbColor
   factory RgbColor.fromColor(Color color) =>
       RgbColor(color.red, color.green, color.blue, color.alpha);
 
-  /// Constructs a [RgbColor] from a RGB [hex] color.
-  ///
-  /// [hex] is case-insensitive and must be `3` or `6` characters
-  /// in length, excluding an optional leading `#`.
+  /// {@macro color_models.RgbColor.fromHex}
   factory RgbColor.fromHex(String hex) => cm.RgbColor.fromHex(hex).cast();
 
-  /// Constructs a [RgbColor] from a list of [rgb] values on a `0` to `1` scale.
-  ///
-  /// [rgb] must not be null and must have exactly `3` or `4` values.
-  ///
-  /// Each of the values must be `>= 0` and `<= 1`.
+  /// {@macro color_models.RgbColor.extrapolate}
   factory RgbColor.extrapolate(List<double> values) {
     assert(values.length == 3 || values.length == 4);
     assert(values[0] >= 0 && values[0] <= 1);
@@ -172,16 +161,7 @@ class RgbColor extends cm.RgbColor
     return RgbColor(values[0] * 255, values[1] * 255, values[2] * 255, alpha);
   }
 
-  /// Generates a [RgbColor] at random.
-  ///
-  /// [minRed] and [maxRed] constrain the generated [red] value.
-  ///
-  /// [minGreen] and [maxGreen] constrain the generated [green] value.
-  ///
-  /// [minBlue] and [maxBlue] constrain the generated [blue] value.
-  ///
-  /// All min and max values must be `min <= max && max >= min` and
-  /// must be in the range of `>= 0 && <= 255`.
+  /// {@macro color_models.RgbColor.random}
   factory RgbColor.random({
     int minRed = 0,
     int maxRed = 255,

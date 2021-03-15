@@ -234,9 +234,15 @@ class XyzColor extends ColorModel {
       List<double>.from(<double>[x / 100, y / 100, z / 100, alpha / 255],
           growable: false);
 
+  /// {@template color_models.XyzColor.from}
+  ///
   /// Constructs a [XyzColor] from [color].
+  ///
+  /// {@endtemplate}
   factory XyzColor.from(ColorModel color) => color.toXyzColor();
 
+  /// {@template color_models.XyzColor.fromList}
+  ///
   /// Constructs a [XyzColor] from a list of [xyz] values.
   ///
   /// [xyz] must not be null and must have exactly `3` or `4` values.
@@ -244,6 +250,8 @@ class XyzColor extends ColorModel {
   /// [x], [y], and [z] all must not be null and must be `>= 0`.
   ///
   /// The [alpha] value, if included, must be `>= 0 && <= 255`.
+  ///
+  /// {@endtemplate}
   factory XyzColor.fromList(List<num> values) {
     assert(values.length == 3 || values.length == 4);
     assert(values[0] >= 0);
@@ -254,18 +262,26 @@ class XyzColor extends ColorModel {
     return XyzColor(values[0], values[1], values[2], alpha);
   }
 
+  /// {@template color_models.XyzColor.fromHex}
+  ///
   /// Constructs a [XyzColor] from a RGB [hex] color.
   ///
   /// [hex] is case-insensitive and must be `3` or `6` characters
   /// in length, excluding an optional leading `#`.
+  ///
+  /// {@endtemplate}
   factory XyzColor.fromHex(String hex) =>
       ColorConverter.hexToRgb(hex).toXyzColor();
 
+  /// {@template color_models.XyzColor.extrapolate}
+  ///
   /// Constructs a [XyzColor] from a list of [xyz] values on a `0` to `1` scale.
   ///
   /// [xyz] must not be null and must have exactly `3` or `4` values.
   ///
   /// Each of the values must be `>= 0` and `<= 1`.
+  ///
+  /// {@endtemplate}
   factory XyzColor.extrapolate(List<double> values) {
     assert(values.length == 3 || values.length == 4);
     assert(values[0] >= 0);
@@ -276,6 +292,8 @@ class XyzColor extends ColorModel {
     return XyzColor(values[0] * 100, values[1] * 100, values[2] * 100, alpha);
   }
 
+  /// {@template color_models.XyzColor.random}
+  ///
   /// Generates a [XyzColor] at random.
   ///
   /// [minX] and [maxX] constrain the generated [x] value.
@@ -286,6 +304,8 @@ class XyzColor extends ColorModel {
   ///
   /// All min and max values must be `min <= max && max >= min`, must be
   /// in the range of `>= 0 && <= 100`, and must not be `null`.
+  ///
+  /// {@endtemplate}
   factory XyzColor.random({
     num minX = 0,
     num maxX = 100,

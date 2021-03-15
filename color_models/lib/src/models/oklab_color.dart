@@ -179,14 +179,22 @@ class OklabColor extends ColorModel {
   List<num> toListWithAlpha() =>
       List<num>.from(<num>[lightness, a, b, alpha], growable: false);
 
+  /// {@template color_models.OklabColor.from}
+  ///
   /// Constructs an [OklabColor] from [color].
+  ///
+  /// {@endtemplate}
   factory OklabColor.from(ColorModel color) => color.toOklabColor();
 
+  /// {@template color_models.OklabColor.fromList}
+  ///
   /// Constructs an [OklabColor] from a list of [lab] values.
   ///
   /// [lab] must have exactly `3` or `4` values.
   ///
   /// The [alpha] value, if included, must be `>= 0 && <= 255`.
+  ///
+  /// {@endtemplate}
   factory OklabColor.fromList(List<num> values) {
     assert(values.length == 3 || values.length == 4);
     if (values.length == 4) assert(values[3] >= 0 && values[3] <= 255);
@@ -195,13 +203,19 @@ class OklabColor extends ColorModel {
         values[2].toDouble(), alpha);
   }
 
+  /// {@template color_models.OklabColor.fromHex}
+  ///
   /// Constructs an [OklabColor] from a RGB [hex] color.
   ///
   /// [hex] is case-insensitive and must be `3` or `6` characters
   /// in length, excluding an optional leading `#`.
+  ///
+  /// {@endtemplate}
   factory OklabColor.fromHex(String hex) =>
       ColorConverter.hexToRgb(hex).toOklabColor();
 
+  /// {@template color_models.OklabColor.random}
+  ///
   /// Generates an [OklabColor] at random.
   ///
   /// [minLightness] and [maxLightness] constrain the generated
@@ -213,6 +227,8 @@ class OklabColor extends ColorModel {
   ///
   /// All min and max values must be `min <= max && max >= min`, must
   /// be in the range of `>= 0.0 && <= 1.0`, and must not be `null`.
+  ///
+  /// {@endtemplate}
   factory OklabColor.random({
     double minLightness = 0.0,
     double maxLightness = 1.0,

@@ -151,16 +151,10 @@ class LabColor extends cm.LabColor
   @override
   LabColor toLabColor() => this;
 
-  /// Constructs a [LabColor] from [color].
+  /// {@macro color_models.LabColor.from}
   factory LabColor.from(cm.ColorModel color) => color.toLabColor().cast();
 
-  /// Constructs a [LabColor] from a list of [lab] values.
-  ///
-  /// [lab] must not be null and must have exactly `3` or `4` values.
-  ///
-  /// The first value (L) must be `>= 0 && <= 100`.
-  ///
-  /// The A and B values must be `>= -128 && <= 127`.
+  /// {@macro color_models.LabColor.fromList}
   factory LabColor.fromList(List<num> values) {
     assert(values.length == 3 || values.length == 4);
     assert(values[0] >= 0 && values[0] <= 100);
@@ -175,17 +169,10 @@ class LabColor extends cm.LabColor
   factory LabColor.fromColor(Color color) =>
       RgbColor.fromColor(color).toLabColor();
 
-  /// Constructs a [LabColor] from a RGB [hex] color.
-  ///
-  /// [hex] is case-insensitive and must be `3` or `6` characters
-  /// in length, excluding an optional leading `#`.
+  /// {@macro color_models.LabColor.fromHex}
   factory LabColor.fromHex(String hex) => cm.LabColor.fromHex(hex).cast();
 
-  /// Constructs a [LabColor] from a list of [lab] values on a `0` to `1` scale.
-  ///
-  /// [lab] must not be null and must have exactly `3` or `4` values.
-  ///
-  /// Each of the values must be `>= 0` and `<= 1`.
+  /// {@macro color_models.LabColor.extrapolate}
   factory LabColor.extrapolate(List<double> values) {
     assert(values.length == 3 || values.length == 4);
     assert(values[0] >= 0 && values[0] <= 1);
@@ -197,17 +184,7 @@ class LabColor extends cm.LabColor
         (values[2] * 255) - 128, alpha);
   }
 
-  /// Generates a [LabColor] at random.
-  ///
-  /// [minLightness] and [maxLightness] constrain the generated [lightness]
-  /// value.
-  ///
-  /// [minA] and [maxA] constrain the generated [a] value.
-  ///
-  /// [minB] and [maxB] constrain the generated [b] value.
-  ///
-  /// All min and max values must be `min <= max && max >= min`, must be
-  /// in the range of `>= 0 && <= 100`, and must not be `null`.
+  /// {@macro color_models.LabColor.random}
   factory LabColor.random({
     num minLightness = 0,
     num maxLightness = 100,

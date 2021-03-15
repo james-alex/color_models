@@ -128,10 +128,10 @@ class OklabColor extends cm.OklabColor
   @override
   OklabColor toOklabColor() => this;
 
-  /// Constructs an [OklabColor] from [color].
+  /// {@macro color_models.OklabColor.from}
   factory OklabColor.from(cm.ColorModel color) => color.toOklabColor().cast();
 
-  /// TODO:
+  /// {@macro color_models.OklabColor.fromList}
   factory OklabColor.fromList(List<double> values) {
     assert(values.length == 3 || values.length == 4);
     assert(values[0] >= 0 && values[0] <= 100);
@@ -142,26 +142,14 @@ class OklabColor extends cm.OklabColor
     return OklabColor(values[0], values[1], values[2], alpha);
   }
 
-  /// TODO:
+  /// Constructs an [OklabColor] from [color].
   factory OklabColor.fromColor(Color color) =>
       RgbColor.fromColor(color).toOklabColor();
 
-  /// TODO:
+  /// {@macro color_models.OklabColor.fromHex}
   factory OklabColor.fromHex(String hex) => cm.OklabColor.fromHex(hex).cast();
 
-  /// TODO:
-  factory OklabColor.extrapolate(List<double> values) {
-    assert(values.length == 3 || values.length == 4);
-    assert(values[0] >= 0 && values[0] <= 1);
-    assert(values[1] >= 0 && values[1] <= 1);
-    assert(values[2] >= 0 && values[2] <= 1);
-    if (values.length == 4) assert(values[3] >= 0 && values[3] <= 1);
-    final alpha = values.length == 4 ? (values[3] * 255).round() : 255;
-    return OklabColor(values[0] * 100, (values[1] * 255) - 128,
-        (values[2] * 255) - 128, alpha);
-  }
-
-  /// TODO:
+  /// {@macro color_models.OklabColor.random}
   factory OklabColor.random({
     double minLightness = 0.0,
     double maxLightness = 1.0,

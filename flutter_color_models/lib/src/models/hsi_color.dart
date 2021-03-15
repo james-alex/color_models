@@ -142,16 +142,10 @@ class HsiColor extends cm.HsiColor
   @override
   HsiColor toHsiColor() => this;
 
-  /// Constructs a [HsiColor] from [color].
+  /// {@macro color_models.HsiColor.from}
   factory HsiColor.from(cm.ColorModel color) => color.toHsiColor().cast();
 
-  /// Constructs a [HsiColor] from a list of [hsi] values.
-  ///
-  /// [hsi] must not be null and must have exactly `3` or `4` values.
-  ///
-  /// The hue must be `>= 0` and `<= 360`.
-  ///
-  /// The saturation and intensity must both be `>= 0` and `<= 100`.
+  /// {@macro color_models.HsiColor.fromList}
   factory HsiColor.fromList(List<num> values) {
     assert(values.length == 3 || values.length == 4);
     assert(values[0] >= 0 && values[0] <= 360);
@@ -166,17 +160,10 @@ class HsiColor extends cm.HsiColor
   factory HsiColor.fromColor(Color color) =>
       RgbColor.fromColor(color).toHsiColor();
 
-  /// Constructs a [HsiColor] from a RGB [hex] color.
-  ///
-  /// [hex] is case-insensitive and must be `3` or `6` characters
-  /// in length, excluding an optional leading `#`.
+  /// {@macro color_models.HsiColor.fromHex}
   factory HsiColor.fromHex(String hex) => cm.HsiColor.fromHex(hex).cast();
 
-  /// Constructs a [HsiColor] from a list of [hsi] values on a `0` to `1` scale.
-  ///
-  /// [hsi] must not be null and must have exactly `3` or `4` values.
-  ///
-  /// Each of the values must be `>= 0` and `<= 1`.
+  /// {@macro color_models.HsiColor.extrapolate}
   factory HsiColor.extrapolate(List<double> values) {
     assert(values.length == 3 || values.length == 4);
     assert(values[0] >= 0 && values[0] <= 1);
@@ -187,22 +174,7 @@ class HsiColor extends cm.HsiColor
     return HsiColor(values[0] * 360, values[1] * 100, values[2] * 100, alpha);
   }
 
-  /// Generates a [HsiColor] at random.
-  ///
-  /// [minHue] and [maxHue] constrain the generated [hue] value. If
-  /// `minHue < maxHue`, the range will run in a clockwise direction
-  /// between the two, however if `minHue > maxHue`, the range will
-  /// run in a counter-clockwise direction. Both [minHue] and [maxHue]
-  /// must be `>= 0 && <= 360` and must not be `null`.
-  ///
-  /// [minSaturation] and [maxSaturation] constrain the generated [saturation]
-  /// value.
-  ///
-  /// [minIntensity] and [maxIntensity] constrain the generated [intensity]
-  /// value.
-  ///
-  /// Min and max values, besides hues, must be `min <= max && max >= min`,
-  /// must be in the range of `>= 0 && <= 100`, and must not be `null`.
+  /// {@macro color_models.HsiColor.random}
   factory HsiColor.random({
     num minHue = 0,
     num maxHue = 360,
