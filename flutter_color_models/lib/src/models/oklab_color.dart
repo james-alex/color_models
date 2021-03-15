@@ -158,12 +158,6 @@ class OklabColor extends cm.OklabColor
     double minB = 0.0,
     double maxB = 1.0,
   }) {
-    assert(minLightness >= 0 && minLightness <= maxLightness);
-    assert(maxLightness >= minLightness && maxLightness <= 100);
-    assert(minA >= 0 && minA <= maxA);
-    assert(maxA >= minA && maxA <= 100);
-    assert(minB >= 0 && minB <= maxB);
-    assert(maxB >= minB && maxB <= 100);
     return cm.OklabColor.random(
       minLightness: minLightness,
       maxLightness: maxLightness,
