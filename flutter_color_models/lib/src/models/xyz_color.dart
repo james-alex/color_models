@@ -145,14 +145,14 @@ class XyzColor extends cm.XyzColor
   /// [z] must be `>= 0` and `<= 109`.
   ///
   /// None of the color values may be null.
-  factory XyzColor.fromList(List<num> xyz) {
-    assert(xyz.length == 3 || xyz.length == 4);
-    assert(xyz[0] >= 0 && xyz[0] <= 100);
-    assert(xyz[1] >= 0 && xyz[1] <= 100);
-    assert(xyz[2] >= 0 && xyz[2] <= 100);
-    if (xyz.length == 4) assert(xyz[3] >= 0 && xyz[3] <= 255);
-    final alpha = xyz.length == 4 ? xyz[3].round() : 255;
-    return XyzColor(xyz[0], xyz[1], xyz[2], alpha);
+  factory XyzColor.fromList(List<num> values) {
+    assert(values.length == 3 || values.length == 4);
+    assert(values[0] >= 0 && values[0] <= 100);
+    assert(values[1] >= 0 && values[1] <= 100);
+    assert(values[2] >= 0 && values[2] <= 100);
+    if (values.length == 4) assert(values[3] >= 0 && values[3] <= 255);
+    final alpha = values.length == 4 ? values[3].round() : 255;
+    return XyzColor(values[0], values[1], values[2], alpha);
   }
 
   /// Constructs a [XyzColor] from [color].
@@ -170,14 +170,14 @@ class XyzColor extends cm.XyzColor
   /// [xyz] must not be null and must have exactly `3` or `4` values.
   ///
   /// Each of the values must be `>= 0` and `<= 1`.
-  factory XyzColor.extrapolate(List<double> xyz) {
-    assert(xyz.length == 3 || xyz.length == 4);
-    assert(xyz[0] >= 0 && xyz[0] <= 1);
-    assert(xyz[1] >= 0 && xyz[1] <= 1);
-    assert(xyz[2] >= 0 && xyz[2] <= 1);
-    if (xyz.length == 4) assert(xyz[3] >= 0 && xyz[3] <= 1);
-    final alpha = xyz.length == 4 ? (xyz[3] * 255).round() : 255;
-    return XyzColor(xyz[0] * 100, xyz[1] * 100, xyz[2] * 100, alpha);
+  factory XyzColor.extrapolate(List<double> values) {
+    assert(values.length == 3 || values.length == 4);
+    assert(values[0] >= 0 && values[0] <= 1);
+    assert(values[1] >= 0 && values[1] <= 1);
+    assert(values[2] >= 0 && values[2] <= 1);
+    if (values.length == 4) assert(values[3] >= 0 && values[3] <= 1);
+    final alpha = values.length == 4 ? (values[3] * 255).round() : 255;
+    return XyzColor(values[0] * 100, values[1] * 100, values[2] * 100, alpha);
   }
 
   /// Generates a [XyzColor] at random.

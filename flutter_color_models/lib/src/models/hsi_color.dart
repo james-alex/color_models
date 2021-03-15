@@ -132,14 +132,14 @@ class HsiColor extends cm.HsiColor
   /// The hue must be `>= 0` and `<= 360`.
   ///
   /// The saturation and intensity must both be `>= 0` and `<= 100`.
-  factory HsiColor.fromList(List<num> hsi) {
-    assert(hsi.length == 3 || hsi.length == 4);
-    assert(hsi[0] >= 0 && hsi[0] <= 360);
-    assert(hsi[1] >= 0 && hsi[1] <= 100);
-    assert(hsi[2] >= 0 && hsi[2] <= 100);
-    if (hsi.length == 4) assert(hsi[3] >= 0 && hsi[3] <= 255);
-    final alpha = hsi.length == 4 ? hsi[3].round() : 255;
-    return HsiColor(hsi[0], hsi[1], hsi[2], alpha);
+  factory HsiColor.fromList(List<num> values) {
+    assert(values.length == 3 || values.length == 4);
+    assert(values[0] >= 0 && values[0] <= 360);
+    assert(values[1] >= 0 && values[1] <= 100);
+    assert(values[2] >= 0 && values[2] <= 100);
+    if (values.length == 4) assert(values[3] >= 0 && values[3] <= 255);
+    final alpha = values.length == 4 ? values[3].round() : 255;
+    return HsiColor(values[0], values[1], values[2], alpha);
   }
 
   /// Constructs a [HsiColor] from [color].
@@ -157,14 +157,14 @@ class HsiColor extends cm.HsiColor
   /// [hsi] must not be null and must have exactly `3` or `4` values.
   ///
   /// Each of the values must be `>= 0` and `<= 1`.
-  factory HsiColor.extrapolate(List<double> hsi) {
-    assert(hsi.length == 3 || hsi.length == 4);
-    assert(hsi[0] >= 0 && hsi[0] <= 1);
-    assert(hsi[1] >= 0 && hsi[1] <= 1);
-    assert(hsi[2] >= 0 && hsi[2] <= 1);
-    if (hsi.length == 4) assert(hsi[3] >= 0 && hsi[3] <= 1);
-    final alpha = hsi.length == 4 ? (hsi[3] * 255).round() : 255;
-    return HsiColor(hsi[0] * 360, hsi[1] * 100, hsi[2] * 100, alpha);
+  factory HsiColor.extrapolate(List<double> values) {
+    assert(values.length == 3 || values.length == 4);
+    assert(values[0] >= 0 && values[0] <= 1);
+    assert(values[1] >= 0 && values[1] <= 1);
+    assert(values[2] >= 0 && values[2] <= 1);
+    if (values.length == 4) assert(values[3] >= 0 && values[3] <= 1);
+    final alpha = values.length == 4 ? (values[3] * 255).round() : 255;
+    return HsiColor(values[0] * 360, values[1] * 100, values[2] * 100, alpha);
   }
 
   /// Generates a [HsiColor] at random.

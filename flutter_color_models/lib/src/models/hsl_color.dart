@@ -130,14 +130,14 @@ class HslColor extends cm.HslColor
   /// The hue must be `>= 0` and `<= 360`.
   ///
   /// The saturation and lightness must both be `>= 0` and `<= 100`.
-  factory HslColor.fromList(List<num> hsl) {
-    assert(hsl.length == 3 || hsl.length == 4);
-    assert(hsl[0] >= 0 && hsl[0] <= 360);
-    assert(hsl[1] >= 0 && hsl[1] <= 100);
-    assert(hsl[2] >= 0 && hsl[2] <= 100);
-    if (hsl.length == 4) assert(hsl[3] >= 0 && hsl[3] <= 255);
-    final alpha = hsl.length == 4 ? hsl[3].round() : 255;
-    return HslColor(hsl[0], hsl[1], hsl[2], alpha);
+  factory HslColor.fromList(List<num> values) {
+    assert(values.length == 3 || values.length == 4);
+    assert(values[0] >= 0 && values[0] <= 360);
+    assert(values[1] >= 0 && values[1] <= 100);
+    assert(values[2] >= 0 && values[2] <= 100);
+    if (values.length == 4) assert(values[3] >= 0 && values[3] <= 255);
+    final alpha = values.length == 4 ? values[3].round() : 255;
+    return HslColor(values[0], values[1], values[2], alpha);
   }
 
   /// Constructs a [HslColor] from [color].
@@ -155,14 +155,14 @@ class HslColor extends cm.HslColor
   /// [hsl] must not be null and must have exactly `3` or `4` values.
   ///
   /// Each of the values must be `>= 0` and `<= 1`.
-  factory HslColor.extrapolate(List<double> hsl) {
-    assert(hsl.length == 3 || hsl.length == 4);
-    assert(hsl[0] >= 0 && hsl[0] <= 1);
-    assert(hsl[1] >= 0 && hsl[1] <= 1);
-    assert(hsl[2] >= 0 && hsl[2] <= 1);
-    if (hsl.length == 4) assert(hsl[3] >= 0 && hsl[3] <= 1);
-    final alpha = hsl.length == 4 ? (hsl[3] * 255).round() : 255;
-    return HslColor(hsl[0] * 360, hsl[1] * 100, hsl[2] * 100, alpha);
+  factory HslColor.extrapolate(List<double> values) {
+    assert(values.length == 3 || values.length == 4);
+    assert(values[0] >= 0 && values[0] <= 1);
+    assert(values[1] >= 0 && values[1] <= 1);
+    assert(values[2] >= 0 && values[2] <= 1);
+    if (values.length == 4) assert(values[3] >= 0 && values[3] <= 1);
+    final alpha = values.length == 4 ? (values[3] * 255).round() : 255;
+    return HslColor(values[0] * 360, values[1] * 100, values[2] * 100, alpha);
   }
 
   /// Generates a [HslColor] at random.

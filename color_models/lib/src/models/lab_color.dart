@@ -178,14 +178,14 @@ class LabColor extends ColorModel {
   /// The A and B values must be `>= -128 && <= 127`.
   ///
   /// The [alpha] value, if included, must be `>= 0 && <= 255`.
-  factory LabColor.fromList(List<num> lab) {
-    assert(lab.length == 3 || lab.length == 4);
-    assert(lab[0] >= 0 && lab[0] <= 100);
-    assert(lab[1] >= -128 && lab[1] <= 127);
-    assert(lab[2] >= -128 && lab[2] <= 127);
-    if (lab.length == 4) assert(lab[3] >= 0 && lab[3] <= 255);
-    final alpha = lab.length == 4 ? lab[3].round() : 255;
-    return LabColor(lab[0], lab[1], lab[2], alpha);
+  factory LabColor.fromList(List<num> values) {
+    assert(values.length == 3 || values.length == 4);
+    assert(values[0] >= 0 && values[0] <= 100);
+    assert(values[1] >= -128 && values[1] <= 127);
+    assert(values[2] >= -128 && values[2] <= 127);
+    if (values.length == 4) assert(values[3] >= 0 && values[3] <= 255);
+    final alpha = values.length == 4 ? values[3].round() : 255;
+    return LabColor(values[0], values[1], values[2], alpha);
   }
 
   /// Constructs a [LabColor] from a [hex] color.
@@ -200,15 +200,15 @@ class LabColor extends ColorModel {
   /// [lab] must not be null and must have exactly `3` or `4` values.
   ///
   /// Each of the values must be `>= 0` and `<= 1`.
-  factory LabColor.extrapolate(List<double> lab) {
-    assert(lab.length == 3 || lab.length == 4);
-    assert(lab[0] >= 0 && lab[0] <= 1);
-    assert(lab[1] >= 0 && lab[1] <= 1);
-    assert(lab[2] >= 0 && lab[2] <= 1);
-    if (lab.length == 4) assert(lab[3] >= 0 && lab[3] <= 1);
-    final alpha = lab.length == 4 ? (lab[3] * 255).round() : 255;
-    return LabColor(
-        lab[0] * 100, (lab[1] * 255) - 128, (lab[2] * 255) - 128, alpha);
+  factory LabColor.extrapolate(List<double> values) {
+    assert(values.length == 3 || values.length == 4);
+    assert(values[0] >= 0 && values[0] <= 1);
+    assert(values[1] >= 0 && values[1] <= 1);
+    assert(values[2] >= 0 && values[2] <= 1);
+    if (values.length == 4) assert(values[3] >= 0 && values[3] <= 1);
+    final alpha = values.length == 4 ? (values[3] * 255).round() : 255;
+    return LabColor(values[0] * 100, (values[1] * 255) - 128,
+        (values[2] * 255) - 128, alpha);
   }
 
   /// Generates a [LabColor] at random.

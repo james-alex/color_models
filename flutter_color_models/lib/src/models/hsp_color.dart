@@ -135,14 +135,14 @@ class HspColor extends cm.HspColor
   /// The hue must be `>= 0` and `<= 360`.
   ///
   /// The saturation and perceived brightness must both be `>= 0` and `<= 100`.
-  factory HspColor.fromList(List<num> hsp) {
-    assert(hsp.length == 3 || hsp.length == 4);
-    assert(hsp[0] >= 0 && hsp[0] <= 360);
-    assert(hsp[1] >= 0 && hsp[1] <= 100);
-    assert(hsp[2] >= 0 && hsp[2] <= 100);
-    if (hsp.length == 4) assert(hsp[3] >= 0 && hsp[3] <= 255);
-    final alpha = hsp.length == 4 ? hsp[3].round() : 255;
-    return HspColor(hsp[0], hsp[1], hsp[2], alpha);
+  factory HspColor.fromList(List<num> values) {
+    assert(values.length == 3 || values.length == 4);
+    assert(values[0] >= 0 && values[0] <= 360);
+    assert(values[1] >= 0 && values[1] <= 100);
+    assert(values[2] >= 0 && values[2] <= 100);
+    if (values.length == 4) assert(values[3] >= 0 && values[3] <= 255);
+    final alpha = values.length == 4 ? values[3].round() : 255;
+    return HspColor(values[0], values[1], values[2], alpha);
   }
 
   /// Constructs a [HspColor] from [color].
@@ -160,14 +160,14 @@ class HspColor extends cm.HspColor
   /// [hsp] must not be null and must have exactly `3` or `4` values.
   ///
   /// Each of the values must be `>= 0` and `<= 1`.
-  factory HspColor.extrapolate(List<double> hsp) {
-    assert(hsp.length == 3 || hsp.length == 4);
-    assert(hsp[0] >= 0 && hsp[0] <= 1);
-    assert(hsp[1] >= 0 && hsp[1] <= 1);
-    assert(hsp[2] >= 0 && hsp[2] <= 1);
-    if (hsp.length == 4) assert(hsp[3] >= 0 && hsp[3] <= 1);
-    final alpha = hsp.length == 4 ? (hsp[3] * 255).round() : 255;
-    return HspColor(hsp[0] * 360, hsp[1] * 100, hsp[2] * 100, alpha);
+  factory HspColor.extrapolate(List<double> values) {
+    assert(values.length == 3 || values.length == 4);
+    assert(values[0] >= 0 && values[0] <= 1);
+    assert(values[1] >= 0 && values[1] <= 1);
+    assert(values[2] >= 0 && values[2] <= 1);
+    if (values.length == 4) assert(values[3] >= 0 && values[3] <= 1);
+    final alpha = values.length == 4 ? (values[3] * 255).round() : 255;
+    return HspColor(values[0] * 360, values[1] * 100, values[2] * 100, alpha);
   }
 
   /// Generates a [HspColor] at random.

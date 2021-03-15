@@ -122,14 +122,14 @@ class RgbColor extends cm.RgbColor
   /// [rgb] must not be null and must have exactly `3` or `4` values.
   ///
   /// Each color value must be `>= 0 && <= 255`.
-  factory RgbColor.fromList(List<num> rgb) {
-    assert(rgb.length == 3 || rgb.length == 4);
-    assert(rgb[0] >= 0 && rgb[0] <= 255);
-    assert(rgb[1] >= 0 && rgb[1] <= 255);
-    assert(rgb[2] >= 0 && rgb[2] <= 255);
-    if (rgb.length == 4) assert(rgb[3] >= 0 && rgb[3] <= 255);
-    final alpha = rgb.length == 4 ? rgb[3].round() : 255;
-    return RgbColor(rgb[0], rgb[1], rgb[2], alpha);
+  factory RgbColor.fromList(List<num> values) {
+    assert(values.length == 3 || values.length == 4);
+    assert(values[0] >= 0 && values[0] <= 255);
+    assert(values[1] >= 0 && values[1] <= 255);
+    assert(values[2] >= 0 && values[2] <= 255);
+    if (values.length == 4) assert(values[3] >= 0 && values[3] <= 255);
+    final alpha = values.length == 4 ? values[3].round() : 255;
+    return RgbColor(values[0], values[1], values[2], alpha);
   }
 
   /// Constructs a [RgbColor] from [color].
@@ -147,14 +147,14 @@ class RgbColor extends cm.RgbColor
   /// [rgb] must not be null and must have exactly `3` or `4` values.
   ///
   /// Each of the values must be `>= 0` and `<= 1`.
-  factory RgbColor.extrapolate(List<double> rgb) {
-    assert(rgb.length == 3 || rgb.length == 4);
-    assert(rgb[0] >= 0 && rgb[0] <= 1);
-    assert(rgb[1] >= 0 && rgb[1] <= 1);
-    assert(rgb[2] >= 0 && rgb[2] <= 1);
-    if (rgb.length == 4) assert(rgb[3] >= 0 && rgb[3] <= 1);
-    final alpha = rgb.length == 4 ? (rgb[3] * 255).round() : 255;
-    return RgbColor(rgb[0] * 255, rgb[1] * 255, rgb[2] * 255, alpha);
+  factory RgbColor.extrapolate(List<double> values) {
+    assert(values.length == 3 || values.length == 4);
+    assert(values[0] >= 0 && values[0] <= 1);
+    assert(values[1] >= 0 && values[1] <= 1);
+    assert(values[2] >= 0 && values[2] <= 1);
+    if (values.length == 4) assert(values[3] >= 0 && values[3] <= 1);
+    final alpha = values.length == 4 ? (values[3] * 255).round() : 255;
+    return RgbColor(values[0] * 255, values[1] * 255, values[2] * 255, alpha);
   }
 
   /// Generates a [RgbColor] at random.

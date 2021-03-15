@@ -180,14 +180,14 @@ class HsbColor extends ColorModel {
   /// The [saturation] and [brightness] must both be `>= 0` and `<= 100`.
   ///
   /// The [alpha] value, if included, must be `>= 0 && <= 255`.
-  factory HsbColor.fromList(List<num> hsb) {
-    assert(hsb.length == 3 || hsb.length == 4);
-    assert(hsb[0] >= 0 && hsb[0] <= 360);
-    assert(hsb[1] >= 0 && hsb[1] <= 100);
-    assert(hsb[2] >= 0 && hsb[2] <= 100);
-    if (hsb.length == 4) assert(hsb[3] >= 0 && hsb[3] <= 255);
-    final alpha = hsb.length == 4 ? hsb[3].round() : 255;
-    return HsbColor(hsb[0], hsb[1], hsb[2], alpha);
+  factory HsbColor.fromList(List<num> values) {
+    assert(values.length == 3 || values.length == 4);
+    assert(values[0] >= 0 && values[0] <= 360);
+    assert(values[1] >= 0 && values[1] <= 100);
+    assert(values[2] >= 0 && values[2] <= 100);
+    if (values.length == 4) assert(values[3] >= 0 && values[3] <= 255);
+    final alpha = values.length == 4 ? values[3].round() : 255;
+    return HsbColor(values[0], values[1], values[2], alpha);
   }
 
   /// Constructs a [HsbColor] from a [hex] color.
@@ -202,14 +202,14 @@ class HsbColor extends ColorModel {
   /// [hsb] must not be null and must have exactly `3` or `4` values.
   ///
   /// Each of the values must be `>= 0` and `<= 1`.
-  factory HsbColor.extrapolate(List<double> hsb) {
-    assert(hsb.length == 3 || hsb.length == 4);
-    assert(hsb[0] >= 0 && hsb[0] <= 1);
-    assert(hsb[1] >= 0 && hsb[1] <= 1);
-    assert(hsb[2] >= 0 && hsb[2] <= 1);
-    if (hsb.length == 4) assert(hsb[3] >= 0 && hsb[3] <= 1);
-    final alpha = hsb.length == 4 ? (hsb[3] * 255).round() : 255;
-    return HsbColor(hsb[0] * 360, hsb[1] * 100, hsb[2] * 100, alpha);
+  factory HsbColor.extrapolate(List<double> values) {
+    assert(values.length == 3 || values.length == 4);
+    assert(values[0] >= 0 && values[0] <= 1);
+    assert(values[1] >= 0 && values[1] <= 1);
+    assert(values[2] >= 0 && values[2] <= 1);
+    if (values.length == 4) assert(values[3] >= 0 && values[3] <= 1);
+    final alpha = values.length == 4 ? (values[3] * 255).round() : 255;
+    return HsbColor(values[0] * 360, values[1] * 100, values[2] * 100, alpha);
   }
 
   /// Generates a [HsbColor] at random.

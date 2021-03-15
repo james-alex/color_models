@@ -196,17 +196,15 @@ class CmykColor extends ColorModel {
   /// Each color value must be `>= 0 && <= 100`.
   ///
   /// The [alpha] value, if included, must be `>= 0 && <= 255`.
-  factory CmykColor.fromList(List<num> cmyk) {
-    assert(cmyk.length == 4 || cmyk.length == 5);
-    assert(cmyk[0] >= 0 && cmyk[0] <= 100);
-    assert(cmyk[1] >= 0 && cmyk[1] <= 100);
-    assert(cmyk[2] >= 0 && cmyk[2] <= 100);
-    assert(cmyk[3] >= 0 && cmyk[3] <= 100);
-    if (cmyk.length == 5) assert(cmyk[4] >= 0 && cmyk[4] <= 255);
-
-    final alpha = cmyk.length == 5 ? cmyk[4].round() : 255;
-
-    return CmykColor(cmyk[0], cmyk[1], cmyk[2], cmyk[3], alpha);
+  factory CmykColor.fromList(List<num> values) {
+    assert(values.length == 4 || values.length == 5);
+    assert(values[0] >= 0 && values[0] <= 100);
+    assert(values[1] >= 0 && values[1] <= 100);
+    assert(values[2] >= 0 && values[2] <= 100);
+    assert(values[3] >= 0 && values[3] <= 100);
+    if (values.length == 5) assert(values[4] >= 0 && values[4] <= 255);
+    final alpha = values.length == 5 ? values[4].round() : 255;
+    return CmykColor(values[0], values[1], values[2], values[3], alpha);
   }
 
   /// Constructs a [CmykColor] from a [hex] color.
@@ -222,16 +220,16 @@ class CmykColor extends ColorModel {
   /// [cmyk] must not be null and must have exactly `4` or `5` values.
   ///
   /// Each of the values must be `>= 0` and `<= 1`.
-  factory CmykColor.extrapolate(List<double> cmyk) {
-    assert(cmyk.length == 4 || cmyk.length == 5);
-    assert(cmyk[0] >= 0 && cmyk[0] <= 1);
-    assert(cmyk[1] >= 0 && cmyk[1] <= 1);
-    assert(cmyk[2] >= 0 && cmyk[2] <= 1);
-    assert(cmyk[3] >= 0 && cmyk[3] <= 1);
-    if (cmyk.length == 5) assert(cmyk[4] >= 0 && cmyk[4] <= 255);
-    final alpha = cmyk.length == 5 ? (cmyk[4] * 255).round() : 255;
-    return CmykColor(
-        cmyk[0] * 100, cmyk[1] * 100, cmyk[2] * 100, cmyk[3] * 100, alpha);
+  factory CmykColor.extrapolate(List<double> values) {
+    assert(values.length == 4 || values.length == 5);
+    assert(values[0] >= 0 && values[0] <= 1);
+    assert(values[1] >= 0 && values[1] <= 1);
+    assert(values[2] >= 0 && values[2] <= 1);
+    assert(values[3] >= 0 && values[3] <= 1);
+    if (values.length == 5) assert(values[4] >= 0 && values[4] <= 255);
+    final alpha = values.length == 5 ? (values[4] * 255).round() : 255;
+    return CmykColor(values[0] * 100, values[1] * 100, values[2] * 100,
+        values[3] * 100, alpha);
   }
 
   /// Generates a [CmykColor] at random.
