@@ -31,7 +31,23 @@ abstract class ColorModel implements cm.ColorModel, Color {
     bool excludeOriginalColors,
   });
 
+  @override
+  ColorModel get inverted;
 
+  @override
+  ColorModel get opposite;
+
+  @override
+  ColorModel warmer(num amount, {bool relative});
+
+  @override
+  ColorModel cooler(num amount, {bool relative});
+
+  @override
+  ColorModel rotateHue(num amount);
+
+  @override
+  ColorModel withHue(num hue);
 
   /// __NOTICE:__ [withAlpha] has been deprecated, use [copyWith] instead.
   @deprecated
@@ -46,6 +62,33 @@ abstract class ColorModel implements cm.ColorModel, Color {
 
   @override
   ColorModel copyWith({int? alpha});
+
+  @override
+  CmykColor toCmykColor();
+
+  @override
+  HsiColor toHsiColor();
+
+  @override
+  HslColor toHslColor();
+
+  @override
+  HspColor toHspColor();
+
+  @override
+  HsbColor toHsbColor();
+
+  @override
+  LabColor toLabColor();
+
+  @override
+  OklabColor toOklabColor();
+
+  @override
+  RgbColor toRgbColor();
+
+  @override
+  XyzColor toXyzColor();
 
   @override
   ColorModel convert(cm.ColorModel other);
