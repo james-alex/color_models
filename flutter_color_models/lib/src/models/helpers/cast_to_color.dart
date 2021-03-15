@@ -1,4 +1,3 @@
-import 'package:flutter/painting.dart' show Color;
 import 'package:color_models/color_models.dart' as cm;
 import '../../color_model.dart';
 
@@ -7,13 +6,6 @@ mixin CastToColor on cm.ColorModel {
   @override
   bool equals(cm.ColorModel color) =>
       RgbColor.from(this) == RgbColor.from(color);
-
-  /// Returns `this` as a [Color], converting the model to RGB if necessary.
-  /// Returns [color] as a [Color].
-  Color toColor() {
-    final rgb = RgbColor.from(this);
-    return Color.fromARGB(rgb.alpha, rgb.red, rgb.green, rgb.blue);
-  }
 
   /// Converts `this` to the CMYK color space.
   @override

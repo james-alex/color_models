@@ -21,8 +21,6 @@ export 'models/xyz_color.dart';
 
 @immutable
 abstract class ColorModel implements cm.ColorModel, Color {
-  /// Returns `this` as a [Color], converting the model to RGB if necessary.
-  Color toColor();
   @override
   ColorModel interpolate(cm.ColorModel end, double step);
 
@@ -51,6 +49,14 @@ abstract class ColorModel implements cm.ColorModel, Color {
 
   @override
   ColorModel convert(cm.ColorModel other);
+}
+
+extension ToColor on cm.ColorModel {
+  /// Returns `this` as a [Color], converting the color to RGB if necessary.
+  Color toColor() {
+    final rgb = RgbColor.from(this);
+    return Color.fromARGB(rgb.alpha, rgb.red, rgb.green, rgb.blue);
+  }
 }
 
 extension ToColorModel on Color {
