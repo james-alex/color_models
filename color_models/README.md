@@ -181,3 +181,54 @@ final steps = color1.lerpTo(color2, 3, excludeOriginalColors: true);
 // [RgbColor(191, 0, 64, 255), RgbColor(128, 0, 128, 255), RgbColor(64, 0, 191, 255)]
 print(steps);
 ```
+
+## Augmenting Palettes
+
+color_models provides an extension on `Iterable<ColorModel>` for augmenting
+color palettes. It works by distributing the colors in the iterable across
+an abstract gradient and calculating new colors based on their positions
+within the gradient.
+
+```dart
+final palette = <ColorModel>[
+  RgbColor(255, 0, 0),
+  RgbColor(0, 255, 0),
+  RgbColor(0, 0, 255),
+];
+
+// [RgbColor(255, 0, 0), RgbColor(128, 128, 0), RgbColor(0, 255, 0), RgbColor(0, 128, 128), RgbColor(0, 0, 255)]
+final newPalette = palette.augment(5);
+```
+
+[stops] can be provided to map the colors in the list to positions within
+the abstract gradient.
+
+```dart
+final palette = <ColorModel>[
+  RgbColor(255, 0, 0),
+  RgbColor(0, 255, 0),
+  RgbColor(0, 0, 255),
+];
+
+// [RgbColor(255, 0, 0), RgbColor(170, 85, 0), RgbColor(85, 170, 0), RgbColor(0, 255, 0), RgbColor(0, 0, 255)]
+final newPalette = palette.augment(5, stops: [0.0, 0.75, 1.0]);
+```
+
+[colorSpace] can be provided to specify which color space the colors should
+be interpolated in. If [colorSpace] is left `null`, the colors will be
+interpolated in the space defined by the starting color in any pairing,
+unless [reverse] is set to `true`, in which case they'll be interpolated
+in the space defined by the ending color.
+
+```dart
+final palette = <ColorModel>[
+  RgbColor(255, 0, 0),
+  RgbColor(0, 255, 0),
+  RgbColor(0, 0, 255),
+];
+
+// [(RgbColor(255, 0, 0), RgbColor(91, 33, 0), RgbColor(0, 255, 0), RgbColor(0, 34, 59), RgbColor(0, 0, 255))]
+final newPalette = palette
+    .augment(5, colorSpace: ColorSpace.oklab)
+    .map<RgbColor>((color) => color.toRgbColor());
+```
