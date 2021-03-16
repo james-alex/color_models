@@ -1,3 +1,25 @@
+## [1.1.0] - March 15, 2021
+
+* Implemented the Oklab color space as [OklabColor].
+
+* Added the [castTo], [convert], [copyWith], [interpolate], and
+[withValues] methods to every color model.
+
+* Deprecated the `withXXX` methods being replaced by the [copyWith] method.
+
+* Updated the implementation of the [lerpTo] methods.
+
+* Added the [ColorSpace] enumeration and extended it with the [from] and
+[fromColor] methods to convert colors to the color spaces defined by the
+enumeration.
+
+* Extended `Iterable<Color>` and `Iterable<ColorModel>` with the [augment]
+method, which generates new color palettes derived from the iterable.
+
+* Override every relevant method/getter on [ColorModel] to return the
+objects defined in `flutter_color_models`, rather than the ones beloning
+to `color_models`.
+
 ## [1.0.0] - March 11, 2021
 
 * Migrated to null-safe code.
