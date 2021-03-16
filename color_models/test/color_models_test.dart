@@ -168,7 +168,6 @@ void main() {
       }
     });
   });
-
 }
 
 num _interpolateValue(num value1, num value2, double step) =>
