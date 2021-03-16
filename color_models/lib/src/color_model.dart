@@ -317,10 +317,29 @@ extension AugmentColorModels on Iterable<ColorModel> {
     bool reversed = false,
   }) {
     assert(stops == null || stops.length == length);
-    assert(stops == null || stops.isIncremental);
+
+    late List<ColorModel> baseColors;
+    if (stops != null && !stops.isIncremental) {
+      // If the [stops] aren't sorted incrementally, reorder the
+      // colors and their respective stops to be in correct order.
+      final newStops = <double>[stops.first];
+      baseColors = <ColorModel>[first];
+      for (var i = 1; i < length; i++) {
+        for (var j = 0; j <= newStops.length; j++) {
+          if (j == newStops.length || stops[i] < newStops[j]) {
+            newStops.insert(j, stops[i]);
+            baseColors.insert(j, elementAt(i));
+            break;
+          }
+        }
+      }
+      stops = newStops;
+    } else {
+      baseColors = toList();
+    }
 
     final colors = <ColorModel>[];
-    final slice = 1 / newLength;
+    final slice = 1 / (newLength - 1);
 
     if (stops == null) {
       final stopSlice = 1 / (length - 1);
@@ -331,10 +350,24 @@ extension AugmentColorModels on Iterable<ColorModel> {
       // Calculate the position of the color within the palette.
       final step = i * slice;
 
+      // TODO:
+      if (step <= stops.first) {
+        var color = baseColors.first;
+        if (colorSpace != null) color = colorSpace.from(color);
+        colors.add(color);
+        continue;
+      }
+      if (step >= stops.last) {
+        var color = baseColors.last;
+        if (colorSpace != null) color = colorSpace.from(color);
+        colors.add(color);
+        continue;
+      }
+
       // If the position is equal to one of the stops, the color
       // at that stop should remain in the palette.
       if (stops.contains(step)) {
-        colors.add(elementAt(stops.indexOf(step)));
+        colors.add(baseColors[stops.indexOf(step)]);
         continue;
       }
 
@@ -345,13 +378,13 @@ extension AugmentColorModels on Iterable<ColorModel> {
       for (var j = 0; j < length - 1; j++) {
         if (step >= stops[j] && step < stops[j + 1]) {
           if (reversed) {
-            colorA = elementAt(j + 1);
-            colorB = elementAt(j);
+            colorA = baseColors[j + 1];
+            colorB = baseColors[j];
             stopA = stops[j + 1];
             stopB = stops[j];
           } else {
-            colorA = elementAt(j);
-            colorB = elementAt(j + 1);
+            colorA = baseColors[j];
+            colorB = baseColors[j + 1];
             stopA = stops[j];
             stopB = stops[j + 1];
           }
