@@ -4,8 +4,6 @@ import '../helpers/color_adjustments.dart';
 import '../helpers/color_converter.dart';
 import '../helpers/color_math.dart';
 
-// TODO: Expand XYZ to allow for custom whitepoints.
-
 /// {@template color_models.XyzColor}
 ///
 /// A color in the CIEXYZ color space.
