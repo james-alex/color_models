@@ -1,7 +1,5 @@
 # color_models
 
-[![pub package](https://img.shields.io/pub/v/color_models.svg)](https://pub.dartlang.org/packages/color_models)
-
 A package with models for defining colors in the CMYK, HSI, HSL, HSP, HSB,
 LAB, Oklab, RGB, and XYZ color spaces, with methods for converting colors
 between spaces and adjusting their properties.
