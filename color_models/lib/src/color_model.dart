@@ -350,7 +350,8 @@ extension AugmentColorModels on Iterable<ColorModel> {
       // Calculate the position of the color within the palette.
       final step = i * slice;
 
-      // TODO:
+      // If the step is before the first stop, or after the last stop,
+      // set the color to the first or last color in the palette.
       if (step <= stops.first) {
         var color = baseColors.first;
         if (colorSpace != null) color = colorSpace.from(color);
