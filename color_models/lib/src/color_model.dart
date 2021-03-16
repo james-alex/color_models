@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+import 'package:num_utilities/num_utilities.dart';
 import 'helpers/color_converter.dart';
 import 'helpers/color_math.dart';
 import 'models/cmyk_color.dart';
@@ -316,10 +317,15 @@ extension AugmentColorModels on Iterable<ColorModel> {
     bool reversed = false,
   }) {
     assert(stops == null || stops.length == length);
+    assert(stops == null || stops.isIncremental);
 
     final colors = <ColorModel>[];
     final slice = 1 / newLength;
-    stops ??= List<double>.generate(length, (index) => 1 / index);
+
+    if (stops == null) {
+      final stopSlice = 1 / (length - 1);
+      stops = List<double>.generate(length, (index) => index * stopSlice);
+    }
 
     for (var i = 0; i < newLength; i++) {
       // Calculate the position of the color within the palette.
