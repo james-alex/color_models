@@ -1,3 +1,8 @@
+## [1.1.0+1] - March 17, 2021
+
+* Fixed bug causing RGBs to lose their precision when cast to/from
+the [RgbColor] object from `color_models`.
+
 ## [1.1.0] - March 15, 2021
 
 * Implemented the Oklab color space as [OklabColor].
