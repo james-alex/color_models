@@ -68,7 +68,8 @@ mixin CastToColor on cm.ColorModel {
           colorModel = cm.OklabColor.fromList(toListWithAlpha());
           break;
         case RgbColor:
-          colorModel = cm.RgbColor.fromList(toListWithAlpha());
+          colorModel =
+              cm.RgbColor.fromList((this as RgbColor).toPreciseListWithAlpha());
           break;
         case XyzColor:
           colorModel = cm.XyzColor.fromList(toListWithAlpha());
@@ -168,13 +169,13 @@ extension CastFromOklabColor on OklabColor {
 extension CastToRgbColor on cm.RgbColor {
   /// Casts a [RgbColor] from the `color_models` package to a
   /// [RgbColor] from the `flutter_color_models` package.
-  RgbColor cast() => RgbColor(red, green, blue, alpha);
+  RgbColor cast() => RgbColor.fromList(toPreciseListWithAlpha());
 }
 
 extension CastFromRgbColor on RgbColor {
   /// Casts a [RgbColor] from the `color_models` package to a
   /// [RgbColor] from the `flutter_color_models` package.
-  cm.RgbColor cast() => cm.RgbColor(red, green, blue, alpha);
+  cm.RgbColor cast() => cm.RgbColor.fromList(toPreciseListWithAlpha());
 }
 
 extension CastToXyzColor on cm.XyzColor {
