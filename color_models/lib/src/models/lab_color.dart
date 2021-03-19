@@ -227,7 +227,7 @@ class LabColor extends ColorModel {
   ///
   /// The A and B values must be `>= -128 && <= 127`.
   ///
-  /// The [alpha] value, if included, must be `>= 0 && <= 255`.
+  /// The [alpha] value, if provided, must be `>= 0 && <= 255`.
   ///
   /// {@endtemplate}
   factory LabColor.fromList(List<num> values) {

@@ -263,7 +263,7 @@ class CmykColor extends ColorModel {
   ///
   /// Each color value must be `>= 0 && <= 100`.
   ///
-  /// The [alpha] value, if included, must be `>= 0 && <= 255`.
+  /// The [alpha] value, if provided, must be `>= 0 && <= 255`.
   ///
   /// {@endtemplate}
   factory CmykColor.fromList(List<num> values) {

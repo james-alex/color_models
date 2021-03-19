@@ -192,7 +192,7 @@ class OklabColor extends ColorModel {
   ///
   /// [lab] must have exactly `3` or `4` values.
   ///
-  /// The [alpha] value, if included, must be `>= 0 && <= 255`.
+  /// The [alpha] value, if provided, must be `>= 0 && <= 255`.
   ///
   /// {@endtemplate}
   factory OklabColor.fromList(List<num> values) {

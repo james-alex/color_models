@@ -228,7 +228,7 @@ class HslColor extends ColorModel {
   ///
   /// The saturation and lightness must both be `>= 0` and `<= 100`.
   ///
-  /// The [alpha] value, if included, must be `>= 0 && <= 255`.
+  /// The [alpha] value, if provided, must be `>= 0 && <= 255`.
   ///
   /// {@endtemplate}
   factory HslColor.fromList(List<num> values) {

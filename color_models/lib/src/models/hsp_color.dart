@@ -240,7 +240,7 @@ class HspColor extends ColorModel {
   ///
   /// The saturation and perceived brightness must both be `>= 0` and `<= 100`.
   ///
-  /// The [alpha] value, if included, must be `>= 0 && <= 255`.
+  /// The [alpha] value, if provided, must be `>= 0 && <= 255`.
   ///
   /// {@endtemplate}
   factory HspColor.fromList(List<num> values) {

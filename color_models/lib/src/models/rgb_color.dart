@@ -244,7 +244,7 @@ class RgbColor extends ColorModel {
   ///
   /// Each color value must be `>= 0 && <= 255`.
   ///
-  /// The [alpha] value, if included, must be `>= 0 && <= 255`.
+  /// The [alpha] value, if provided, must be `>= 0 && <= 255`.
   ///
   /// {@endtemplate}
   factory RgbColor.fromList(List<num> values) {

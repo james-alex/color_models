@@ -247,7 +247,7 @@ class XyzColor extends ColorModel {
   ///
   /// [x], [y], and [z] all must not be null and must be `>= 0`.
   ///
-  /// The [alpha] value, if included, must be `>= 0 && <= 255`.
+  /// The [alpha] value, if provided, must be `>= 0 && <= 255`.
   ///
   /// {@endtemplate}
   factory XyzColor.fromList(List<num> values) {
