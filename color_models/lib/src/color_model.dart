@@ -400,9 +400,7 @@ extension AugmentColorModels on Iterable<ColorModel> {
       }
 
       // Calculate the new color and add it to the list.
-      final substep = reversed
-          ? (step - stopB) / (stopA - stopB)
-          : (step - stopA) / (stopB - stopA);
+      final substep = (step - stopA) / (stopB - stopA);
       colors.add(colorA.interpolate(colorB, substep));
     }
     return colors;
