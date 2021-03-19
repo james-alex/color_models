@@ -1,3 +1,9 @@
+## [1.2.0] - March 18, 2021
+
+* Renamed [augment]'s [reversed] parameter to [invert].
+
+* Fixed the behavior of [invert].
+
 ## [1.1.0] - March 15, 2021
 
 * Implemented the Oklab color space as [OklabColor].

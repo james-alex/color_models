@@ -1,3 +1,9 @@
+## [1.2.0] - March 18, 2021
+
+* Renamed [augment]'s [reversed] parameter to [invert].
+
+* Fixed the behavior of [invert].
+
 ## [1.1.1+1] - March 18, 2021
 
 * Extended [Color] with the [toOklabColor] method.
