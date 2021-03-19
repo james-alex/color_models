@@ -216,10 +216,12 @@ extension AugmentColorModels on Iterable<ColorModel> {
     int newLength, {
     List<double>? stops,
     ColorSpace? colorSpace,
+    bool reversed = false,
   }) {
     assert(stops == null || stops.length == length);
     return cast<cm.ColorModel>()
-        .augment(newLength, stops: stops, colorSpace: colorSpace)
+        .augment(newLength,
+            stops: stops, colorSpace: colorSpace, reversed: reversed)
         .cast<ColorModel>();
   }
 }
@@ -230,6 +232,7 @@ extension AugmentColors on Iterable<Color> {
     int newLength, {
     List<double>? stops,
     ColorSpace? colorSpace,
+    bool reversed = false,
   }) {
     final palette = List<Color>.from(this);
 
@@ -242,6 +245,6 @@ extension AugmentColors on Iterable<Color> {
 
     return palette
         .cast<ColorModel>()
-        .augment(newLength, colorSpace: colorSpace);
+        .augment(newLength, colorSpace: colorSpace, reversed: reversed);
   }
 }
