@@ -125,6 +125,9 @@ extension ToColorModel on Color {
   /// Returns this color as a [LabColor].
   LabColor toLabColor() => LabColor.fromColor(this);
 
+  /// Returns this color as an [OklabColor].
+  OklabColor toOklabColor() => OklabColor.fromColor(this);
+
   /// Returns this color as a [RgbColor].
   RgbColor toRgbColor() => RgbColor.fromColor(this);
 
