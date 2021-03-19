@@ -1,3 +1,7 @@
+## [1.1.1] - March 18, 2021
+
+* Added the [reversed] parameter to [augment].
+
 ## [1.1.0+1] - March 17, 2021
 
 * Fixed bug causing RGBs to lose their precision when cast to/from
