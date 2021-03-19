@@ -305,16 +305,16 @@ extension AugmentColorModels on Iterable<ColorModel> {
   /// from. If provided, there must be as many stops as there are colors
   /// in the palette. (`stops.length == length`)
   ///
-  /// If [reversed] is `true` and [colorSpace] is `null`, colors will be
+  /// If [invert] is `true` and [colorSpace] is `null`, colors will be
   /// interpolated in the color space of the ending color within any pair
-  /// of colors. [reversed] has no effect if a [colorSpace] is provided.
+  /// of colors. [invert] has no effect if a [colorSpace] is provided.
   ///
   /// {@endtemplate}
   List<ColorModel> augment(
     int newLength, {
     List<double>? stops,
     ColorSpace? colorSpace,
-    bool reversed = false,
+    bool invert = false,
   }) {
     assert(stops == null || stops.length == length);
 
@@ -378,7 +378,7 @@ extension AugmentColorModels on Iterable<ColorModel> {
       late double stopA, stopB;
       for (var j = 0; j < length - 1; j++) {
         if (step >= stops[j] && step < stops[j + 1]) {
-          if (reversed) {
+          if (invert) {
             colorA = baseColors[j + 1];
             colorB = baseColors[j];
             stopA = stops[j + 1];
