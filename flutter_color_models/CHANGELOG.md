@@ -1,3 +1,7 @@
+## [1.1.1+1] - March 18, 2021
+
+* Extended [Color] with the [toOklabColor] method.
+
 ## [1.1.1] - March 18, 2021
 
 * Added the [reversed] parameter to [augment].
