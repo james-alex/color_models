@@ -1,3 +1,11 @@
+## [1.2.1] - March 21, 2021
+
+* Extend [ColorSpace] with the [fromList] method.
+
+* Extend [Color] with the [toColorModel] method.
+
+* Extend `Iterable<Color>` with the [toColorModels] method.
+
 ## [1.2.0] - March 18, 2021
 
 * Renamed [augment]'s [reversed] parameter to [invert].

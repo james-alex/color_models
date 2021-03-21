@@ -1,3 +1,7 @@
+## [1.2.1] - March 21, 2021
+
+* Extend [ColorSpace] with the [fromList] method.
+
 ## [1.2.0] - March 18, 2021
 
 * Renamed [augment]'s [reversed] parameter to [invert].
