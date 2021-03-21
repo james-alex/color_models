@@ -133,6 +133,11 @@ extension ToColorModel on Color {
 
   /// Returns this color as a [XyzColor].
   XyzColor toXyzColor() => XyzColor.fromColor(this);
+
+  /// If `this` is a [ColorModel], return `this`, otherwise construct
+  /// a new [RgbColor] from this [Color].
+  ColorModel toColorModel() =>
+      this is ColorModel ? this as ColorModel : RgbColor.fromColor(this);
 }
 
 extension ConvertToColorSpace on ColorSpace {
