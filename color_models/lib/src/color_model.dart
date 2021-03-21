@@ -288,6 +288,43 @@ extension ConvertToColorSpace on ColorSpace {
     return newColor;
   }
 
+  /// Returns a [ColorModel] in the color space defined by this from [values].
+  ColorModel fromList(List<num> values) {
+    late ColorModel newColor;
+
+    switch (this) {
+      case ColorSpace.cmyk:
+        newColor = CmykColor.fromList(values);
+        break;
+      case ColorSpace.hsb:
+        newColor = HsbColor.fromList(values);
+        break;
+      case ColorSpace.hsi:
+        newColor = HsiColor.fromList(values);
+        break;
+      case ColorSpace.hsl:
+        newColor = HslColor.fromList(values);
+        break;
+      case ColorSpace.hsp:
+        newColor = HspColor.fromList(values);
+        break;
+      case ColorSpace.lab:
+        newColor = LabColor.fromList(values);
+        break;
+      case ColorSpace.oklab:
+        newColor = OklabColor.fromList(values.cast<double>());
+        break;
+      case ColorSpace.rgb:
+        newColor = RgbColor.fromList(values);
+        break;
+      case ColorSpace.xyz:
+        newColor = XyzColor.fromList(values);
+        break;
+    }
+
+    return newColor;
+  }
+
   String get name => toString().split('.').last;
 }
 
