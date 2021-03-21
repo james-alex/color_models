@@ -279,17 +279,12 @@ extension AugmentColors on Iterable<Color> {
     ColorSpace? colorSpace,
     bool invert = false,
   }) {
-    final palette = List<Color>.from(this);
-
-    // Cast any [Color]s in the list to [RgbColor]s.
-    for (var i = 0; i < length; i++) {
-      if (palette[i] is! ColorModel) {
-        palette[i] = RgbColor.fromColor(palette[i]);
-      }
-    }
-
-    return palette
+    assert(stops == null || stops.length == length);
+    return toColorModels()
         .cast<ColorModel>()
-        .augment(newLength, colorSpace: colorSpace, invert: invert);
+        .augment(newLength, stops: stops, colorSpace: colorSpace, invert: invert);
   }
+
+  /// Returns this iterable as a list of [ColorModel]s.
+  List<ColorModel> toColorModels() => map((color) => color.toColorModel()).toList();
 }
