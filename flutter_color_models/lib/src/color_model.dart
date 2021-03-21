@@ -280,11 +280,11 @@ extension AugmentColors on Iterable<Color> {
     bool invert = false,
   }) {
     assert(stops == null || stops.length == length);
-    return toColorModels()
-        .cast<ColorModel>()
-        .augment(newLength, stops: stops, colorSpace: colorSpace, invert: invert);
+    return toColorModels().cast<ColorModel>().augment(newLength,
+        stops: stops, colorSpace: colorSpace, invert: invert);
   }
 
   /// Returns this iterable as a list of [ColorModel]s.
-  List<ColorModel> toColorModels() => map((color) => color.toColorModel()).toList();
+  List<ColorModel> toColorModels() =>
+      map((color) => color.toColorModel()).toList();
 }
