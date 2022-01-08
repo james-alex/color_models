@@ -87,7 +87,6 @@ class OklabColor extends cm.OklabColor
     return toRgbColor().withBlue(blue).toOklabColor();
   }
 
-  @deprecated
   @override
   OklabColor withAlpha(int alpha) {
     assert(alpha >= 0 && alpha <= 255);

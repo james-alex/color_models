@@ -89,7 +89,6 @@ class RgbColor extends cm.RgbColor
     return RgbColor(red, green, blue, alpha);
   }
 
-  @deprecated
   @override
   RgbColor withAlpha(int alpha) {
     assert(alpha >= 0 && alpha <= 255);

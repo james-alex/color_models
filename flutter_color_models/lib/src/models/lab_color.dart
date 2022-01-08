@@ -111,7 +111,6 @@ class LabColor extends cm.LabColor
     return toRgbColor().withBlue(blue).toLabColor();
   }
 
-  @deprecated
   @override
   LabColor withAlpha(int alpha) {
     assert(alpha >= 0 && alpha <= 255);

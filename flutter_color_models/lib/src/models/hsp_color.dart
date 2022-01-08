@@ -102,7 +102,6 @@ class HspColor extends cm.HspColor
     return toRgbColor().withBlue(blue).toHspColor();
   }
 
-  @deprecated
   @override
   HspColor withAlpha(int alpha) {
     assert(alpha >= 0 && alpha <= 255);

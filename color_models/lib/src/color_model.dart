@@ -162,9 +162,6 @@ abstract class ColorModel {
   ColorModel withHue(num hue);
 
   /// Returns this [ColorModel] with the provided [alpha] value.
-  ///
-  /// __NOTICE:__ [withAlpha] has been deprecated, use [copyWith] instead.
-  @deprecated
   ColorModel withAlpha(int alpha);
 
   /// Returns this [ColorModel] with the provided [opacity] value.

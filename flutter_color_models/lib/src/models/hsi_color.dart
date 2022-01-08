@@ -102,7 +102,6 @@ class HsiColor extends cm.HsiColor
     return toRgbColor().withBlue(blue).toHsiColor();
   }
 
-  @deprecated
   @override
   HsiColor withAlpha(int alpha) {
     assert(alpha >= 0 && alpha <= 255);

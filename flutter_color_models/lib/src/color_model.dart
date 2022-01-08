@@ -53,8 +53,6 @@ abstract class ColorModel implements cm.ColorModel, Color {
   @override
   ColorModel withHue(num hue);
 
-  /// __NOTICE:__ [withAlpha] has been deprecated, use [copyWith] instead.
-  @deprecated
   @override
   ColorModel withAlpha(int alpha);
 

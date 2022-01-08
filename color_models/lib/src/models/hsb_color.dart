@@ -134,9 +134,6 @@ class HsbColor extends ColorModel {
   }
 
   /// Returns this [HsbColor] modified with the provided [alpha] value.
-  ///
-  /// __NOTICE:__ [withBrightness] has been deprecated, use [copyWith] instead.
-  @deprecated
   @override
   HsbColor withAlpha(int alpha) {
     assert(alpha >= 0 && alpha <= 255);

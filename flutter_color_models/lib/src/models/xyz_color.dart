@@ -111,7 +111,6 @@ class XyzColor extends cm.XyzColor
     return toRgbColor().withBlue(blue).toXyzColor();
   }
 
-  @deprecated
   @override
   XyzColor withAlpha(int alpha) {
     assert(alpha >= 0 && alpha <= 255);

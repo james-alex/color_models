@@ -154,9 +154,6 @@ class RgbColor extends ColorModel {
   }
 
   /// Returns this [RgbColor] modified with the provided [alpha] value.
-  ///
-  /// __NOTICE:__ [withAlpha] has been deprecated, use [copyWith] instead.
-  @deprecated
   @override
   RgbColor withAlpha(int alpha) {
     assert(alpha >= 0 && alpha <= 255);

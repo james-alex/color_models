@@ -119,7 +119,6 @@ class CmykColor extends cm.CmykColor
     return toRgbColor().withBlue(blue).toCmykColor();
   }
 
-  @deprecated
   @override
   CmykColor withAlpha(int alpha) {
     assert(alpha >= 0 && alpha <= 255);

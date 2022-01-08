@@ -166,9 +166,6 @@ class CmykColor extends ColorModel {
   }
 
   /// Returns this [CmykColor] modified with the provided [alpha] value.
-  ///
-  /// __NOTICE:__ [withAlpha] has been deprecated, use [copyWith] instead.
-  @deprecated
   @override
   CmykColor withAlpha(int alpha) {
     assert(alpha >= 0 && alpha <= 255);

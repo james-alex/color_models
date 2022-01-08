@@ -141,9 +141,6 @@ class HspColor extends ColorModel {
   }
 
   /// Returns this [HspColor] modified with the provided [alpha] value.
-  ///
-  /// __NOTICE:__ [withAlpha] has been deprecated, use [copyWith] instead.
-  @deprecated
   @override
   HspColor withAlpha(int alpha) {
     assert(alpha >= 0 && alpha <= 255);

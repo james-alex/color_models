@@ -134,9 +134,6 @@ class HsiColor extends ColorModel {
   }
 
   /// Returns this [HsiColor] modified with the provided [alpha] value.
-  ///
-  /// __NOTICE:__ [withAlpha] has been deprecated, use [copyWith] instead.
-  @deprecated
   @override
   HsiColor withAlpha(int alpha) {
     assert(alpha >= 0 && alpha <= 255);
