@@ -115,24 +115,6 @@ class HsbColor extends ColorModel {
     return HsbColor(hue, saturation, brightness, alpha);
   }
 
-  /// Returns this [HsbColor] modified with the provided [saturation] value.
-  ///
-  /// __NOTICE:__ [withSaturation] has been deprecated, use [copyWith] instead.
-  @deprecated
-  HsbColor withSaturation(num saturation) {
-    assert(saturation >= 0 && saturation <= 100);
-    return HsbColor(hue, saturation, brightness, alpha);
-  }
-
-  /// Returns this [HsbColor] modified with the provided [value] value.
-  ///
-  /// __NOTICE:__ [withBrightness] has been deprecated, use [copyWith] instead.
-  @deprecated
-  HsbColor withBrightness(num brightness) {
-    assert(brightness >= 0 && brightness <= 100);
-    return HsbColor(hue, saturation, brightness, alpha);
-  }
-
   /// Returns this [HsbColor] modified with the provided [alpha] value.
   @override
   HsbColor withAlpha(int alpha) {

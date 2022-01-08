@@ -123,33 +123,6 @@ class LabColor extends ColorModel {
     return hslColor.withHue((hslColor.hue + hue) % 360).toLabColor();
   }
 
-  /// Returns this [LabColor] modified with the provided [lightness] value.
-  ///
-  /// __NOTICE:__ [withLightness] has been deprecated, use [copyWith] instead.
-  @deprecated
-  LabColor withLightness(num lightness) {
-    assert(lightness >= 0 && lightness <= 100);
-    return LabColor(lightness, a, b, alpha);
-  }
-
-  /// Returns this [LabColor] modified with the provided [a] value.
-  ///
-  /// __NOTICE:__ [withA] has been deprecated, use [copyWith] instead.
-  @deprecated
-  LabColor withA(num a) {
-    assert(a >= -128 && a <= 127);
-    return LabColor(lightness, a, b, alpha);
-  }
-
-  /// Returns this [LabColor] modified with the provided [b] value.
-  ///
-  /// __NOTICE:__ [withB] has been deprecated, use [copyWith] instead.
-  @deprecated
-  LabColor withB(num b) {
-    assert(b >= -128 && b <= 127);
-    return LabColor(lightness, a, b, alpha);
-  }
-
   /// Returns this [LabColor] modified with the provided [alpha] value.
   @override
   LabColor withAlpha(int alpha) {

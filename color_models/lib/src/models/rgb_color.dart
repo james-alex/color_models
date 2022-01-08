@@ -126,33 +126,6 @@ class RgbColor extends ColorModel {
     return hslColor.withHue((hslColor.hue + hue) % 360).toRgbColor();
   }
 
-  /// Returns this [RgbColor] modified with the provided [red] value.
-  ///
-  /// __NOTICE:__ [withRed] has been deprecated, use [copyWith] instead.
-  @deprecated
-  RgbColor withRed(num red) {
-    assert(red >= 0 && red <= 255);
-    return RgbColor(red, green, blue, alpha);
-  }
-
-  /// Returns this [RgbColor] modified with the provided [green] value.
-  ///
-  /// __NOTICE:__ [withGreen] has been deprecated, use [copyWith] instead.
-  @deprecated
-  RgbColor withGreen(num green) {
-    assert(green >= 0 && green <= 255);
-    return RgbColor(red, green, blue, alpha);
-  }
-
-  /// Returns this [RgbColor] modified with the provided [blue] value.
-  ///
-  /// __NOTICE:__ [withBlue] has been deprecated, use [copyWith] instead.
-  @deprecated
-  RgbColor withBlue(num blue) {
-    assert(blue >= 0 && blue <= 255);
-    return RgbColor(red, green, blue, alpha);
-  }
-
   /// Returns this [RgbColor] modified with the provided [alpha] value.
   @override
   RgbColor withAlpha(int alpha) {

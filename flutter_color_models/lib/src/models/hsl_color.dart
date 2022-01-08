@@ -70,20 +70,6 @@ class HslColor extends cm.HslColor
     return HslColor(hue, saturation, lightness, alpha);
   }
 
-  @deprecated
-  @override
-  HslColor withSaturation(num saturation) {
-    assert(saturation >= 0 && saturation <= 100);
-    return HslColor(hue, saturation, lightness, alpha);
-  }
-
-  @deprecated
-  @override
-  HslColor withLightness(num lightness) {
-    assert(lightness >= 0 && lightness <= 100);
-    return HslColor(hue, saturation, lightness, alpha);
-  }
-
   @override
   HslColor withRed(num red) {
     assert(red >= 0 && red <= 255);

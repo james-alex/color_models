@@ -129,33 +129,6 @@ class XyzColor extends ColorModel {
     return hslColor.withHue((hslColor.hue + hue) % 360).toXyzColor();
   }
 
-  /// Returns this [XyzColor] modified with the provided [x] value.
-  ///
-  /// __NOTICE:__ [withX] has been deprecated, use [copyWith] instead.
-  @deprecated
-  XyzColor withX(num x) {
-    assert(x >= 0);
-    return XyzColor(x, y, z, alpha);
-  }
-
-  /// Returns this [XyzColor] modified with the provided [y] value.
-  ///
-  /// __NOTICE:__ [withY] has been deprecated, use [copyWith] instead.
-  @deprecated
-  XyzColor withY(num y) {
-    assert(y >= 0);
-    return XyzColor(x, y, z, alpha);
-  }
-
-  /// Returns this [XyzColor] modified with the provided [z] value.
-  ///
-  /// __NOTICE:__ [withZ] has been deprecated, use [copyWith] instead.
-  @deprecated
-  XyzColor withZ(num z) {
-    assert(z >= 0);
-    return XyzColor(x, y, z, alpha);
-  }
-
   /// Returns this [XyzColor] modified with the provided [alpha] value.
   @override
   XyzColor withAlpha(int alpha) {

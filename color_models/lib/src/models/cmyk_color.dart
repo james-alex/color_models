@@ -129,42 +129,6 @@ class CmykColor extends ColorModel {
     return hslColor.withHue((hslColor.hue + hue) % 360).toCmykColor();
   }
 
-  /// Returns this [CmykColor] modified with the provided [cyan] value.
-  ///
-  /// __NOTICE:__ [withCyan] has been deprecated, use [copyWith] instead.
-  @deprecated
-  CmykColor withCyan(num cyan) {
-    assert(cyan >= 0 && cyan <= 100);
-    return CmykColor(cyan, magenta, yellow, black, alpha);
-  }
-
-  /// Returns this [CmykColor] modified with the provided [magenta] value.
-  ///
-  /// __NOTICE:__ [withMagenta] has been deprecated, use [copyWith] instead.
-  @deprecated
-  CmykColor withMagenta(num magenta) {
-    assert(magenta >= 0 && magenta <= 100);
-    return CmykColor(cyan, magenta, yellow, black, alpha);
-  }
-
-  /// Returns this [CmykColor] modified with the provided [yellow] value.
-  ///
-  /// __NOTICE:__ [withYellow] has been deprecated, use [copyWith] instead.
-  @deprecated
-  CmykColor withYellow(num yellow) {
-    assert(yellow >= 0 && yellow <= 100);
-    return CmykColor(cyan, magenta, yellow, black, alpha);
-  }
-
-  /// Returns this [CmykColor] modified with the provided [black] value.
-  ///
-  /// __NOTICE:__ [withBlack] has been deprecated, use [copyWith] instead.
-  @deprecated
-  CmykColor withBlack(num black) {
-    assert(black >= 0 && black <= 100);
-    return CmykColor(cyan, magenta, yellow, black, alpha);
-  }
-
   /// Returns this [CmykColor] modified with the provided [alpha] value.
   @override
   CmykColor withAlpha(int alpha) {

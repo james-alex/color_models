@@ -70,20 +70,6 @@ class HsbColor extends cm.HsbColor
     return HsbColor(hue, saturation, brightness, alpha);
   }
 
-  @deprecated
-  @override
-  HsbColor withSaturation(num saturation) {
-    assert(saturation >= 0 && saturation <= 100);
-    return HsbColor(hue, saturation, brightness, alpha);
-  }
-
-  @deprecated
-  @override
-  HsbColor withBrightness(num brightness) {
-    assert(brightness >= 0 && brightness <= 100);
-    return HsbColor(hue, saturation, brightness, alpha);
-  }
-
   @override
   HsbColor withRed(num red) {
     assert(red >= 0 && red <= 255);

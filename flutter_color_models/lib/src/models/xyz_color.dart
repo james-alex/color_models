@@ -72,27 +72,6 @@ class XyzColor extends cm.XyzColor
     return hslColor.withHue((hslColor.hue + hue) % 360).toXyzColor();
   }
 
-  @deprecated
-  @override
-  XyzColor withX(num x) {
-    assert(x >= 0);
-    return XyzColor(x, y, z, alpha);
-  }
-
-  @deprecated
-  @override
-  XyzColor withY(num y) {
-    assert(y >= 0);
-    return XyzColor(x, y, z, alpha);
-  }
-
-  @deprecated
-  @override
-  XyzColor withZ(num z) {
-    assert(z >= 0);
-    return XyzColor(x, y, z, alpha);
-  }
-
   @override
   XyzColor withRed(num red) {
     assert(red >= 0 && red <= 255);

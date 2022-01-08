@@ -118,24 +118,6 @@ class HslColor extends ColorModel {
     return HslColor(hue, saturation, lightness, alpha);
   }
 
-  /// Returns this [HslColor] modified with the provided [saturation] value.
-  ///
-  /// __NOTICE:__ [withSaturation] has been deprecated, use [copyWith] instead.
-  @deprecated
-  HslColor withSaturation(num saturation) {
-    assert(saturation >= 0 && saturation <= 100);
-    return HslColor(hue, saturation, lightness, alpha);
-  }
-
-  /// Returns this [HslColor] modified with the provided [lightness] value.
-  ///
-  /// __NOTICE:__ [withLightness] has been deprecated, use [copyWith] instead.
-  @deprecated
-  HslColor withLightness(num lightness) {
-    assert(lightness >= 0 && lightness <= 100);
-    return HslColor(hue, saturation, lightness, alpha);
-  }
-
   /// Returns this [HslColor] modified with the provided [alpha] value.
   @override
   HslColor withAlpha(int alpha) {

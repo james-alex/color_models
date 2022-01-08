@@ -70,20 +70,6 @@ class HsiColor extends cm.HsiColor
     return HsiColor(hue, saturation, intensity, alpha);
   }
 
-  @deprecated
-  @override
-  HsiColor withSaturation(num saturation) {
-    assert(saturation >= 0 && saturation <= 100);
-    return HsiColor(hue, saturation, intensity, alpha);
-  }
-
-  @deprecated
-  @override
-  HsiColor withIntensity(num intensity) {
-    assert(intensity >= 0 && intensity <= 100);
-    return HsiColor(hue, saturation, intensity, alpha);
-  }
-
   @override
   HsiColor withRed(num red) {
     assert(red >= 0 && red <= 255);

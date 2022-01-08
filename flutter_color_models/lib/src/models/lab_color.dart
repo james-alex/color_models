@@ -72,27 +72,6 @@ class LabColor extends cm.LabColor
     return hslColor.withHue((hslColor.hue + hue) % 360).toLabColor();
   }
 
-  @deprecated
-  @override
-  LabColor withLightness(num lightness) {
-    assert(lightness >= 0 && lightness <= 100);
-    return LabColor(lightness, a, b, alpha);
-  }
-
-  @deprecated
-  @override
-  LabColor withA(num a) {
-    assert(a >= -128 && a <= 127);
-    return LabColor(lightness, a, b, alpha);
-  }
-
-  @deprecated
-  @override
-  LabColor withB(num b) {
-    assert(b >= -128 && b <= 127);
-    return LabColor(lightness, a, b, alpha);
-  }
-
   @override
   LabColor withRed(num red) {
     assert(red >= 0 && red <= 255);

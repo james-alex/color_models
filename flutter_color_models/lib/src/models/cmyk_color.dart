@@ -73,34 +73,6 @@ class CmykColor extends cm.CmykColor
     return hslColor.withHue((hslColor.hue + hue) % 360).toCmykColor();
   }
 
-  @deprecated
-  @override
-  CmykColor withCyan(num cyan) {
-    assert(cyan >= 0 && cyan <= 100);
-    return CmykColor(cyan, magenta, yellow, black, alpha);
-  }
-
-  @deprecated
-  @override
-  CmykColor withMagenta(num magenta) {
-    assert(magenta >= 0 && magenta <= 100);
-    return CmykColor(cyan, magenta, yellow, black, alpha);
-  }
-
-  @deprecated
-  @override
-  CmykColor withYellow(num yellow) {
-    assert(yellow >= 0 && yellow <= 100);
-    return CmykColor(cyan, magenta, yellow, black, alpha);
-  }
-
-  @deprecated
-  @override
-  CmykColor withBlack(num black) {
-    assert(black >= 0 && black <= 100);
-    return CmykColor(cyan, magenta, yellow, black, alpha);
-  }
-
   @override
   CmykColor withRed(num red) {
     assert(red >= 0 && red <= 255);

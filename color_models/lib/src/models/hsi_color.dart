@@ -115,24 +115,6 @@ class HsiColor extends ColorModel {
     return HsiColor(hue, saturation, intensity, alpha);
   }
 
-  /// Returns this [HsiColor] modified with the provided [saturation] value.
-  ///
-  /// __NOTICE:__ [withSaturation] has been deprecated, use [copyWith] instead.
-  @deprecated
-  HsiColor withSaturation(num saturation) {
-    assert(saturation >= 0 && saturation <= 100);
-    return HsiColor(hue, saturation, intensity, alpha);
-  }
-
-  /// Returns this [HsiColor] modified with the provided [intensity] value.
-  ///
-  /// __NOTICE:__ [withIntensity] has been deprecated, use [copyWith] instead.
-  @deprecated
-  HsiColor withIntensity(num intensity) {
-    assert(intensity >= 0 && intensity <= 100);
-    return HsiColor(hue, saturation, intensity, alpha);
-  }
-
   /// Returns this [HsiColor] modified with the provided [alpha] value.
   @override
   HsiColor withAlpha(int alpha) {

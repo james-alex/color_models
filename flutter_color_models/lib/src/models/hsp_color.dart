@@ -70,20 +70,6 @@ class HspColor extends cm.HspColor
     return HspColor(hue, saturation, perceivedBrightness, alpha);
   }
 
-  @deprecated
-  @override
-  HspColor withSaturation(num saturation) {
-    assert(saturation >= 0 && saturation <= 100);
-    return HspColor(hue, saturation, perceivedBrightness, alpha);
-  }
-
-  @deprecated
-  @override
-  HspColor withPerceivedBrightness(num perceivedBrightness) {
-    assert(perceivedBrightness >= 0 && perceivedBrightness <= 100);
-    return HspColor(hue, saturation, perceivedBrightness, alpha);
-  }
-
   @override
   HspColor withRed(num red) {
     assert(red >= 0 && red <= 255);

@@ -122,24 +122,6 @@ class HspColor extends ColorModel {
     return HspColor(hue, saturation, perceivedBrightness, alpha);
   }
 
-  /// Returns this [HspColor] modified with the provided [saturation] value.
-  ///
-  /// __NOTICE:__ [withSaturation] has been deprecated, use [copyWith] instead.
-  @deprecated
-  HspColor withSaturation(num saturation) {
-    assert(saturation >= 0 && saturation <= 100);
-    return HspColor(hue, saturation, perceivedBrightness, alpha);
-  }
-
-  /// Returns this [HspColor] modified with the provided [saturation] value.
-  ///
-  /// __NOTICE:__ [withPerceivedBrightness] has been deprecated, use [copyWith] instead.
-  @deprecated
-  HspColor withPerceivedBrightness(num perceivedBrightness) {
-    assert(perceivedBrightness >= 0 && perceivedBrightness <= 100);
-    return HspColor(hue, saturation, perceivedBrightness, alpha);
-  }
-
   /// Returns this [HspColor] modified with the provided [alpha] value.
   @override
   HspColor withAlpha(int alpha) {
