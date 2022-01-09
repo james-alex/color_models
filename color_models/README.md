@@ -230,3 +230,27 @@ final newPalette = palette
     .augment(5, colorSpace: ColorSpace.oklab)
     .map<RgbColor>((color) => color.toRgbColor());
 ```
+
+## The Chroma Value
+
+The [chroma] getter returns a value that represents the lightness
+of a color on a `0` to `1` scale.
+
+The value is derived from the color's `lightness` value in the Oklab
+color space by normalizing it to a linear curve.
+
+```dart
+  print(RgbColor(0, 0, 0).chroma); // 0
+  print(RgbColor(127, 127, 127).chroma); // 0.5
+  print(RgbColor(255, 255, 255).chroma); // 1.0
+```
+
+The [withChroma] method will return a modified color by applying
+the supplied chroma value to the color in the Oklab color space
+and converting it back to its original color space.
+
+```dart
+  final color = RgbColor(42, 176, 232);
+  print(color.chroma); // 0.534
+  print(color.withChroma(0.3)); // RgbColor(21, 101, 135)
+```
