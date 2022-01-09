@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'package:test/test.dart';
 import 'package:color_models/color_models.dart';
 import 'package:num_utilities/num_utilities.dart';
@@ -168,6 +169,27 @@ void main() {
         expect(copy, equals(color));
       }
     });
+  });
+
+  test('Chroma Calculations', () {
+    // Generate a gradient of 101 OklabColors ranging from black to white.
+    final gradient = List<OklabColor>.generate(101, (index) {
+      final lightness = index / 100;
+      final linearizedLightness =
+          index > 0 ? (1.028 * math.pow(lightness, 1 / 6.9)) - 0.028 : 0;
+      return OklabColor(linearizedLightness.toDouble(), 0, 0);
+    });
+
+    // Verify the calculated chroma values are intervals of `0.01`
+    // and that when passed to the [withChroma] method the calculated
+    // lightness value is the same as their original lightness values.
+    for (var i = 0; i < gradient.length; i++) {
+      final color = gradient[i];
+      final chroma = color.chroma.roundToPrecision(6);
+      expect(chroma, equals((i * 0.01).roundToPrecision(6)));
+      final reverted = color.withChroma(chroma);
+      expect(reverted.lightness, equals(color.lightness));
+    }
   });
 }
 
