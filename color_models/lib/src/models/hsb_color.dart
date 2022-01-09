@@ -115,6 +115,10 @@ class HsbColor extends ColorModel {
     return HsbColor(hue, saturation, brightness, alpha);
   }
 
+  @override
+  HsbColor withChroma(double chroma) =>
+      toOklabColor().withChroma(chroma).toHsbColor();
+
   /// Returns this [HsbColor] modified with the provided [alpha] value.
   @override
   HsbColor withAlpha(int alpha) {

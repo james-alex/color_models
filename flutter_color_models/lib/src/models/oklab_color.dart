@@ -70,6 +70,9 @@ class OklabColor extends cm.OklabColor
   }
 
   @override
+  OklabColor withChroma(double chroma) => super.withChroma(chroma).cast();
+
+  @override
   OklabColor withRed(num red) {
     assert(red >= 0 && red <= 255);
     return toRgbColor().withRed(red).toOklabColor();

@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'package:meta/meta.dart';
 import '../color_model.dart';
 import '../helpers/color_adjustments.dart';
@@ -117,6 +118,14 @@ class OklabColor extends ColorModel {
     assert(hue >= 0 && hue <= 360);
     final hslColor = toHslColor();
     return hslColor.withHue((hslColor.hue + hue) % 360).toOklabColor();
+  }
+
+  @override
+  OklabColor withChroma(double chroma) {
+    assert(chroma >= 0.0 && chroma <= 1.0);
+    final lightness =
+        chroma == 0 ? 0.0 : (1.028 * math.pow(chroma, 1 / 6.9)) - 0.028;
+    return copyWith(lightness: lightness);
   }
 
   /// Returns this [OklabColor] modified with the provided [alpha] value.

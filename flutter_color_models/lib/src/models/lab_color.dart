@@ -73,6 +73,9 @@ class LabColor extends cm.LabColor
   }
 
   @override
+  LabColor withChroma(double chroma) => super.withChroma(chroma).cast();
+
+  @override
   LabColor withRed(num red) {
     assert(red >= 0 && red <= 255);
     return toRgbColor().withRed(red).toLabColor();

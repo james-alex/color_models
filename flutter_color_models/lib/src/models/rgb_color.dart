@@ -72,6 +72,9 @@ class RgbColor extends cm.RgbColor
   }
 
   @override
+  RgbColor withChroma(double chroma) => super.withChroma(chroma).cast();
+
+  @override
   RgbColor withRed(num red) {
     assert(red >= 0 && red <= 255);
     return RgbColor(red, green, blue, alpha);

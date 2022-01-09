@@ -71,6 +71,9 @@ class HsiColor extends cm.HsiColor
   }
 
   @override
+  HsiColor withChroma(double chroma) => super.withChroma(chroma).cast();
+
+  @override
   HsiColor withRed(num red) {
     assert(red >= 0 && red <= 255);
     return toRgbColor().withRed(red).toHsiColor();

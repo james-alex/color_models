@@ -73,6 +73,9 @@ class XyzColor extends cm.XyzColor
   }
 
   @override
+  XyzColor withChroma(double chroma) => super.withChroma(chroma).cast();
+
+  @override
   XyzColor withRed(num red) {
     assert(red >= 0 && red <= 255);
     return toRgbColor().withRed(red).toXyzColor();

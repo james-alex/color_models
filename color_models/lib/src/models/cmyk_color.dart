@@ -129,6 +129,10 @@ class CmykColor extends ColorModel {
     return hslColor.withHue((hslColor.hue + hue) % 360).toCmykColor();
   }
 
+  @override
+  CmykColor withChroma(double chroma) =>
+      toOklabColor().withChroma(chroma).toCmykColor();
+
   /// Returns this [CmykColor] modified with the provided [alpha] value.
   @override
   CmykColor withAlpha(int alpha) {

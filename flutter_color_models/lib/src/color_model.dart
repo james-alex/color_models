@@ -54,6 +54,9 @@ abstract class ColorModel implements cm.ColorModel, Color {
   ColorModel withHue(num hue);
 
   @override
+  ColorModel withChroma(double chroma);
+
+  @override
   ColorModel withAlpha(int alpha);
 
   @override

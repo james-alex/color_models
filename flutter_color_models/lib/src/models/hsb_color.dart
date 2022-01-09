@@ -71,6 +71,9 @@ class HsbColor extends cm.HsbColor
   }
 
   @override
+  HsbColor withChroma(double chroma) => super.withChroma(chroma).cast();
+
+  @override
   HsbColor withRed(num red) {
     assert(red >= 0 && red <= 255);
     return toRgbColor().withRed(red).toHsbColor();

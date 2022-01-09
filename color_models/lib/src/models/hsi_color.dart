@@ -115,6 +115,10 @@ class HsiColor extends ColorModel {
     return HsiColor(hue, saturation, intensity, alpha);
   }
 
+  @override
+  HsiColor withChroma(double chroma) =>
+      toOklabColor().withChroma(chroma).toHsiColor();
+
   /// Returns this [HsiColor] modified with the provided [alpha] value.
   @override
   HsiColor withAlpha(int alpha) {

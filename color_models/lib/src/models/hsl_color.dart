@@ -118,6 +118,10 @@ class HslColor extends ColorModel {
     return HslColor(hue, saturation, lightness, alpha);
   }
 
+  @override
+  HslColor withChroma(double chroma) =>
+      toOklabColor().withChroma(chroma).toHslColor();
+
   /// Returns this [HslColor] modified with the provided [alpha] value.
   @override
   HslColor withAlpha(int alpha) {

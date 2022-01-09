@@ -123,6 +123,10 @@ class LabColor extends ColorModel {
     return hslColor.withHue((hslColor.hue + hue) % 360).toLabColor();
   }
 
+  @override
+  LabColor withChroma(double chroma) =>
+      toOklabColor().withChroma(chroma).toLabColor();
+
   /// Returns this [LabColor] modified with the provided [alpha] value.
   @override
   LabColor withAlpha(int alpha) {

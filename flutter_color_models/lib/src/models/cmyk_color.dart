@@ -74,6 +74,9 @@ class CmykColor extends cm.CmykColor
   }
 
   @override
+  CmykColor withChroma(double chroma) => super.withChroma(chroma).cast();
+
+  @override
   CmykColor withRed(num red) {
     assert(red >= 0 && red <= 255);
     return toRgbColor().withRed(red).toCmykColor();

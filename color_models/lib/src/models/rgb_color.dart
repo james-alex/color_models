@@ -126,6 +126,10 @@ class RgbColor extends ColorModel {
     return hslColor.withHue((hslColor.hue + hue) % 360).toRgbColor();
   }
 
+  @override
+  RgbColor withChroma(double chroma) =>
+      toOklabColor().withChroma(chroma).toRgbColor();
+
   /// Returns this [RgbColor] modified with the provided [alpha] value.
   @override
   RgbColor withAlpha(int alpha) {

@@ -122,6 +122,10 @@ class HspColor extends ColorModel {
     return HspColor(hue, saturation, perceivedBrightness, alpha);
   }
 
+  @override
+  HspColor withChroma(double chroma) =>
+      toOklabColor().withChroma(chroma).toHspColor();
+
   /// Returns this [HspColor] modified with the provided [alpha] value.
   @override
   HspColor withAlpha(int alpha) {

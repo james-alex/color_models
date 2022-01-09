@@ -183,6 +183,11 @@ abstract class ColorModel {
   /// [opacity] is the equivalent of [alpha] normalized to a `0` to `1` value.
   ColorModel withOpacity(double opacity);
 
+  /// Converts this color to the Oklab color space, calculates and
+  /// applies a new lightness value from the proivded [chroma] value,
+  /// and converts it back to the original color space.
+  ColorModel withChroma(double chroma);
+
   /// Returns a color in this color's color space with the values provided.
   ///
   /// [values] should contain one value for each parameter of the color space;

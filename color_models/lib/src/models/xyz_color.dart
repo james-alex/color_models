@@ -129,6 +129,10 @@ class XyzColor extends ColorModel {
     return hslColor.withHue((hslColor.hue + hue) % 360).toXyzColor();
   }
 
+  @override
+  XyzColor withChroma(double chroma) =>
+      toOklabColor().withChroma(chroma).toXyzColor();
+
   /// Returns this [XyzColor] modified with the provided [alpha] value.
   @override
   XyzColor withAlpha(int alpha) {

@@ -71,6 +71,9 @@ class HspColor extends cm.HspColor
   }
 
   @override
+  HspColor withChroma(double chroma) => super.withChroma(chroma).cast();
+
+  @override
   HspColor withRed(num red) {
     assert(red >= 0 && red <= 255);
     return toRgbColor().withRed(red).toHspColor();
