@@ -5,6 +5,8 @@
 * Removed all deprecated methods from the package, excluding
 [withAlpha] which is no longer deprecated.
 
+* Updated the license from a BSD 2-Clause license to a BSD 3-Clause license.
+
 ## [1.2.1] - March 21, 2021
 
 * Extend [ColorSpace] with the [fromList] method.
