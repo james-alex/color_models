@@ -1,3 +1,10 @@
+## [1.3.0] - January 8, 2021
+
+* Added the [chroma] getter and [withChroma] methods.
+
+* Removed all deprecated methods from the package, excluding
+[withAlpha] which is no longer deprecated.
+
 ## [1.2.1] - March 21, 2021
 
 * Extend [ColorSpace] with the [fromList] method.
