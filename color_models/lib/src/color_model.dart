@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'package:meta/meta.dart';
 import 'package:num_utilities/num_utilities.dart';
 import 'helpers/color_converter.dart';
@@ -49,6 +50,19 @@ abstract class ColorModel {
   ///
   /// Ranges from `0` to `360`.
   num get hue => (ColorConverter.getHue(toRgbColor()) * 360) % 360;
+
+  /// Calculates a value representing this color's lightness on a linear scale.
+  ///
+  /// The returned value is calculated by converting this color to an [OklabColor]
+  /// and normalizing its `lightness` value to a linear curve.
+  ///
+  /// Ranges from `0.0` (black) to `1.0` (white), unless the `lightness` value
+  /// also falls outside of that range.
+  double get chroma => math
+      .pow((toOklabColor().lightness + 0.028) / 1.028, 6.9)
+      .roundToPrecision(10)
+      .clamp(0, 1)
+      .toDouble();
 
   /// The saturation value of this color. Color spaces without a saturation
   /// value will be converted to HSL to retrieve the value.
