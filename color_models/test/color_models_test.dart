@@ -1,5 +1,6 @@
 import 'package:test/test.dart';
 import 'package:color_models/color_models.dart';
+import 'package:num_utilities/num_utilities.dart';
 
 /// A set of colors containing black, white, grey, red, green,
 /// blue, yellow, cyan, pink, 6 colors that fall into each part
@@ -137,7 +138,7 @@ void main() {
 
                   for (var l = 0; l < values.length; l++) {
                     final expectedValue = k == colors.length - 1
-                        ? _round(values2[l])
+                        ? values2[l].roundToPrecision(6)
                         : _interpolateValue(values1[l], values2[l], step);
 
                     if (color2 is LabColor || color2 is HspColor) {
@@ -171,7 +172,4 @@ void main() {
 }
 
 num _interpolateValue(num value1, num value2, double step) =>
-    ((((1 - step) * value1) + (step * value2)) * 1000000).round() / 1000000;
-
-/// Rounds [value] to the millionth.
-num _round(num value) => (value * 1000000).round() / 1000000;
+    (((1 - step) * value1) + (step * value2)).roundToPrecision(6);
