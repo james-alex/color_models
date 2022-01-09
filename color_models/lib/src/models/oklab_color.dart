@@ -146,9 +146,9 @@ class OklabColor extends ColorModel {
     double? b,
     int? alpha,
   }) {
-    assert(lightness == null || (lightness >= 0 && lightness <= 100));
-    assert(a == null || (a >= -128 && a <= 127));
-    assert(b == null || (b >= -128 && b <= 127));
+    assert(lightness == null || (lightness >= 0 && lightness <= 1.0));
+    assert(a == null || (a >= 0 && a <= 1.0));
+    assert(b == null || (b >= 0 && b <= 1.0));
     assert(alpha == null || (alpha >= 0 && alpha <= 255));
     return OklabColor(
       lightness ?? this.lightness,
