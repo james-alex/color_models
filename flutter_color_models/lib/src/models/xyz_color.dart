@@ -34,11 +34,14 @@ class XyzColor extends cm.XyzColor
   List<XyzColor> lerpTo(
     cm.ColorModel color,
     int steps, {
+    cm.ColorSpace? colorSpace,
     bool excludeOriginalColors = false,
   }) {
     assert(steps > 0);
     return super
-        .lerpTo(color, steps, excludeOriginalColors: excludeOriginalColors)
+        .lerpTo(color, steps,
+            colorSpace: colorSpace,
+            excludeOriginalColors: excludeOriginalColors)
         .map<XyzColor>((color) => color.cast())
         .toList();
   }

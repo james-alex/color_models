@@ -34,11 +34,14 @@ class LabColor extends cm.LabColor
   List<LabColor> lerpTo(
     cm.ColorModel color,
     int steps, {
+    cm.ColorSpace? colorSpace,
     bool excludeOriginalColors = false,
   }) {
     assert(steps > 0);
     return super
-        .lerpTo(color, steps, excludeOriginalColors: excludeOriginalColors)
+        .lerpTo(color, steps,
+            colorSpace: colorSpace,
+            excludeOriginalColors: excludeOriginalColors)
         .map<LabColor>((color) => color.cast())
         .toList();
   }

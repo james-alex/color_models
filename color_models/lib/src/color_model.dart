@@ -98,8 +98,9 @@ abstract class ColorModel {
 
   /// Returns the interpolated [steps] between this color and [color].
   ///
-  /// The returned [ColorModel]'s values will be interpolated in
-  /// this color's color space.
+  /// The returned [ColorModel]'s values will be returned and interpolated in
+  /// the color space defined by [colorSpace], or in the color space of `this`
+  /// color if [colorSpace] is `null`.
   ///
   /// If [excludeOriginalColors] is `false`, this color and [color] will not be
   /// included in the list. If [color] is in a different color space, it will be
@@ -107,20 +108,22 @@ abstract class ColorModel {
   List<ColorModel> lerpTo(
     ColorModel color,
     int steps, {
+    ColorSpace? colorSpace,
     bool excludeOriginalColors = false,
   }) {
     assert(steps > 0);
 
-    color = convert(color);
+    final colorA = colorSpace != null ? colorSpace.from(this) : this;
+    final valuesA = colorA is RgbColor
+        ? colorA.toPreciseListWithAlpha()
+        : colorA.toListWithAlpha();
+
+    final colorB = colorSpace != null ? colorSpace.from(color) : convert(color);
+    final valuesB = colorB is RgbColor
+        ? colorB.toPreciseListWithAlpha()
+        : colorB.toListWithAlpha();
 
     final colors = <ColorModel>[];
-
-    final valuesA = this is RgbColor
-        ? (this as RgbColor).toPreciseListWithAlpha()
-        : toListWithAlpha();
-    final valuesB = color is RgbColor
-        ? color.toPreciseListWithAlpha()
-        : color.toListWithAlpha();
     final slice = 1 / (steps + 1);
     for (var i = 1; i <= steps; i++) {
       final values = <num>[];
@@ -132,8 +135,8 @@ abstract class ColorModel {
     }
 
     if (!excludeOriginalColors) {
-      colors.insert(0, this);
-      colors.add(color);
+      colors.insert(0, colorA);
+      colors.add(colorB);
     }
 
     return colors;

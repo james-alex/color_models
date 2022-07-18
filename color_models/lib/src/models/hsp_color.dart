@@ -81,11 +81,14 @@ class HspColor extends ColorModel {
   List<HspColor> lerpTo(
     ColorModel color,
     int steps, {
+    ColorSpace? colorSpace,
     bool excludeOriginalColors = false,
   }) {
     assert(steps > 0);
     return super
-        .lerpTo(color, steps, excludeOriginalColors: excludeOriginalColors)
+        .lerpTo(color, steps,
+            colorSpace: colorSpace,
+            excludeOriginalColors: excludeOriginalColors)
         .cast<HspColor>();
   }
 

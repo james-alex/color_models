@@ -32,6 +32,7 @@ abstract class ColorModel implements cm.ColorModel, Color {
   List<ColorModel> lerpTo(
     cm.ColorModel color,
     int steps, {
+    cm.ColorSpace? colorSpace,
     bool excludeOriginalColors,
   });
 
@@ -104,6 +105,27 @@ extension ToColor on cm.ColorModel {
   Color toColor() {
     final rgb = RgbColor.from(this);
     return Color.fromARGB(rgb.alpha, rgb.red, rgb.green, rgb.blue);
+  }
+}
+
+extension LerpToColor on Color {
+  /// Returns the interpolated [steps] between this color and [color].
+  ///
+  /// The returned [Color]'s values will be interpolated in
+  /// this color's color space.
+  ///
+  /// If [excludeOriginalColors] is `false`, this color and [color] will not be
+  /// included in the list. If [color] is in a different color space, it will be
+  /// converted to this color's color space.
+  List<Color> lerpTo(
+    Color color,
+    int steps, {
+    ColorSpace? colorSpace,
+    bool excludeOriginalColors = false,
+  }) {
+    assert(steps > 0);
+    return toRgbColor().lerpTo(color.toRgbColor(), steps,
+        colorSpace: colorSpace, excludeOriginalColors: excludeOriginalColors);
   }
 }
 
