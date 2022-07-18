@@ -1,4 +1,8 @@
-## [1.3.0] - January 8, 2021
+## [1.3.1] - July 17, 2022
+
+* Added the [colorSpace] parameter to the [lerpTo] methods.
+
+## [1.3.0] - January 8, 2022
 
 * Added the [chroma] getter and [withChroma] methods.
 
