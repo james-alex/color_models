@@ -60,8 +60,8 @@ class ColorConverter {
     final cmyk = cmy
         .map((cmyValue) => ((cmyValue - k) / (1 - k)).clamp(0.0, 1.0))
         .toList()
-          ..add(k)
-          ..add(alpha);
+      ..add(k)
+      ..add(alpha);
 
     return CmykColor.extrapolate(List<double>.from(cmyk));
   }
@@ -78,7 +78,7 @@ class ColorConverter {
         .map(
             (cmyValue) => 1 - ((cmyValue * (1 - k)) + k).clamp(0, 1).toDouble())
         .toList()
-          ..add(alpha);
+      ..add(alpha);
 
     return RgbColor.extrapolate(rgb);
   }
