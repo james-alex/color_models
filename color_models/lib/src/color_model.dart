@@ -98,9 +98,9 @@ abstract class ColorModel {
 
   /// Returns the interpolated [steps] between this color and [color].
   ///
-  /// The returned [ColorModel]'s values will be returned and interpolated in
-  /// the color space defined by [colorSpace], or in the color space of `this`
-  /// color if [colorSpace] is `null`.
+  /// The returned [ColorModel]'s values will be interpolated in the
+  /// color space defined by [colorSpace], or in the color space of
+  /// `this` color if [colorSpace] is `null`.
   ///
   /// If [excludeOriginalColors] is `false`, this color and [color] will not be
   /// included in the list. If [color] is in a different color space, it will be
@@ -131,7 +131,7 @@ abstract class ColorModel {
       for (var j = 0; j < valuesA.length; j++) {
         values.add(_interpolateValue(valuesA[j], valuesB[j], step));
       }
-      colors.add(withValues(values));
+      colors.add(colorA.withValues(values));
     }
 
     if (!excludeOriginalColors) {
@@ -139,7 +139,7 @@ abstract class ColorModel {
       colors.add(colorB);
     }
 
-    return colors;
+    return colors.map<ColorModel>((color) => convert(color)).toList();
   }
 
   /// Calculates the position at [step] between [value1] and [value2],
