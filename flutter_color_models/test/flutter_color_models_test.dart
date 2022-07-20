@@ -114,4 +114,17 @@ void main() {
       }
     });
   });
+
+  test('Random Constructors', () {
+    final seed = DateTime.now().millisecond;
+    CmykColor.random(seed: seed);
+    HsbColor.random(seed: seed);
+    HsiColor.random(seed: seed);
+    HslColor.random(seed: seed);
+    HspColor.random(seed: seed);
+    LabColor.random(seed: seed);
+    OklabColor.random(seed: seed);
+    RgbColor.random(seed: seed);
+    XyzColor.random(seed: seed);
+  });
 }
