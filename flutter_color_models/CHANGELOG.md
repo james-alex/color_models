@@ -1,3 +1,7 @@
+## [1.3.2] - July 20, 2022
+
+* Added the [seed] parameter to the [random] constructors.
+
 ## [1.3.1] - July 17, 2022
 
 * Added the [colorSpace] parameter to the [lerpTo] methods.
