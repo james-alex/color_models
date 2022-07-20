@@ -284,6 +284,7 @@ class HslColor extends ColorModel {
     num maxSaturation = 100,
     num minLightness = 0,
     num maxLightness = 100,
+    int? seed,
   }) {
     assert(minHue >= 0 && minHue <= 360);
     assert(maxHue >= 0 && maxHue <= 360);
@@ -292,9 +293,9 @@ class HslColor extends ColorModel {
     assert(minLightness >= 0 && minLightness <= maxLightness);
     assert(maxLightness >= minLightness && maxLightness <= 100);
     return HslColor(
-      ColorMath.randomHue(minHue, maxHue),
-      ColorMath.random(minSaturation, maxSaturation),
-      ColorMath.random(minLightness, maxLightness),
+      ColorMath.randomHue(minHue, maxHue, seed),
+      ColorMath.random(minSaturation, maxSaturation, seed),
+      ColorMath.random(minLightness, maxLightness, seed),
     );
   }
 

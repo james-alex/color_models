@@ -176,6 +176,7 @@ class LabColor extends cm.LabColor
     num maxA = 100,
     num minB = 0,
     num maxB = 100,
+    int? seed,
   }) {
     assert(minLightness >= 0 && minLightness <= maxLightness);
     assert(maxLightness >= minLightness && maxLightness <= 100);
@@ -190,6 +191,7 @@ class LabColor extends cm.LabColor
       maxA: maxA,
       minB: minB,
       maxB: maxB,
+      seed: seed,
     ).cast();
   }
 

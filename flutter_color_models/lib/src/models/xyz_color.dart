@@ -180,6 +180,7 @@ class XyzColor extends cm.XyzColor
     num maxY = 100,
     num minZ = 0,
     num maxZ = 100,
+    int? seed,
   }) {
     assert(minX >= 0 && minX <= maxX);
     assert(maxX >= minX && maxX <= 100);
@@ -194,6 +195,7 @@ class XyzColor extends cm.XyzColor
       maxY: maxY,
       minZ: minZ,
       maxZ: maxZ,
+      seed: seed,
     ).cast();
   }
 

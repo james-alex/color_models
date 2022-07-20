@@ -173,6 +173,7 @@ class HsiColor extends cm.HsiColor
     num maxSaturation = 100,
     num minIntensity = 0,
     num maxIntensity = 100,
+    int? seed,
   }) {
     assert(minHue >= 0 && minHue <= 360);
     assert(maxHue >= 0 && maxHue <= 360);
@@ -187,6 +188,7 @@ class HsiColor extends cm.HsiColor
       maxSaturation: maxSaturation,
       minIntensity: minIntensity,
       maxIntensity: maxIntensity,
+      seed: seed,
     ).cast();
   }
 

@@ -245,11 +245,12 @@ class OklabColor extends ColorModel {
     double maxA = 1.0,
     double minB = 0.0,
     double maxB = 1.0,
+    int? seed,
   }) {
     return OklabColor(
-      ColorMath.random(minLightness, maxLightness),
-      ColorMath.random(minA, maxA),
-      ColorMath.random(minB, maxB),
+      ColorMath.random(minLightness, maxLightness, seed),
+      ColorMath.random(minA, maxA, seed),
+      ColorMath.random(minB, maxB, seed),
     );
   }
 

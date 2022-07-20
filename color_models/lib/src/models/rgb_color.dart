@@ -293,6 +293,7 @@ class RgbColor extends ColorModel {
     int maxGreen = 255,
     int minBlue = 0,
     int maxBlue = 255,
+    int? seed,
   }) {
     assert(minRed >= 0 && minRed <= maxRed);
     assert(maxRed >= minRed && maxRed <= 255);
@@ -301,17 +302,17 @@ class RgbColor extends ColorModel {
     assert(minBlue >= 0 && minBlue <= maxBlue);
     assert(maxBlue >= minBlue && maxBlue <= 255);
     return RgbColor(
-      _random(minRed, maxRed),
-      _random(minGreen, maxGreen),
-      _random(minBlue, maxBlue),
+      _random(minRed, maxRed, seed),
+      _random(minGreen, maxGreen, seed),
+      _random(minBlue, maxBlue, seed),
     );
   }
 
   /// Generates a random integer between [min] and [max].
-  static int _random(int min, int max) {
+  static int _random(int min, int max, [int? seed]) {
     assert(min >= 0 && min <= max);
     assert(max >= min && max <= 255);
-    return Random().nextInt(max + 1 - min) + min;
+    return Random(seed).nextInt(max + 1 - min) + min;
   }
 
   @override

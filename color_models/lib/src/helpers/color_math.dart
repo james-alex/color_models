@@ -14,16 +14,16 @@ class ColorMath {
   }
 
   /// Generates a random double between [min] and [max] rounded to the tenth.
-  static double random(num min, num max) =>
-      (((Random().nextDouble() * (max - min)) + min) * 10).round() / 10;
+  static double random(num min, num max, [int? seed]) =>
+      (((Random(seed).nextDouble() * (max - min)) + min) * 10).round() / 10;
 
   /// Generates a random hue between [min] and [max].
-  static double randomHue(num min, num max) {
+  static double randomHue(num min, num max, [int? seed]) {
     assert(min >= 0 && min <= 360);
     assert(max >= 0 && max <= 360);
     return min <= max
-        ? random(min, max)
-        : (random(0, (max + 360) - min) + min) % 360;
+        ? random(min, max, seed)
+        : (random(0, (max + 360) - min, seed) + min) % 360;
   }
 
   /// Rounds [value] to the millionth.

@@ -179,6 +179,7 @@ class HspColor extends cm.HspColor
     num maxSaturation = 100,
     num minPerceivedBrightness = 0,
     num maxPerceivedBrightness = 100,
+    int? seed,
   }) {
     assert(minHue >= 0 && minHue <= 360);
     assert(maxHue >= 0 && maxHue <= 360);
@@ -195,6 +196,7 @@ class HspColor extends cm.HspColor
       maxSaturation: maxSaturation,
       minPerceivedBrightness: minPerceivedBrightness,
       maxPerceivedBrightness: maxPerceivedBrightness,
+      seed: seed,
     ).cast();
   }
 

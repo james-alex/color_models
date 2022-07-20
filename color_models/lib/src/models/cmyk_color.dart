@@ -303,6 +303,7 @@ class CmykColor extends ColorModel {
     num maxYellow = 100,
     num minBlack = 0,
     num maxBlack = 100,
+    int? seed,
   }) {
     assert(minCyan >= 0 && minCyan <= maxCyan);
     assert(maxCyan >= minCyan && maxCyan <= 100);
@@ -314,10 +315,10 @@ class CmykColor extends ColorModel {
     assert(maxBlack >= minBlack && maxBlack <= 100);
 
     return CmykColor(
-      ColorMath.random(minCyan, maxCyan),
-      ColorMath.random(minMagenta, maxMagenta),
-      ColorMath.random(minYellow, maxYellow),
-      ColorMath.random(minBlack, maxBlack),
+      ColorMath.random(minCyan, maxCyan, seed),
+      ColorMath.random(minMagenta, maxMagenta, seed),
+      ColorMath.random(minYellow, maxYellow, seed),
+      ColorMath.random(minBlack, maxBlack, seed),
     );
   }
 

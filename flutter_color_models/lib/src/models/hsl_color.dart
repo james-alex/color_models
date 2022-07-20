@@ -173,6 +173,7 @@ class HslColor extends cm.HslColor
     num maxSaturation = 100,
     num minLightness = 0,
     num maxLightness = 100,
+    int? seed,
   }) {
     assert(minHue >= 0 && minHue <= 360);
     assert(maxHue >= 0 && maxHue <= 360);
@@ -180,7 +181,6 @@ class HslColor extends cm.HslColor
     assert(maxSaturation >= minSaturation && maxSaturation <= 100);
     assert(minLightness >= 0 && minLightness <= maxLightness);
     assert(maxLightness >= minLightness && maxLightness <= 100);
-
     return cm.HslColor.random(
       minHue: minHue,
       maxHue: maxHue,
@@ -188,6 +188,7 @@ class HslColor extends cm.HslColor
       maxSaturation: maxSaturation,
       minLightness: minLightness,
       maxLightness: maxLightness,
+      seed: seed,
     ).cast();
   }
 

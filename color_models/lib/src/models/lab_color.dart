@@ -270,6 +270,7 @@ class LabColor extends ColorModel {
     num maxA = 100,
     num minB = 0,
     num maxB = 100,
+    int? seed,
   }) {
     assert(minLightness >= 0 && minLightness <= maxLightness);
     assert(maxLightness >= minLightness && maxLightness <= 100);
@@ -278,9 +279,9 @@ class LabColor extends ColorModel {
     assert(minB >= 0 && minB <= maxB);
     assert(maxB >= minB && maxB <= 100);
     return LabColor(
-      ColorMath.random(minLightness, maxLightness),
-      ColorMath.random(minA, maxA),
-      ColorMath.random(minB, maxB),
+      ColorMath.random(minLightness, maxLightness, seed),
+      ColorMath.random(minA, maxA, seed),
+      ColorMath.random(minB, maxB, seed),
     );
   }
 

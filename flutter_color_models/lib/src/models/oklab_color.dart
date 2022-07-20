@@ -162,6 +162,7 @@ class OklabColor extends cm.OklabColor
     double maxA = 1.0,
     double minB = 0.0,
     double maxB = 1.0,
+    int? seed,
   }) {
     return cm.OklabColor.random(
       minLightness: minLightness,
@@ -170,6 +171,7 @@ class OklabColor extends cm.OklabColor
       maxA: maxA,
       minB: minB,
       maxB: maxB,
+      seed: seed,
     ).cast();
   }
 

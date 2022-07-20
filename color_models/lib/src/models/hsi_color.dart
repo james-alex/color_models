@@ -281,6 +281,7 @@ class HsiColor extends ColorModel {
     num maxSaturation = 100,
     num minIntensity = 0,
     num maxIntensity = 100,
+    int? seed,
   }) {
     assert(minHue >= 0 && minHue <= 360);
     assert(maxHue >= 0 && maxHue <= 360);
@@ -289,9 +290,9 @@ class HsiColor extends ColorModel {
     assert(minIntensity >= 0 && minIntensity <= maxIntensity);
     assert(maxIntensity >= minIntensity && maxIntensity <= 100);
     return HsiColor(
-      ColorMath.randomHue(minHue, maxHue),
-      ColorMath.random(minSaturation, maxSaturation),
-      ColorMath.random(minIntensity, maxIntensity),
+      ColorMath.randomHue(minHue, maxHue, seed),
+      ColorMath.random(minSaturation, maxSaturation, seed),
+      ColorMath.random(minIntensity, maxIntensity, seed),
     );
   }
 

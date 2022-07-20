@@ -189,6 +189,7 @@ class CmykColor extends cm.CmykColor
     num maxYellow = 100,
     num minBlack = 0,
     num maxBlack = 100,
+    int? seed,
   }) {
     assert(minCyan >= 0 && minCyan <= maxCyan);
     assert(maxCyan >= minCyan && maxCyan <= 100);
@@ -198,7 +199,6 @@ class CmykColor extends cm.CmykColor
     assert(maxYellow >= minYellow && maxYellow <= 100);
     assert(minBlack >= 0 && minBlack <= maxBlack);
     assert(maxBlack >= minBlack && maxBlack <= 100);
-
     return cm.CmykColor.random(
       minCyan: minCyan,
       maxCyan: maxCyan,
@@ -208,6 +208,7 @@ class CmykColor extends cm.CmykColor
       maxYellow: maxYellow,
       minBlack: minBlack,
       maxBlack: maxBlack,
+      seed: seed,
     ).cast();
   }
 

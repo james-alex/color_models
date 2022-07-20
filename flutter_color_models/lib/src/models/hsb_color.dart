@@ -178,6 +178,7 @@ class HsbColor extends cm.HsbColor
     num maxSaturation = 100,
     num minBrightness = 0,
     num maxBrightness = 100,
+    int? seed,
   }) {
     assert(minHue >= 0 && minHue <= 360);
     assert(maxHue >= 0 && maxHue <= 360);
@@ -192,6 +193,7 @@ class HsbColor extends cm.HsbColor
       maxSaturation: maxSaturation,
       minBrightness: minBrightness,
       maxBrightness: maxBrightness,
+      seed: seed,
     ).cast();
   }
 

@@ -174,6 +174,7 @@ class RgbColor extends cm.RgbColor
     int maxGreen = 255,
     int minBlue = 0,
     int maxBlue = 255,
+    int? seed,
   }) {
     assert(minRed >= 0 && minRed <= maxRed);
     assert(maxRed >= minRed && maxRed <= 255);
@@ -188,6 +189,7 @@ class RgbColor extends cm.RgbColor
       maxGreen: maxGreen,
       minBlue: minBlue,
       maxBlue: maxBlue,
+      seed: seed,
     ).cast();
   }
 

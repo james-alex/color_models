@@ -288,6 +288,7 @@ class XyzColor extends ColorModel {
     num maxY = 100,
     num minZ = 0,
     num maxZ = 100,
+    int? seed,
   }) {
     assert(minX >= 0 && minX <= maxX);
     assert(maxX >= minX && maxX <= 100);
@@ -296,9 +297,9 @@ class XyzColor extends ColorModel {
     assert(minZ >= 0 && minZ <= maxZ);
     assert(maxZ >= minZ && maxZ <= 100);
     return XyzColor(
-      ColorMath.random(minX, maxX),
-      ColorMath.random(minY, maxY),
-      ColorMath.random(minZ, maxZ),
+      ColorMath.random(minX, maxX, seed),
+      ColorMath.random(minY, maxY, seed),
+      ColorMath.random(minZ, maxZ, seed),
     );
   }
 
