@@ -108,7 +108,7 @@ class OklabColor extends cm.OklabColor
   @override
   OklabColor withValues(List<num> values) {
     assert(values.length == 3 || values.length == 4);
-    assert(values[0] >= 0 && values[0] <= 100);
+    assert(values[0] >= 0.0 && values[0] <= 1.0);
     assert(values[1] >= -128 && values[1] <= 127);
     assert(values[2] >= -128 && values[2] <= 127);
     if (values.length == 4) assert(values[3] >= 0 && values[3] <= 255);
@@ -118,7 +118,7 @@ class OklabColor extends cm.OklabColor
 
   @override
   OklabColor copyWith({num? lightness, num? a, num? b, int? alpha}) {
-    assert(lightness == null || (lightness >= 0 && lightness <= 100));
+    assert(lightness == null || (lightness >= 0.0 && lightness <= 1.0));
     assert(a == null || (a >= -128 && a <= 127));
     assert(b == null || (b >= -128 && b <= 127));
     assert(alpha == null || (alpha >= 0 && alpha <= 255));
@@ -139,7 +139,7 @@ class OklabColor extends cm.OklabColor
   /// {@macro color_models.OklabColor.fromList}
   factory OklabColor.fromList(List<double> values) {
     assert(values.length == 3 || values.length == 4);
-    assert(values[0] >= 0 && values[0] <= 100);
+    assert(values[0] >= 0.0 && values[0] <= 1.0);
     assert(values[1] >= -128 && values[1] <= 127);
     assert(values[2] >= -128 && values[2] <= 127);
     if (values.length == 4) assert(values[3] >= 0 && values[3] <= 255);
