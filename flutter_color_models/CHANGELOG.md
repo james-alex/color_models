@@ -1,3 +1,15 @@
+## [1.3.3] - January 18, 2023
+
+* Added the [toColors] helper method to [Iterable<ColorModel>].
+
+* Added the [interpolate] extension method to [Color].
+
+* Added the [getColorAt] extension methods.
+
+* Added the [rotateHueRad] method to each color model.
+
+* Added the [convertTo] method.
+
 ## [1.3.2] - July 20, 2022
 
 * Added the [seed] parameter to the [random] constructors.
