@@ -11,7 +11,7 @@ environment:
 
 dependencies:
   meta: ^1.7.0
-  num_utilities: ^1.0.3
+  num_utilities: ^1.0.5
   powers: ^1.0.0+2
 
 dev_dependencies:
