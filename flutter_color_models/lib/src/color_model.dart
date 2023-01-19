@@ -288,7 +288,7 @@ extension ConvertToColorSpace on ColorSpace {
 }
 
 extension AugmentColorModels on Iterable<ColorModel> {
-  /// {@macro colorModels.AugmentColorModels.augment}
+  /// {@macro color_models.AugmentColorModels.augment}
   List<ColorModel> augment(
     int newLength, {
     List<double>? stops,
