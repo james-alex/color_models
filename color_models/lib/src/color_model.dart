@@ -464,4 +464,16 @@ extension AugmentColorModels on Iterable<ColorModel> {
     }
     return colors;
   }
+
+  /// {@template color_models.AugumentColorModels.convertTo}
+  ///
+  /// Returns a new list containing the colors of this
+  /// iterable converted to the defined [colorSpace].
+  ///
+  /// {@endtemplate}
+  List<ColorModel> convertTo(ColorSpace colorSpace) {
+    return List<ColorModel>.from(this)
+        .map<ColorModel>((color) => colorSpace.from(color))
+        .toList();
+  }
 }

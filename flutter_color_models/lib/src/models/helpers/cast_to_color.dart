@@ -44,40 +44,83 @@ mixin CastToColor on cm.ColorModel {
 
   cm.ColorModel _cast() {
     if (this is ColorModel) {
-      late cm.ColorModel colorModel;
       switch (runtimeType) {
         case CmykColor:
-          colorModel = cm.CmykColor.fromList(toListWithAlpha());
-          break;
+          return cm.CmykColor.fromList(toListWithAlpha());
         case HsbColor:
-          colorModel = cm.HsbColor.fromList(toListWithAlpha());
-          break;
+          return cm.HsbColor.fromList(toListWithAlpha());
         case HsiColor:
-          colorModel = cm.HsiColor.fromList(toListWithAlpha());
-          break;
+          return cm.HsiColor.fromList(toListWithAlpha());
         case HslColor:
-          colorModel = cm.HslColor.fromList(toListWithAlpha());
-          break;
+          return cm.HslColor.fromList(toListWithAlpha());
         case HspColor:
-          colorModel = cm.HspColor.fromList(toListWithAlpha());
-          break;
+          return cm.HspColor.fromList(toListWithAlpha());
         case LabColor:
-          colorModel = cm.LabColor.fromList(toListWithAlpha());
-          break;
+          return cm.LabColor.fromList(toListWithAlpha());
         case OklabColor:
-          colorModel = cm.OklabColor.fromList(toListWithAlpha());
-          break;
+          return cm.OklabColor.fromList(toListWithAlpha());
         case RgbColor:
-          colorModel =
-              cm.RgbColor.fromList((this as RgbColor).toPreciseListWithAlpha());
-          break;
+          return cm.RgbColor.fromList(
+              (this as RgbColor).toPreciseListWithAlpha());
         case XyzColor:
-          colorModel = cm.XyzColor.fromList(toListWithAlpha());
-          break;
+          return cm.XyzColor.fromList(toListWithAlpha());
       }
-      return colorModel;
+      throw UnimplementedError('$runtimeType hasn\'t been implemented yet.');
     }
     return this;
+  }
+}
+
+extension CastToColorModel on cm.ColorModel {
+  ColorModel cast() {
+    switch (runtimeType) {
+      case CmykColor:
+        return CmykColor.fromList(toListWithAlpha());
+      case HsbColor:
+        return HsbColor.fromList(toListWithAlpha());
+      case HsiColor:
+        return HsiColor.fromList(toListWithAlpha());
+      case HslColor:
+        return HslColor.fromList(toListWithAlpha());
+      case HspColor:
+        return HspColor.fromList(toListWithAlpha());
+      case LabColor:
+        return LabColor.fromList(toListWithAlpha());
+      case OklabColor:
+        return OklabColor.fromList(toListWithAlpha() as List<double>);
+      case RgbColor:
+        return RgbColor.fromList((this as RgbColor).toPreciseListWithAlpha());
+      case XyzColor:
+        return XyzColor.fromList(toListWithAlpha());
+    }
+    throw UnimplementedError('$runtimeType hasn\'t been implemented yet.');
+  }
+}
+
+extension CastFromColorModel on ColorModel {
+  cm.ColorModel cast() {
+    switch (runtimeType) {
+      case CmykColor:
+        return cm.CmykColor.fromList(toListWithAlpha());
+      case HsbColor:
+        return cm.HsbColor.fromList(toListWithAlpha());
+      case HsiColor:
+        return cm.HsiColor.fromList(toListWithAlpha());
+      case HslColor:
+        return cm.HslColor.fromList(toListWithAlpha());
+      case HspColor:
+        return cm.HspColor.fromList(toListWithAlpha());
+      case LabColor:
+        return cm.LabColor.fromList(toListWithAlpha());
+      case OklabColor:
+        return cm.OklabColor.fromList(toListWithAlpha());
+      case RgbColor:
+        return cm.RgbColor.fromList(
+            (this as RgbColor).toPreciseListWithAlpha());
+      case XyzColor:
+        return cm.XyzColor.fromList(toListWithAlpha());
+    }
+    throw UnimplementedError('$runtimeType hasn\'t been implemented yet.');
   }
 }
 

@@ -296,6 +296,11 @@ extension AugmentColorModels on Iterable<ColorModel> {
             stops: stops, colorSpace: colorSpace, invert: invert)
         .cast<ColorModel>();
   }
+
+  /// {@macro color_models.AugumentColorModels.convertTo}
+  List<ColorModel> convertTo(ColorSpace colorSpace) {
+    return cast<cm.ColorModel>().convertTo(colorSpace).cast<ColorModel>();
+  }
 }
 
 extension AugmentColors on Iterable<Color> {
