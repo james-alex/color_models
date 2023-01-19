@@ -301,6 +301,13 @@ extension AugmentColorModels on Iterable<ColorModel> {
   List<ColorModel> convertTo(ColorSpace colorSpace) {
     return cast<cm.ColorModel>().convertTo(colorSpace).cast<ColorModel>();
   }
+
+  /// {@macro color_models.AugumentColorModels.getColorAt}
+  ColorModel getColorAt(double delta) {
+    assert(isNotEmpty, 'A color can\'t be returned from an empty list.');
+    assert(delta >= 0.0 && delta <= 1.0);
+    return cast<cm.ColorModel>().getColorAt(delta).cast();
+  }
 }
 
 extension AugmentColors on Iterable<Color> {
@@ -319,4 +326,11 @@ extension AugmentColors on Iterable<Color> {
   /// Returns this iterable as a list of [ColorModel]s.
   List<ColorModel> toColorModels() =>
       map((color) => color.toColorModel()).toList();
+
+  /// {@macro color_models.AugumentColorModels.getColorAt}
+  ColorModel getColorAt(double delta) {
+    assert(isNotEmpty, 'A color can\'t be returned from an empty list.');
+    assert(delta >= 0.0 && delta <= 1.0);
+    return toColorModels().getColorAt(delta);
+  }
 }

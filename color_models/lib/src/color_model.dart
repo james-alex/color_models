@@ -476,4 +476,21 @@ extension AugmentColorModels on Iterable<ColorModel> {
         .map<ColorModel>((color) => colorSpace.from(color))
         .toList();
   }
+
+  /// {@template color_models.AugumentColorModels.getColorAt}
+  ///
+  /// Returns the color at [delta] by interpolating between the colors in the list.
+  ///
+  /// {@endtemplate}
+  ColorModel getColorAt(double delta) {
+    assert(isNotEmpty, 'A color can\'t be returned from an empty list.');
+    assert(delta >= 0.0 && delta <= 1.0);
+    if (length == 1) return first;
+    final slice = 1.0 / (length - 1);
+    final position = delta / slice;
+    final index = position.truncate();
+    final color = elementAt(index);
+    if (position == index) return color;
+    return color.interpolate(elementAt(index + 1), position - index);
+  }
 }
