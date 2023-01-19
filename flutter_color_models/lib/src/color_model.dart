@@ -307,6 +307,10 @@ extension AugmentColorModels on Iterable<ColorModel> {
     return cast<cm.ColorModel>().convertTo(colorSpace).cast<ColorModel>();
   }
 
+  /// Returns a new list containing all of the
+  /// colors in this list casted to [Color]s.
+  List<Color> toColors() => map<Color>((color) => color.toColor()).toList();
+
   /// {@macro color_models.AugumentColorModels.getColorAt}
   ColorModel getColorAt(double delta) {
     assert(isNotEmpty, 'A color can\'t be returned from an empty list.');
