@@ -131,6 +131,11 @@ extension LerpToColor on Color {
     return toRgbColor().lerpTo(color.toRgbColor(), steps,
         colorSpace: colorSpace, excludeOriginalColors: excludeOriginalColors);
   }
+
+  /// Interpolates to the defined [step] between this color and [end].
+  Color interpolate(Color end, double step) {
+    return toRgbColor().interpolate(end.toRgbColor(), step).toColor();
+  }
 }
 
 extension ToColorModel on Color {
