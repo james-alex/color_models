@@ -111,6 +111,10 @@ class XyzColor extends ColorModel {
       ColorAdjustments.rotateHue(this, amount).toXyzColor();
 
   @override
+  XyzColor rotateHueRad(double amount) =>
+      ColorAdjustments.rotateHueRad(this, amount).toXyzColor();
+
+  @override
   XyzColor warmer(num amount, {bool relative = true}) {
     assert(amount > 0);
     return ColorAdjustments.warmer(this, amount, relative: relative)

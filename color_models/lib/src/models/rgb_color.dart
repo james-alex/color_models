@@ -106,6 +106,10 @@ class RgbColor extends ColorModel {
       ColorAdjustments.rotateHue(this, amount).toRgbColor();
 
   @override
+  RgbColor rotateHueRad(double amount) =>
+      ColorAdjustments.rotateHueRad(this, amount).toRgbColor();
+
+  @override
   RgbColor warmer(num amount, {bool relative = true}) {
     assert(amount > 0);
     if (relative) assert(amount <= 100);

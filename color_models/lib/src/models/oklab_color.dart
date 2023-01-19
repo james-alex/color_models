@@ -102,6 +102,10 @@ class OklabColor extends ColorModel {
       ColorAdjustments.rotateHue(this, amount).toOklabColor();
 
   @override
+  OklabColor rotateHueRad(double amount) =>
+      ColorAdjustments.rotateHueRad(this, amount).toOklabColor();
+
+  @override
   OklabColor warmer(num amount, {bool relative = true}) {
     assert(amount > 0);
     return ColorAdjustments.warmer(this, amount, relative: relative)

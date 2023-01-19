@@ -109,6 +109,10 @@ class CmykColor extends ColorModel {
       ColorAdjustments.rotateHue(this, amount).toCmykColor();
 
   @override
+  CmykColor rotateHueRad(double amount) =>
+      ColorAdjustments.rotateHueRad(this, amount).toCmykColor();
+
+  @override
   CmykColor warmer(num amount, {bool relative = true}) {
     assert(amount > 0);
     if (relative) assert(amount <= 100);

@@ -175,6 +175,9 @@ abstract class ColorModel {
   /// Rotates the hue of this color by [amount] in degrees.
   ColorModel rotateHue(num amount);
 
+  /// Rotates the hue of this color by [amount] in radians.
+  ColorModel rotateHueRad(double amount);
+
   /// Returns this [ColorModel] with the provided [hue] value.
   ColorModel withHue(num hue);
 

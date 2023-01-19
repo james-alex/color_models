@@ -1,3 +1,4 @@
+import 'dart:math';
 import '../color_model.dart';
 import 'color_math.dart';
 
@@ -9,6 +10,12 @@ class ColorAdjustments {
   static HslColor rotateHue(ColorModel color, num amount) {
     final hslColor = color.toHslColor();
     return hslColor.withHue((hslColor.hue + amount) % 360);
+  }
+
+  /// Converts [color] to a [HslColor] and adjusts the hue
+  /// by [amount] in radians, after being converted to degrees.
+  static HslColor rotateHueRad(ColorModel color, double amount) {
+    return rotateHue(color, amount * 180 / pi);
   }
 
   /// Converts [color] to a [HslColor] and adjusts the hue towards

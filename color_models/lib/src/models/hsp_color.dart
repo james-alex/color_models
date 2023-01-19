@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:meta/meta.dart';
 import '../color_model.dart';
 import '../helpers/color_adjustments.dart';
@@ -103,6 +104,10 @@ class HspColor extends ColorModel {
 
   @override
   HspColor rotateHue(num amount) => withHue((hue + amount) % 360);
+
+  @override
+  HspColor rotateHueRad(double amount) =>
+      withHue((hue + (amount * 180 / pi)) % 360);
 
   @override
   HspColor warmer(num amount, {bool relative = true}) {

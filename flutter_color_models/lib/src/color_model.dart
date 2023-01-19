@@ -2,6 +2,7 @@ import 'package:color_models/color_models.dart' as cm;
 import 'package:color_models/color_models.dart' show ColorSpace;
 import 'package:flutter/painting.dart' show Color;
 import 'package:meta/meta.dart';
+import 'models/helpers/cast_to_color.dart';
 import 'models/cmyk_color.dart';
 import 'models/hsb_color.dart';
 import 'models/hsi_color.dart';
@@ -50,6 +51,9 @@ abstract class ColorModel implements cm.ColorModel, Color {
 
   @override
   ColorModel rotateHue(num amount);
+
+  @override
+  ColorModel rotateHueRad(double amount);
 
   @override
   ColorModel withHue(num hue);

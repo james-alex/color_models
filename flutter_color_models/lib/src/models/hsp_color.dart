@@ -56,6 +56,9 @@ class HspColor extends cm.HspColor
   HspColor rotateHue(num amount) => super.rotateHue(amount).cast();
 
   @override
+  HspColor rotateHueRad(double amount) => super.rotateHueRad(amount).cast();
+
+  @override
   HspColor warmer(num amount, {bool relative = true}) {
     assert(amount > 0);
     return super.warmer(amount, relative: relative).cast();

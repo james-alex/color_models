@@ -58,6 +58,9 @@ class CmykColor extends cm.CmykColor
   CmykColor rotateHue(num amount) => super.rotateHue(amount).cast();
 
   @override
+  CmykColor rotateHueRad(double amount) => super.rotateHueRad(amount).cast();
+
+  @override
   CmykColor warmer(num amount, {bool relative = true}) {
     assert(amount > 0);
     return super.warmer(amount, relative: relative).cast();

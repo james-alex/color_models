@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:meta/meta.dart';
 import '../color_model.dart';
 import '../helpers/color_adjustments.dart';
@@ -96,6 +97,10 @@ class HsiColor extends ColorModel {
 
   @override
   HsiColor rotateHue(num amount) => withHue((hue + amount) % 360);
+
+  @override
+  HsiColor rotateHueRad(double amount) =>
+      withHue((hue + (amount * 180 / pi)) % 360);
 
   @override
   HsiColor warmer(num amount, {bool relative = true}) {

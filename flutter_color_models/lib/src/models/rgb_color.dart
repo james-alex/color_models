@@ -55,6 +55,9 @@ class RgbColor extends cm.RgbColor
   RgbColor rotateHue(num amount) => super.rotateHue(amount).cast();
 
   @override
+  RgbColor rotateHueRad(double amount) => super.rotateHueRad(amount).cast();
+
+  @override
   RgbColor warmer(num amount, {bool relative = true}) {
     assert(amount > 0);
     return super.warmer(amount, relative: relative).cast();

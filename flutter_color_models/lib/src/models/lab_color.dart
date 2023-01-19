@@ -56,6 +56,9 @@ class LabColor extends cm.LabColor
   LabColor rotateHue(num amount) => super.rotateHue(amount).cast();
 
   @override
+  LabColor rotateHueRad(double amount) => super.rotateHueRad(amount).cast();
+
+  @override
   LabColor warmer(num amount, {bool relative = true}) {
     assert(amount > 0);
     return super.warmer(amount, relative: relative).cast();

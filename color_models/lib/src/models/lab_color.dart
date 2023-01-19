@@ -105,6 +105,10 @@ class LabColor extends ColorModel {
       ColorAdjustments.rotateHue(this, amount).toLabColor();
 
   @override
+  LabColor rotateHueRad(double amount) =>
+      ColorAdjustments.rotateHueRad(this, amount).toLabColor();
+
+  @override
   LabColor warmer(num amount, {bool relative = true}) {
     assert(amount > 0);
     return ColorAdjustments.warmer(this, amount, relative: relative)

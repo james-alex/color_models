@@ -53,6 +53,9 @@ class OklabColor extends cm.OklabColor
   OklabColor rotateHue(num amount) => super.rotateHue(amount).cast();
 
   @override
+  OklabColor rotateHueRad(double amount) => super.rotateHueRad(amount).cast();
+
+  @override
   OklabColor warmer(num amount, {bool relative = true}) {
     assert(amount > 0);
     return super.warmer(amount, relative: relative).cast();
