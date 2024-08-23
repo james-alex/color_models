@@ -188,13 +188,13 @@ extension CastFromHspColor on HspColor {
 extension CastToLabColor on cm.LabColor {
   /// Casts a [LabColor] from the `color_models` package to a
   /// [LabColor] from the `flutter_color_models` package.
-  LabColor cast() => LabColor(lightness, a, b, alpha);
+  LabColor cast() => LabColor(lightness, chromaticityA, chromaticityB, alpha);
 }
 
 extension CastFromLabColor on LabColor {
   /// Casts a [LabColor] from the `color_models` package to a
   /// [LabColor] from the `flutter_color_models` package.
-  cm.LabColor cast() => cm.LabColor(lightness, a, b, alpha);
+  cm.LabColor cast() => cm.LabColor(lightness, chromaticityA, chromaticityB, alpha);
 }
 
 extension CastToOklabColor on cm.OklabColor {

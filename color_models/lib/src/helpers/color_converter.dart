@@ -508,8 +508,8 @@ class ColorConverter {
   /// Converts a XYZ color to a LAB color.
   static XyzColor labToXyz(LabColor labColor) {
     final lightness = labColor.lightness;
-    final a = labColor.a;
-    final b = labColor.b;
+    final a = labColor.chromaticityA;
+    final b = labColor.chromaticityB;
 
     var y = (lightness + 16) / 116;
     var x = (a / 500) + y;

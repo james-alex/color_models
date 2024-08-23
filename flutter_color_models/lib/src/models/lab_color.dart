@@ -103,7 +103,7 @@ class LabColor extends cm.LabColor
   @override
   LabColor withAlpha(int alpha) {
     assert(alpha >= 0 && alpha <= 255);
-    return LabColor(lightness, a, b, alpha);
+    return LabColor(lightness, chromaticityA, chromaticityB, alpha);
   }
 
   @override
@@ -140,8 +140,8 @@ class LabColor extends cm.LabColor
     assert(alpha == null || (alpha >= 0 && alpha <= 255));
     return LabColor(
       lightness ?? this.lightness,
-      a ?? this.a,
-      b ?? this.b,
+      a ?? this.chromaticityA,
+      b ?? this.chromaticityB,
       alpha ?? this.alpha,
     );
   }
