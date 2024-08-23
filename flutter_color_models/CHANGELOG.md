@@ -1,3 +1,9 @@
+## [1.4.0] - August 23, 2024
+
+* Prepares for the coming changes in Flutter's Color class
+  * upgrades color_models
+  * adds Color.a, Color.r, Color.g, Color.b, Color.withValues, Color.colorSpace.
+
 ## [1.3.3] - January 18, 2023
 
 * Added the [toColors] helper method to [Iterable<ColorModel>].
