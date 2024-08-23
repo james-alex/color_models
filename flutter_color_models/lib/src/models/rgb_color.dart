@@ -3,6 +3,7 @@ import 'package:color_models/color_models.dart' as cm;
 import '../color_model.dart';
 import 'helpers/as_color.dart';
 import 'helpers/cast_to_color.dart';
+import 'dart:ui' as ui;
 
 /// {@macro color_models.RgbColor}
 class RgbColor extends cm.RgbColor
@@ -22,6 +23,14 @@ class RgbColor extends cm.RgbColor
 
   @override
   int get value => toColor().value;
+
+  double get a => alpha / 255.0;
+
+  double get r => toRgbColor().red / 255.0;
+
+  double get g => toRgbColor().green / 255.0;
+
+  double get b => toRgbColor().blue / 255.0;
 
   @override
   RgbColor interpolate(cm.ColorModel end, double step) {
@@ -118,6 +127,16 @@ class RgbColor extends cm.RgbColor
     assert(values[2] >= 0 && values[2] <= 255);
     if (values.length == 4) assert(values[3] >= 0 && values[3] <= 255);
     return RgbColor.fromList(values);
+  }
+
+  RgbColor withValues(
+      {double? alpha,
+      double? red,
+      double? green,
+      double? blue,
+      ui.ColorSpace? colorSpace}) {
+    Color color = performWithValues(alpha, red, green, blue, colorSpace);
+    return RgbColor.fromColor(color);
   }
 
   @override

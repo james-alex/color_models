@@ -4,6 +4,7 @@ import '../color_model.dart';
 import 'helpers/as_color.dart';
 import 'helpers/rgb_getters.dart';
 import 'helpers/cast_to_color.dart';
+import 'dart:ui' as ui;
 
 /// {@macro color_models.LabColor}
 class LabColor extends cm.LabColor
@@ -119,6 +120,16 @@ class LabColor extends cm.LabColor
     assert(values[2] >= -128 && values[2] <= 127);
     if (values.length == 4) assert(values[3] >= 0 && values[3] <= 255);
     return LabColor.fromList(values);
+  }
+
+  LabColor withValues(
+      {double? alpha,
+      double? red,
+      double? green,
+      double? blue,
+      ui.ColorSpace? colorSpace}) {
+    Color color = performWithValues(alpha, red, green, blue, colorSpace);
+    return LabColor.fromColor(color);
   }
 
   @override

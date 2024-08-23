@@ -4,6 +4,7 @@ import '../color_model.dart';
 import 'helpers/as_color.dart';
 import 'helpers/rgb_getters.dart';
 import 'helpers/cast_to_color.dart';
+import 'dart:ui' as ui;
 
 /// {@macro color_models.OklabColor}
 class OklabColor extends cm.OklabColor
@@ -114,6 +115,16 @@ class OklabColor extends cm.OklabColor
     if (values.length == 4) assert(values[3] >= 0 && values[3] <= 255);
     return OklabColor.fromList(
         values.map<double>((value) => value.toDouble()).toList());
+  }
+
+  OklabColor withValues(
+      {double? alpha,
+      double? red,
+      double? green,
+      double? blue,
+      ui.ColorSpace? colorSpace}) {
+    Color color = performWithValues(alpha, red, green, blue, colorSpace);
+    return OklabColor.fromColor(color);
   }
 
   @override

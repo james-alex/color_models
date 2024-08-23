@@ -4,6 +4,7 @@ import '../color_model.dart';
 import 'helpers/as_color.dart';
 import 'helpers/rgb_getters.dart';
 import 'helpers/cast_to_color.dart';
+import 'dart:ui' as ui;
 
 /// {@macro color_models.HslColor}
 class HslColor extends cm.HslColor
@@ -117,6 +118,16 @@ class HslColor extends cm.HslColor
     assert(values[2] >= 0 && values[2] <= 100);
     if (values.length == 4) assert(values[3] >= 0 && values[3] <= 255);
     return HslColor.fromList(values);
+  }
+
+  HslColor withValues(
+      {double? alpha,
+      double? red,
+      double? green,
+      double? blue,
+      ui.ColorSpace? colorSpace}) {
+    Color color = performWithValues(alpha, red, green, blue, colorSpace);
+    return HslColor.fromColor(color);
   }
 
   @override
