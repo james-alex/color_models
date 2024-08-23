@@ -100,7 +100,7 @@ class OklabColor extends cm.OklabColor
   @override
   OklabColor withAlpha(int alpha) {
     assert(alpha >= 0 && alpha <= 255);
-    return OklabColor(lightness, a, b, alpha);
+    return OklabColor(lightness, chromaticityA, chromaticityB, alpha);
   }
 
   @override
@@ -135,8 +135,8 @@ class OklabColor extends cm.OklabColor
     assert(alpha == null || (alpha >= 0 && alpha <= 255));
     return OklabColor(
       lightness?.toDouble() ?? this.lightness,
-      a?.toDouble() ?? this.a,
-      b?.toDouble() ?? this.b,
+      a?.toDouble() ?? this.chromaticityA,
+      b?.toDouble() ?? this.chromaticityB,
       alpha ?? this.alpha,
     );
   }
