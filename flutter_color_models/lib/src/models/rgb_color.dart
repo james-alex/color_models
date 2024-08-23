@@ -24,13 +24,13 @@ class RgbColor extends cm.RgbColor
   @override
   int get value => toColor().value;
 
-  // double get a => alpha / 255.0;
+  double get a => alpha / 255.0;
 
-  // double get r => red / 255.0;
+  double get r => red / 255.0;
 
-  // double get g => green / 255.0;
+  double get g => green / 255.0;
 
-  // double get b => blue / 255.0;
+  double get b => blue / 255.0;
 
   @override
   RgbColor interpolate(cm.ColorModel end, double step) {
