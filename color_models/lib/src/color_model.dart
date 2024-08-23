@@ -92,7 +92,7 @@ abstract class ColorModel {
         : toListWithAlpha();
     final valuesB =
         end is RgbColor ? end.toPreciseListWithAlpha() : end.toListWithAlpha();
-    return withValues(List<num>.generate(valuesA.length,
+    return fromValues(List<num>.generate(valuesA.length,
         (index) => _interpolateValue(valuesA[index], valuesB[index], step)));
   }
 
@@ -131,7 +131,7 @@ abstract class ColorModel {
       for (var j = 0; j < valuesA.length; j++) {
         values.add(_interpolateValue(valuesA[j], valuesB[j], step));
       }
-      colors.add(colorA.withValues(values));
+      colors.add(colorA.fromValues(values));
     }
 
     if (!excludeOriginalColors) {
@@ -198,7 +198,7 @@ abstract class ColorModel {
   ///
   /// [values] should contain one value for each parameter of the color space;
   /// the alpha value is optional.
-  ColorModel withValues(List<num> values);
+  ColorModel fromValues(List<num> values);
 
   /// Returns a copy of this color modified with the provided values.
   ColorModel copyWith({int? alpha});

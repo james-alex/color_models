@@ -154,7 +154,7 @@ class CmykColor extends ColorModel {
   }
 
   @override
-  CmykColor withValues(List<num> values) {
+  CmykColor fromValues(List<num> values) {
     assert(values.length == 4 || values.length == 5);
     assert(values[0] >= 0 && values[0] <= 100);
     assert(values[1] >= 0 && values[1] <= 100);

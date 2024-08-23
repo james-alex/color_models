@@ -13,7 +13,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  color_models: ^1.3.3
+  color_models:
+    path: ../color_models
   meta: ^1.7.0
 
 dev_dependencies:

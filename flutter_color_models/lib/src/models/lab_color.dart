@@ -112,7 +112,7 @@ class LabColor extends cm.LabColor
   }
 
   @override
-  LabColor withValues(List<num> values) {
+  LabColor fromValues(List<num> values) {
     assert(values.length == 3 || values.length == 4);
     assert(values[0] >= 0 && values[0] <= 100);
     assert(values[1] >= -128 && values[1] <= 127);

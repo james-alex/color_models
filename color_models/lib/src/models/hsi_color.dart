@@ -141,7 +141,7 @@ class HsiColor extends ColorModel {
   }
 
   @override
-  HsiColor withValues(List<num> values) {
+  HsiColor fromValues(List<num> values) {
     assert(values.length == 3 || values.length == 4);
     assert(values[0] >= 0 && values[0] <= 360);
     assert(values[1] >= 0 && values[1] <= 100);

@@ -154,7 +154,7 @@ class XyzColor extends ColorModel {
   }
 
   @override
-  XyzColor withValues(List<num> values) {
+  XyzColor fromValues(List<num> values) {
     assert(values.length == 3 || values.length == 4);
     assert(values[0] >= 0);
     assert(values[1] >= 0);

@@ -109,7 +109,7 @@ class OklabColor extends cm.OklabColor
   }
 
   @override
-  OklabColor withValues(List<num> values) {
+  OklabColor fromValues(List<num> values) {
     assert(values.length == 3 || values.length == 4);
     if (values.length == 4) assert(values[3] >= 0 && values[3] <= 255);
     return OklabColor.fromList(
