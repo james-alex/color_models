@@ -9,7 +9,7 @@ import '../helpers/color_math.dart';
 /// A color in the CIELAB color space.
 ///
 /// The CIELAB color space contains channels for [lightness],
-/// [a] (red and green opponent values), and [b] (blue and
+/// [lab_a] (red and green opponent values), and [lab_b] (blue and
 /// yellow opponent values.)
 ///
 /// {@endtemplate}
@@ -21,19 +21,19 @@ class LabColor extends ColorModel {
   ///
   /// [lightness] must be `>= 0` and `<= 100`.
   ///
-  /// [a] and [b] must both be `>= -128` and `<= 127`.
+  /// [lab_a] and [lab_b] must both be `>= -128` and `<= 127`.
   ///
   /// [alpha] must be `>= 0` and `<= 255`.
   ///
   /// {@endtemplate}
   const LabColor(
     this.lightness,
-    this.a,
-    this.b, [
+    this.lab_a,
+    this.lab_b, [
     int alpha = 255,
   ])  : assert(lightness >= 0 && lightness <= 100),
-        assert(a >= -128 && a <= 127),
-        assert(b >= -128 && b <= 127),
+        assert(lab_a >= -128 && lab_a <= 127),
+        assert(lab_b >= -128 && lab_b <= 127),
         assert(alpha >= 0 && alpha <= 255),
         super(alpha: alpha);
 
@@ -47,30 +47,30 @@ class LabColor extends ColorModel {
   /// Green is represented in the negative value range (`-128` to `0`)
   ///
   /// Red is represented in the positive value range (`0` to `127`)
-  final num a;
+  final num lab_a;
 
   /// The yellow to blue opponent color value.
   ///
   /// Yellow is represented int he negative value range (`-128` to `0`)
   ///
   /// Blue is represented in the positive value range (`0` to `127`)
-  final num b;
+  final num lab_b;
 
   @override
   bool get isBlack =>
       ColorMath.round(lightness) == 0 &&
-      ColorMath.round(a) == 0 &&
-      ColorMath.round(b) == 0;
+      ColorMath.round(lab_a) == 0 &&
+      ColorMath.round(lab_b) == 0;
 
   @override
   bool get isWhite =>
       ColorMath.round(lightness) == 1 &&
-      ColorMath.round(a) == 0 &&
-      ColorMath.round(b) == 0;
+      ColorMath.round(lab_a) == 0 &&
+      ColorMath.round(lab_b) == 0;
 
   @override
   bool get isMonochromatic =>
-      ColorMath.round(a) == 0 && ColorMath.round(b) == 0;
+      ColorMath.round(lab_a) == 0 && ColorMath.round(lab_b) == 0;
 
   @override
   LabColor interpolate(ColorModel end, double step) {
@@ -95,7 +95,7 @@ class LabColor extends ColorModel {
 
   @override
   LabColor get inverted => LabColor(
-      100 - lightness, 255 - (a + 128) - 128, 255 - (b + 128) - 128, alpha);
+      100 - lightness, 255 - (lab_a + 128) - 128, 255 - (lab_b + 128) - 128, alpha);
 
   @override
   LabColor get opposite => rotateHue(180);
@@ -138,7 +138,7 @@ class LabColor extends ColorModel {
   @override
   LabColor withAlpha(int alpha) {
     assert(alpha >= 0 && alpha <= 255);
-    return LabColor(lightness, a, b, alpha);
+    return LabColor(lightness, lab_a, lab_b, alpha);
   }
 
   @override
@@ -148,7 +148,7 @@ class LabColor extends ColorModel {
   }
 
   @override
-  LabColor withValues(List<num> values) {
+  LabColor withValuesList(List<num> values) {
     assert(values.length == 3 || values.length == 4);
     assert(values[0] >= 0 && values[0] <= 100);
     assert(values[1] >= -128 && values[1] <= 127);
@@ -165,8 +165,8 @@ class LabColor extends ColorModel {
     assert(alpha == null || (alpha >= 0 && alpha <= 255));
     return LabColor(
       lightness ?? this.lightness,
-      a ?? this.a,
-      b ?? this.b,
+      a ?? this.lab_a,
+      b ?? this.lab_b,
       alpha ?? this.alpha,
     );
   }
@@ -181,15 +181,15 @@ class LabColor extends ColorModel {
   XyzColor toXyzColor() => ColorConverter.labToXyz(this);
 
   /// Returns a fixed-length list containing the [lightness],
-  /// [a], and [b] values, in that order.
+  /// [lab_a], and [lab_b] values, in that order.
   @override
-  List<num> toList() => List<num>.from(<num>[lightness, a, b], growable: false);
+  List<num> toList() => List<num>.from(<num>[lightness, lab_a, lab_b], growable: false);
 
   /// Returns a fixed-length list containing the [lightness],
-  /// [a], [b], and [alpha] values, in that order.
+  /// [lab_a], [lab_b], and [alpha] values, in that order.
   @override
   List<num> toListWithAlpha() =>
-      List<num>.from(<num>[lightness, a, b, alpha], growable: false);
+      List<num>.from(<num>[lightness, lab_a, lab_b, alpha], growable: false);
 
   /// {@template color_models.LabColor.from}
   ///
@@ -259,9 +259,9 @@ class LabColor extends ColorModel {
   /// [minLightness] and [maxLightness] constrain the generated [lightness]
   /// value.
   ///
-  /// [minA] and [maxA] constrain the generated [a] value.
+  /// [minA] and [maxA] constrain the generated [lab_a] value.
   ///
-  /// [minB] and [maxB] constrain the generated [b] value.
+  /// [minB] and [maxB] constrain the generated [lab_b] value.
   ///
   /// All min and max values must be `min <= max && max >= min`, must
   /// be in the range of `>= 0 && <= 100`, and must not be `null`.
@@ -293,17 +293,17 @@ class LabColor extends ColorModel {
   LabColor convert(ColorModel other) => other.toLabColor();
 
   @override
-  String toString() => 'LabColor($lightness, $a, $b, $alpha)';
+  String toString() => 'LabColor($lightness, $lab_a, $lab_b, $alpha)';
 
   @override
   bool operator ==(Object other) =>
       other is LabColor &&
       ColorMath.round(lightness) == ColorMath.round(other.lightness) &&
-      ColorMath.round(a) == ColorMath.round(other.a) &&
-      ColorMath.round(b) == ColorMath.round(other.b) &&
+      ColorMath.round(lab_a) == ColorMath.round(other.lab_a) &&
+      ColorMath.round(lab_b) == ColorMath.round(other.lab_b) &&
       alpha == other.alpha;
 
   @override
   int get hashCode =>
-      lightness.hashCode ^ a.hashCode ^ b.hashCode ^ alpha.hashCode;
+      lightness.hashCode ^ lab_a.hashCode ^ lab_b.hashCode ^ alpha.hashCode;
 }

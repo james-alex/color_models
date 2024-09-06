@@ -508,8 +508,8 @@ class ColorConverter {
   /// Converts a XYZ color to a LAB color.
   static XyzColor labToXyz(LabColor labColor) {
     final lightness = labColor.lightness;
-    final a = labColor.a;
-    final b = labColor.b;
+    final a = labColor.lab_a;
+    final b = labColor.lab_b;
 
     var y = (lightness + 16) / 116;
     var x = (a / 500) + y;
@@ -578,16 +578,16 @@ class ColorConverter {
     }
 
     final l = (oklabColor.lightness +
-            (0.3963377774 * oklabColor.a) +
-            (0.2158037573 * oklabColor.b))
+            (0.3963377774 * oklabColor.lab_a) +
+            (0.2158037573 * oklabColor.lab_b))
         .cubed();
     final m = (oklabColor.lightness -
-            (0.1055613458 * oklabColor.a) -
-            (0.0638541728 * oklabColor.b))
+            (0.1055613458 * oklabColor.lab_a) -
+            (0.0638541728 * oklabColor.lab_b))
         .cubed();
     final s = (oklabColor.lightness -
-            (0.0894841775 * oklabColor.a) -
-            (1.2914855480 * oklabColor.b))
+            (0.0894841775 * oklabColor.lab_a) -
+            (1.2914855480 * oklabColor.lab_b))
         .cubed();
 
     return _LinearRgbColor(

@@ -1,3 +1,4 @@
+import 'dart:ui' as ui hide Color;
 import 'package:flutter/painting.dart' show Color;
 import 'package:color_models/color_models.dart' as cm;
 import '../color_model.dart';
@@ -112,8 +113,38 @@ class CmykColor extends cm.CmykColor
     return copyWith(alpha: (opacity * 255).round());
   }
 
+  // We must override this withValues from Color, has this from dart ui
+  /// Returns a new color that matches this color with the passed in components
+  /// changed.
+  ///
+  /// Changes to color components will be applied before applying changes to the
+  /// color space.
+  Color withValues(
+      {double? alpha,
+      double? red,
+      double? green,
+      double? blue,
+      ui.ColorSpace? colorSpace}) {
+    Color? updatedComponents;
+    if (alpha != null || red != null || green != null || blue != null) {
+      updatedComponents = Color.from(
+          alpha: alpha ?? a,
+          red: red ?? r,
+          green: green ?? g,
+          blue: blue ?? b,
+          colorSpace: this.colorSpace);
+    }
+    if (colorSpace != null && colorSpace != this.colorSpace) {
+      final UICloned_ColorTransform transform =
+          UICloned_getColorTransform(this.colorSpace, colorSpace);
+      return transform.transform(updatedComponents ?? this, colorSpace);
+    } else {
+      return updatedComponents ?? this;
+    }
+  }
+  
   @override
-  CmykColor withValues(List<num> values) {
+  CmykColor withValuesList(List<num> values) {
     assert(values.length == 4 || values.length == 5);
     assert(values[0] >= 0 && values[0] <= 100);
     assert(values[1] >= 0 && values[1] <= 100);
@@ -217,4 +248,25 @@ class CmykColor extends cm.CmykColor
 
   @override
   CmykColor convert(cm.ColorModel other) => other.toCmykColor().cast();
+
+  //OVERRIDEs for painting.dart Color
+  @override
+  double get a => (alpha / 255);
+
+  /// The red channel of this color.
+  @override
+  double get r =>(red / 255);
+
+  /// The green channel of this color.
+  @override
+  double get g => (green / 255);
+
+  /// The blue channel of this color.
+  @override
+  double get b => (blue / 255);
+
+  /// The color space of this color.
+  @override
+  final ui.ColorSpace colorSpace=ui.ColorSpace.sRGB;
+    
 }

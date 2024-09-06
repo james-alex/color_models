@@ -1,6 +1,7 @@
 import 'package:color_models/color_models.dart' as cm;
 import 'package:color_models/color_models.dart' show ColorSpace;
 import 'package:flutter/painting.dart' show Color;
+import 'dart:ui' as ui hide Color;
 import 'package:meta/meta.dart';
 import 'models/helpers/cast_to_color.dart';
 import 'models/cmyk_color.dart';
@@ -26,6 +27,11 @@ export 'models/xyz_color.dart';
 /// {@macro color_models.ColorModel}
 @immutable
 abstract class ColorModel implements cm.ColorModel, Color {
+
+  factory ColorModel(Color justUIColor) {
+    return RgbColor.fromColor(justUIColor);
+  }
+
   @override
   ColorModel interpolate(cm.ColorModel end, double step);
 
@@ -68,7 +74,7 @@ abstract class ColorModel implements cm.ColorModel, Color {
   ColorModel withOpacity(double opacity);
 
   @override
-  ColorModel withValues(List<num> values);
+  ColorModel withValuesList(List<num> values);
 
   @override
   ColorModel copyWith({int? alpha});
@@ -104,6 +110,121 @@ abstract class ColorModel implements cm.ColorModel, Color {
   ColorModel convert(cm.ColorModel other);
 }
 
+abstract class UICloned_ColorTransform {
+  Color transform(Color color, ui.ColorSpace resultColorSpace);
+}
+
+class UICloned_IdentityColorTransform implements UICloned_ColorTransform {
+  const UICloned_IdentityColorTransform();
+  @override
+  Color transform(Color color, ui.ColorSpace resultColorSpace) => color;
+}
+
+class UICloned_ClampTransform implements UICloned_ColorTransform {
+  const UICloned_ClampTransform(this.child);
+  final UICloned_ColorTransform child;
+  @override
+  Color transform(Color color, ui.ColorSpace resultColorSpace) {
+    return Color.from(
+      alpha: ui.clampDouble(color.a, 0, 1),
+      red: ui.clampDouble(color.r, 0, 1),
+      green: ui.clampDouble(color.g, 0, 1),
+      blue: ui.clampDouble(color.b, 0, 1),
+      colorSpace: resultColorSpace);
+  }
+}
+
+class UICloned_MatrixColorTransform implements UICloned_ColorTransform {
+  /// Row-major.
+  const UICloned_MatrixColorTransform(this.values);
+
+  final List<double> values;
+
+  @override
+  Color transform(Color color, ui.ColorSpace resultColorSpace) {
+    return Color.from(
+        alpha: color.a,
+        red: values[0] * color.r +
+            values[1] * color.g +
+            values[2] * color.b +
+            values[3],
+        green: values[4] * color.r +
+            values[5] * color.g +
+            values[6] * color.b +
+            values[7],
+        blue: values[8] * color.r +
+            values[9] * color.g +
+            values[10] * color.b +
+            values[11],
+        colorSpace: resultColorSpace);
+  }
+}
+
+UICloned_ColorTransform UICloned_getColorTransform(ui.ColorSpace source, ui.ColorSpace destination) {
+  // The transforms were calculated with the following octave script from known
+  // conversions. These transforms have a white point that matches Apple's.
+  //
+  // p3Colors = [
+  //   1, 0, 0, 0.25;
+  //   0, 1, 0, 0.5;
+  //   0, 0, 1, 0.75;
+  //   1, 1, 1, 1;
+  // ];
+  // srgbColors = [
+  //   1.0930908918380737,  -0.5116420984268188, -0.0003518527664709836, 0.12397786229848862;
+  //   -0.22684034705162048, 1.0182716846466064,  0.00027732315356843174,  0.5073589086532593;
+  //   -0.15007957816123962, -0.31062406301498413, 1.0420056581497192,  0.771118700504303;
+  //   1,       1,       1,       1;
+  // ];
+  //
+  // format long
+  // p3ToSrgb = srgbColors * inv(p3Colors)
+  // srgbToP3 = inv(p3ToSrgb)
+  const UICloned_MatrixColorTransform srgbToP3 = UICloned_MatrixColorTransform(<double>[
+    0.808052267214446, 0.220292047628890, -0.139648846160100,
+    0.145738111193222, //
+    0.096480880462996, 0.916386732581291, -0.086093928394828,
+    0.089490172325882, //
+    -0.127099563510240, -0.068983484963878, 0.735426667591299, 0.233655661600230
+  ]);
+  const UICloned_ColorTransform p3ToSrgb = UICloned_MatrixColorTransform(<double>[
+    1.306671048092539, -0.298061942172353, 0.213228303487995,
+    -0.213580156254466, //
+    -0.117390025596251, 1.127722006101976, 0.109727644608938,
+    -0.109450321455370, //
+    0.214813187718391, 0.054268702864647, 1.406898424029350, -0.364892765879631
+  ]);
+  switch (source) {
+    case ui.ColorSpace.sRGB:
+      switch (destination) {
+        case ui.ColorSpace.sRGB:
+          return const UICloned_IdentityColorTransform();
+        case ui.ColorSpace.extendedSRGB:
+          return const UICloned_IdentityColorTransform();
+        case ui.ColorSpace.displayP3:
+          return srgbToP3;
+      }
+    case ui.ColorSpace.extendedSRGB:
+      switch (destination) {
+        case ui.ColorSpace.sRGB:
+          return const UICloned_ClampTransform(UICloned_IdentityColorTransform());
+        case ui.ColorSpace.extendedSRGB:
+          return const UICloned_IdentityColorTransform();
+        case ui.ColorSpace.displayP3:
+          return const UICloned_ClampTransform(srgbToP3);
+      }
+    case ui.ColorSpace.displayP3:
+      switch (destination) {
+        case ui.ColorSpace.sRGB:
+          return const UICloned_ClampTransform(p3ToSrgb);
+        case ui.ColorSpace.extendedSRGB:
+          return p3ToSrgb;
+        case ui.ColorSpace.displayP3:
+          return const UICloned_IdentityColorTransform();
+      }
+  }
+}
+
 extension ToColor on cm.ColorModel {
   /// Returns `this` as a [Color], converting the color to RGB if necessary.
   Color toColor() {
@@ -129,7 +250,7 @@ extension LerpToColor on Color {
   }) {
     assert(steps > 0);
     return toRgbColor().lerpTo(color.toRgbColor(), steps,
-        colorSpace: colorSpace, excludeOriginalColors: excludeOriginalColors);
+        colorSpace: colorSpace, excludeOriginalColors: excludeOriginalColors) as List<Color>;
   }
 
   /// Interpolates to the defined [step] between this color and [end].
@@ -329,7 +450,7 @@ extension AugmentColors on Iterable<Color> {
   }) {
     assert(stops == null || stops.length == length);
     return toColorModels().cast<ColorModel>().augment(newLength,
-        stops: stops, colorSpace: colorSpace, invert: invert);
+        stops: stops, colorSpace: colorSpace, invert: invert) as List<Color>;
   }
 
   /// Returns this iterable as a list of [ColorModel]s.
