@@ -100,7 +100,7 @@ class OklabColor extends cm.OklabColor
   @override
   OklabColor withAlpha(int alpha) {
     assert(alpha >= 0 && alpha <= 255);
-    return OklabColor(lightness, lab_a, lab_b, alpha);
+    return OklabColor(lightness, chromaticityA, chromaticityB, alpha);
   }
 
   @override
@@ -109,44 +109,24 @@ class OklabColor extends cm.OklabColor
     return copyWith(alpha: (opacity * 255).round());
   }
 
-  // We must override this withValues from Color, has this from dart ui
-  /// Returns a new color that matches this color with the passed in components
-  /// changed.
-  ///
-  /// Changes to color components will be applied before applying changes to the
-  /// color space.
-  Color withValues(
-      {double? alpha,
-      double? red,
-      double? green,
-      double? blue,
-      ui.ColorSpace? colorSpace}) {
-    Color? updatedComponents;
-    if (alpha != null || red != null || green != null || blue != null) {
-      updatedComponents = Color.from(
-          alpha: alpha ?? a,
-          red: red ?? r,
-          green: green ?? g,
-          blue: blue ?? b,
-          colorSpace: this.colorSpace);
-    }
-    if (colorSpace != null && colorSpace != this.colorSpace) {
-      final UICloned_ColorTransform transform =
-          UICloned_getColorTransform(this.colorSpace, colorSpace);
-      return transform.transform(updatedComponents ?? this, colorSpace);
-    } else {
-      return updatedComponents ?? this;
-    }
-  }
-  
   @override
-  OklabColor withValuesList(List<num> values) {
+  OklabColor fromValues(List<num> values) {
     assert(values.length == 3 || values.length == 4);
     if (values.length == 4) assert(values[3] >= 0 && values[3] <= 255);
     return OklabColor.fromList(
         values.map<double>((value) => value.toDouble()).toList());
   }
 
+  OklabColor withValues(
+      {double? alpha,
+      double? red,
+      double? green,
+      double? blue,
+      ui.ColorSpace? colorSpace}) {
+    Color color = performWithValues(alpha, red, green, blue, colorSpace);
+    return OklabColor.fromColor(color);
+  }
+  
   @override
   OklabColor copyWith({num? lightness, num? a, num? b, int? alpha}) {
     assert(lightness == null || (lightness >= 0.0 && lightness <= 1.0));
@@ -155,8 +135,8 @@ class OklabColor extends cm.OklabColor
     assert(alpha == null || (alpha >= 0 && alpha <= 255));
     return OklabColor(
       lightness?.toDouble() ?? this.lightness,
-      a?.toDouble() ?? this.lab_a,
-      b?.toDouble() ?? this.lab_b,
+      a?.toDouble() ?? this.chromaticityA,
+      b?.toDouble() ?? this.chromaticityB,
       alpha ?? this.alpha,
     );
   }
@@ -205,25 +185,5 @@ class OklabColor extends cm.OklabColor
 
   @override
   OklabColor convert(cm.ColorModel other) => other.toOklabColor().cast();
-
-  //OVERRIDEs for painting.dart Color
-  @override
-  double get a => (alpha / 255);
-
-  /// The red channel of this color.
-  @override
-  double get r =>(red / 255);
-
-  /// The green channel of this color.
-  @override
-  double get g => (green / 255);
-
-  /// The blue channel of this color.
-  @override
-  double get b => (blue / 255);
-
-  /// The color space of this color.
-  @override
-  final ui.ColorSpace colorSpace=ui.ColorSpace.sRGB;
     
 }

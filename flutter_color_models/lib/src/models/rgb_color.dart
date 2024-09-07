@@ -25,6 +25,18 @@ class RgbColor extends cm.RgbColor
   int get value => toColor().value;
 
   @override
+  double get a => alpha / 255.0;
+
+  @override
+  double get r => red / 255.0;
+
+  @override
+  double get g => green / 255.0;
+
+  @override
+  double get b => blue / 255.0;
+
+  @override
   RgbColor interpolate(cm.ColorModel end, double step) {
     assert(step >= 0.0 && step <= 1.0);
     return super.interpolate(end, step).cast();
@@ -111,44 +123,25 @@ class RgbColor extends cm.RgbColor
     return copyWith(alpha: (opacity * 255).round());
   }
 
-  // We must override this withValues from Color, has this from dart ui
-  /// Returns a new color that matches this color with the passed in components
-  /// changed.
-  ///
-  /// Changes to color components will be applied before applying changes to the
-  /// color space.
-  Color withValues(
-      {double? alpha,
-      double? red,
-      double? green,
-      double? blue,
-      ui.ColorSpace? colorSpace}) {
-    Color? updatedComponents;
-    if (alpha != null || red != null || green != null || blue != null) {
-      updatedComponents = Color.from(
-          alpha: alpha ?? a,
-          red: red ?? r,
-          green: green ?? g,
-          blue: blue ?? b,
-          colorSpace: this.colorSpace);
-    }
-    if (colorSpace != null && colorSpace != this.colorSpace) {
-      final UICloned_ColorTransform transform =
-          UICloned_getColorTransform(this.colorSpace, colorSpace);
-      return transform.transform(updatedComponents ?? this, colorSpace);
-    } else {
-      return updatedComponents ?? this;
-    }
-  }
-  
   @override
-  RgbColor withValuesList(List<num> values) {
+  RgbColor fromValues(List<num> values) {
     assert(values.length == 3 || values.length == 4);
     assert(values[0] >= 0 && values[0] <= 255);
     assert(values[1] >= 0 && values[1] <= 255);
     assert(values[2] >= 0 && values[2] <= 255);
     if (values.length == 4) assert(values[3] >= 0 && values[3] <= 255);
     return RgbColor.fromList(values);
+  }
+
+  @override
+  RgbColor withValues(
+      {double? alpha,
+      double? red,
+      double? green,
+      double? blue,
+      ui.ColorSpace? colorSpace}) {
+    Color color = performWithValues(alpha, red, green, blue, colorSpace);
+    return RgbColor.fromColor(color);
   }
 
   @override
@@ -229,25 +222,5 @@ class RgbColor extends cm.RgbColor
 
   @override
   RgbColor convert(cm.ColorModel other) => other.toRgbColor().cast();
-
-  //OVERRIDEs for painting.dart Color
-  @override
-  double get a => (alpha / 255);
-
-  /// The red channel of this color.
-  @override
-  double get r =>(red / 255);
-
-  /// The green channel of this color.
-  @override
-  double get g => (green / 255);
-
-  /// The blue channel of this color.
-  @override
-  double get b => (blue / 255);
-
-  /// The color space of this color.
-  @override
-  final ui.ColorSpace colorSpace=ui.ColorSpace.sRGB;
-    
+  
 }

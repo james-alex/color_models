@@ -1,6 +1,30 @@
 import 'package:color_models/color_models.dart' show ColorModel;
 import 'package:flutter/painting.dart' show Color;
 import 'dart:math' as math show pow;
+import 'dart:ui' as ui hide Color;
+
+extension ColorModelWithValues on ColorModel {
+  Color performWithValues(double? alpha, double? red, double? green,
+      double? blue, ui.ColorSpace? colorSpace) {
+    // TODO(gaaclarke): This is inefficient and will be easier to rewrite once
+    // the changes come through on Color.
+    assert(colorSpace == null || colorSpace == ui.ColorSpace.sRGB);
+    Color color = toRgbColor() as Color;
+    if (alpha != null) {
+      color = color.withAlpha(alpha ~/ 255.0);
+    }
+    if (red != null) {
+      color = color.withRed(red ~/ 255.0);
+    }
+    if (green != null) {
+      color = color.withGreen(green ~/ 255.0);
+    }
+    if (blue != null) {
+      color = color.withBlue(blue ~/ 255.0);
+    }
+    return color;
+  }
+}
 
 /// The getters and methods required to implement Flutter's [Color] class.
 mixin AsColor on ColorModel {
@@ -13,6 +37,8 @@ mixin AsColor on ColorModel {
   /// * Bits 8-15 are the green value.
   /// * Bits 0-7 are the blue value.
   int get value;
+
+  ui.ColorSpace get colorSpace => ui.ColorSpace.sRGB;
 
   /// See <https://www.w3.org/TR/WCAG20/#relativeluminancedef>
   ///
