@@ -135,7 +135,7 @@ extension LerpToColor on Color {
   }) {
     assert(steps > 0);
     return toRgbColor().lerpTo(color.toRgbColor(), steps,
-        colorSpace: colorSpace, excludeOriginalColors: excludeOriginalColors) as List<Color>;
+        colorSpace: colorSpace, excludeOriginalColors: excludeOriginalColors);
   }
 
   /// Interpolates to the defined [step] between this color and [end].
@@ -335,7 +335,7 @@ extension AugmentColors on Iterable<Color> {
   }) {
     assert(stops == null || stops.length == length);
     return toColorModels().cast<ColorModel>().augment(newLength,
-        stops: stops, colorSpace: colorSpace, invert: invert) as List<Color>;
+        stops: stops, colorSpace: colorSpace, invert: invert);
   }
 
   /// Returns this iterable as a list of [ColorModel]s.
