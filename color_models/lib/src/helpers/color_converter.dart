@@ -746,17 +746,22 @@ class _WhitePoints {
 }
 
 extension _LinearizeRgbColor on RgbColor {
-  /// Converts this [RgbColor] to a linear RGB color.
-  _LinearRgbColor linearize() => _LinearRgbColor.fromList(
-        toFactoredList()
-            .map<double>((value) => value >= 0.0031308
-                ? (1.055 * math.pow(value, 1.0 / 2.4)) - 0.055
-                : 12.92 * value)
+  /// This function takes sRGB (gamma corrected 'non-linear' RGB) and 
+  /// undoes the gamma correct to give linear RGB color.
+  _LinearRgbColor linearize() => 
+    _LinearRgbColor.fromList(
+        toList()
+            .map<double>((value) => ((value >= 0.04045
+                        ? math.pow((value + 0.055) / 1.055, 2.4).toDouble()
+                        : value / 12.92) *
+                    255)
+                .clamp(0, 255))
             .toList(),
       );
+
 }
 
-/// A linearized RGB color.
+/// A linearized RGB color (as opposed to a Gamma corrected sRGB non-linear color)
 class _LinearRgbColor {
   const _LinearRgbColor(
     this.red,
@@ -775,14 +780,17 @@ class _LinearRgbColor {
   /// Returns this linear RGB color as a list of values.
   List<double> toList() => <double>[red, green, blue];
 
-  /// Converts this linear RGB color back to a [RgbColor].
+  /// This is to gamma correct 'non-linear' RGB values to transform them into
+  /// sRGB color space.
+  /// https://en.wikipedia.org/wiki/SRGB#Transformation
+  /// 
+  /// Converts this linear RGB color back to a gamma
+  /// corrected non-linear (sRGB space) [RgbColor].
   RgbColor normalize() => RgbColor.fromList(
         toList()
-            .map<double>((value) => ((value >= 0.04045
-                        ? math.pow((value + 0.055) / 1.055, 2.4).toDouble()
-                        : value / 12.92) *
-                    255)
-                .clamp(0, 255))
+            .map<double>((value) => value >= 0.0031308
+                ? (1.055 * math.pow(value, 1.0 / 2.4)) - 0.055
+                : 12.92 * value)
             .toList(),
       );
 }
