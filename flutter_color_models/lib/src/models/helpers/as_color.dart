@@ -38,6 +38,8 @@ mixin AsColor on ColorModel {
   /// * Bits 0-7 are the blue value.
   int get value;
 
+  int toARGB32() => value;
+
   ui.ColorSpace get colorSpace => ui.ColorSpace.sRGB;
 
   /// See <https://www.w3.org/TR/WCAG20/#relativeluminancedef>
