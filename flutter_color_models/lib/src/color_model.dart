@@ -68,7 +68,7 @@ abstract class ColorModel implements cm.ColorModel, Color {
   ColorModel withOpacity(double opacity);
 
   @override
-  ColorModel withValues(List<num> values);
+  ColorModel fromValues(List<num> values);
 
   @override
   ColorModel copyWith({int? alpha});

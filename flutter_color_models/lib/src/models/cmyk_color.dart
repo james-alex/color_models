@@ -4,6 +4,7 @@ import '../color_model.dart';
 import 'helpers/as_color.dart';
 import 'helpers/rgb_getters.dart';
 import 'helpers/cast_to_color.dart';
+import 'dart:ui' as ui;
 
 /// {@macro color_models.CmykColor}
 class CmykColor extends cm.CmykColor
@@ -113,13 +114,23 @@ class CmykColor extends cm.CmykColor
   }
 
   @override
-  CmykColor withValues(List<num> values) {
+  CmykColor fromValues(List<num> values) {
     assert(values.length == 4 || values.length == 5);
     assert(values[0] >= 0 && values[0] <= 100);
     assert(values[1] >= 0 && values[1] <= 100);
     assert(values[2] >= 0 && values[2] <= 100);
     assert(values[3] >= 0 && values[3] <= 100);
     return CmykColor.fromList(values);
+  }
+
+  CmykColor withValues(
+      {double? alpha,
+      double? red,
+      double? green,
+      double? blue,
+      ui.ColorSpace? colorSpace}) {
+    Color color = performWithValues(alpha, red, green, blue, colorSpace);
+    return CmykColor.fromColor(color);
   }
 
   @override

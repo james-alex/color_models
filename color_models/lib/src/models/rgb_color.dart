@@ -151,7 +151,7 @@ class RgbColor extends ColorModel {
   }
 
   @override
-  RgbColor withValues(List<num> values) {
+  RgbColor fromValues(List<num> values) {
     assert(values.length == 3 || values.length == 4);
     assert(values[0] >= 0 && values[0] <= 255);
     assert(values[1] >= 0 && values[1] <= 255);

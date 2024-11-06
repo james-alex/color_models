@@ -4,6 +4,7 @@ import '../color_model.dart';
 import 'helpers/as_color.dart';
 import 'helpers/rgb_getters.dart';
 import 'helpers/cast_to_color.dart';
+import 'dart:ui' as ui;
 
 /// {@macro color_models.LabColor}
 class LabColor extends cm.LabColor
@@ -102,7 +103,7 @@ class LabColor extends cm.LabColor
   @override
   LabColor withAlpha(int alpha) {
     assert(alpha >= 0 && alpha <= 255);
-    return LabColor(lightness, a, b, alpha);
+    return LabColor(lightness, chromaticityA, chromaticityB, alpha);
   }
 
   @override
@@ -112,13 +113,23 @@ class LabColor extends cm.LabColor
   }
 
   @override
-  LabColor withValues(List<num> values) {
+  LabColor fromValues(List<num> values) {
     assert(values.length == 3 || values.length == 4);
     assert(values[0] >= 0 && values[0] <= 100);
     assert(values[1] >= -128 && values[1] <= 127);
     assert(values[2] >= -128 && values[2] <= 127);
     if (values.length == 4) assert(values[3] >= 0 && values[3] <= 255);
     return LabColor.fromList(values);
+  }
+
+  LabColor withValues(
+      {double? alpha,
+      double? red,
+      double? green,
+      double? blue,
+      ui.ColorSpace? colorSpace}) {
+    Color color = performWithValues(alpha, red, green, blue, colorSpace);
+    return LabColor.fromColor(color);
   }
 
   @override
@@ -129,8 +140,8 @@ class LabColor extends cm.LabColor
     assert(alpha == null || (alpha >= 0 && alpha <= 255));
     return LabColor(
       lightness ?? this.lightness,
-      a ?? this.a,
-      b ?? this.b,
+      a ?? this.chromaticityA,
+      b ?? this.chromaticityB,
       alpha ?? this.alpha,
     );
   }

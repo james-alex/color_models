@@ -4,6 +4,7 @@ import '../color_model.dart';
 import 'helpers/as_color.dart';
 import 'helpers/rgb_getters.dart';
 import 'helpers/cast_to_color.dart';
+import 'dart:ui' as ui;
 
 /// {@macro color_models.OklabColor}
 class OklabColor extends cm.OklabColor
@@ -99,7 +100,7 @@ class OklabColor extends cm.OklabColor
   @override
   OklabColor withAlpha(int alpha) {
     assert(alpha >= 0 && alpha <= 255);
-    return OklabColor(lightness, a, b, alpha);
+    return OklabColor(lightness, chromaticityA, chromaticityB, alpha);
   }
 
   @override
@@ -109,11 +110,21 @@ class OklabColor extends cm.OklabColor
   }
 
   @override
-  OklabColor withValues(List<num> values) {
+  OklabColor fromValues(List<num> values) {
     assert(values.length == 3 || values.length == 4);
     if (values.length == 4) assert(values[3] >= 0 && values[3] <= 255);
     return OklabColor.fromList(
         values.map<double>((value) => value.toDouble()).toList());
+  }
+
+  OklabColor withValues(
+      {double? alpha,
+      double? red,
+      double? green,
+      double? blue,
+      ui.ColorSpace? colorSpace}) {
+    Color color = performWithValues(alpha, red, green, blue, colorSpace);
+    return OklabColor.fromColor(color);
   }
 
   @override
@@ -124,8 +135,8 @@ class OklabColor extends cm.OklabColor
     assert(alpha == null || (alpha >= 0 && alpha <= 255));
     return OklabColor(
       lightness?.toDouble() ?? this.lightness,
-      a?.toDouble() ?? this.a,
-      b?.toDouble() ?? this.b,
+      a?.toDouble() ?? this.chromaticityA,
+      b?.toDouble() ?? this.chromaticityB,
       alpha ?? this.alpha,
     );
   }
