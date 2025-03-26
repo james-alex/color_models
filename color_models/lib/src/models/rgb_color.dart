@@ -33,10 +33,7 @@ class RgbColor extends ColorModel {
     num green,
     num blue, [
     int alpha = 255,
-  ])  : assert(red >= 0 && red <= 255),
-        assert(green >= 0 && green <= 255),
-        assert(blue >= 0 && blue <= 255),
-        assert(alpha >= 0 && alpha <= 255),
+  ])  : assert(alpha >= 0 && alpha <= 255),
         _red = red,
         _green = green,
         _blue = blue,
@@ -45,19 +42,19 @@ class RgbColor extends ColorModel {
   /// The red value of this color.
   ///
   /// Ranges from `0` to `255`.
-  int get red => _red.round();
+  int get red => _red.round().clamp(0, 255);
   final num _red;
 
   /// The green value of this color.
   ///
   /// Ranges from `0` to `255`.
-  int get green => _green.round();
+  int get green => _green.round().clamp(0, 255);
   final num _green;
 
   /// The blue value of this color.
   ///
   /// Ranges from `0` to `255`.
-  int get blue => _blue.round();
+  int get blue => _blue.round().clamp(0, 255);
   final num _blue;
 
   @override
@@ -230,9 +227,6 @@ class RgbColor extends ColorModel {
   /// {@endtemplate}
   factory RgbColor.fromList(List<num> values) {
     assert(values.length == 3 || values.length == 4);
-    assert(values[0] >= 0 && values[0] <= 255);
-    assert(values[1] >= 0 && values[1] <= 255);
-    assert(values[2] >= 0 && values[2] <= 255);
     if (values.length == 4) assert(values[3] >= 0 && values[3] <= 255);
     final alpha = values.length == 4 ? values[3].round() : 255;
     return RgbColor(values[0], values[1], values[2], alpha);
