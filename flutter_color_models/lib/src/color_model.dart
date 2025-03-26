@@ -1,6 +1,7 @@
 import 'package:color_models/color_models.dart' as cm;
 import 'package:color_models/color_models.dart' show ColorSpace;
 import 'package:flutter/painting.dart' show Color;
+import 'dart:ui' as ui hide Color;
 import 'package:meta/meta.dart';
 import 'models/helpers/cast_to_color.dart';
 import 'models/cmyk_color.dart';
@@ -26,6 +27,11 @@ export 'models/xyz_color.dart';
 /// {@macro color_models.ColorModel}
 @immutable
 abstract class ColorModel implements cm.ColorModel, Color {
+
+  factory ColorModel(Color justUIColor) {
+    return RgbColor.fromColor(justUIColor);
+  }
+
   @override
   ColorModel interpolate(cm.ColorModel end, double step);
 
@@ -68,7 +74,7 @@ abstract class ColorModel implements cm.ColorModel, Color {
   ColorModel withOpacity(double opacity);
 
   @override
-  ColorModel withValues(List<num> values);
+  ColorModel fromValues(List<num> values);
 
   @override
   ColorModel copyWith({int? alpha});

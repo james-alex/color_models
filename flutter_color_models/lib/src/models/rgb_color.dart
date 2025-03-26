@@ -1,3 +1,4 @@
+import 'dart:ui' as ui;
 import 'package:flutter/painting.dart' show Color;
 import 'package:color_models/color_models.dart' as cm;
 import '../color_model.dart';
@@ -22,6 +23,18 @@ class RgbColor extends cm.RgbColor
 
   @override
   int get value => toColor().value;
+
+  @override
+  double get a => alpha / 255.0;
+
+  @override
+  double get r => red / 255.0;
+
+  @override
+  double get g => green / 255.0;
+
+  @override
+  double get b => blue / 255.0;
 
   @override
   RgbColor interpolate(cm.ColorModel end, double step) {
@@ -111,13 +124,24 @@ class RgbColor extends cm.RgbColor
   }
 
   @override
-  RgbColor withValues(List<num> values) {
+  RgbColor fromValues(List<num> values) {
     assert(values.length == 3 || values.length == 4);
     assert(values[0] >= 0 && values[0] <= 255);
     assert(values[1] >= 0 && values[1] <= 255);
     assert(values[2] >= 0 && values[2] <= 255);
     if (values.length == 4) assert(values[3] >= 0 && values[3] <= 255);
     return RgbColor.fromList(values);
+  }
+
+  @override
+  RgbColor withValues(
+      {double? alpha,
+      double? red,
+      double? green,
+      double? blue,
+      ui.ColorSpace? colorSpace}) {
+    Color color = performWithValues(alpha, red, green, blue, colorSpace);
+    return RgbColor.fromColor(color);
   }
 
   @override
@@ -198,4 +222,5 @@ class RgbColor extends cm.RgbColor
 
   @override
   RgbColor convert(cm.ColorModel other) => other.toRgbColor().cast();
+  
 }

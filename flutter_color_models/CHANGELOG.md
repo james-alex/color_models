@@ -1,3 +1,22 @@
+## [2.0.0] - September 5, 2024
+
+* Added support for Flutter 3.x wide gamut changes. This necessitated changing 
+  the `withValues()` method of ColorModel to become `fromValues()`
+  because dart:ui Color now has a conflicting withValues() method.  Color also
+  now has `r`, `g`, `b` and `a` getters.  This forced changing of the
+  `LabColor` and `OklabColor` classes.
+  addition of `withValues()` override method to `CmykColor`, `HsbColor`,
+  `HsiColor`, `HslColor`, `HspColor`, `LabColor`,
+  `OklabColor`, `RgbColor` and `XyzColor` classes so they could continue
+   to extend `ColorModel` which implements `ui.Color` (which now
+   has this member method)
+  `LabColor` and `OklabColor` had to have the chromaticity members `a`
+  and `b` were changed to `chromaticityA` and `chromaticityB`
+  Addition of `a`, `r`, `g`, `b` and `colorSpace` getters to continue to
+  support extending `ui.Color`
+* add factory constructor to `ColorModel` that takes a `ui.Color` object
+  (so `Colors.XXXX` could be used in creating `ColorModel`s
+  
 ## [1.3.3] - January 18, 2023
 
 * Added the [toColors] helper method to [Iterable<ColorModel>].

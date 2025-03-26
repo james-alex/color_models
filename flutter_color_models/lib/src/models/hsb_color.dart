@@ -1,3 +1,4 @@
+import 'dart:ui' as ui;
 import 'package:flutter/painting.dart' show Color;
 import 'package:color_models/color_models.dart' as cm;
 import '../color_model.dart';
@@ -9,6 +10,7 @@ import 'helpers/cast_to_color.dart';
 class HsbColor extends cm.HsbColor
     with AsColor, RgbGetters, CastToColor
     implements ColorModel {
+
   /// {@macro color_models.HsbColor.constructor}
   const HsbColor(
     num hue,
@@ -110,13 +112,24 @@ class HsbColor extends cm.HsbColor
   }
 
   @override
-  HsbColor withValues(List<num> values) {
+  HsbColor fromValues(List<num> values) {
     assert(values.length == 3 || values.length == 4);
     assert(values[0] >= 0 && values[0] <= 360);
     assert(values[1] >= 0 && values[1] <= 100);
     assert(values[2] >= 0 && values[2] <= 100);
     if (values.length == 4) assert(values[3] >= 0 && values[3] <= 255);
     return HsbColor.fromList(values);
+  }
+
+  @override
+  HsbColor withValues(
+      {double? alpha,
+      double? red,
+      double? green,
+      double? blue,
+      ui.ColorSpace? colorSpace}) {
+    Color color = performWithValues(alpha, red, green, blue, colorSpace);
+    return HsbColor.fromColor(color);
   }
 
   @override
@@ -202,4 +215,5 @@ class HsbColor extends cm.HsbColor
 
   @override
   HsbColor convert(cm.ColorModel other) => other.toHsbColor().cast();
+  
 }

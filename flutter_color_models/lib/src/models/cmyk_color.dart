@@ -1,3 +1,4 @@
+import 'dart:ui' as ui hide Color;
 import 'package:flutter/painting.dart' show Color;
 import 'package:color_models/color_models.dart' as cm;
 import '../color_model.dart';
@@ -113,13 +114,24 @@ class CmykColor extends cm.CmykColor
   }
 
   @override
-  CmykColor withValues(List<num> values) {
+  CmykColor fromValues(List<num> values) {
     assert(values.length == 4 || values.length == 5);
     assert(values[0] >= 0 && values[0] <= 100);
     assert(values[1] >= 0 && values[1] <= 100);
     assert(values[2] >= 0 && values[2] <= 100);
     assert(values[3] >= 0 && values[3] <= 100);
     return CmykColor.fromList(values);
+  }
+
+  @override
+  CmykColor withValues(
+      {double? alpha,
+      double? red,
+      double? green,
+      double? blue,
+      ui.ColorSpace? colorSpace}) {
+    Color color = performWithValues(alpha, red, green, blue, colorSpace);
+    return CmykColor.fromColor(color);
   }
 
   @override
@@ -150,7 +162,7 @@ class CmykColor extends cm.CmykColor
   /// {@macro color_models.CmykColor.from}
   factory CmykColor.from(cm.ColorModel color) => color.toCmykColor().cast();
 
-  /// {@macro color_models.CmykColor.fromList}
+  /// {@macro color_models.CmykColor.fromValues}
   factory CmykColor.fromList(List<num> values) {
     assert(values.length == 4 || values.length == 5);
     assert(values[0] >= 0 && values[0] <= 100);
@@ -217,4 +229,5 @@ class CmykColor extends cm.CmykColor
 
   @override
   CmykColor convert(cm.ColorModel other) => other.toCmykColor().cast();
+  
 }

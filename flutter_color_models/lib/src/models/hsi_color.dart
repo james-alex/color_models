@@ -1,3 +1,4 @@
+import 'dart:ui' as ui;
 import 'package:flutter/painting.dart' show Color;
 import 'package:color_models/color_models.dart' as cm;
 import '../color_model.dart';
@@ -110,13 +111,24 @@ class HsiColor extends cm.HsiColor
   }
 
   @override
-  HsiColor withValues(List<num> values) {
+  HsiColor fromValues(List<num> values) {
     assert(values.length == 3 || values.length == 4);
     assert(values[0] >= 0 && values[0] <= 360);
     assert(values[1] >= 0 && values[1] <= 100);
     assert(values[2] >= 0 && values[2] <= 100);
     if (values.length == 4) assert(values[3] >= 0 && values[3] <= 255);
     return HsiColor.fromList(values);
+  }
+
+  @override
+  HsiColor withValues(
+      {double? alpha,
+      double? red,
+      double? green,
+      double? blue,
+      ui.ColorSpace? colorSpace}) {
+    Color color = performWithValues(alpha, red, green, blue, colorSpace);
+    return HsiColor.fromColor(color);
   }
 
   @override
@@ -197,4 +209,5 @@ class HsiColor extends cm.HsiColor
 
   @override
   HsiColor convert(cm.ColorModel other) => other.toHsiColor().cast();
+
 }
