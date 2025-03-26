@@ -67,7 +67,8 @@ class OklabColor extends ColorModel {
 
   @override
   bool get isMonochromatic =>
-      ColorMath.round(chromaticityA) == 0 && ColorMath.round(chromaticityB) == 0;
+      ColorMath.round(chromaticityA) == 0 &&
+      ColorMath.round(chromaticityB) == 0;
 
   @override
   OklabColor interpolate(ColorModel end, double step) {
@@ -91,8 +92,8 @@ class OklabColor extends ColorModel {
   }
 
   @override
-  OklabColor get inverted =>
-      OklabColor(1.0 - lightness, 1.0 - chromaticityA, 1.0 - chromaticityB, alpha);
+  OklabColor get inverted => OklabColor(
+      1.0 - lightness, 1.0 - chromaticityA, 1.0 - chromaticityB, alpha);
 
   @override
   OklabColor get opposite => rotateHue(180);
@@ -168,8 +169,8 @@ class OklabColor extends ColorModel {
     assert(alpha == null || (alpha >= 0 && alpha <= 255));
     return OklabColor(
       lightness ?? this.lightness,
-      a ?? this.chromaticityA,
-      b ?? this.chromaticityB,
+      a ?? chromaticityA,
+      b ?? chromaticityB,
       alpha ?? this.alpha,
     );
   }
@@ -184,13 +185,15 @@ class OklabColor extends ColorModel {
   /// [chromaticityA], and [chromaticityB] values, in that order.
   @override
   List<double> toList() =>
-      List<double>.from(<double>[lightness, chromaticityA, chromaticityB], growable: false);
+      List<double>.from(<double>[lightness, chromaticityA, chromaticityB],
+          growable: false);
 
   /// Returns a fixed-length list containing the [lightness],
   /// [chromaticityA], [chromaticityB], and [alpha] values, in that order.
   @override
   List<num> toListWithAlpha() =>
-      List<num>.from(<num>[lightness, chromaticityA, chromaticityB, alpha], growable: false);
+      List<num>.from(<num>[lightness, chromaticityA, chromaticityB, alpha],
+          growable: false);
 
   /// {@template color_models.OklabColor.from}
   ///
@@ -262,7 +265,8 @@ class OklabColor extends ColorModel {
   OklabColor convert(ColorModel other) => other.toOklabColor();
 
   @override
-  String toString() => 'OklabColor($lightness, $chromaticityA, $chromaticityB, $alpha)';
+  String toString() =>
+      'OklabColor($lightness, $chromaticityA, $chromaticityB, $alpha)';
 
   @override
   bool operator ==(Object other) =>
@@ -274,5 +278,8 @@ class OklabColor extends ColorModel {
 
   @override
   int get hashCode =>
-      lightness.hashCode ^ chromaticityA.hashCode ^ chromaticityB.hashCode ^ alpha.hashCode;
+      lightness.hashCode ^
+      chromaticityA.hashCode ^
+      chromaticityB.hashCode ^
+      alpha.hashCode;
 }
