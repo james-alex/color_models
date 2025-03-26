@@ -11,17 +11,17 @@ class RgbColor extends cm.RgbColor
     implements ColorModel {
   /// {@macro color_models.RgbColor.constructor}
   const RgbColor(
-    num red,
-    num green,
-    num blue, [
-    int alpha = 255,
+    super.red,
+    super.green,
+    super.blue, [
+    super.alpha,
   ])  : assert(red >= 0 && red <= 255),
         assert(green >= 0 && green <= 255),
         assert(blue >= 0 && green <= 255),
-        assert(alpha >= 0 && alpha <= 255),
-        super(red, green, blue, alpha);
+        assert(alpha >= 0 && alpha <= 255);
 
   @override
+  // ignore: deprecated_member_use
   int get value => toColor().value;
 
   @override
@@ -177,7 +177,7 @@ class RgbColor extends cm.RgbColor
 
   /// Constructs a [RgbColor] from [color].
   factory RgbColor.fromColor(Color color) =>
-      RgbColor(color.red, color.green, color.blue, color.alpha);
+      RgbColor(color.r, color.g, color.b, color.alpha);
 
   /// {@macro color_models.RgbColor.fromHex}
   factory RgbColor.fromHex(String hex) => cm.RgbColor.fromHex(hex).cast();
@@ -222,5 +222,4 @@ class RgbColor extends cm.RgbColor
 
   @override
   RgbColor convert(cm.ColorModel other) => other.toRgbColor().cast();
-  
 }

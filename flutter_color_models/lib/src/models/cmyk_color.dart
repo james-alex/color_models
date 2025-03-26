@@ -12,19 +12,19 @@ class CmykColor extends cm.CmykColor
     implements ColorModel {
   /// {@macro color_models.CmykColor.constructor}
   const CmykColor(
-    num cyan,
-    num magenta,
-    num yellow,
-    num black, [
-    int alpha = 255,
+    super.cyan,
+    super.magenta,
+    super.yellow,
+    super.black, [
+    super.alpha,
   ])  : assert(cyan >= 0 && cyan <= 100),
         assert(magenta >= 0 && magenta <= 100),
         assert(yellow >= 0 && yellow <= 100),
         assert(black >= 0 && black <= 100),
-        assert(alpha >= 0 && alpha <= 255),
-        super(cyan, magenta, yellow, black, alpha);
+        assert(alpha >= 0 && alpha <= 255);
 
   @override
+  // ignore: deprecated_member_use
   int get value => toColor().value;
 
   @override
@@ -229,5 +229,4 @@ class CmykColor extends cm.CmykColor
 
   @override
   CmykColor convert(cm.ColorModel other) => other.toCmykColor().cast();
-  
 }

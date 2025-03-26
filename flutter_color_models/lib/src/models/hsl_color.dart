@@ -12,17 +12,17 @@ class HslColor extends cm.HslColor
     implements ColorModel {
   /// {@macro color_models.HslColor.constructor}
   const HslColor(
-    num hue,
-    num saturation,
-    num lightness, [
-    int alpha = 255,
+    super.hue,
+    super.saturation,
+    super.lightness, [
+    super.alpha,
   ])  : assert(hue >= 0 && hue <= 360),
         assert(saturation >= 0 && saturation <= 100),
         assert(lightness >= 0 && lightness <= 100),
-        assert(alpha >= 0 && alpha <= 255),
-        super(hue, saturation, lightness, alpha);
+        assert(alpha >= 0 && alpha <= 255);
 
   @override
+  // ignore: deprecated_member_use
   int get value => toColor().value;
 
   @override
@@ -109,7 +109,7 @@ class HslColor extends cm.HslColor
     assert(opacity >= 0.0 && opacity <= 1.0);
     return copyWith(alpha: (opacity * 255).round());
   }
-  
+
   @override
   HslColor fromValues(List<num> values) {
     assert(values.length == 3 || values.length == 4);
@@ -209,5 +209,4 @@ class HslColor extends cm.HslColor
 
   @override
   HslColor convert(cm.ColorModel other) => other.toHslColor().cast();
-
 }

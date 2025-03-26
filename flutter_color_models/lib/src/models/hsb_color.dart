@@ -10,20 +10,19 @@ import 'helpers/cast_to_color.dart';
 class HsbColor extends cm.HsbColor
     with AsColor, RgbGetters, CastToColor
     implements ColorModel {
-
   /// {@macro color_models.HsbColor.constructor}
   const HsbColor(
-    num hue,
-    num saturation,
-    num brightness, [
-    int alpha = 255,
+    super.hue,
+    super.saturation,
+    super.brightness, [
+    super.alpha,
   ])  : assert(hue >= 0 && hue <= 360),
         assert(saturation >= 0 && saturation <= 100),
         assert(brightness >= 0 && brightness <= 100),
-        assert(alpha >= 0 && alpha <= 255),
-        super(hue, saturation, brightness, alpha);
+        assert(alpha >= 0 && alpha <= 255);
 
   @override
+  // ignore: deprecated_member_use
   int get value => toColor().value;
 
   @override
@@ -215,5 +214,4 @@ class HsbColor extends cm.HsbColor
 
   @override
   HsbColor convert(cm.ColorModel other) => other.toHsbColor().cast();
-  
 }

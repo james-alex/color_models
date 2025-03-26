@@ -12,14 +12,14 @@ class OklabColor extends cm.OklabColor
     implements ColorModel {
   /// {@macro color_models.OklabColor.constructor}
   const OklabColor(
-    double lightness,
-    double a,
-    double b, [
-    int alpha = 255,
-  ])  : assert(alpha >= 0 && alpha <= 255),
-        super(lightness, a, b, alpha);
+    super.lightness,
+    super.a,
+    super.b, [
+    super.alpha,
+  ]) : assert(alpha >= 0 && alpha <= 255);
 
   @override
+  // ignore: deprecated_member_use
   int get value => toColor().value;
 
   @override
@@ -117,6 +117,7 @@ class OklabColor extends cm.OklabColor
         values.map<double>((value) => value.toDouble()).toList());
   }
 
+  @override
   OklabColor withValues(
       {double? alpha,
       double? red,
@@ -126,7 +127,7 @@ class OklabColor extends cm.OklabColor
     Color color = performWithValues(alpha, red, green, blue, colorSpace);
     return OklabColor.fromColor(color);
   }
-  
+
   @override
   OklabColor copyWith({num? lightness, num? a, num? b, int? alpha}) {
     assert(lightness == null || (lightness >= 0.0 && lightness <= 1.0));
@@ -135,8 +136,8 @@ class OklabColor extends cm.OklabColor
     assert(alpha == null || (alpha >= 0 && alpha <= 255));
     return OklabColor(
       lightness?.toDouble() ?? this.lightness,
-      a?.toDouble() ?? this.chromaticityA,
-      b?.toDouble() ?? this.chromaticityB,
+      a?.toDouble() ?? chromaticityA,
+      b?.toDouble() ?? chromaticityB,
       alpha ?? this.alpha,
     );
   }
@@ -185,5 +186,4 @@ class OklabColor extends cm.OklabColor
 
   @override
   OklabColor convert(cm.ColorModel other) => other.toOklabColor().cast();
-    
 }

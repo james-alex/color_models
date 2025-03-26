@@ -12,17 +12,17 @@ class LabColor extends cm.LabColor
     implements ColorModel {
   /// {@macro color_models.LabColor.constructor}
   const LabColor(
-    num lightness,
-    num a,
-    num b, [
-    int alpha = 255,
+    super.lightness,
+    super.a,
+    super.b, [
+    super.alpha,
   ])  : assert(lightness >= 0 && lightness <= 100),
         assert(a >= -128 && a <= 127),
         assert(b >= -128 && b <= 127),
-        assert(alpha >= 0 && alpha <= 255),
-        super(lightness, a, b, alpha);
+        assert(alpha >= 0 && alpha <= 255);
 
   @override
+  // ignore: deprecated_member_use
   int get value => toColor().value;
 
   @override
@@ -212,5 +212,4 @@ class LabColor extends cm.LabColor
 
   @override
   LabColor convert(cm.ColorModel other) => other.toLabColor().cast();
-    
 }

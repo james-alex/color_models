@@ -12,17 +12,17 @@ class HspColor extends cm.HspColor
     implements ColorModel {
   /// {@macro color_models.HspColor.constructor}
   const HspColor(
-    num hue,
-    num saturation,
-    num perceivedBrightness, [
-    int alpha = 255,
+    super.hue,
+    super.saturation,
+    super.perceivedBrightness, [
+    super.alpha,
   ])  : assert(hue >= 0 && hue <= 360),
         assert(saturation >= 0 && saturation <= 100),
         assert(perceivedBrightness >= 0 && perceivedBrightness <= 100),
-        assert(alpha >= 0 && alpha <= 255),
-        super(hue, saturation, perceivedBrightness, alpha);
+        assert(alpha >= 0 && alpha <= 255);
 
   @override
+  // ignore: deprecated_member_use
   int get value => toColor().value;
 
   @override
@@ -217,5 +217,4 @@ class HspColor extends cm.HspColor
 
   @override
   HspColor convert(cm.ColorModel other) => other.toHspColor().cast();
-    
 }

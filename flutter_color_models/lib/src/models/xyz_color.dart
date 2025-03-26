@@ -12,17 +12,17 @@ class XyzColor extends cm.XyzColor
     implements ColorModel {
   /// /// {@macro color_models.XyzColor.constructor}
   const XyzColor(
-    num x,
-    num y,
-    num z, [
-    int alpha = 255,
+    super.x,
+    super.y,
+    super.z, [
+    super.alpha,
   ])  : assert(x >= 0),
         assert(y >= 0),
         assert(z >= 0),
-        assert(alpha >= 0 && alpha <= 255),
-        super(x, y, z, alpha);
+        assert(alpha >= 0 && alpha <= 255);
 
   @override
+  // ignore: deprecated_member_use
   int get value => toColor().value;
 
   @override
@@ -216,5 +216,4 @@ class XyzColor extends cm.XyzColor
 
   @override
   XyzColor convert(cm.ColorModel other) => other.toXyzColor().cast();
-    
 }

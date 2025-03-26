@@ -12,17 +12,17 @@ class HsiColor extends cm.HsiColor
     implements ColorModel {
   /// {@macro color_models.HsiColor.constructor}
   const HsiColor(
-    num hue,
-    num saturation,
-    num intensity, [
-    int alpha = 255,
+    super.hue,
+    super.saturation,
+    super.intensity, [
+    super.alpha,
   ])  : assert(hue >= 0 && hue <= 360),
         assert(saturation >= 0 && saturation <= 100),
         assert(intensity >= 0 && intensity <= 100),
-        assert(alpha >= 0 && alpha <= 255),
-        super(hue, saturation, intensity, alpha);
+        assert(alpha >= 0 && alpha <= 255);
 
   @override
+  // ignore: deprecated_member_use
   int get value => toColor().value;
 
   @override
@@ -209,5 +209,4 @@ class HsiColor extends cm.HsiColor
 
   @override
   HsiColor convert(cm.ColorModel other) => other.toHsiColor().cast();
-
 }
